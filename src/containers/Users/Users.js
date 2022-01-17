@@ -13,7 +13,7 @@ import {
 import CreateUserModal from './CreateUserModal'
 import EditUserModal from './EditUserModal'
 
-import { useUsers } from '../../services/userService';
+import { deleteUser, useUsers } from '../../services/userService';
 import { useDebounce } from '../../hooks/useDebounce';
 
 const EventUsers = () => {
