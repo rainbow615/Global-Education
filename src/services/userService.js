@@ -19,3 +19,7 @@ export function createUser(payload) {
 export function updateUser(email, payload) {
   return api.put(`users/${email}`, payload)
 }
+
+export function deleteUser(userId) {
+  return api.delete(`users/${userId}`)
+}
