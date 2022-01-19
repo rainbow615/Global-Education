@@ -12,9 +12,9 @@ const PortalLayout = () => {
   const location = useLocation()
   const isAuthenticated = !!getToken()
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} />
-  }
+  // if (!isAuthenticated) {
+  //   return <Navigate to="/login" state={{ from: location }} />
+  // }
 
   return (
     <Layout className="portal-layout">
