@@ -1,67 +1,44 @@
-import { Form, Input, Checkbox, Button, Typography, notification } from 'antd'
+import { Typography, Space, Row, Col } from 'antd'
+import { Link, useSearchParams } from 'react-router-dom'
 
-const { Title } = Typography
+import PasswordForm from './PasswordForm'
+import ConfirmCodeForm from './ConfirmCodeForm'
+
+import GoogleStorePng from '../../assets/img/google-store.png'
+import AppStorePng from '../../assets/img/app-store.png'
+import './styles.scss'
+
+const { Title, Text } = Typography
 
 const Login = () => {
-  const onFinish = (values) => {
-  }
-
-  const onFinishFailed = (errorInfo) => {
-    notification.error({
-      message: 'Login Failure',
-      description: errorInfo,
-    })
-    console.log('Failed:', errorInfo)
-  }
+  const [searchParams] = useSearchParams()
+  const step = searchParams.get('step') || 'password'
 
   return (
-    <Form
-      name="login"
-      initialValues={{
-        remember: true,
-      }}
-      layout="vertical"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
+    <div className="login-container">
       <Title>Login</Title>
-      <Form.Item
-        label="Email"
-        name="email"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your email!',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
+      {step === 'password' && <PasswordForm />}
+      {step === 'confirm-code' && <ConfirmCodeForm />}
 
-      <Form.Item name="remember" valuePropName="checked">
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
+      <Space direction="vertical">
+        <Link to="/home#request-access">Request Access</Link>
+        <Link to="/forgot-password">Forgot Password?</Link>
+        <Link to="/home">Back to Home</Link>
+      </Space>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+      <Space direction="vertical" className="app-store-container">
+        <Text type="secondary">This page is for administrators, license holders, and bulk book orders only. For our content, download our app here:</Text>
+        <Row gutter={24}>
+          <Col span={12}>
+            <a><img src={AppStorePng} alt="App Store" /></a>
+          </Col>
+          <Col span={12}>
+            <a><img src={GoogleStorePng} alt="Play Store" /></a>
+          </Col>
+        </Row>
+      </Space>
+    </div>
   )
 }
 

@@ -1,20 +1,6 @@
 .auth-layout {
   height: 100vh;
-
-  background-color: #142550;
-  background-size: cover, 75% 50%;
-  background-position: center, center;
-  background-repeat: no-repeat;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .form-container {
-    // background-color: #142550;
-    border-radius: 1rem;
-    padding: 2rem;
-    max-width: 560px;
-    width: 90vw;
-  }
 }

@@ -1,8 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { Card } from 'antd'
 
-import './styles.scss'
 import { getToken } from '../../utils/cookie'
+import './styles.scss'
 
 const AuthLayout = () => {
   const { state } = useLocation()
@@ -14,9 +13,7 @@ const AuthLayout = () => {
 
   return (
     <div className="auth-layout">
-      <Card className="form-container">
-        <Outlet />
-      </Card>
+      <Outlet />
     </div>
   )
 }

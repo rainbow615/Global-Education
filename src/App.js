@@ -5,15 +5,21 @@ import { AuthLayout } from './containers/AuthLayout'
 import { PortalLayout } from './containers/PortalLayout'
 
 // Page containers
+const ForgotPassword = loadable(() => import('./containers/ForgotPassword'))
+const Home = loadable(() => import('./containers/Home'))
 const Login = loadable(() => import('./containers/Login'))
 const Users = loadable(() => import('./containers/Users'))
+const ResetPassword = loadable(() => import('./containers/ResetPassword'))
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="home" element={<Home />} />
       <Route element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="reset-password" element={<ResetPassword />} />
       </Route>
       <Route element={<PortalLayout />}>
         <Route path="users" element={<Users />} />
