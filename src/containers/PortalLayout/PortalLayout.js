@@ -3,7 +3,7 @@ import { Layout } from 'antd'
 
 import PortalHeader from './PortalHeader'
 import { getToken } from '../../utils/cookie'
-
+// import { Root } from './styles'
 import './styles.scss'
 
 const { Content } = Layout

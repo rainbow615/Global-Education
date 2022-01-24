@@ -1,15 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-import './assets/scss/app.scss';
+import { ThemeProvider } from 'styled-components'
+
+import theme from './theme/theme'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
+import './assets/scss/app.scss'
+
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

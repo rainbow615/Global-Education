@@ -6,7 +6,7 @@ import ConfirmCodeForm from './ConfirmCodeForm'
 
 import GoogleStorePng from '../../assets/img/google-store.png'
 import AppStorePng from '../../assets/img/app-store.png'
-import './styles.scss'
+import { Root, AppStoreContainer } from './styles'
 
 const { Title, Text } = Typography
 
@@ -15,7 +15,7 @@ const Login = () => {
   const step = searchParams.get('step') || 'password'
 
   return (
-    <div className="login-container">
+    <Root>
       <Title>Login</Title>
 
       {step === 'password' && <PasswordForm />}
@@ -27,7 +27,7 @@ const Login = () => {
         <Link to="/home">Back to Home</Link>
       </Space>
 
-      <Space direction="vertical" className="app-store-container">
+      <AppStoreContainer direction="vertical">
         <Text type="secondary">
           This page is for administrators, license holders, and bulk book orders only. For our
           content, download our app here:
@@ -44,8 +44,8 @@ const Login = () => {
             </a>
           </Col>
         </Row>
-      </Space>
-    </div>
+      </AppStoreContainer>
+    </Root>
   )
 }
 

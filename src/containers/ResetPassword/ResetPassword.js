@@ -2,8 +2,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 
 import CodeForm from './CodeForm'
 import NewPasswordForm from './NewPasswordForm'
-
-import './styles.scss'
+import { Root } from './styles'
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams()
@@ -11,13 +10,13 @@ const ResetPassword = () => {
   const step = searchParams.get('step') || 'code'
 
   return (
-    <div className="reset-password">
+    <Root>
       {step === 'code' && <CodeForm />}
       {step === 'new-password' && <NewPasswordForm />}
 
       <Link to="/login">Back to login</Link>
       <Link to="/home">Back to home</Link>
-    </div>
+    </Root>
   )
 }
 

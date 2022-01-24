@@ -1,10 +1,9 @@
 import { Link, useSearchParams } from 'react-router-dom'
+import { Row } from 'antd'
 
 import EmailForm from './EmailForm'
 import Success from './Success'
-
-import './styles.scss'
-import { Row } from 'antd'
+import { Root } from './styles'
 
 const ForgotPassword = () => {
   const [searchParams] = useSearchParams()
@@ -12,7 +11,7 @@ const ForgotPassword = () => {
   const step = searchParams.get('step') || 'email'
 
   return (
-    <div className="forgot-password">
+    <Root>
       {step === 'email' && <EmailForm />}
       {step === 'success' && <Success />}
 
@@ -20,7 +19,7 @@ const ForgotPassword = () => {
         <Link to="/login">Back to login</Link>
         <Link to="/home">Back to home</Link>
       </Row>
-    </div>
+    </Root>
   )
 }
 

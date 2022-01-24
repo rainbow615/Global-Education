@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 import { getToken } from '../../utils/cookie'
-import './styles.scss'
+import { Root } from './styles'
 
 const AuthLayout = () => {
   const { state } = useLocation()
@@ -12,9 +12,9 @@ const AuthLayout = () => {
   }
 
   return (
-    <div className="auth-layout">
+    <Root>
       <Outlet />
-    </div>
+    </Root>
   )
 }
 

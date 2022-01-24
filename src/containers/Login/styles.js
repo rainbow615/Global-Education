@@ -1,4 +1,7 @@
-.login-container {
+import styled from 'styled-components'
+import { Space } from 'antd'
+
+export const Root = styled.div`
   position: fixed;
   top: 0;
   right: 0;
@@ -13,12 +16,12 @@
   @media (max-width: 576px) {
     width: 100%;
   }
+`
 
-  .app-store-container {
-    margin-top: auto;
+export const AppStoreContainer = styled(Space)`
+  margin-top: auto;
 
-    img {
-      width: 100%;
-    }
+  img {
+    width: 100%;
   }
-}
+`
