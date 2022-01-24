@@ -8,8 +8,8 @@ const emailRules = [
   },
   {
     type: 'email',
-    message: 'Please input valid email'
-  }
+    message: 'Please input valid email',
+  },
 ]
 
 const EmailForm = () => {
@@ -41,11 +41,7 @@ const EmailForm = () => {
       requiredMark={false}
     >
       <Typography.Title>Reset Password</Typography.Title>
-      <Form.Item
-        label="Email"
-        name="email"
-        rules={emailRules}
-      >
+      <Form.Item label="Email" name="email" rules={emailRules}>
         <Input />
       </Form.Item>
 

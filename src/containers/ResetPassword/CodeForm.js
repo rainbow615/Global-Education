@@ -5,7 +5,7 @@ const codeRules = [
   {
     required: true,
     message: 'Please input your code!',
-  }
+  },
 ]
 
 const CodeForm = () => {
@@ -36,11 +36,7 @@ const CodeForm = () => {
       requiredMark={false}
     >
       <Typography.Title>Confirm code we sent to your +1 (XXX) XXX-XX-55 number</Typography.Title>
-      <Form.Item
-        label="Code"
-        name="code"
-        rules={codeRules}
-      >
+      <Form.Item label="Code" name="code" rules={codeRules}>
         <Input />
       </Form.Item>
 

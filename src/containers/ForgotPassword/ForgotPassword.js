@@ -1,10 +1,10 @@
-import { Link, useSearchParams } from "react-router-dom"
+import { Link, useSearchParams } from 'react-router-dom'
 
-import EmailForm from "./EmailForm"
-import Success from "./Success"
+import EmailForm from './EmailForm'
+import Success from './Success'
 
 import './styles.scss'
-import { Row } from "antd"
+import { Row } from 'antd'
 
 const ForgotPassword = () => {
   const [searchParams] = useSearchParams()

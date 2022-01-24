@@ -22,7 +22,7 @@ const PortalHeader = () => {
         </Menu.Item>
       </Menu>
     ),
-    [],
+    []
   )
 
   return (
@@ -30,7 +30,11 @@ const PortalHeader = () => {
       <Dropdown overlay={userDropdown} placement="bottomRight">
         <Button type="text">
           {profile.isLoading && <Spin indicator={<CircleLoading />} />}
-          {!profile.isLoading && <>{profile?.email} <DownOutlined /></ >}
+          {!profile.isLoading && (
+            <>
+              {profile?.email} <DownOutlined />
+            </>
+          )}
         </Button>
       </Dropdown>
     </Header>

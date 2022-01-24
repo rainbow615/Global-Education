@@ -39,10 +39,7 @@ const ConfirmCodeForm = () => {
     >
       <Text>Confirm code we sent to your +1 (XXX) XXX-XX-55 number</Text>
 
-      <Form.Item
-        name="code"
-        rules={codeRules}
-      >
+      <Form.Item name="code" rules={codeRules}>
         <Input />
       </Form.Item>
 

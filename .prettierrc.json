@@ -4,8 +4,6 @@
   "singleQuote": true,
   "semi": false,
   "trailingComma": "es5",
-  "spaceBeforeFunctionParen": false,
   "jsxBracketSameLine": false,
-  "bracketSpacing": true,
-  "bracesSpacing": true
+  "bracketSpacing": true
 }

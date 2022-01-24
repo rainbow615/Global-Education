@@ -28,13 +28,20 @@ const Login = () => {
       </Space>
 
       <Space direction="vertical" className="app-store-container">
-        <Text type="secondary">This page is for administrators, license holders, and bulk book orders only. For our content, download our app here:</Text>
+        <Text type="secondary">
+          This page is for administrators, license holders, and bulk book orders only. For our
+          content, download our app here:
+        </Text>
         <Row gutter={24}>
           <Col span={12}>
-            <a><img src={AppStorePng} alt="App Store" /></a>
+            <a href="https://www.apple.com/store">
+              <img src={AppStorePng} alt="App Store" />
+            </a>
           </Col>
           <Col span={12}>
-            <a><img src={GoogleStorePng} alt="Play Store" /></a>
+            <a href="https://play.google.com/store/apps;">
+              <img src={GoogleStorePng} alt="Play Store" />
+            </a>
           </Col>
         </Row>
       </Space>

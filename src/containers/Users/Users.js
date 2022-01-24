@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react'
-import moment from 'moment';
+import moment from 'moment'
 
 import { Table, Input, Button, Space, Row, Col, Modal } from 'antd'
 import {
@@ -13,8 +13,8 @@ import {
 import CreateUserModal from './CreateUserModal'
 import EditUserModal from './EditUserModal'
 
-import { deleteUser, useUsers } from '../../services/userService';
-import { useDebounce } from '../../hooks/useDebounce';
+import { deleteUser, useUsers } from '../../services/userService'
+import { useDebounce } from '../../hooks/useDebounce'
 
 const EventUsers = () => {
   const { data: users, mutate } = useUsers()
@@ -74,7 +74,12 @@ const EventUsers = () => {
             icon={<EditOutlined style={{ color: '#1890ff' }} />}
             onClick={() => openModal('edit-user', record)}
           />
-          <Button type="text" icon={<DeleteOutlined />} onClick={() => openDeleteModal(record)} danger />
+          <Button
+            type="text"
+            icon={<DeleteOutlined />}
+            onClick={() => openDeleteModal(record)}
+            danger
+          />
         </Row>
       ),
     },
@@ -84,7 +89,8 @@ const EventUsers = () => {
     Modal.confirm({
       title: `Delete ${user.email}`,
       icon: <ExclamationCircleOutlined />,
-      content: "User won't have access to the event once you take action, do you really want to proceed with removal?",
+      content:
+        "User won't have access to the event once you take action, do you really want to proceed with removal?",
       okButtonProps: { danger: true },
       onOk: () => deleteUser(user),
     })
@@ -99,7 +105,11 @@ const EventUsers = () => {
     setEditingUser()
   }
 
-  const filteredData = debouncedSearchTerm ? dataSource.filter(data => JSON.stringify(data).toLowerCase().includes(debouncedSearchTerm.toLowerCase())) : dataSource;
+  const filteredData = debouncedSearchTerm
+    ? dataSource.filter((data) =>
+        JSON.stringify(data).toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+      )
+    : dataSource
 
   return (
     <>
@@ -117,9 +127,18 @@ const EventUsers = () => {
             <Button onClick={() => setActiveModal('create-user')}>+ Create new user</Button>
           </Col>
         </Row>
-        <Table loading={users.isLoading} columns={columns} dataSource={filteredData} pagination={{ defaultPageSize: 10 }} />
+        <Table
+          loading={users.isLoading}
+          columns={columns}
+          dataSource={filteredData}
+          pagination={{ defaultPageSize: 10 }}
+        />
       </Space>
-      <EditUserModal visible={activeModal === 'edit-user'} user={editingUser} onClose={closeModal} />
+      <EditUserModal
+        visible={activeModal === 'edit-user'}
+        user={editingUser}
+        onClose={closeModal}
+      />
       <CreateUserModal visible={activeModal === 'create-user'} onClose={closeModal} />
     </>
   )

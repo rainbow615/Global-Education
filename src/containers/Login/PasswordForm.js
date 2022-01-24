@@ -8,8 +8,8 @@ const emailRules = [
   },
   {
     type: 'email',
-    message: 'Please input valid email'
-  }
+    message: 'Please input valid email',
+  },
 ]
 const passwordRules = [
   {
@@ -46,19 +46,11 @@ const PasswordForm = () => {
       onFinishFailed={onFinishFailed}
       requiredMark={false}
     >
-      <Form.Item
-        label="Email"
-        name="email"
-        rules={emailRules}
-      >
+      <Form.Item label="Email" name="email" rules={emailRules}>
         <Input />
       </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={passwordRules}
-      >
+      <Form.Item label="Password" name="password" rules={passwordRules}>
         <Input.Password />
       </Form.Item>
 

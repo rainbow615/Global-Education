@@ -15,9 +15,9 @@ const confirmPasswordRules = [
   ({ getFieldValue }) => ({
     validator(_, value) {
       if (!value || getFieldValue('password') === value) {
-        return Promise.resolve();
+        return Promise.resolve()
       }
-      return Promise.reject(new Error('The two passwords that you entered do not match!'));
+      return Promise.reject(new Error('The two passwords that you entered do not match!'))
     },
   }),
 ]
@@ -31,7 +31,7 @@ const NewPasswordForm = () => {
     notification.success({ message: 'Password has been reset successfully. Redirecting to login' })
     setTimeout(() => {
       navigate('/login')
-    }, 5000);
+    }, 5000)
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -53,12 +53,7 @@ const NewPasswordForm = () => {
       requiredMark={false}
     >
       <Typography.Title>Enter new password</Typography.Title>
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={passwordRules}
-        hasFeedback
-      >
+      <Form.Item name="password" label="Password" rules={passwordRules} hasFeedback>
         <Input.Password />
       </Form.Item>
 

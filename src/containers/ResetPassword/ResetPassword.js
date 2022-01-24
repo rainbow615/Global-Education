@@ -1,7 +1,7 @@
-import { Link, useSearchParams } from "react-router-dom"
+import { Link, useSearchParams } from 'react-router-dom'
 
-import CodeForm from "./CodeForm"
-import NewPasswordForm from "./NewPasswordForm"
+import CodeForm from './CodeForm'
+import NewPasswordForm from './NewPasswordForm'
 
 import './styles.scss'
 
@@ -12,7 +12,6 @@ const ResetPassword = () => {
 
   return (
     <div className="reset-password">
-
       {step === 'code' && <CodeForm />}
       {step === 'new-password' && <NewPasswordForm />}
 
