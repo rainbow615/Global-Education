@@ -7,9 +7,9 @@ const AuthLayout = () => {
   const { state } = useLocation()
   const isAuthenticated = !!getToken()
 
-  if (isAuthenticated) {
-    return <Navigate to={state?.from?.pathname || '/home'} />
-  }
+  // if (isAuthenticated) {
+  //   return <Navigate to={state?.from?.pathname || '/home'} />
+  // }
 
   return (
     <Root>

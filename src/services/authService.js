@@ -1,4 +1,4 @@
-import api, { useAPI } from './api'
+import api from './api'
 
 export function login(payload) {
   return api.post(`/login`, payload)

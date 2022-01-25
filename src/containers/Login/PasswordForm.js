@@ -1,5 +1,9 @@
 import { Form, Input, Button, notification } from 'antd'
+import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+
+import { login } from '../../services/authService'
+import { setUser } from '../../utils/cookie'
 
 const emailRules = [
   {
@@ -20,19 +24,32 @@ const passwordRules = [
 
 const PasswordForm = () => {
   const [, setSearchParams] = useSearchParams()
+  const [isLoading, setIsLoading] = useState(false)
 
   const onFinish = (values) => {
-    // TODO: login and navigate to dashboard
-    console.log(values)
-    notification.success({ message: 'Confirmation code has been sent to your email' })
-    setSearchParams({ step: 'confirm-code' })
+    setIsLoading(true)
+
+    login(values)
+      .then((res) => {
+        setUser(res?.data, true)
+
+        setIsLoading(false)
+        notification.success({ message: 'Confirmation code has been sent to your email' })
+        setSearchParams({ step: 'confirm-code' })
+      })
+      .catch((error) => {
+        setIsLoading(false)
+
+        notification.error({
+          message: 'Login Failure',
+          description: error?.data || '',
+        })
+      })
+
+    return false
   }
 
   const onFinishFailed = (errorInfo) => {
-    notification.error({
-      message: 'Login Failure',
-      description: errorInfo,
-    })
     console.log('Failed:', errorInfo)
   }
 
@@ -55,7 +72,7 @@ const PasswordForm = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={isLoading}>
           Submit
         </Button>
       </Form.Item>
