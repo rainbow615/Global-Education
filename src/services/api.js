@@ -1,21 +1,32 @@
 import axios from 'axios'
 import useSWR from 'swr'
 import useApiResponse from '../hooks/useApiResponse'
-import { getToken } from '../utils/cookie'
+import { getUser, getToken } from '../utils/cookie'
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
 })
 
 api.interceptors.request.use((config) => {
-  const token = getToken()
-  console.log(getToken())
-  if (token) {
+  const { token, user_id } = getUser()
+  console.log(token, user_id)
+
+  if (token && user_id) {
     config.headers.authorization = `Bearer ${token}`
+    config.headers['User-id'] = user_id
   }
   console.log(config.headers.authorization)
   return config
 })
+
+api.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  (error) => {
+    return Promise.reject(error.response)
+  }
+)
 
 export default api
 
