@@ -15,7 +15,7 @@ const Users = loadable(() => import('./containers/Users'))
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="/" element={<Navigate to="/dashboard" />} />
       <Route path="home" element={<Home />} />
       <Route element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
