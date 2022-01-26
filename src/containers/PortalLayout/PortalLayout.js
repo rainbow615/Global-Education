@@ -2,6 +2,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { Layout } from 'antd'
 
 import PortalHeader from './PortalHeader'
+import PortalSidebar from './PortalSidebar'
 import { getConfirmLogin } from '../../utils/cookie'
 import { Root, MainView } from './styles'
 
@@ -16,9 +17,14 @@ const PortalLayout = () => {
   return (
     <Root>
       <PortalHeader />
-      <MainView>
-        <Outlet />
-      </MainView>
+      <Layout>
+        <PortalSidebar />
+        <Layout>
+          <MainView>
+            <Outlet />
+          </MainView>
+        </Layout>
+      </Layout>
     </Root>
   )
 }

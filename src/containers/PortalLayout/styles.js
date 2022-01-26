@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Layout } from 'antd'
-const { Content, Header } = Layout
+
+const { Content, Header, Sider } = Layout
 
 export const Root = styled(Layout)`
   height: 100vh;
@@ -19,6 +20,14 @@ export const CustomHeader = styled(Header)`
 
   .ant-dropdown-trigger {
     color: white;
+  }
+`
+
+export const CustomSide = styled(Sider)`
+  padding: 2rem 0 0 0;
+
+  a {
+    font-size: 1rem;
   }
 `
 
