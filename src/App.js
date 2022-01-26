@@ -9,13 +9,16 @@ const ForgotPassword = loadable(() => import('./containers/ForgotPassword'))
 const Home = loadable(() => import('./containers/Home'))
 const Login = loadable(() => import('./containers/Login'))
 const ResetPassword = loadable(() => import('./containers/ResetPassword'))
-const Dashboard = loadable(() => import('./containers/Dashboard'))
+const Jurisdictions = loadable(() => import('./containers/Jurisdictions'))
+const Education = loadable(() => import('./containers/Education'))
+const Pricing = loadable(() => import('./containers/Pricing'))
+const Licenses = loadable(() => import('./containers/Licenses'))
 const Users = loadable(() => import('./containers/Users'))
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/dashboard" />} />
+      <Route path="/" element={<Navigate to="/jurisdictions" />} />
       <Route path="home" element={<Home />} />
       <Route element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
@@ -23,8 +26,11 @@ function App() {
         <Route path="reset-password" element={<ResetPassword />} />
       </Route>
       <Route element={<PortalLayout />}>
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="jurisdictions" element={<Jurisdictions />} />
+        <Route path="education" element={<Education />} />
         <Route path="users" element={<Users />} />
+        <Route path="pricing" element={<Pricing />} />
+        <Route path="licenses" element={<Licenses />} />
       </Route>
     </Routes>
   )

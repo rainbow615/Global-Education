@@ -10,8 +10,8 @@ const PortalSidebar = () => {
         <Menu.Item key="Jurisdictions">
           <Link to="/jurisdictions">Jurisdictions</Link>
         </Menu.Item>
-        <Menu.Item key="JIT">
-          <Link to="/jit">JIT Education</Link>
+        <Menu.Item key="education">
+          <Link to="/education">JIT Education</Link>
         </Menu.Item>
         <Menu.Item key="users">
           <Link to="/users">Users</Link>

@@ -15,7 +15,7 @@ const PortalHeader = () => {
   const onLogout = useCallback(() => {
     removeUser()
     removeConfirmLogin()
-    navigate('/dashboard')
+    navigate('/jurisdictions')
   }, [navigate])
 
   const userDropdown = useMemo(
