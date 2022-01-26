@@ -11,7 +11,3 @@ export function send2FACode() {
 export function check2FACode(code) {
   return api.get(`/tfacheck/${code}`)
 }
-
-export function validateToken() {
-  return api.get(`/users/valid`)
-}
