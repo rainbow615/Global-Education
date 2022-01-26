@@ -29,10 +29,18 @@ const ConfirmCodeForm = () => {
       setIsLoading(true)
 
       check2FACode(code)
-        .then(() => {
+        .then((result) => {
           setIsLoading(false)
-          setConfirmLogin()
-          navigate('/dashboard')
+
+          if (result?.data?.valid) {
+            setConfirmLogin()
+            navigate('/dashboard')
+          } else {
+            notification.error({
+              message: 'Verification Failure',
+              description: 'Wrong code. Please try again.',
+            })
+          }
         })
         .catch((error) => {
           setIsLoading(false)
