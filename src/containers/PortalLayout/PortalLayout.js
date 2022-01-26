@@ -3,10 +3,7 @@ import { Layout } from 'antd'
 
 import PortalHeader from './PortalHeader'
 import { getConfirmLogin } from '../../utils/cookie'
-// import { Root } from './styles'
-import './styles.scss'
-
-const { Content } = Layout
+import { Root, MainView } from './styles'
 
 const PortalLayout = () => {
   const location = useLocation()
@@ -17,12 +14,12 @@ const PortalLayout = () => {
   }
 
   return (
-    <Layout className="portal-layout">
+    <Root>
       <PortalHeader />
-      <Content className="portal-content">
+      <MainView>
         <Outlet />
-      </Content>
-    </Layout>
+      </MainView>
+    </Root>
   )
 }
 

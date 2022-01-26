@@ -1,43 +1,45 @@
-import { useMemo } from 'react'
-import { Link } from 'react-router-dom'
-import { Layout, Menu, Dropdown, Button, Spin } from 'antd'
+import { useCallback, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Menu, Typography, Dropdown, Button } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
-import CircleLoading from '../../components/CircleLoading'
+import { getUser, removeUser, removeConfirmLogin } from '../../utils/cookie'
+import { CustomHeader } from './styles'
 
-import { useProfile } from '../../services/profileService'
-
-const { Header } = Layout
+const { Title } = Typography
 
 const PortalHeader = () => {
-  const { data: profile } = useProfile()
+  const navigate = useNavigate()
+  const profile = getUser()
+
+  const onLogout = useCallback(() => {
+    removeUser()
+    removeConfirmLogin()
+    navigate('/dashboard')
+  }, [navigate])
 
   const userDropdown = useMemo(
     () => (
       <Menu theme="dark">
-        <Menu.Item>
-          <Button type="text" onClick={() => {}} danger>
+        <Menu.Item key="logout">
+          <Button type="text" onClick={onLogout} danger>
             Log out
           </Button>
         </Menu.Item>
       </Menu>
     ),
-    []
+    [onLogout]
   )
 
   return (
-    <Header className="portal-header">
+    <CustomHeader>
+      <Title level={2}>MCP</Title>
       <Dropdown overlay={userDropdown} placement="bottomRight">
         <Button type="text">
-          {profile.isLoading && <Spin indicator={<CircleLoading />} />}
-          {!profile.isLoading && (
-            <>
-              {profile?.email} <DownOutlined />
-            </>
-          )}
+          {profile?.full_name} <DownOutlined />
         </Button>
       </Dropdown>
-    </Header>
+    </CustomHeader>
   )
 }
 
