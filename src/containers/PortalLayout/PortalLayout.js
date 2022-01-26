@@ -2,7 +2,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { Layout } from 'antd'
 
 import PortalHeader from './PortalHeader'
-import { getToken } from '../../utils/cookie'
+import { getConfirmLogin } from '../../utils/cookie'
 // import { Root } from './styles'
 import './styles.scss'
 
@@ -10,11 +10,11 @@ const { Content } = Layout
 
 const PortalLayout = () => {
   const location = useLocation()
-  const isAuthenticated = !!getToken()
+  const isAuthenticated = !!getConfirmLogin()
 
-  // if (!isAuthenticated) {
-  //   return <Navigate to="/login" state={{ from: location }} />
-  // }
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} />
+  }
 
   return (
     <Layout className="portal-layout">

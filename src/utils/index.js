@@ -1,3 +1,9 @@
+import { parse as urlParse } from 'url'
+
+export const getQueryParams = (url = window.location.href.replace(/#/g, '')) => {
+  return urlParse(url, true).query
+}
+
 /**
  * must include uppercase
  * must include lowercase
@@ -11,5 +17,6 @@ export const passwordPattern = (options = {}) => {
   exp += options.special ? '(?=.*[-+_!@#$%^&*.,?])' : ''
   exp += options.number ? '(?=.*\\d)' : ''
   exp += '.+$'
+
   return new RegExp(exp)
 }

@@ -8,8 +8,9 @@ import { PortalLayout } from './containers/PortalLayout'
 const ForgotPassword = loadable(() => import('./containers/ForgotPassword'))
 const Home = loadable(() => import('./containers/Home'))
 const Login = loadable(() => import('./containers/Login'))
-const Users = loadable(() => import('./containers/Users'))
 const ResetPassword = loadable(() => import('./containers/ResetPassword'))
+const Dashboard = loadable(() => import('./containers/Dashboard'))
+const Users = loadable(() => import('./containers/Users'))
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="reset-password" element={<ResetPassword />} />
       </Route>
       <Route element={<PortalLayout />}>
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="users" element={<Users />} />
       </Route>
     </Routes>

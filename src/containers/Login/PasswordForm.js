@@ -2,8 +2,8 @@ import { Form, Input, Button, notification } from 'antd'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { login } from '../../services/authService'
-import { setUser } from '../../utils/cookie'
+import { login, send2FACode } from '../../services/authService'
+import { setUser, removeUser } from '../../utils/cookie'
 
 const emailRules = [
   {
@@ -33,9 +33,24 @@ const PasswordForm = () => {
       .then((res) => {
         setUser(res?.data, true)
 
-        setIsLoading(false)
-        notification.success({ message: 'Confirmation code has been sent to your email' })
-        setSearchParams({ step: 'confirm-code' })
+        send2FACode()
+          .then(() => {
+            setIsLoading(false)
+            notification.success({ message: 'Confirmation code has been sent to your email' })
+            setSearchParams({ step: 'confirm-code' })
+          })
+          .catch((error) => {
+            setIsLoading(false)
+
+            if (error?.data !== 'Unauthorized') {
+              removeUser()
+
+              notification.error({
+                message: 'Verification Failure',
+                description: 'Sorry, the request failed. Please try again later.',
+              })
+            }
+          })
       })
       .catch((error) => {
         setIsLoading(false)

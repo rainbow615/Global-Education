@@ -1,15 +1,15 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
-import { getToken } from '../../utils/cookie'
+import { getConfirmLogin } from '../../utils/cookie'
 import { Root } from './styles'
 
 const AuthLayout = () => {
   const { state } = useLocation()
-  const isAuthenticated = !!getToken()
+  const isAuthenticated = !!getConfirmLogin()
 
-  // if (isAuthenticated) {
-  //   return <Navigate to={state?.from?.pathname || '/home'} />
-  // }
+  if (isAuthenticated) {
+    return <Navigate to={state?.from?.pathname || '/home'} />
+  }
 
   return (
     <Root>

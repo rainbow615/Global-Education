@@ -1,5 +1,9 @@
 import { Form, Input, Button, Typography, notification } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+
+import { getUser, removeUser, setConfirmLogin } from '../../utils/cookie'
+import { check2FACode } from '../../services/authService'
 
 const { Text } = Typography
 
@@ -11,19 +15,43 @@ const codeRules = [
 ]
 
 const ConfirmCodeForm = () => {
+  const [, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
+  const user = getUser()
+  const phoneNumber = user?.phone
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const onFinish = (values) => {
-    // TODO: login and navigate to dashboard
-    console.log(values)
-    navigate('/dashboard')
+    const code = values?.code
+
+    if (code) {
+      setIsLoading(true)
+
+      check2FACode(code)
+        .then(() => {
+          setIsLoading(false)
+          setConfirmLogin()
+          navigate('/dashboard')
+        })
+        .catch((error) => {
+          setIsLoading(false)
+
+          if (error?.data !== 'Unauthorized') {
+            removeUser()
+
+            notification.error({
+              message: 'Verification Failure',
+              description: 'Sorry, the request failed. Please try again later.',
+            })
+
+            setSearchParams({})
+          }
+        })
+    }
   }
 
   const onFinishFailed = (errorInfo) => {
-    notification.error({
-      message: 'Login Failure',
-      description: errorInfo,
-    })
     console.log('Failed:', errorInfo)
   }
 
@@ -37,15 +65,15 @@ const ConfirmCodeForm = () => {
       onFinishFailed={onFinishFailed}
       requiredMark={false}
     >
-      <Text>Confirm code we sent to your +1 (XXX) XXX-XX-55 number</Text>
+      <Text>Confirm code we sent to your +1 (XXX) XXX-XX-{phoneNumber.substr(-2)} number</Text>
 
       <Form.Item name="code" rules={codeRules}>
         <Input />
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Enter dashboard
+        <Button type="primary" htmlType="submit" loading={isLoading}>
+          {isLoading ? 'Checking' : 'Enter dashboard'}
         </Button>
       </Form.Item>
     </Form>

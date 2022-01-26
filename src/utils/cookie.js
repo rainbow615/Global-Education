@@ -1,12 +1,16 @@
 import Cookie from 'js-cookie'
 
-export function getToken() {
-  const user = Cookie.get('user')
+export function getConfirmLogin() {
+  return Cookie.get('isConfirmLogin')
+}
 
-  try {
-    return JSON.parse(user)?.token
-  } catch (e) {
-    return
+export function setConfirmLogin() {
+  Cookie.set('isConfirmLogin', 'confirm', { expires: 30 })
+}
+
+export function removeConfirmLogin() {
+  if (getConfirmLogin()) {
+    Cookie.remove('isConfirmLogin')
   }
 }
 

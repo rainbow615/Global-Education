@@ -1,7 +1,9 @@
 import axios from 'axios'
 import useSWR from 'swr'
+import { notification } from 'antd'
+
 import useApiResponse from '../hooks/useApiResponse'
-import { getUser, getToken } from '../utils/cookie'
+import { getUser } from '../utils/cookie'
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
@@ -9,13 +11,12 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   const { token, user_id } = getUser()
-  console.log(token, user_id)
 
   if (token && user_id) {
     config.headers.authorization = `Bearer ${token}`
-    config.headers['User-id'] = user_id
+    config.headers['User-Id'] = user_id
   }
-  console.log(config.headers.authorization)
+
   return config
 })
 
@@ -24,6 +25,16 @@ api.interceptors.response.use(
     return response
   },
   (error) => {
+    console.log(error.response)
+    if (error.response?.status === 401 && error.response?.data === 'Unauthorized') {
+      notification.error({
+        message: 'Unauthorized',
+        description: 'Your session expired. You need to login again.',
+      })
+
+      window.stop()
+    }
+
     return Promise.reject(error.response)
   }
 )
@@ -35,7 +46,7 @@ export function getCacheKey(url, params) {
   if (params) {
     cacheKey.push(JSON.stringify(params))
   }
-  cacheKey.push(getToken())
+  // cacheKey.push(getToken())
   return cacheKey
 }
 
