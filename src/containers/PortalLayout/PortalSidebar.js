@@ -1,27 +1,45 @@
-import { Link } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { Menu } from 'antd'
 
 import { CustomSide } from './styles'
 
+const navLinks = [
+  {
+    path: '/jurisdictions',
+    pathName: 'Jurisdictions',
+  },
+  {
+    path: '/education',
+    pathName: 'JIT Education',
+  },
+  {
+    path: '/users',
+    pathName: 'Users',
+  },
+  {
+    path: '/pricing',
+    pathName: 'Pricing',
+  },
+  {
+    path: '/licenses',
+    pathName: 'Licenses',
+  },
+]
+
 const PortalSidebar = () => {
+  const location = useLocation()
+
   return (
     <CustomSide width={200} theme="light">
-      <Menu theme="light">
-        <Menu.Item key="Jurisdictions">
-          <Link to="/jurisdictions">Jurisdictions</Link>
-        </Menu.Item>
-        <Menu.Item key="education">
-          <Link to="/education">JIT Education</Link>
-        </Menu.Item>
-        <Menu.Item key="users">
-          <Link to="/users">Users</Link>
-        </Menu.Item>
-        <Menu.Item key="pricing">
-          <Link to="/pricing">Pricing</Link>
-        </Menu.Item>
-        <Menu.Item key="licenses">
-          <Link to="/licenses">Licenses</Link>
-        </Menu.Item>
+      <Menu theme="light" defaultSelectedKeys={[location.pathname]}>
+        {navLinks.map((navLink) => {
+          const { path, pathName } = navLink
+          return (
+            <Menu.Item key={path}>
+              <NavLink to={path}>{pathName}</NavLink>
+            </Menu.Item>
+          )
+        })}
       </Menu>
     </CustomSide>
   )
