@@ -36,7 +36,7 @@ const PasswordForm = () => {
         send2FACode()
           .then(() => {
             setIsLoading(false)
-            notification.success({ message: 'Confirmation code has been sent to your email' })
+            notification.success({ message: 'A confirmation code has been sent to your phone!' })
             setSearchParams({ step: 'confirm-code' })
           })
           .catch((error) => {
@@ -47,7 +47,7 @@ const PasswordForm = () => {
 
               notification.error({
                 message: 'Verification Failure',
-                description: 'Sorry, the request failed. Please try again later.',
+                description: 'Sorry, the request failed. Please try again.',
               })
             }
           })

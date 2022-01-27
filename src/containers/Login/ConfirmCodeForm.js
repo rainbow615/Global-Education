@@ -73,7 +73,7 @@ const ConfirmCodeForm = () => {
       onFinishFailed={onFinishFailed}
       requiredMark={false}
     >
-      <Text>Confirm code we sent to your +1 (XXX) XXX-XX-{phoneNumber.substr(-2)} number</Text>
+      <Text>Please enter the code sent to +1 (XXX) XXX-{phoneNumber.substr(-4)}</Text>
 
       <Form.Item name="code" rules={codeRules}>
         <Input />
