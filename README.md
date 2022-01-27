@@ -1,3 +1,3 @@
 # app-web
 
-React website for settings administration
+Website for to create content on the MCP ecosystem!
