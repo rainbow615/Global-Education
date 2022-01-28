@@ -106,12 +106,14 @@ export const DetailedText = styled.p`
 export const Buttons = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   margin-top: 30px;
 
   button {
     font-size: 1.2rem;
     height: 50px;
     margin-right: 20px;
+    margin-bottom: 10px;
     min-width: 120px;
   }
 `
@@ -121,8 +123,10 @@ export const LinkButton = styled.div`
   border-bottom: 2px solid ${(props) => props.theme.palette.primary};
   color: ${(props) => props.theme.palette.primary};
   margin-right: 20px;
+  margin-bottom: 10px;
   line-height: 2;
   font-weight: bold;
+  white-space: nowrap;
   cursor: pointer;
 
   &:hover {
