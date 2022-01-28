@@ -151,7 +151,7 @@ const HomeMainContent = (props) => {
             Mission Critical Protocols offers highly-customizable licenses that allow organizations to immediately improve
             their workforce's access to their operational information. Licenses can be utilized for small teams, an 
             entire region, and everything in between. Once a license is established and in-use, license administrators get key 
-            insights to workforce utilization and also the ability to deliver push notifications to their instantly to their providers.
+            insights to workforce utilization and other powerful functionalities.
           </DetailedText>
           <Buttons>
             <Button size="large" type="primary" onClick={onGotoContact(2)}>
