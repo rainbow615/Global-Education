@@ -34,7 +34,7 @@ const HomeMainContent = (props) => {
     <React.Fragment>
       <TopBanner>
         <LeftSection>
-          <Title>Enabling first responders with accessible, mission-critical information.</Title>
+          <Title>Empowering first responders with accessible, mission-critical information.</Title>
           <DetailedText>
             EMTs, paramedics, firefighters, and police officers deliver essential services to our communities.
             Mission Critical Protocols gives these providers their operational information they need—in the 
