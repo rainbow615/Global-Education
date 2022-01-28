@@ -43,7 +43,7 @@ const HomeContactForm = (props) => {
   return (
     <Section name="contacts">
       <div>
-        <Title style={{ paddingLeft: 20 }}>Contact</Title>
+        <Title style={{ paddingLeft: 20 }}>Contact Us</Title>
         <ContackSection>
           <ContactSectionArea>
             <img alt="MCP" src="/contact-form.png" />
