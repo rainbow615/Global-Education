@@ -34,14 +34,11 @@ const HomeMainContent = (props) => {
     <React.Fragment>
       <TopBanner>
         <LeftSection>
-          <Title>Enabling first responders with accessible, mission critical information.</Title>
+          <Title>Enabling first responders with accessible, mission-critical information.</Title>
           <DetailedText>
-            Lorem Ipsum is probably the most popular dummy text generator out there. When analyzing
-            a website template or theme, you probably saw the Latin filler text that gave structure
-            to the page. This was almost certainly generated with Lorem Ipsum or a similar tool. It
-            is a simple dummy text generator where you can specify how many words of filler text you
-            need. You can download Lorem Ipsum as an add-on for Firefox, which is quite convenient
-            for web designers.
+            EMTs, paramedics, firefighters, and police officers deliver essential services to our communities.
+            Mission Critical Protocols gives these providers their operational information they need—in the 
+            format they need it.
           </DetailedText>
           <Button type="primary" size="large">
             Learn more
@@ -50,25 +47,23 @@ const HomeMainContent = (props) => {
         <RightSection>
           <img
             alt="MCP"
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            src="/landing-1.png"
           />
         </RightSection>
       </TopBanner>
       <Section name="app">
         <LeftSection>
-          <Title>App</Title>
-          <SubTitle>For first responders, students, and educators</SubTitle>
+          <Title>Our Mobile Applications</Title>
+          <SubTitle>For front-line providers</SubTitle>
           <Description>
-            A searchable fully offline library of all protocols together with JIT training,
-            beautifully organized and displayed. No more of PDF pinching.
+            First responder policies in highly-accessible mobile applications. Integrated tools and education. 
+            Clear updates when policies change. 
           </Description>
           <DetailedText>
-            Lorem Ipsum is probably the most popular dummy text generator out there. When analyzing
-            a website template or theme, you probably saw the Latin filler text that gave structure
-            to the page. This was almost certainly generated with Lorem Ipsum or a similar tool. It
-            is a simple dummy text generator where you can specify how many words of filler text you
-            need. You can download Lorem Ipsum as an add-on for Firefox, which is quite convenient
-            for web designers.
+            Mission Critical Protocols delivers first-in-class quality applications that display first responders
+            operation policies in a high-quality, mobile-friendly styling. We integrate calculators, references, 
+            and education directly into those policies in a non-disruptive, helpful way. We also keep first responders
+            updated on any policy changes down to a letter.
           </DetailedText>
           <br />
           <Row gutter={24}>
@@ -87,54 +82,49 @@ const HomeMainContent = (props) => {
         <RightSection>
           <img
             alt="MCP"
-            src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+            src="/landing-2.png"
           />
         </RightSection>
       </Section>
       <Section name="book">
         <LeftSection>
-          <Title>Book</Title>
-          <SubTitle>For first responders, students, and educators</SubTitle>
+          <Title>Our Printed Books</Title>
+          <SubTitle>For front-line providers</SubTitle>
           <Description>
-            Get the same content in one convenient reference book that is easy to navigate. Build
-            your muscle memory and stop caring about your battery levels.
+            First responder policies in expertly-crafted, printed books. Updates from our mobile application
+            keep them up to date.
           </Description>
           <DetailedText>
-            Lorem Ipsum is probably the most popular dummy text generator out there. When analyzing
-            a website template or theme, you probably saw the Latin filler text that gave structure
-            to the page. This was almost certainly generated with Lorem Ipsum or a similar tool. It
-            is a simple dummy text generator where you can specify how many words of filler text you
-            need. You can download Lorem Ipsum as an add-on for Firefox, which is quite convenient
-            for web designers.
+          Mission Critical Protocols offers printed reference books that mirror the policy sets of our
+          mobile application—integrated tools and eduation included. After a book is printed, the respective 
+          mobile application will keep providers updated on any changes to the book.
           </DetailedText>
           <Buttons>
             <LinkButton>
               <Link to="app" spy={true} smooth={true} duration={500}>
-                Use our app to order a copy
+                Order through our app!
               </Link>
             </LinkButton>
-            <LinkButton onClick={onGotoContact(0)}>Bulk orders</LinkButton>
+            <LinkButton onClick={onGotoContact(0)}>Want to order in bulk?</LinkButton>
           </Buttons>
         </LeftSection>
         <RightSection>
-          <img alt="MCP" src="https://picsum.photos/500/600?grayscale" />
+          <img alt="MCP" src="landing-3.png" />
         </RightSection>
       </Section>
       <Section name="protocol">
         <LeftSection>
-          <Title>Protocol Management</Title>
-          <SubTitle>For EMS administrators</SubTitle>
+          <Title>Our CMS</Title>
+          <SubTitle>For department and company administrators</SubTitle>
           <Description>
             Looking for an easy system to create and publish your own protocols? Forget MS Word, our
-            protocol builder was designed to build, review, and approve protocols with breeze.
+            protocol builder and content management system (CMS) was designed to build, review, and ship protocols with breeze.
           </Description>
           <DetailedText>
-            Lorem Ipsum is probably the most popular dummy text generator out there. When analyzing
-            a website template or theme, you probably saw the Latin filler text that gave structure
-            to the page. This was almost certainly generated with Lorem Ipsum or a similar tool. It
-            is a simple dummy text generator where you can specify how many words of filler text you
-            need. You can download Lorem Ipsum as an add-on for Firefox, which is quite convenient
-            for web designers.
+            Mission Critical Protocols offers an unparalleled content management system (CMS) for creating, reviewing,
+            and distributing operational policies directly to first responder workforces. Administrators can focus
+            on information accuracy and updates, while the CMS does the heavy lifting on version control, styling,
+            mobile application updates, book creation, and workforce notifications.
           </DetailedText>
           <Buttons>
             <Button size="large" type="primary" ghost>
@@ -146,24 +136,21 @@ const HomeMainContent = (props) => {
           </Buttons>
         </LeftSection>
         <RightSection>
-          <img alt="MCP" src="https://picsum.photos/seed/picsum/400/500" />
+          <img alt="MCP" src="/landing-4.png" />
         </RightSection>
       </Section>
       <Section name="licensing">
         <LeftSection>
-          <Title>Licensing</Title>
-          <SubTitle>For EMS administrators</SubTitle>
+          <Title>Our Licenses</Title>
+          <SubTitle>For departments, companies, and governments</SubTitle>
           <Description>
-            Give your whole team access to our protocol and educational library. Easier to manage,
-            better pricing.
+            Give an entire team, department, company, or region access to a Mission Critical Protocols application.
           </Description>
           <DetailedText>
-            Lorem Ipsum is probably the most popular dummy text generator out there. When analyzing
-            a website template or theme, you probably saw the Latin filler text that gave structure
-            to the page. This was almost certainly generated with Lorem Ipsum or a similar tool. It
-            is a simple dummy text generator where you can specify how many words of filler text you
-            need. You can download Lorem Ipsum as an add-on for Firefox, which is quite convenient
-            for web designers.
+            Mission Critical Protocols offers highly-customizable licenses that allow organizations to immediately improve
+            their workforce's access to operation information. Licenses can be utilized for small team small teams, an 
+            entire region, and everything in between. Once a license is established and in-use, license administrators get key 
+            insights to workforce utilization and also the ability to deliver push notifications to their instantly to their providers.
           </DetailedText>
           <Buttons>
             <Button size="large" type="primary" onClick={onGotoContact(2)}>
@@ -174,7 +161,7 @@ const HomeMainContent = (props) => {
         <RightSection>
           <img
             alt="MCP"
-            src="https://www.altagasutilities.com/sites/default/files/2018-04/First%20Responders.jpg"
+            src="/landing-5.png"
           />
         </RightSection>
       </Section>

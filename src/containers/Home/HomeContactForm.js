@@ -43,10 +43,10 @@ const HomeContactForm = (props) => {
   return (
     <Section name="contacts">
       <div>
-        <Title style={{ paddingLeft: 20 }}>Contacts</Title>
+        <Title style={{ paddingLeft: 20 }}>Contact</Title>
         <ContackSection>
           <ContactSectionArea>
-            <img alt="MCP" src="https://picsum.photos/seed/picsum/600/300" />
+            <img alt="MCP" src="/contact-form.png" />
             <Description>
               Looking for partnership, licenses, bulk orders, support? Use our form to submit an
               inquiry.
