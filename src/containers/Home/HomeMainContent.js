@@ -117,8 +117,9 @@ const HomeMainContent = (props) => {
           <Title>Our CMS</Title>
           <SubTitle>For department and company administrators</SubTitle>
           <Description>
-            Looking for an easy system to create and publish your own protocols? Forget MS Word, our
-            protocol builder and content management system (CMS) was designed to build, review, and ship protocols with breeze.
+            Looking for an easy system to create and publish your own protocols? Our
+            protocol builder and content management system (CMS) was designed specifically to build, 
+            review, and ship protocols with ease.
           </Description>
           <DetailedText>
             Mission Critical Protocols offers an unparalleled content management system (CMS) for creating, reviewing,
