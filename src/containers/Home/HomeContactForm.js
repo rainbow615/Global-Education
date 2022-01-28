@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Input, Select } from 'antd'
 
+import { ContactsTopic } from '../../config/constants'
 import { Section, ContackSection, ContactSectionArea, Title, Description, Buttons } from './styles'
 
 const { Option } = Select
@@ -21,8 +22,15 @@ const organizationRules = [{ required: true, message: 'Please input Organization
 const roleRules = [{ required: true, message: 'Please input Role' }]
 const messageRules = [{ required: true, message: 'Please input Message' }]
 
-const HomeContactForm = () => {
+const HomeContactForm = (props) => {
+  let formRef = React.createRef()
   const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    formRef.current.setFieldsValue({
+      topic: props.topic,
+    })
+  }, [formRef, props.topic])
 
   const onFinish = (values) => {
     setIsLoading(true)
@@ -46,6 +54,7 @@ const HomeContactForm = () => {
           </ContactSectionArea>
           <ContactSectionArea>
             <Form
+              ref={formRef}
               autoComplete="off"
               initialValues={{}}
               layout="vertical"
@@ -63,10 +72,12 @@ const HomeContactForm = () => {
               </Form.Item>
 
               <Form.Item name="topic" rules={topicRules}>
-                <Select placeholder="Topic" size="large">
-                  <Option value="topic">Bulk orders</Option>
-                  <Option value="male">Request Registration</Option>
-                  <Option value="other">Request licenses</Option>
+                <Select placeholder="Topic" size="large" allowClear>
+                  {ContactsTopic.map((topic) => (
+                    <Option key={topic.id} value={topic.id}>
+                      {topic.name}
+                    </Option>
+                  ))}
                 </Select>
               </Form.Item>
 

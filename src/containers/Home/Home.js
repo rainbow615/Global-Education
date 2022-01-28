@@ -1,4 +1,4 @@
-import { Button, Form, Input } from 'antd'
+import { useState } from 'react'
 
 import HomeHeader from './HomeHeader'
 import HomeMainContent from './HomeMainContent'
@@ -8,12 +8,14 @@ import HomeFooter from './HomeFooter'
 import { Root, CustomContent } from './styles'
 
 const Home = () => {
+  const [topic, setTopic] = useState()
+
   return (
     <Root>
       <HomeHeader />
       <CustomContent>
-        <HomeMainContent />
-        <HomeContactForm />
+        <HomeMainContent onChangeTopic={(type) => setTopic(type)} />
+        <HomeContactForm topic={topic} />
       </CustomContent>
       <HomeFooter />
     </Root>

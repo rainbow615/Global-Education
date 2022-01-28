@@ -119,6 +119,7 @@ export const Buttons = styled.div`
 export const LinkButton = styled.div`
   font-size: 1.3rem;
   border-bottom: 2px solid ${(props) => props.theme.palette.primary};
+  color: ${(props) => props.theme.palette.primary};
   margin-right: 20px;
   line-height: 2;
   font-weight: bold;

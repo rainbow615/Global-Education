@@ -1,8 +1,9 @@
 import React from 'react'
 import { Button, Col, Row } from 'antd'
-import { Link } from 'react-scroll'
+import { Link, scroller } from 'react-scroll'
 import { Link as RouterLink } from 'react-router-dom'
 
+import { ContactsTopic } from '../../config/constants'
 import GoogleStorePng from '../../assets/img/google-store.png'
 import AppStorePng from '../../assets/img/app-store.png'
 import {
@@ -18,7 +19,17 @@ import {
   LinkButton,
 } from './styles'
 
-const HomeMainContent = () => {
+const HomeMainContent = (props) => {
+  const onGotoContact = (index) => () => {
+    scroller.scrollTo('contacts', {
+      duration: 500,
+      delay: 0,
+      spy: true,
+      smooth: true,
+    })
+    props.onChangeTopic && props.onChangeTopic(ContactsTopic[index].id)
+  }
+
   return (
     <React.Fragment>
       <TopBanner>
@@ -61,14 +72,14 @@ const HomeMainContent = () => {
           </DetailedText>
           <br />
           <Row gutter={24}>
-            <Col span={12}>
+            <Col span={12} align="center">
               <a href="https://www.apple.com/store">
-                <img src={AppStorePng} alt="App Store" />
+                <img src={AppStorePng} alt="App Store" width={200} />
               </a>
             </Col>
-            <Col span={12}>
+            <Col span={12} align="center">
               <a href="https://play.google.com/store/apps;">
-                <img src={GoogleStorePng} alt="Play Store" />
+                <img src={GoogleStorePng} alt="Play Store" width={200} />
               </a>
             </Col>
           </Row>
@@ -102,11 +113,7 @@ const HomeMainContent = () => {
                 Use our app to order a copy
               </Link>
             </LinkButton>
-            <LinkButton>
-              <Link to="contacts" spy={true} smooth={true} duration={500}>
-                Bulk orders
-              </Link>
-            </LinkButton>
+            <LinkButton onClick={onGotoContact(0)}>Bulk orders</LinkButton>
           </Buttons>
         </LeftSection>
         <RightSection>
@@ -133,10 +140,8 @@ const HomeMainContent = () => {
             <Button size="large" type="primary" ghost>
               <RouterLink to={'/login'}>Login</RouterLink>
             </Button>
-            <Button size="large" type="primary">
-              <Link to="contacts" spy={true} smooth={true} duration={500}>
-                Request Registration
-              </Link>
+            <Button size="large" type="primary" onClick={onGotoContact(1)}>
+              Request Registration
             </Button>
           </Buttons>
         </LeftSection>
@@ -161,10 +166,8 @@ const HomeMainContent = () => {
             for web designers.
           </DetailedText>
           <Buttons>
-            <Button size="large" type="primary">
-              <Link to="contacts" spy={true} smooth={true} duration={500}>
-                Request a License
-              </Link>
+            <Button size="large" type="primary" onClick={onGotoContact(2)}>
+              Request a License
             </Button>
           </Buttons>
         </LeftSection>
