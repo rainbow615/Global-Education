@@ -3,8 +3,8 @@ const ColorTheme = {
     transparent: 'transparent',
     white: '#FFF',
     black: '#000',
-    primary: '',
-    secondary: '',
+    textColor: '#1f2532',
+    primary: '#1890ff',
   },
 }
 

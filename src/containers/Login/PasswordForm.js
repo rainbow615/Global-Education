@@ -1,5 +1,5 @@
-import { Form, Input, Button, notification } from 'antd'
 import { useState } from 'react'
+import { Form, Input, Button, notification } from 'antd'
 import { useSearchParams } from 'react-router-dom'
 
 import { login, send2FACode } from '../../services/authService'
