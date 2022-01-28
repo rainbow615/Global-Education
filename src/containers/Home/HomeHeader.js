@@ -12,22 +12,22 @@ const HomeHeader = () => {
       <CustomMenu mode="horizontal" selectable={false}>
         <Menu.Item key="app">
           <Link to="app" spy={true} smooth={true} duration={500}>
-            App
+            Mobile Apps
           </Link>
         </Menu.Item>
         <Menu.Item key="book">
           <Link to="book" spy={true} smooth={true} duration={500}>
-            Book
+            Books
           </Link>
         </Menu.Item>
         <Menu.Item key="protocol">
           <Link to="protocol" spy={true} smooth={true} duration={500}>
-            Protocol Management
+            CMS
           </Link>
         </Menu.Item>
         <Menu.Item key="licensing">
           <Link to="licensing" spy={true} smooth={true} duration={500}>
-            Licensing
+            Licenses
           </Link>
         </Menu.Item>
         <Menu.Item key="login" className="login">
