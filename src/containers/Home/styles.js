@@ -82,7 +82,7 @@ export const RightSection = styled.div`
 
 export const Title = styled.div`
   font-size: 3rem;
-  font-weight: bold;
+  font-family: 'InterBold';
 `
 
 export const SubTitle = styled.div`

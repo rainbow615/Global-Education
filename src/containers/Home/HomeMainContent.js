@@ -36,19 +36,18 @@ const HomeMainContent = (props) => {
         <LeftSection>
           <Title>Empowering first responders with accessible, mission-critical information.</Title>
           <DetailedText>
-            EMTs, paramedics, firefighters, and police officers deliver essential services to society.
-            Mission Critical Protocols gives these providers the operational information they need to care
-            for our communities.
+            EMTs, paramedics, firefighters, and police officers deliver essential services to
+            society. Mission Critical Protocols gives these providers the operational information
+            they need to care for our communities.
           </DetailedText>
           <Button type="primary" size="large">
-            Learn more
+            <Link to="app" spy={true} smooth={true} duration={500}>
+              Learn more
+            </Link>
           </Button>
         </LeftSection>
         <RightSection>
-          <img
-            alt="MCP"
-            src="/img/home/landing-1.png"
-          />
+          <img alt="MCP" src="/img/home/landing-1.png" />
         </RightSection>
       </TopBanner>
       <Section name="app">
@@ -56,14 +55,15 @@ const HomeMainContent = (props) => {
           <Title>Our Mobile Applications</Title>
           <SubTitle>For front-line providers</SubTitle>
           <Description>
-            First responder policies in highly-accessible mobile applications. Integrated tools and education. 
-            Clear updates when policies change. 
+            First responder policies in highly-accessible mobile applications. Integrated tools and
+            education. Clear updates when policies change.
           </Description>
           <DetailedText>
-            Mission Critical Protocols delivers first-in-class quality applications that display first responders
-            operation policies in a high-quality, mobile-friendly styling. We integrate calculators, references, 
-            and education directly into those policies in a non-disruptive, helpful way. We also keep first responders
-            updated on any policy changes down to a letter.
+            Mission Critical Protocols delivers first-in-class quality applications that display
+            first responders operation policies in a high-quality, mobile-friendly styling. We
+            integrate calculators, references, and education directly into those policies in a
+            non-disruptive, helpful way. We also keep first responders updated on any policy changes
+            down to a letter.
           </DetailedText>
           <br />
           <Row gutter={24}>
@@ -80,10 +80,7 @@ const HomeMainContent = (props) => {
           </Row>
         </LeftSection>
         <RightSection>
-          <img
-            alt="MCP"
-            src="/img/home/landing-2.png"
-          />
+          <img alt="MCP" src="/img/home/landing-2.png" />
         </RightSection>
       </Section>
       <Section name="book">
@@ -91,13 +88,14 @@ const HomeMainContent = (props) => {
           <Title>Our Printed Books</Title>
           <SubTitle>For front-line providers</SubTitle>
           <Description>
-            First responder policies in expertly-crafted, printed books. Updates from our mobile application
-            keep them up to date.
+            First responder policies in expertly-crafted, printed books. Updates from our mobile
+            application keep them up to date.
           </Description>
           <DetailedText>
-          Mission Critical Protocols offers printed reference books that mirror the policy sets of our
-          mobile application—integrated tools and eduation included. After a book is printed, the respective 
-          mobile application will keep providers updated on any changes to the book.
+            Mission Critical Protocols offers printed reference books that mirror the policy sets of
+            our mobile application—integrated tools and eduation included. After a book is printed,
+            the respective mobile application will keep providers updated on any changes to the
+            book.
           </DetailedText>
           <Buttons>
             <LinkButton>
@@ -117,15 +115,16 @@ const HomeMainContent = (props) => {
           <Title>Our CMS</Title>
           <SubTitle>For department and company administrators</SubTitle>
           <Description>
-            Looking for an easy system to create and publish your own protocols? Our
-            protocol builder and content management system (CMS) was designed specifically to build, 
-            review, and ship protocols with ease.
+            Looking for an easy system to create and publish your own protocols? Our protocol
+            builder and content management system (CMS) was designed specifically to build, review,
+            and ship protocols with ease.
           </Description>
           <DetailedText>
-            Mission Critical Protocols offers an unparalleled content management system (CMS) for creating, reviewing,
-            and distributing operational policies directly to first responder workforces. Administrators can focus
-            on information accuracy and updates, while the CMS does the heavy lifting on version control, styling,
-            mobile application updates, book creation, and workforce notifications.
+            Mission Critical Protocols offers an unparalleled content management system (CMS) for
+            creating, reviewing, and distributing operational policies directly to first responder
+            workforces. Administrators can focus on information accuracy and updates, while the CMS
+            does the heavy lifting on version control, styling, mobile application updates, book
+            creation, and workforce notifications.
           </DetailedText>
           <Buttons>
             <Button size="large" type="primary" ghost>
@@ -145,13 +144,15 @@ const HomeMainContent = (props) => {
           <Title>Our Licenses</Title>
           <SubTitle>For departments, companies, and governments</SubTitle>
           <Description>
-            Give an entire team, department, company, or region access to a Mission Critical Protocols application.
+            Give an entire team, department, company, or region access to a Mission Critical
+            Protocols application.
           </Description>
           <DetailedText>
-            Mission Critical Protocols offers highly-customizable licenses that allow organizations to immediately improve
-            their workforce's access to their operational information. Licenses can be utilized for small teams, an 
-            entire region, and everything in between. Once a license is established and in-use, license administrators get key 
-            insights to workforce utilization and other powerful functionalities.
+            Mission Critical Protocols offers highly-customizable licenses that allow organizations
+            to immediately improve their workforce's access to their operational information.
+            Licenses can be utilized for small teams, an entire region, and everything in between.
+            Once a license is established and in-use, license administrators get key insights to
+            workforce utilization and other powerful functionalities.
           </DetailedText>
           <Buttons>
             <Button size="large" type="primary" onClick={onGotoContact(2)}>
@@ -160,10 +161,7 @@ const HomeMainContent = (props) => {
           </Buttons>
         </LeftSection>
         <RightSection>
-          <img
-            alt="MCP"
-            src="/img/home/landing-5.png"
-          />
+          <img alt="MCP" src="/img/home/landing-5.png" />
         </RightSection>
       </Section>
     </React.Fragment>
