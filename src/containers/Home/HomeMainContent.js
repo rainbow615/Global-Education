@@ -47,7 +47,7 @@ const HomeMainContent = (props) => {
         <RightSection>
           <img
             alt="MCP"
-            src="/landing-1.png"
+            src="/img/home/landing-1.png"
           />
         </RightSection>
       </TopBanner>
@@ -82,7 +82,7 @@ const HomeMainContent = (props) => {
         <RightSection>
           <img
             alt="MCP"
-            src="/landing-2.png"
+            src="/img/home/landing-2.png"
           />
         </RightSection>
       </Section>
@@ -109,7 +109,7 @@ const HomeMainContent = (props) => {
           </Buttons>
         </LeftSection>
         <RightSection>
-          <img alt="MCP" src="landing-3.png" />
+          <img alt="MCP" src="/img/home/landing-3.png" />
         </RightSection>
       </Section>
       <Section name="protocol">
@@ -137,7 +137,7 @@ const HomeMainContent = (props) => {
           </Buttons>
         </LeftSection>
         <RightSection>
-          <img alt="MCP" src="/landing-4.png" />
+          <img alt="MCP" src="/img/home/landing-4.png" />
         </RightSection>
       </Section>
       <Section name="licensing">
@@ -162,7 +162,7 @@ const HomeMainContent = (props) => {
         <RightSection>
           <img
             alt="MCP"
-            src="/landing-5.png"
+            src="/img/home/landing-5.png"
           />
         </RightSection>
       </Section>

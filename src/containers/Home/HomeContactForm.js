@@ -46,7 +46,7 @@ const HomeContactForm = (props) => {
         <Title style={{ paddingLeft: 20 }}>Contact Us</Title>
         <ContackSection>
           <ContactSectionArea>
-            <img alt="MCP" src="/contact-form.png" />
+            <img alt="MCP" src="/img/home/contact-form.png" />
             <Description>
               Looking for partnership, licenses, bulk orders, support? Use our form to submit an
               inquiry.
