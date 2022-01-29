@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import { Layout, Menu } from 'antd'
+import { Button, Layout, Menu } from 'antd'
 import { Element } from 'react-scroll'
+import { MenuOutlined } from '@ant-design/icons'
 
 const { Header, Content, Footer } = Layout
 
@@ -15,6 +16,10 @@ export const CustomHeader = styled(Header)`
 
   img {
     height: 100%;
+  }
+
+  .ant-menu {
+    width: 100px;
   }
 `
 
@@ -32,6 +37,16 @@ export const CustomMenu = styled(Menu)`
     border-bottom-color: ${(props) => props.theme.palette.textColor};
     border-bottom-width: 3px !important;
   }
+`
+
+export const HamburgerButton = styled(Button)`
+  position: fixed;
+  top: 20px;
+  right: 50px;
+`
+
+export const HamburgerIcon = styled(MenuOutlined)`
+  font-size: 30px;
 `
 
 export const CustomContent = styled(Content)`

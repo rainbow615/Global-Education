@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, Col, Row } from 'antd'
 import { Link, scroller } from 'react-scroll'
-import { Link as RouterLink } from 'react-router-dom'
 
 import { ContactsTopic } from '../../config/constants'
 import GoogleStorePng from '../../assets/img/google-store.png'

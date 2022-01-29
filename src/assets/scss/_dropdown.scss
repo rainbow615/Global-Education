@@ -1,0 +1,35 @@
+/* Customized Dropdown */
+
+.ant-dropdown {
+  &.home-dropdown-menu {
+		position: fixed;
+		top: 70px !important;
+    width: 200px;
+
+    .ant-dropdown-menu {
+      padding: 20px;
+
+      .ant-dropdown-menu-item {
+        margin: 20px 0;
+        background: none;
+
+        .ant-dropdown-menu-title-content {
+          text-align: center;
+          font-size: 1.2rem;
+          font-weight: 500;
+        }
+
+        &:hover {
+          .ant-dropdown-menu-title-content {
+            color: #1890ff;
+
+            a {
+              border-bottom: 2px solid #1890ff;
+              padding: 8px 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
