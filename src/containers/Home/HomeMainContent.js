@@ -36,9 +36,8 @@ const HomeMainContent = (props) => {
         <LeftSection>
           <Title>Empowering first responders with accessible, mission-critical information.</Title>
           <DetailedText>
-            EMTs, paramedics, firefighters, and police officers deliver essential services to
-            society. Mission Critical Protocols gives these providers the operational information
-            they need to care for our communities.
+            EMTs, paramedics, firefighters, and police officers deliver essential community services. 
+            Mission Critical Protocols puts high-quality information at their finger tips.
           </DetailedText>
           <Button type="primary" size="large">
             <Link to="app" spy={true} smooth={true} duration={500}>
