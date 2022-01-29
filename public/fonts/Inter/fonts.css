@@ -1,0 +1,64 @@
+@font-face {
+  font-display: swap;
+  font-family: 'InterBlack';
+  font-style: normal;
+  src: local('Inter Black'), local('InterBlack'), url('Inter-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'InterBold';
+  font-style: normal;
+  src: local('Inter Bold'), local('InterBold'), url('Inter-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'InterExtraBold';
+  font-style: normal;
+  src: local('Inter ExtraBold'), local('InterExtraBold'),
+    url('Inter-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'InterExtraLight';
+  font-style: normal;
+  src: local('Inter ExtraLight'), local('InterExtraLight'),
+    url('Inter-ExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'InterLight';
+  font-style: normal;
+  src: local('Inter Light'), local('InterLight'), url('Inter-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'InterMedium';
+  font-style: normal;
+  src: local('Inter Medium'), local('InterMedium'), url('Inter-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'InterRegular';
+  font-style: normal;
+  src: local('Inter Regular'), local('InterRegular'), url('Inter-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'InterSemiBold';
+  font-style: normal;
+  src: local('Inter SemiBold'), local('InterSemiBold'), url('Inter-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'InterThin';
+  font-style: normal;
+  src: local('Inter Thin'), local('InterThin'), url('Inter-Thin.ttf') format('truetype');
+}
