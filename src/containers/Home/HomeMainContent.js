@@ -109,7 +109,7 @@ const HomeMainContent = (props) => {
           <img alt="MCP" src="/img/home/landing-3.png" />
         </RightSection>
       </Section>
-      <Section name="protocol">
+      {/* <Section name="cms">
         <LeftSection>
           <Title>Our CMS</Title>
           <SubTitle>For department and company administrators</SubTitle>
@@ -162,7 +162,7 @@ const HomeMainContent = (props) => {
         <RightSection>
           <img alt="MCP" src="/img/home/landing-5.png" />
         </RightSection>
-      </Section>
+      </Section> */}
     </React.Fragment>
   )
 }

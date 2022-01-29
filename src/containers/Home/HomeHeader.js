@@ -20,8 +20,8 @@ const HomeHeader = () => {
             Books
           </Link>
         </Menu.Item>
-        <Menu.Item key="protocol">
-          <Link to="protocol" spy={true} smooth={true} duration={500}>
+        {/* <Menu.Item key="cms">
+          <Link to="cms" spy={true} smooth={true} duration={500}>
             CMS
           </Link>
         </Menu.Item>
@@ -29,7 +29,7 @@ const HomeHeader = () => {
           <Link to="licensing" spy={true} smooth={true} duration={500}>
             Licenses
           </Link>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="login" className="login">
           <RouterLink to={'/login'}>Login</RouterLink>
         </Menu.Item>
