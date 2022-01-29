@@ -83,6 +83,7 @@ export const RightSection = styled.div`
 export const Title = styled.div`
   font-size: 3rem;
   font-family: 'InterBold';
+  line-height: 1.4;
 `
 
 export const SubTitle = styled.div`
