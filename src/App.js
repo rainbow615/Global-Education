@@ -7,6 +7,7 @@ import { PortalLayout } from './containers/PortalLayout'
 // Page containers
 const ForgotPassword = loadable(() => import('./containers/ForgotPassword'))
 const Home = loadable(() => import('./containers/Home'))
+const Privacy = loadable(() => import('./containers/Privacy'))
 const Login = loadable(() => import('./containers/Login'))
 const ResetPassword = loadable(() => import('./containers/ResetPassword'))
 const Jurisdictions = loadable(() => import('./containers/Jurisdictions'))
@@ -20,6 +21,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Navigate to="/jurisdictions" />} />
       <Route path="home" element={<Home />} />
+      <Route path="privacy" element={<Privacy />} />
       <Route element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
