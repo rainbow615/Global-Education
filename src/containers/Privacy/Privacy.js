@@ -1,28 +1,25 @@
-import { Menu } from 'antd'
 import { Link as RouterLink } from 'react-router-dom'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 
-import Logo from '../../assets/img/logo-dark.svg'
-import { Root, CustomHeader, CustomContent, CustomMenu } from '../Home/styles'
+import TopHeader from '../../components/TopHeader'
+import { Root, CustomContent } from '../Home/styles'
 import { BackButton, Title, Description } from './styles'
+
+const menus = [
+  {
+    key: 'app',
+    item: <RouterLink to="/home?section=app">Mobile Apps</RouterLink>,
+  },
+  {
+    key: 'book',
+    item: <RouterLink to="/home?section=book">Books</RouterLink>,
+  },
+]
 
 const Privacy = () => {
   return (
     <Root>
-      <CustomHeader>
-        <img alt="Mission Critical Protocols" src={Logo} />
-        <CustomMenu mode="horizontal" selectable={false}>
-          <Menu.Item key="app">
-            <RouterLink to="/home?section=app">Mobile Apps</RouterLink>
-          </Menu.Item>
-          <Menu.Item key="book">
-            <RouterLink to="/home?section=book">Books</RouterLink>
-          </Menu.Item>
-          <Menu.Item key="login" className="login">
-            <RouterLink to={'/login'}>Login</RouterLink>
-          </Menu.Item>
-        </CustomMenu>
-      </CustomHeader>
+      <TopHeader menus={menus} />
       <CustomContent>
         <BackButton type="link" icon={<ArrowLeftOutlined />} size="large">
           <RouterLink to={'/home'}>Back Home</RouterLink>
