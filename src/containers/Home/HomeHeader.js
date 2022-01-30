@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import { Menu, Dropdown } from 'antd'
-import { Link } from 'react-scroll'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link, scroller } from 'react-scroll'
+import { Link as RouterLink, useSearchParams } from 'react-router-dom'
 
 import Logo from '../../assets/img/logo-dark.svg'
 import { CustomHeader, CustomMenu, HamburgerButton, HamburgerIcon } from './styles'
+import { getQueryParams } from '../../utils'
 
 const HomeHeader = () => {
+  const urlParam = getQueryParams()
+  const [, setSearchParams] = useSearchParams()
   const [isShowHamburger, setIsShowHamburger] = useState(false)
 
   const onScrollEvent = () => {
     if (window.pageYOffset > 70) setIsShowHamburger(true)
     else setIsShowHamburger(false)
   }
+
+  const onScrollTo = (to) => {
+    scroller.scrollTo(to, {
+      duration: 500,
+      delay: 0,
+      spy: true,
+      smooth: true,
+    })
+  }
+
+  useEffect(() => {
+    if (urlParam?.section === 'app' || urlParam?.section === 'book') {
+      onScrollTo(urlParam?.section)
+      setSearchParams({})
+    }
+  }, [urlParam, setSearchParams])
 
   useEffect(() => {
     window.addEventListener('scroll', onScrollEvent)

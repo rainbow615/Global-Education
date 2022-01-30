@@ -12,6 +12,12 @@ const Privacy = () => {
       <CustomHeader>
         <img alt="Mission Critical Protocols" src={Logo} />
         <CustomMenu mode="horizontal" selectable={false}>
+          <Menu.Item key="app">
+            <RouterLink to="/home?section=app">Mobile Apps</RouterLink>
+          </Menu.Item>
+          <Menu.Item key="book">
+            <RouterLink to="/home?section=book">Books</RouterLink>
+          </Menu.Item>
           <Menu.Item key="login" className="login">
             <RouterLink to={'/login'}>Login</RouterLink>
           </Menu.Item>
