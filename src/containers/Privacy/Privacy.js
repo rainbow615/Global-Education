@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
+import { scroller } from 'react-scroll'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 
 import TopHeader from '../../components/TopHeader'
@@ -17,6 +19,10 @@ const menus = [
 ]
 
 const Privacy = () => {
+  useEffect(() => {
+    scroller.scrollTo(0)
+  }, [])
+
   return (
     <Root>
       <TopHeader menus={menus} />
