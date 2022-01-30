@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form, Input, Select } from 'antd'
+import { Button, Form, Input, Select, notification } from 'antd'
 
 import { ContactsTopic } from '../../config/constants'
 import { Section, ContackSection, ContactSectionArea, Title, Description, Buttons } from './styles'
+import { requestRegistration } from '../../services/authService'
 
 const { Option } = Select
 
@@ -34,6 +35,24 @@ const HomeContactForm = (props) => {
 
   const onFinish = (values) => {
     setIsLoading(true)
+
+    requestRegistration(values)
+      .then((res) => {
+        setIsLoading(false)
+
+        notification.success({
+          message: 'Contact Success',
+          description: "Thank you for getting in touch! We'll be in contact soon!",
+        })
+      })
+      .catch((error) => {
+        setIsLoading(false)
+
+        notification.error({
+          message: 'Contact Failure',
+          description: 'Sorry, the request failed. Please try again later.',
+        })
+      })
   }
 
   const onFinishFailed = (errorInfo) => {
