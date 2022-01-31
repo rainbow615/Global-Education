@@ -13,9 +13,8 @@ export const CustomHeader = styled(Header)`
   align-items: center;
   padding: 0 1rem;
 
-  h2 {
-    color: white;
-    margin: 0 0 0 1rem;
+  img {
+    height: 100%;
   }
 
   .ant-dropdown-trigger {

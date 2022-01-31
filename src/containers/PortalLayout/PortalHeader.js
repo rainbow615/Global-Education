@@ -4,6 +4,7 @@ import { Menu, Typography, Dropdown, Button } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
 import { getUser, removeUser, removeConfirmLogin } from '../../utils/cookie'
+import Logo from '../../assets/img/logo-light.svg'
 import { CustomHeader } from './styles'
 
 const { Title } = Typography
@@ -33,7 +34,7 @@ const PortalHeader = () => {
 
   return (
     <CustomHeader>
-      <Title level={2}>MCP</Title>
+      <img alt="Mission Critical Protocols" src={Logo} />
       <Dropdown overlay={userDropdown} placement="bottomRight">
         <Button type="text">
           {profile?.full_name} <DownOutlined />
