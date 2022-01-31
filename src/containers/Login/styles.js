@@ -31,16 +31,24 @@ export const RightSection = styled.div`
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   @media (max-width: 576px) {
     width: 100%;
   }
 `
 
-export const AppStoreContainer = styled(Space)`
-  margin-top: auto;
+export const LoginFormContainer = styled.div`
+  flex: 1;
+`
 
+export const AppStoreContainer = styled(Space)`
   img {
     width: 100%;
   }
+`
+
+export const ConfirmLabel = styled.div`
+  font-size: 1.3rem;
+  padding-bottom: 25px;
 `

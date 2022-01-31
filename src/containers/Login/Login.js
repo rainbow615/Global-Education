@@ -1,5 +1,5 @@
-import { Typography, Space, Row, Col } from 'antd'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Typography, Row, Col } from 'antd'
+import { useSearchParams } from 'react-router-dom'
 
 import PasswordForm from './PasswordForm'
 import ConfirmCodeForm from './ConfirmCodeForm'
@@ -24,13 +24,7 @@ const Login = () => {
         <Title>Login</Title>
 
         {step === 'password' && <PasswordForm />}
-        {step === 'confirm-code' && <ConfirmCodeForm />}
-
-        <Space direction="vertical">
-          <Link to="/home#request-access">Request Access</Link>
-          <Link to="/forgot-password">Forgot Password?</Link>
-          <Link to="/home">Back to Home</Link>
-        </Space>
+        {step === 'confirm-code' && <ConfirmCodeForm />}        
 
         <AppStoreContainer direction="vertical">
           <Text type="secondary">

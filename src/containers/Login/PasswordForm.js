@@ -1,9 +1,10 @@
-import { useState } from 'react'
-import { Form, Input, Button, notification } from 'antd'
-import { useSearchParams } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Form, Input, Button, notification, Space } from 'antd'
+import { Link, useSearchParams } from 'react-router-dom'
 
 import { login, send2FACode } from '../../services/authService'
 import { setUser, removeUser } from '../../utils/cookie'
+import { LoginFormContainer } from './styles'
 
 const emailRules = [
   {
@@ -69,29 +70,36 @@ const PasswordForm = () => {
   }
 
   return (
-    <Form
-      autoComplete="off"
-      initialValues={{}}
-      layout="vertical"
-      name="login"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      requiredMark={false}
-    >
-      <Form.Item label="Email" name="email" rules={emailRules}>
-        <Input />
-      </Form.Item>
+    <LoginFormContainer>
+      <Form
+        autoComplete="off"
+        initialValues={{}}
+        layout="vertical"
+        name="login"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        requiredMark={false}
+      >
+        <Form.Item label="Email" name="email" rules={emailRules}>
+          <Input />
+        </Form.Item>
 
-      <Form.Item label="Password" name="password" rules={passwordRules}>
-        <Input.Password />
-      </Form.Item>
+        <Form.Item label="Password" name="password" rules={passwordRules}>
+          <Input.Password />
+        </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit" loading={isLoading}>
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={isLoading}>
+            {isLoading ? 'Loading...' : 'Submit'}
+          </Button>
+        </Form.Item>
+      </Form>
+      <Space direction="vertical">
+        <Link to="/home#request-access">Request Access</Link>
+        <Link to="/forgot-password">Forgot Password?</Link>
+        <Link to="/home">Back to Home</Link>
+      </Space>
+    </LoginFormContainer>
   )
 }
 

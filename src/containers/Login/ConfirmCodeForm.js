@@ -1,11 +1,11 @@
-import { Form, Input, Button, Typography, notification } from 'antd'
-import { useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Form, Button, notification, Space } from 'antd'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import ReactCodeInput from 'react-verification-code-input'
 
 import { getUser, removeUser, setConfirmLogin } from '../../utils/cookie'
 import { check2FACode } from '../../services/authService'
-
-const { Text } = Typography
+import { ConfirmLabel } from './styles'
 
 const codeRules = [
   {
@@ -64,27 +64,35 @@ const ConfirmCodeForm = () => {
   }
 
   return (
-    <Form
-      autoComplete="off"
-      initialValues={{}}
-      layout="vertical"
-      name="confirm"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      requiredMark={false}
-    >
-      <Text>Please enter the code sent to +1 (XXX) XXX-{phoneNumber.substr(-4)}</Text>
+    <div>
+      <Form
+        autoComplete="off"
+        initialValues={{}}
+        layout="vertical"
+        name="confirm"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        requiredMark={false}
+      >
+        <ConfirmLabel>
+          Confirm code we sent to your to +1 (XXX) XXX-{phoneNumber.substr(-4)}
+        </ConfirmLabel>
 
-      <Form.Item name="code" rules={codeRules}>
-        <Input />
-      </Form.Item>
+        <Form.Item name="code" rules={codeRules}>
+          <ReactCodeInput fieldWidth={50} fieldHeight={50} />
+        </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit" loading={isLoading}>
-          {isLoading ? 'Checking' : 'Enter dashboard'}
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={isLoading}>
+            {isLoading ? 'Checking' : 'Enter dashboard'}
+          </Button>
+        </Form.Item>
+      </Form>
+      <Space direction="vertical">
+        <Link to="/home#request-access">Resend code</Link>
+        <Link to="/home">Back to Home</Link>
+      </Space>
+    </div>
   )
 }
 
