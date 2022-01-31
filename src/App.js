@@ -3,6 +3,7 @@ import loadable from '@loadable/component'
 
 import { AuthLayout } from './containers/AuthLayout'
 import { PortalLayout } from './containers/PortalLayout'
+import { getConfirmLogin } from './utils/cookie'
 
 // Page containers
 const ForgotPassword = loadable(() => import('./containers/ForgotPassword'))
@@ -17,9 +18,11 @@ const Licenses = loadable(() => import('./containers/Licenses'))
 const Users = loadable(() => import('./containers/Users'))
 
 function App() {
+  const isAuthenticated = !!getConfirmLogin()
+
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/jurisdictions" />} />
+      <Route path="/" element={<Navigate to={isAuthenticated ? '/jurisdictions' : '/home'} />} />
       <Route path="home" element={<Home />} />
       <Route path="privacy" element={<Privacy />} />
       <Route element={<AuthLayout />}>
