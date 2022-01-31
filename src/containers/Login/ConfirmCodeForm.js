@@ -18,7 +18,7 @@ const ConfirmCodeForm = () => {
   const [, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const user = getUser()
-  const phoneNumber = user?.phone
+  const phoneNumber = user?.phone || ''
 
   const [isLoading, setIsLoading] = useState(false)
 
