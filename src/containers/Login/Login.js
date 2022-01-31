@@ -18,7 +18,7 @@ const Login = () => {
   return (
     <Root>
       <ImageSection>
-        <AsyncImage src="https://picsum.photos/900/1000/?blur=2" alt="Mission Critical" />
+        <AsyncImage src="/img/home/landing-1.png" alt="Mission Critical" />
       </ImageSection>
       <RightSection>
         <Title>Login</Title>
