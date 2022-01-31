@@ -2,9 +2,8 @@ import React from 'react'
 import { Button, Col, Row } from 'antd'
 import { Link, scroller } from 'react-scroll'
 
+import AsyncImage from '../../components/AsyncImage'
 import { ContactsTopic } from '../../config/constants'
-import GoogleStorePng from '../../assets/img/google-store.png'
-import AppStorePng from '../../assets/img/app-store.png'
 import {
   TopBanner,
   Section,
@@ -17,6 +16,8 @@ import {
   Buttons,
   LinkButton,
 } from './styles'
+import GoogleStorePng from '../../assets/img/google-store.png'
+import AppStorePng from '../../assets/img/app-store.png'
 
 const HomeMainContent = (props) => {
   const onGotoContact = (index) => () => {
@@ -45,7 +46,7 @@ const HomeMainContent = (props) => {
           </Button>
         </LeftSection>
         <RightSection>
-          <img alt="MCP" src="/img/home/landing-1.png" />
+          <AsyncImage alt="MCP" src="/img/home/landing-1.png" />
         </RightSection>
       </TopBanner>
       <Section name="app">
@@ -78,7 +79,7 @@ const HomeMainContent = (props) => {
           </Row>
         </LeftSection>
         <RightSection>
-          <img alt="MCP" src="/img/home/landing-2.png" />
+          <AsyncImage alt="Our Mobile Applications" src="/img/home/landing-2.png" />
         </RightSection>
       </Section>
       <Section name="book">
@@ -105,7 +106,7 @@ const HomeMainContent = (props) => {
           </Buttons>
         </LeftSection>
         <RightSection>
-          <img alt="MCP" src="/img/home/landing-3.png" />
+          <AsyncImage alt="Our Printed Books" src="/img/home/landing-3.png" />
         </RightSection>
       </Section>
       {/* <Section name="cms">
