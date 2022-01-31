@@ -4,7 +4,12 @@ import { Element } from 'react-scroll'
 
 const { Content, Footer } = Layout
 
-export const Root = styled.div``
+export const Root = styled.div`
+  .store-icon {
+    width: 100%;
+    max-width: 200px;
+  }
+`
 
 export const CustomContent = styled(Content)`
   padding: 30px 10%;

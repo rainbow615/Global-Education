@@ -36,8 +36,8 @@ const HomeMainContent = (props) => {
         <LeftSection>
           <Title>Empowering first responders with accessible, mission-critical information.</Title>
           <DetailedText>
-            EMTs, paramedics, firefighters, and police officers deliver essential community services. 
-            Mission Critical Protocols puts high-quality information at their finger tips.
+            EMTs, paramedics, firefighters, and police officers deliver essential community
+            services. Mission Critical Protocols puts high-quality information at their finger tips.
           </DetailedText>
           <Button type="primary" size="large">
             <Link to="app" spy={true} smooth={true} duration={500}>
@@ -68,12 +68,12 @@ const HomeMainContent = (props) => {
           <Row gutter={24}>
             <Col span={12} align="center">
               <a href="https://www.apple.com/store">
-                <img src={AppStorePng} alt="App Store" width={200} />
+                <img src={AppStorePng} alt="App Store" className="store-icon" />
               </a>
             </Col>
             <Col span={12} align="center">
               <a href="https://play.google.com/store/apps;">
-                <img src={GoogleStorePng} alt="Play Store" width={200} />
+                <img src={GoogleStorePng} alt="Play Store" className="store-icon" />
               </a>
             </Col>
           </Row>
