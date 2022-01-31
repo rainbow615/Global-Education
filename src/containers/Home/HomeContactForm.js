@@ -26,6 +26,7 @@ const messageRules = [{ required: true, message: 'Please input Message' }]
 const HomeContactForm = (props) => {
   let formRef = React.createRef()
   const [isLoading, setIsLoading] = useState(false)
+  const [isSubmit, setIsSubmit] = useState(false)
 
   useEffect(() => {
     formRef.current.setFieldsValue({
@@ -39,11 +40,7 @@ const HomeContactForm = (props) => {
     requestRegistration(values)
       .then((res) => {
         setIsLoading(false)
-
-        notification.success({
-          message: 'Contact Success',
-          description: "Thank you for getting in touch! We'll be in contact soon!",
-        })
+        setIsSubmit(true)
       })
       .catch((error) => {
         setIsLoading(false)
@@ -57,6 +54,11 @@ const HomeContactForm = (props) => {
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
+  }
+
+  const onDone = () => {
+    setIsSubmit(false)
+    formRef.current.resetFields()
   }
 
   return (
@@ -81,6 +83,7 @@ const HomeContactForm = (props) => {
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               requiredMark={false}
+              style={{ display: isSubmit ? 'none' : 'block' }}
             >
               <Form.Item name="name" rules={nameRules}>
                 <Input placeholder="Name" size="large" />
@@ -126,6 +129,17 @@ const HomeContactForm = (props) => {
                 </Buttons>
               </Form.Item>
             </Form>
+            {isSubmit && (
+              <div>
+                <Title>Thank you for your message!</Title>
+                <Description>We'll be in contact soon!</Description>
+                <Buttons>
+                  <Button type="primary" onClick={onDone}>
+                    Done
+                  </Button>
+                </Buttons>
+              </div>
+            )}
           </ContactSectionArea>
         </ContackSection>
       </div>
