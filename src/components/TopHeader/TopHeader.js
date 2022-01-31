@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Menu, Dropdown } from 'antd'
 import { Link as RouterLink } from 'react-router-dom'
 
+import { MobileSize, TopHeaderHeight } from '../../config/constants'
 import Logo from '../../assets/img/logo-dark.svg'
 import { CustomHeader, CustomMenu, HamburgerButton, HamburgerIcon } from './styles'
 
@@ -9,17 +10,24 @@ const TopHeader = (props) => {
   const [isShowHamburger, setIsShowHamburger] = useState(false)
 
   const onScrollEvent = () => {
-    if (window.pageYOffset > 70) setIsShowHamburger(true)
-    else setIsShowHamburger(false)
+    setIsShowHamburger(window.innerWidth <= MobileSize || window.pageYOffset > TopHeaderHeight)
+  }
+
+  const onresize = () => {
+    setIsShowHamburger(window.innerWidth <= MobileSize)
   }
 
   useEffect(() => {
+    setIsShowHamburger(window.innerWidth <= MobileSize)
+
     window.addEventListener('scroll', onScrollEvent)
+    window.addEventListener('resize', onresize)
 
     return () => {
       window.removeEventListener('scroll', onScrollEvent)
+      window.removeEventListener('resize', onresize)
     }
-  })
+  }, [])
 
   const menu = (
     <CustomMenu mode={isShowHamburger ? 'vertical' : 'horizontal'} selectable={false}>
@@ -36,7 +44,7 @@ const TopHeader = (props) => {
     <React.Fragment>
       <CustomHeader>
         <img alt="Mission Critical Protocols" src={Logo} />
-        {menu}
+        {!isShowHamburger && menu}
       </CustomHeader>
       {isShowHamburger && (
         <Dropdown

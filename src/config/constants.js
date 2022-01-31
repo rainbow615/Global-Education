@@ -1,3 +1,6 @@
+export const TopHeaderHeight = 70
+export const MobileSize = 760
+
 export const ContactsTopic = [
   {
     id: 'bulk_order',

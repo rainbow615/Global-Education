@@ -38,7 +38,7 @@ export const CustomMenu = styled(Menu)`
 
 export const HamburgerButton = styled(Button)`
   position: fixed;
-  top: 20px;
+  top: 12px;
   right: 50px;
 `
 
