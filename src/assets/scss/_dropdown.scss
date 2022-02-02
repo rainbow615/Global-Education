@@ -2,8 +2,8 @@
 
 .ant-dropdown {
   &.home-dropdown-menu {
-		position: fixed;
-		top: 70px !important;
+    position: fixed;
+    top: 70px !important;
     width: 200px;
 
     .ant-dropdown-menu {
@@ -30,6 +30,16 @@
           }
         }
       }
+    }
+  }
+
+  &.top-dropdown-menu {
+    .top-menu-item {
+      display: block;
+      width: 100%;
+      padding: 4px 15px;
+      text-align: left;
+      height: 32px;
     }
   }
 }

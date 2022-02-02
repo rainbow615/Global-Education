@@ -1,13 +1,11 @@
 import { useCallback, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Menu, Typography, Dropdown, Button } from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
+import { Menu, Dropdown, Button } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
 import { getUser, removeUser, removeConfirmLogin } from '../../utils/cookie'
 import Logo from '../../assets/img/logo-light.svg'
 import { CustomHeader } from './styles'
-
-const { Title } = Typography
 
 const PortalHeader = () => {
   const navigate = useNavigate()
@@ -22,8 +20,13 @@ const PortalHeader = () => {
   const userDropdown = useMemo(
     () => (
       <Menu theme="dark">
+        <Menu.Item key="profile">
+          <Link to="/profile" className="top-menu-item">
+            Profile
+          </Link>
+        </Menu.Item>
         <Menu.Item key="logout">
-          <Button type="text" onClick={onLogout} danger>
+          <Button type="text" onClick={onLogout} danger className="top-menu-item">
             Log out
           </Button>
         </Menu.Item>
@@ -35,7 +38,12 @@ const PortalHeader = () => {
   return (
     <CustomHeader>
       <img alt="Mission Critical Protocols" src={Logo} />
-      <Dropdown overlay={userDropdown} placement="bottomRight">
+      <Dropdown
+        overlayClassName="top-dropdown-menu"
+        overlay={userDropdown}
+        placement="bottomRight"
+        trigger="click"
+      >
         <Button type="text">
           {profile?.full_name} <DownOutlined />
         </Button>
