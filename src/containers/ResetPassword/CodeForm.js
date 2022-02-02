@@ -1,5 +1,9 @@
-import { Form, Input, Button, notification, Typography } from 'antd'
+import { Form, Button, notification, Typography, Space } from 'antd'
 import { useSearchParams } from 'react-router-dom'
+import ReactCodeInput from 'react-verification-code-input'
+import { Link } from 'react-router-dom'
+
+import { LinkButton } from '../../components/CommonComponent'
 
 const codeRules = [
   {
@@ -9,7 +13,8 @@ const codeRules = [
 ]
 
 const CodeForm = () => {
-  const [, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const token = searchParams.get('token') || ''
 
   const onFinish = (values) => {
     // TODO: verify code and continue to reset
@@ -25,27 +30,43 @@ const CodeForm = () => {
     console.log('Failed:', errorInfo)
   }
 
-  return (
-    <Form
-      autoComplete="off"
-      initialValues={{}}
-      layout="vertical"
-      name="code-confirm"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      requiredMark={false}
-    >
-      <Typography.Title>Confirm code we sent to your +1 (XXX) XXX-XX-55 number</Typography.Title>
-      <Form.Item label="Code" name="code" rules={codeRules}>
-        <Input />
-      </Form.Item>
+  console.log('=====token=', token)
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+  return (
+    <Space direction="vertical" align="center">
+      <Typography.Title align="center" level={2}>
+        Confirm code we sent to your +1 (XXX) XXX-XX-55 number
+      </Typography.Title>
+      <Space direction="vertical">
+        <Form
+          autoComplete="off"
+          initialValues={{}}
+          layout="vertical"
+          name="code-confirm"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          requiredMark={false}
+        >
+          <Form.Item name="code" rules={codeRules}>
+            <ReactCodeInput fieldWidth={50} fieldHeight={50} />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" block size="large">
+              Next
+            </Button>
+          </Form.Item>
+        </Form>
+        <Space direction="vertical">
+          <LinkButton>
+            <Link to="/login">Re-send code</Link>
+          </LinkButton>
+          <LinkButton>
+            <Link to="/home">Back to home</Link>
+          </LinkButton>
+        </Space>
+      </Space>
+    </Space>
   )
 }
 

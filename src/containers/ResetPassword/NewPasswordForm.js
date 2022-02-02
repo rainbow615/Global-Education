@@ -1,5 +1,8 @@
-import { Form, Input, Button, notification, Typography } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { Form, Input, Button, notification, Typography, Space } from 'antd'
+import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { LinkButton } from '../../components/CommonComponent'
 
 const passwordRules = [
   {
@@ -43,36 +46,42 @@ const NewPasswordForm = () => {
   }
 
   return (
-    <Form
-      autoComplete="off"
-      initialValues={{}}
-      layout="vertical"
-      name="request-email"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      requiredMark={false}
-    >
-      <Typography.Title>Enter new password</Typography.Title>
-      <Form.Item name="password" label="Password" rules={passwordRules} hasFeedback>
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={['password']}
-        hasFeedback
-        rules={confirmPasswordRules}
+    <Space direction="vertical" align="center">
+      <Form
+        autoComplete="off"
+        initialValues={{}}
+        layout="vertical"
+        name="request-email"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        requiredMark={false}
       >
-        <Input.Password />
-      </Form.Item>
+        <Typography.Title>Enter new password</Typography.Title>
+        <Form.Item name="password" rules={passwordRules} hasFeedback>
+          <Input.Password placeholder="Password" />
+        </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item
+          name="confirm"
+          dependencies={['password']}
+          hasFeedback
+          rules={confirmPasswordRules}
+        >
+          <Input.Password placeholder="Confirm Password" />
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit" block size="large">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+      <Space direction="vertical">
+        <LinkButton>
+          <Link to="/home">Back to home</Link>
+        </LinkButton>
+      </Space>
+    </Space>
   )
 }
 

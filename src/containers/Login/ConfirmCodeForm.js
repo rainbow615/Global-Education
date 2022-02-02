@@ -5,7 +5,8 @@ import ReactCodeInput from 'react-verification-code-input'
 
 import { getUser, removeUser, setConfirmLogin } from '../../utils/cookie'
 import { check2FACode } from '../../services/authService'
-import { ConfirmLabel, LinkButton } from './styles'
+import { LinkButton } from '../../components/CommonComponent'
+import { ConfirmLabel } from './styles'
 
 const codeRules = [
   {
@@ -83,14 +84,14 @@ const ConfirmCodeForm = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={isLoading}>
+          <Button type="primary" htmlType="submit" loading={isLoading} size="large">
             {isLoading ? 'Checking' : 'Enter dashboard'}
           </Button>
         </Form.Item>
       </Form>
       <Space direction="vertical">
         <LinkButton>
-          <Link to="/home#request-access">Resend code</Link>
+          <Link to="/">Re-send code</Link>
         </LinkButton>
         <LinkButton>
           <Link to="/home">Back to Home</Link>

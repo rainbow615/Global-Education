@@ -4,7 +4,8 @@ import { Link, useSearchParams } from 'react-router-dom'
 
 import { login, send2FACode } from '../../services/authService'
 import { setUser, removeUser } from '../../utils/cookie'
-import { LoginFormContainer, LinkButton } from './styles'
+import { LinkButton } from '../../components/CommonComponent'
+import { LoginFormContainer } from './styles'
 
 const emailRules = [
   {
@@ -89,7 +90,7 @@ const PasswordForm = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={isLoading}>
+          <Button type="primary" htmlType="submit" loading={isLoading} size="large">
             {isLoading ? 'Loading...' : 'Submit'}
           </Button>
         </Form.Item>

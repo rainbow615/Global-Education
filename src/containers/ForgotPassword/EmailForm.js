@@ -61,7 +61,7 @@ const EmailForm = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={isLoading}>
+          <Button type="primary" htmlType="submit" loading={isLoading} size="large">
             {isLoading ? 'Loading...' : 'Submit'}
           </Button>
         </Form.Item>
