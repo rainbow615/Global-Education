@@ -15,3 +15,7 @@ export function check2FACode(code) {
 export function requestRegistration(payload) {
   return api.post(`/regreq`, payload)
 }
+
+export function requestResetPassword(email) {
+  return api.get(`/reset/${email}`)
+}

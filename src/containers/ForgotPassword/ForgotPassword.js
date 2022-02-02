@@ -1,5 +1,4 @@
-import { Link, useSearchParams } from 'react-router-dom'
-import { Row } from 'antd'
+import { useSearchParams } from 'react-router-dom'
 
 import EmailForm from './EmailForm'
 import Success from './Success'
@@ -14,11 +13,6 @@ const ForgotPassword = () => {
     <Root>
       {step === 'email' && <EmailForm />}
       {step === 'success' && <Success />}
-
-      <Row justify="space-between">
-        <Link to="/login">Back to login</Link>
-        <Link to="/home">Back to home</Link>
-      </Row>
     </Root>
   )
 }

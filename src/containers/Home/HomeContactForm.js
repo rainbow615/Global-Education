@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form, Input, Select, notification } from 'antd'
+import { Button, Form, Input, Select, notification, Space } from 'antd'
 
 import { ContactsTopic } from '../../config/constants'
 import { Section, ContackSection, ContactSectionArea, Title, Description, Buttons } from './styles'
@@ -63,7 +63,7 @@ const HomeContactForm = (props) => {
 
   return (
     <Section name="contacts">
-      <div>
+      <Space direction="vertical">
         <Title style={{ paddingLeft: 20 }}>Contact Us</Title>
         <ContackSection>
           <ContactSectionArea>
@@ -130,7 +130,7 @@ const HomeContactForm = (props) => {
               </Form.Item>
             </Form>
             {isSubmit && (
-              <div>
+              <Space direction="vertical">
                 <Title>Thank you for your message!</Title>
                 <Description>We'll be in contact soon!</Description>
                 <Buttons>
@@ -138,11 +138,11 @@ const HomeContactForm = (props) => {
                     Done
                   </Button>
                 </Buttons>
-              </div>
+              </Space>
             )}
           </ContactSectionArea>
         </ContackSection>
-      </div>
+      </Space>
     </Section>
   )
 }

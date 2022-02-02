@@ -5,7 +5,7 @@ import ReactCodeInput from 'react-verification-code-input'
 
 import { getUser, removeUser, setConfirmLogin } from '../../utils/cookie'
 import { check2FACode } from '../../services/authService'
-import { ConfirmLabel } from './styles'
+import { ConfirmLabel, LinkButton } from './styles'
 
 const codeRules = [
   {
@@ -64,7 +64,7 @@ const ConfirmCodeForm = () => {
   }
 
   return (
-    <div>
+    <Space direction="vertical">
       <Form
         autoComplete="off"
         initialValues={{}}
@@ -89,10 +89,14 @@ const ConfirmCodeForm = () => {
         </Form.Item>
       </Form>
       <Space direction="vertical">
-        <Link to="/home#request-access">Resend code</Link>
-        <Link to="/home">Back to Home</Link>
+        <LinkButton>
+          <Link to="/home#request-access">Resend code</Link>
+        </LinkButton>
+        <LinkButton>
+          <Link to="/home">Back to Home</Link>
+        </LinkButton>
       </Space>
-    </div>
+    </Space>
   )
 }
 

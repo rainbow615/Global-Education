@@ -52,3 +52,19 @@ export const ConfirmLabel = styled.div`
   font-size: 1.3rem;
   padding-bottom: 25px;
 `
+
+export const LinkButton = styled.div`
+  margin-bottom: 3px;
+
+  a {
+    font-size: 0.9rem;
+    padding: 5px 0;
+    color: ${(props) => props.theme.palette.primary};
+    border-bottom: 1px solid ${(props) => props.theme.palette.primary};
+
+    &:hover {
+      border-bottom-color: transparent;
+      opacity: 0.8;
+    }
+  }
+`

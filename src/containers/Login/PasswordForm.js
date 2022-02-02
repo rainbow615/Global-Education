@@ -4,7 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 
 import { login, send2FACode } from '../../services/authService'
 import { setUser, removeUser } from '../../utils/cookie'
-import { LoginFormContainer } from './styles'
+import { LoginFormContainer, LinkButton } from './styles'
 
 const emailRules = [
   {
@@ -95,9 +95,15 @@ const PasswordForm = () => {
         </Form.Item>
       </Form>
       <Space direction="vertical">
-        <Link to="/home#request-access">Request Access</Link>
-        <Link to="/forgot-password">Forgot Password?</Link>
-        <Link to="/home">Back to Home</Link>
+        <LinkButton>
+          <Link to="/home#request-access">Request Access</Link>
+        </LinkButton>
+        <LinkButton>
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </LinkButton>
+        <LinkButton>
+          <Link to="/home">Back to Home</Link>
+        </LinkButton>
       </Space>
     </LoginFormContainer>
   )
