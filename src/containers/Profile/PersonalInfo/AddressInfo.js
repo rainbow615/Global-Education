@@ -1,71 +1,43 @@
 import React, { useState } from 'react'
-import { Form, Input, Select, Space, Tag, Button, Modal } from 'antd'
+import { Form, Input, Select, Space, Button, Modal } from 'antd'
 
-import States from '../../config/states.json'
-import { CustomStatistic } from './styles'
+import States from '../../../config/states.json'
+import { CustomStatistic } from '../styles'
 
 const { Option } = Select
 
-const PersonalInfo = () => {
-  const [addressModalVisible, setAddressModalVisible] = useState(false)
+const AddressInfo = () => {
+  const [modalVisible, setModalVisible] = useState(false)
 
-  const onAddressFinish = (values) => {
+  const onFinish = (values) => {
     console.log(values)
   }
 
   return (
     <React.Fragment>
-      <CustomStatistic title="Name" value="Narayanan Bhattarcharya" />
-      <CustomStatistic
-        title={
-          <React.Fragment>
-            <span>Email</span>
-            <Button size="small">Edit</Button>
-          </React.Fragment>
-        }
-        value="john@ehrhart.com"
-        suffix={<Tag color="success">Verified</Tag>}
-      />
-      <CustomStatistic
-        title={
-          <React.Fragment>
-            <span>Phone</span>
-            <Button size="small">Edit</Button>
-          </React.Fragment>
-        }
-        value="+1 (XXX) XXX-XX55"
-        suffix={<Tag color="success">Verified</Tag>}
-      />
       <CustomStatistic
         title={
           <React.Fragment>
             <span>Address</span>
-            <Button size="small" onClick={() => setAddressModalVisible(true)}>
+            <Button size="small" onClick={() => setModalVisible(true)}>
               Edit
             </Button>
           </React.Fragment>
         }
         value="555 Oak Blvd, Apt 5 San Diego, CA 92101"
       />
-      <CustomStatistic
-        title={
-          <React.Fragment>
-            <span>Password</span>
-            <Button size="small">Edit</Button>
-          </React.Fragment>
-        }
-        value={'*'.repeat(10)}
-      />
       <Modal
         title="Change your Address"
         centered
-        visible={addressModalVisible}
+        visible={modalVisible}
         footer={null}
+        onCancel={() => setModalVisible(false)}
         className="custom-modal"
       >
-        <Form name="complex-form" onFinish={onAddressFinish}>
+        <Form name="complex-form" onFinish={onFinish}>
           <Form.Item
             name="address1"
+            hasFeedback
             rules={[{ required: true, message: 'Address line 1 is required' }]}
           >
             <Input placeholder="Address line 1" />
@@ -76,6 +48,7 @@ const PersonalInfo = () => {
           <Form.Item>
             <Form.Item
               name="city"
+              hasFeedback
               rules={[{ required: true, message: 'City is required' }]}
               style={{ display: 'inline-block', width: 'calc(35% - 8px)' }}
             >
@@ -83,6 +56,7 @@ const PersonalInfo = () => {
             </Form.Item>
             <Form.Item
               name="state"
+              hasFeedback
               rules={[{ required: true, message: 'State is required' }]}
               style={{ display: 'inline-block', width: 'calc(40% - 8px)', marginLeft: '8px' }}
             >
@@ -96,6 +70,7 @@ const PersonalInfo = () => {
             </Form.Item>
             <Form.Item
               name="zip"
+              hasFeedback
               rules={[{ required: true, message: 'zip is required' }]}
               style={{ display: 'inline-block', width: 'calc(25% - 8px)', margin: '0 8px' }}
             >
@@ -104,7 +79,7 @@ const PersonalInfo = () => {
           </Form.Item>
           <Form.Item className="bottom-actions">
             <Space>
-              <Button htmlType="button" onClick={() => setAddressModalVisible(false)}>
+              <Button htmlType="button" onClick={() => setModalVisible(false)}>
                 Cancel
               </Button>
               <Button type="primary" htmlType="submit">
@@ -118,4 +93,4 @@ const PersonalInfo = () => {
   )
 }
 
-export default PersonalInfo
+export default AddressInfo

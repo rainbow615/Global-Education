@@ -85,15 +85,15 @@ const HomeContactForm = (props) => {
               requiredMark={false}
               style={{ display: isSubmit ? 'none' : 'block' }}
             >
-              <Form.Item name="name" rules={nameRules}>
+              <Form.Item name="name" hasFeedback rules={nameRules}>
                 <Input placeholder="Name" size="large" />
               </Form.Item>
 
-              <Form.Item name="email" rules={emailRules}>
+              <Form.Item name="email" hasFeedback rules={emailRules}>
                 <Input placeholder="Email" size="large" />
               </Form.Item>
 
-              <Form.Item name="topic" rules={topicRules}>
+              <Form.Item name="topic" hasFeedback rules={topicRules}>
                 <Select placeholder="Topic" size="large" allowClear>
                   {ContactsTopic.map((topic) => (
                     <Option key={topic.id} value={topic.id}>
@@ -104,15 +104,15 @@ const HomeContactForm = (props) => {
               </Form.Item>
 
               <Form.Item>
-                <Form.Item name="organization" rules={organizationRules} className="organization">
+                <Form.Item name="organization" hasFeedback rules={organizationRules} className="organization">
                   <Input placeholder="Organization" size="large" />
                 </Form.Item>
-                <Form.Item name="role" rules={roleRules} className="role">
+                <Form.Item name="role" hasFeedback rules={roleRules} className="role">
                   <Input placeholder="Role" size="large" />
                 </Form.Item>
               </Form.Item>
 
-              <Form.Item name="message" rules={messageRules}>
+              <Form.Item name="message" hasFeedback rules={messageRules}>
                 <Input.TextArea
                   showCount
                   maxLength={1000}

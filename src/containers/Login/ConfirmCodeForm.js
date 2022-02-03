@@ -79,7 +79,7 @@ const ConfirmCodeForm = () => {
           Confirm code we sent to your to +1 (XXX) XXX-{phoneNumber.substr(-4)}
         </ConfirmLabel>
 
-        <Form.Item name="code" rules={codeRules}>
+        <Form.Item name="code" hasFeedback rules={codeRules}>
           <ReactCodeInput fieldWidth={50} fieldHeight={50} />
         </Form.Item>
 

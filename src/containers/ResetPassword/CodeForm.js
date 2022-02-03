@@ -47,7 +47,7 @@ const CodeForm = () => {
           onFinishFailed={onFinishFailed}
           requiredMark={false}
         >
-          <Form.Item name="code" rules={codeRules}>
+          <Form.Item name="code" hasFeedback rules={codeRules}>
             <ReactCodeInput fieldWidth={50} fieldHeight={50} />
           </Form.Item>
 

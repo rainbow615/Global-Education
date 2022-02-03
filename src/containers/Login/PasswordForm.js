@@ -81,11 +81,11 @@ const PasswordForm = () => {
         onFinishFailed={onFinishFailed}
         requiredMark={false}
       >
-        <Form.Item label="Email" name="email" rules={emailRules}>
+        <Form.Item label="Email" name="email" hasFeedback rules={emailRules}>
           <Input />
         </Form.Item>
 
-        <Form.Item label="Password" name="password" rules={passwordRules}>
+        <Form.Item label="Password" name="password" hasFeedback rules={passwordRules}>
           <Input.Password />
         </Form.Item>
 

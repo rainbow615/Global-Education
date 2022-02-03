@@ -56,7 +56,7 @@ const EmailForm = () => {
         requiredMark={false}
       >
         <Typography.Title>Reset Password</Typography.Title>
-        <Form.Item label="Email" name="email" rules={emailRules}>
+        <Form.Item label="Email" name="email" hasFeedback rules={emailRules}>
           <Input />
         </Form.Item>
 

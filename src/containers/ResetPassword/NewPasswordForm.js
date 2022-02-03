@@ -57,7 +57,7 @@ const NewPasswordForm = () => {
         requiredMark={false}
       >
         <Typography.Title>Enter new password</Typography.Title>
-        <Form.Item name="password" rules={passwordRules} hasFeedback>
+        <Form.Item name="password" hasFeedback rules={passwordRules}>
           <Input.Password placeholder="Password" />
         </Form.Item>
 
