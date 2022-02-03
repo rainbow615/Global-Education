@@ -11,6 +11,7 @@ const Home = loadable(() => import('./containers/Home'))
 const Privacy = loadable(() => import('./containers/Privacy'))
 const Login = loadable(() => import('./containers/Login'))
 const ResetPassword = loadable(() => import('./containers/ResetPassword'))
+const Profile = loadable(() => import('./containers/Profile'))
 const Jurisdictions = loadable(() => import('./containers/Jurisdictions'))
 const Education = loadable(() => import('./containers/Education'))
 const Pricing = loadable(() => import('./containers/Pricing'))
@@ -31,6 +32,7 @@ function App() {
         <Route path="passwordreset" element={<ResetPassword />} />
       </Route>
       <Route element={<PortalLayout />}>
+        <Route path="profile" element={<Profile />} />
         <Route path="jurisdictions" element={<Jurisdictions />} />
         <Route path="education" element={<Education />} />
         <Route path="users" element={<Users />} />

@@ -30,4 +30,8 @@ export const CustomSide = styled(Sider)`
   }
 `
 
-export const MainView = styled(Content)``
+export const MainView = styled(Content)`
+  height: 100%;
+  padding: 30px 40px;
+  overflow-y: auto;
+`

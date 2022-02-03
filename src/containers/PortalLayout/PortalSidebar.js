@@ -31,7 +31,7 @@ const PortalSidebar = () => {
 
   return (
     <CustomSide width={200} theme="light">
-      <Menu theme="light" defaultSelectedKeys={[location.pathname]}>
+      <Menu theme="light" selectedKeys={[location.pathname]}>
         {navLinks.map((navLink) => {
           const { path, pathName } = navLink
           return (
