@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Button, Typography } from 'antd'
+import { List, Button } from 'antd'
 
 import { PaymentSection, PaymentList } from './styles'
 
@@ -38,7 +38,7 @@ const PaymentMethod = () => {
             ]}
           >
             <List.Item.Meta
-              title={<Typography.Title level={5}>{`${item.type} ${item.number}`}</Typography.Title>}
+              title={`${item.type} ${item.number}`}
               description={`Exp. ${item.date}`}
             />
           </List.Item>

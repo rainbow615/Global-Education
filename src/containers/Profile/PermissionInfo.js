@@ -39,8 +39,8 @@ const PermissionInfo = () => {
           <div className="section-label">Organizations</div>
           <OrgCard>
             <Menu selectable={false}>
-              <Menu.Item>San Diego Fire Rescue Team</Menu.Item>
-              <Menu.Item>Development Team</Menu.Item>
+              <Menu.Item key="1">San Diego Fire Rescue Team</Menu.Item>
+              <Menu.Item key="2">Development Team</Menu.Item>
             </Menu>
           </OrgCard>
         </Space>

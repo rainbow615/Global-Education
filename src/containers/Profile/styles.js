@@ -61,6 +61,11 @@ export const PaymentSection = styled(Card)`
 export const PaymentList = styled(List)`
   margin-top: 15px;
 
+	.ant-list-item-meta-title {
+		font-size: 1rem;
+		font-family: 'InterBold';
+	}
+
   .ant-list-item-action {
     margin-left: 5px;
 
@@ -84,4 +89,8 @@ export const RightSection = styled.div`
 export const OrgCard = styled(Card)`
   min-width: 320px;
   min-height: 250px;
+
+  .ant-menu {
+    border: 0;
+  }
 `
