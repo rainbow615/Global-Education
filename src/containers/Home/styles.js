@@ -85,12 +85,12 @@ export const Buttons = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: space-between;
   margin-top: 30px;
 
   button {
     font-size: 1.2rem;
     height: 50px;
-    margin-right: 20px;
     margin-bottom: 10px;
     min-width: 120px;
   }

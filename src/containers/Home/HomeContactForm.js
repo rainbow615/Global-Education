@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, Input, Select, notification, Space } from 'antd'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 import { ContactsTopic } from '../../config/constants'
 import { Section, ContackSection, ContactSectionArea, Title, Description, Buttons } from './styles'
 import { requestRegistration } from '../../services/authService'
 
 const { Option } = Select
+const siteKey = process.env.REACT_APP_RECAPTCHA_SITE_KEY
 
 const nameRules = [{ required: true, message: 'Please input your name' }]
 const emailRules = [
@@ -27,6 +29,7 @@ const HomeContactForm = (props) => {
   let formRef = React.createRef()
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmit, setIsSubmit] = useState(false)
+  const [isVerified, setIsVerified] = useState(false)
 
   useEffect(() => {
     formRef.current.setFieldsValue({
@@ -50,6 +53,13 @@ const HomeContactForm = (props) => {
           description: 'Sorry, the request failed. Please try again later.',
         })
       })
+  }
+
+  const onVerify = (value) => {
+    console.log('Captcha value:', value)
+    if (value) {
+      setIsVerified(true)
+    }
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -104,7 +114,12 @@ const HomeContactForm = (props) => {
               </Form.Item>
 
               <Form.Item>
-                <Form.Item name="organization" hasFeedback rules={organizationRules} className="organization">
+                <Form.Item
+                  name="organization"
+                  hasFeedback
+                  rules={organizationRules}
+                  className="organization"
+                >
                   <Input placeholder="Organization" size="large" />
                 </Form.Item>
                 <Form.Item name="role" hasFeedback rules={roleRules} className="role">
@@ -123,7 +138,13 @@ const HomeContactForm = (props) => {
               </Form.Item>
               <Form.Item>
                 <Buttons>
-                  <Button type="primary" htmlType="submit" loading={isLoading}>
+                  <ReCAPTCHA sitekey={siteKey} onChange={onVerify} />
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    disabled={!isVerified}
+                    loading={isLoading}
+                  >
                     Submit
                   </Button>
                 </Buttons>
