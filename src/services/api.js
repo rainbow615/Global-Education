@@ -12,8 +12,11 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   const { token, user_id } = getUser()
 
-  if (token && user_id) {
+  if (token) {
     config.headers.authorization = `Bearer ${token}`
+  }
+
+  if (user_id) {
     config.headers['User-Id'] = user_id
   }
 

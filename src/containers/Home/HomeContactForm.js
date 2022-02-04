@@ -56,7 +56,6 @@ const HomeContactForm = (props) => {
   }
 
   const onVerify = (value) => {
-    console.log('Captcha value:', value)
     if (value) {
       setIsVerified(true)
     }

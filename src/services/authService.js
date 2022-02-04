@@ -19,3 +19,15 @@ export function requestRegistration(payload) {
 export function requestResetPassword(email) {
   return api.get(`/reset/${email}`)
 }
+
+export function changePassword(payload) {
+  return api.put(`/resetpassword`, payload)
+}
+
+export function whoAmI(token) {
+  return api.get(`/whoami`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  })
+}
