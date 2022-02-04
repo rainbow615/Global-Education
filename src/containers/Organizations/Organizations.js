@@ -55,9 +55,9 @@ const columns = [
     render: (value) => <Tag color="green">{value}</Tag>,
   },
   {
-    title: 'State',
-    dataIndex: 'state',
-    key: 'state',
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
     render: (value) => (
       <Text type={value ? 'success' : 'danger'}>{value ? 'Published' : 'Not Published'}</Text>
     ),
