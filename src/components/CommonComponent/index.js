@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Table } from 'antd'
 
 export const LinkButton = styled.div`
   margin-bottom: 3px;
@@ -15,4 +16,8 @@ export const LinkButton = styled.div`
       opacity: 0.8;
     }
   }
+`
+
+export const CustomTable = styled(Table)`
+  width: 100%;
 `
