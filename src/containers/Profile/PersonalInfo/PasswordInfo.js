@@ -17,7 +17,7 @@ const PasswordInfo = () => {
           <React.Fragment>
             <span>Password</span>
             <Button size="small" onClick={() => setModalVisible(true)}>
-              Edit
+              Change
             </Button>
           </React.Fragment>
         }
