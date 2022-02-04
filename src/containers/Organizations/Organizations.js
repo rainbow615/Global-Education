@@ -1,10 +1,12 @@
 import React from 'react'
-import { Button, Dropdown, Menu, Tag } from 'antd'
+import { Button, Dropdown, Menu, Tag, Typography } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
 import CustomBreadcrumb from '../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { CustomTable } from '../../components/CommonComponent'
 import { Root, TableHeader, CustomSearch, DateText, ActionsMenu } from './styles'
+
+const { Text } = Typography
 
 const breadCrumb = [
   {
@@ -53,16 +55,27 @@ const columns = [
     render: (value) => <Tag color="green">{value}</Tag>,
   },
   {
+    title: 'State',
+    dataIndex: 'state',
+    key: 'state',
+    render: (value) => (
+      <Text type={value ? 'success' : 'danger'}>{value ? 'Published' : 'Not Published'}</Text>
+    ),
+  },
+  {
     title: '',
     dataIndex: 'actions',
     key: 'actions',
     width: 150,
     render: () => (
-      <Dropdown overlay={menu} placement="bottomRight" trigger="click">
-        <Button type="primary">
-          Enter | <DownOutlined />
-        </Button>
-      </Dropdown>
+      <Dropdown.Button
+        overlay={menu}
+        placement="bottomRight"
+        icon={<DownOutlined />}
+        type="primary"
+      >
+        Enter
+      </Dropdown.Button>
     ),
   },
 ]
