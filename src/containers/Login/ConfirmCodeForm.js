@@ -35,7 +35,7 @@ const ConfirmCodeForm = () => {
 
           if (result?.data?.valid) {
             setConfirmLogin()
-            navigate('/jurisdictions')
+            navigate('/organizations')
           } else {
             notification.error({
               message: 'Verification Failure',

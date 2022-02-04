@@ -11,9 +11,9 @@ const columns = [
     width: 100
   },
   {
-    title: 'Jurisdiction',
-    dataIndex: 'jurisdiction',
-    key: 'jurisdiction',
+    title: 'Organizations',
+    dataIndex: 'organizations',
+    key: 'organizations',
     width: 200
   },
 ]
@@ -22,12 +22,12 @@ const accessData = [
   {
     key: '1',
     role: 'Superuser',
-    jurisdiction: 'Global',
+    organizations: 'Global',
   },
   {
     key: '2',
     role: 'Administrator',
-    jurisdiction: 'Global',
+    organizations: 'San Diego Co EMS',
   },
 ]
 
@@ -36,11 +36,11 @@ const PermissionInfo = () => {
     <React.Fragment>
       <Space split={<br />} direction="vertical">
         <Space direction="vertical">
-          <div className="section-label">Organizations</div>
+          <div className="section-label">Teams</div>
           <OrgCard>
             <Menu selectable={false}>
-              <Menu.Item key="1">San Diego Fire Rescue Team</Menu.Item>
-              <Menu.Item key="2">Development Team</Menu.Item>
+              <Menu.Item key="1">Mission Critical Protocols</Menu.Item>
+              <Menu.Item key="2">San Diego Co EMS</Menu.Item>
             </Menu>
           </OrgCard>
         </Space>

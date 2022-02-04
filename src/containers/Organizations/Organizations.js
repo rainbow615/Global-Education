@@ -8,7 +8,7 @@ import { Root, TableHeader, CustomSearch, DateText, ActionsMenu } from './styles
 
 const breadCrumb = [
   {
-    title: 'Jurisdictions',
+    title: 'Organizations',
   },
   {
     title: 'List',
@@ -84,7 +84,7 @@ const dataSource = [
   },
 ]
 
-const Jurisdictions = () => {
+const Organizations = () => {
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
@@ -106,4 +106,4 @@ const Jurisdictions = () => {
   )
 }
 
-export default Jurisdictions
+export default Organizations
