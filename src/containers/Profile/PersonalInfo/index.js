@@ -9,7 +9,7 @@ import { CustomStatistic } from '../styles'
 const PersonalInfo = () => {
   return (
     <React.Fragment>
-      <CustomStatistic title="Name" value="Narayanan Bhattarcharya" />
+      <CustomStatistic title="Name" value="John Ehrhart" />
       <CustomStatistic
         title="Email"
         value="john@ehrhart.com"
