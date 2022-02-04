@@ -85,7 +85,7 @@ export const Buttons = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: ${(props) => (props.justifyContent ? props.justifyContent : 'space-around')};
   margin-top: 30px;
 
   button {

@@ -137,7 +137,7 @@ const HomeContactForm = (props) => {
                 />
               </Form.Item>
               <Form.Item>
-                <Buttons>
+                <Buttons justifyContent="space-between">
                   <ReCAPTCHA sitekey={siteKey} onChange={onVerify} />
                   <Button
                     type="primary"
@@ -154,7 +154,7 @@ const HomeContactForm = (props) => {
               <Space direction="vertical">
                 <Title>Thank you for your message!</Title>
                 <Description>We'll be in contact soon!</Description>
-                <Buttons>
+                <Buttons justifyContent="space-between">
                   <div />
                   <Button type="primary" onClick={onDone}>
                     Done
