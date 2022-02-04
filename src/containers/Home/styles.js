@@ -91,7 +91,7 @@ export const Buttons = styled.div`
   button {
     font-size: 1.2rem;
     height: 50px;
-    margin-bottom: 10px;
+    margin: 10px 0;
     min-width: 120px;
   }
 `

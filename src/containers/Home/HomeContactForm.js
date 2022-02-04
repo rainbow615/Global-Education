@@ -155,6 +155,7 @@ const HomeContactForm = (props) => {
                 <Title>Thank you for your message!</Title>
                 <Description>We'll be in contact soon!</Description>
                 <Buttons>
+                  <div />
                   <Button type="primary" onClick={onDone}>
                     Done
                   </Button>
