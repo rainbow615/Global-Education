@@ -8,7 +8,7 @@ const AuthLayout = () => {
   const isAuthenticated = !!getConfirmLogin()
 
   if (isAuthenticated) {
-    return <Navigate to={state?.from?.pathname || '/jurisdictions'} />
+    return <Navigate to={state?.from?.pathname || '/organizations'} />
   }
 
   return (

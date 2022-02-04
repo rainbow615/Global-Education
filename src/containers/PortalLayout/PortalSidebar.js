@@ -5,8 +5,8 @@ import { CustomSide } from './styles'
 
 const navLinks = [
   {
-    path: '/jurisdictions',
-    pathName: 'Jurisdictions',
+    path: '/organizations',
+    pathName: 'Organizations',
   },
   {
     path: '/education',
