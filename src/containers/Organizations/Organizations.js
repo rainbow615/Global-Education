@@ -87,6 +87,7 @@ const dataSource = [
     regions: 'California (CA)',
     created: ['01/12/2022', 'Chentao Wang'],
     type: 'EMS',
+    status: 1
   },
   {
     key: 2,
@@ -94,6 +95,7 @@ const dataSource = [
     regions: 'California (CA)',
     created: ['01/11/2022', 'Chentao Wang'],
     type: 'EMS',
+    status: 0
   },
 ]
 
