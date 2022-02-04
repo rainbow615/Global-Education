@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { Form, Input, Button, notification, Typography, Space } from 'antd'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 
 import { changePassword } from '../../services/authService'
-import { removeUser } from '../../utils/cookie'
 import { LinkButton } from '../../components/CommonComponent'
 
 const passwordRules = [
@@ -29,16 +28,17 @@ const confirmPasswordRules = [
 
 const NewPasswordForm = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const token = searchParams.get('token') || ''
   const [isLoading, setIsLoading] = useState(false)
 
   const onFinish = (values) => {
     const { password } = values
     setIsLoading(true)
 
-    changePassword({ new_password: password })
+    changePassword({ new_password: password }, token)
       .then(() => {
         setIsLoading(false)
-        removeUser()
 
         notification.success({
           message: 'Password has been reset successfully. Redirecting to login',

@@ -68,7 +68,8 @@ const CodeForm = () => {
         setIsSendingCode(false)
 
         if (result?.data?.valid) {
-          setSearchParams({ step: 'new-password' })
+          removeUser()
+          setSearchParams({ token: token, step: 'new-password' })
         } else {
           onShowNotification()
         }

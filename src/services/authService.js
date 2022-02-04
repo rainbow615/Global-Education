@@ -20,8 +20,12 @@ export function requestResetPassword(email) {
   return api.get(`/reset/${email}`)
 }
 
-export function changePassword(payload) {
-  return api.put(`/resetpassword`, payload)
+export function changePassword(payload, token) {
+  return api.put(`/resetpassword`, payload, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  })
 }
 
 export function whoAmI(token) {
