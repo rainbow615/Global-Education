@@ -2,7 +2,6 @@ import React from 'react'
 
 import CustomBreadcrumb from '../../components/CustomBreadcrumb/CustomBreadcrumb'
 import PersonalInfo from './PersonalInfo'
-import PaymentMethod from './PaymentMethod'
 import PermissionInfo from './PermissionInfo'
 import { Root, LeftSection, RightSection } from './styles'
 
@@ -22,7 +21,6 @@ const Profile = () => {
       <Root>
         <LeftSection>
           <PersonalInfo />
-          <PaymentMethod />
         </LeftSection>
         <RightSection>
           <PermissionInfo />
