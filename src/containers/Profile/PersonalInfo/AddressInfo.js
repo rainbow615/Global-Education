@@ -20,7 +20,7 @@ const AddressInfo = () => {
           <React.Fragment>
             <span>Address</span>
             <Button size="small" onClick={() => setModalVisible(true)}>
-              Edit
+              Update
             </Button>
           </React.Fragment>
         }
