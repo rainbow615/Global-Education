@@ -33,15 +33,22 @@ const PasswordInfo = () => {
       >
         <Form onFinish={onFinish}>
           <Form.Item
-            name="password"
+            name="old"
             hasFeedback
-            rules={[{ required: true, message: 'Please input your password' }]}
+            rules={[{ required: true, message: 'Please input your old password' }]}
+          >
+            <Input.Password placeholder="Old Password" />
+          </Form.Item>
+          <Form.Item
+            name="new"
+            hasFeedback
+            rules={[{ required: true, message: 'Please input your new password' }]}
           >
             <Input.Password placeholder="Password" />
           </Form.Item>
           <Form.Item
             name="confirm"
-            dependencies={['password']}
+            dependencies={['new']}
             hasFeedback
             rules={[
               {
@@ -50,7 +57,7 @@ const PasswordInfo = () => {
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (!value || getFieldValue('password') === value) {
+                  if (!value || getFieldValue('new') === value) {
                     return Promise.resolve()
                   }
                   return Promise.reject(
