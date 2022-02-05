@@ -3,7 +3,15 @@ import { Button, Form, Input, Select, notification, Space } from 'antd'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 import { ContactsTopic } from '../../config/constants'
-import { Section, ContackSection, ContactSectionArea, Title, Description, Buttons } from './styles'
+import {
+  Section,
+  ContackSection,
+  ContactSectionArea,
+  Title,
+  Description,
+  Buttons,
+  ContactSuccessMessage,
+} from './styles'
 import { requestRegistration } from '../../services/authService'
 
 const { Option } = Select
@@ -75,13 +83,15 @@ const HomeContactForm = (props) => {
       <Space direction="vertical">
         <Title style={{ paddingLeft: 20 }}>Contact Us</Title>
         <ContackSection>
-          <ContactSectionArea>
-            <img alt="MCP" src="/img/home/contact-form.png" />
-            <Description>
-              Looking for partnership, licenses, bulk orders, support? Use our form to submit an
-              inquiry.
-            </Description>
-          </ContactSectionArea>
+          {!isSubmit && (
+            <ContactSectionArea>
+              <img alt="MCP" src="/img/home/contact-form.png" />
+              <Description>
+                Looking for partnership, licenses, bulk orders, support? Use our form to submit an
+                inquiry.
+              </Description>
+            </ContactSectionArea>
+          )}
           <ContactSectionArea>
             <Form
               ref={formRef}
@@ -150,16 +160,15 @@ const HomeContactForm = (props) => {
               </Form.Item>
             </Form>
             {isSubmit && (
-              <Space direction="vertical">
+              <ContactSuccessMessage>
                 <Title>Thank you for your message!</Title>
                 <Description>We'll be in contact soon!</Description>
-                <Buttons justifyContent="space-between">
-                  <div />
+                <Buttons justifyContent="center">
                   <Button type="primary" onClick={onDone}>
                     Done
                   </Button>
                 </Buttons>
-              </Space>
+              </ContactSuccessMessage>
             )}
           </ContactSectionArea>
         </ContackSection>

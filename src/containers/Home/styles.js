@@ -148,3 +148,13 @@ export const CustomFooter = styled(Footer)`
     line-height: 2;
   }
 `
+
+export const ContactSuccessMessage = styled.div`
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+
+  * {
+    text-align: center;
+  }
+`
