@@ -150,9 +150,13 @@ export const CustomFooter = styled(Footer)`
 `
 
 export const ContactSuccessMessage = styled.div`
+  display: flex;
+  justify-content: center;
   width: 100%;
-  max-width: 450px;
-  margin: auto;
+
+  .ant-space {
+    max-width: 450px;
+  }
 
   * {
     text-align: center;

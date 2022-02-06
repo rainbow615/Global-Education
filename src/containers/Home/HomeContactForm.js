@@ -80,18 +80,16 @@ const HomeContactForm = (props) => {
 
   return (
     <Section name="contacts">
-      <Space direction="vertical">
+      <Space direction="vertical" style={{ display: isSubmit ? 'none' : 'block' }}>
         <Title style={{ paddingLeft: 20 }}>Contact Us</Title>
         <ContackSection>
-          {!isSubmit && (
-            <ContactSectionArea>
-              <img alt="MCP" src="/img/home/contact-form.png" />
-              <Description>
-                Looking for partnership, licenses, bulk orders, support? Use our form to submit an
-                inquiry.
-              </Description>
-            </ContactSectionArea>
-          )}
+          <ContactSectionArea>
+            <img alt="MCP" src="/img/home/contact-form.png" />
+            <Description>
+              Looking for partnership, licenses, bulk orders, support? Use our form to submit an
+              inquiry.
+            </Description>
+          </ContactSectionArea>
           <ContactSectionArea>
             <Form
               ref={formRef}
@@ -102,7 +100,6 @@ const HomeContactForm = (props) => {
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               requiredMark={false}
-              style={{ display: isSubmit ? 'none' : 'block' }}
             >
               <Form.Item name="name" hasFeedback rules={nameRules}>
                 <Input placeholder="Name" size="large" />
@@ -159,20 +156,22 @@ const HomeContactForm = (props) => {
                 </Buttons>
               </Form.Item>
             </Form>
-            {isSubmit && (
-              <ContactSuccessMessage>
-                <Title>Thank you for your message!</Title>
-                <Description>We'll be in contact soon!</Description>
-                <Buttons justifyContent="center">
-                  <Button type="primary" onClick={onDone}>
-                    Done
-                  </Button>
-                </Buttons>
-              </ContactSuccessMessage>
-            )}
           </ContactSectionArea>
         </ContackSection>
       </Space>
+      {isSubmit && (
+        <ContactSuccessMessage>
+          <Space direction="vertical">
+            <Title>Thank you for your message!</Title>
+            <Description>We'll be in contact soon!</Description>
+            <Buttons justifyContent="center">
+              <Button type="primary" onClick={onDone}>
+                Done
+              </Button>
+            </Buttons>
+          </Space>
+        </ContactSuccessMessage>
+      )}
     </Section>
   )
 }
