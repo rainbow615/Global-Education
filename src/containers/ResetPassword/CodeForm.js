@@ -21,10 +21,11 @@ const CodeForm = () => {
   const token = searchParams.get('token') || ''
   const [isLoading, setIsLoading] = useState(true)
   const [isSendingCode, setIsSendingCode] = useState(false)
+  const [isReSendingCode, setIsReSendingCode] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState()
 
   useEffect(() => {
-    if (token) {
+    const onSendVerificationCode = () => {
       removeUser()
 
       whoAmI(token)
@@ -50,12 +51,25 @@ const CodeForm = () => {
           setIsLoading(false)
         })
     }
+
+    if (token) onSendVerificationCode()
   }, [token])
 
   const onShowNotification = () => {
     notification.error({
       message: 'Verification Failure',
       description: 'Sorry, the request failed. Please try again later.',
+    })
+  }
+
+  const onResendCode = () => {
+    setIsReSendingCode(true)
+    
+    send2FACode().then(() => {
+      setIsReSendingCode(false)
+      notification.success({
+        message: 'Resent the new code successfully.',
+      })
     })
   }
 
@@ -126,7 +140,9 @@ const CodeForm = () => {
         </Form>
         <Space direction="vertical">
           <LinkButton>
-            <Link to="/login">Re-send code</Link>
+            <Button type="link" onClick={onResendCode} loading={isReSendingCode}>
+              Re-send code
+            </Button>
           </LinkButton>
           <LinkButton>
             <Link to="/home">Back to home</Link>

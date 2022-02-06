@@ -5,7 +5,11 @@ export const LinkButton = styled.div`
   margin-bottom: 3px;
   text-align: ${(props) => (props.align ? props.align : 'left')};
 
-  a {
+  button {
+    padding: 0;
+  }
+
+  a, button {
     font-size: 0.9rem;
     padding: 5px 0;
     color: ${(props) => props.theme.palette.primary};
