@@ -15,3 +15,18 @@ export const ContactsTopic = [
     name: 'Request licenses',
   },
 ]
+
+export const Types = [
+  {
+    id: 'EMS',
+    name: 'EMS',
+  },
+  {
+    id: 'Fire',
+    name: 'Fire',
+  },
+  {
+    id: 'Law',
+    name: 'Law',
+  },
+]

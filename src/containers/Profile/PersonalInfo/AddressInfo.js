@@ -63,7 +63,7 @@ const AddressInfo = () => {
               <Select placeholder="State">
                 {States.map((state, index) => (
                   <Option value={state.abbreviation} key={index}>
-                    {state.name}
+                    {state.title}
                   </Option>
                 ))}
               </Select>

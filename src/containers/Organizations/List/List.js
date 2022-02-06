@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Dropdown, Menu, Tag, Typography } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
-import CustomBreadcrumb from '../../components/CustomBreadcrumb/CustomBreadcrumb'
-import { CustomTable } from '../../components/CommonComponent'
+import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
+import { CustomTable } from '../../../components/CommonComponent'
 import { Root, TableHeader, CustomSearch, DateText, ActionsMenu } from './styles'
 
 const { Text } = Typography
@@ -87,7 +88,7 @@ const dataSource = [
     regions: 'California (CA)',
     created: ['01/12/2022', 'Chentao Wang'],
     type: 'EMS',
-    status: 1
+    status: 1,
   },
   {
     key: 2,
@@ -95,17 +96,19 @@ const dataSource = [
     regions: 'California (CA)',
     created: ['01/11/2022', 'Chentao Wang'],
     type: 'EMS',
-    status: 0
+    status: 0,
   },
 ]
 
-const Organizations = () => {
+const OrganizationsList = () => {
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
       <Root>
         <TableHeader>
-          <Button type="primary">Add new</Button>
+          <Button type="primary">
+            <Link to="/organizations/add">Add new</Link>
+          </Button>
           <CustomSearch placeholder="Search" enterButton allowClear loading={false} />
         </TableHeader>
         <CustomTable
@@ -121,4 +124,4 @@ const Organizations = () => {
   )
 }
 
-export default Organizations
+export default OrganizationsList

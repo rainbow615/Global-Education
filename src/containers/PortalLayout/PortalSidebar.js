@@ -1,6 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import { Menu } from 'antd'
 
+import { getMainPathname } from '../../utils'
 import { CustomSide } from './styles'
 
 const navLinks = [
@@ -28,10 +29,11 @@ const navLinks = [
 
 const PortalSidebar = () => {
   const location = useLocation()
+  const mainPath = getMainPathname(location.pathname)
 
   return (
     <CustomSide width={200} theme="light">
-      <Menu theme="light" selectedKeys={[location.pathname]}>
+      <Menu theme="light" selectedKeys={[mainPath]}>
         {navLinks.map((navLink) => {
           const { path, pathName } = navLink
           return (

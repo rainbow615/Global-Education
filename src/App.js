@@ -12,7 +12,8 @@ const Privacy = loadable(() => import('./containers/Privacy'))
 const Login = loadable(() => import('./containers/Login'))
 const ResetPassword = loadable(() => import('./containers/ResetPassword'))
 const Profile = loadable(() => import('./containers/Profile'))
-const Organizations = loadable(() => import('./containers/Organizations'))
+const OrganizationsList = loadable(() => import('./containers/Organizations/List'))
+const OrganizationsAdd = loadable(() => import('./containers/Organizations/New'))
 const Education = loadable(() => import('./containers/Education'))
 const Pricing = loadable(() => import('./containers/Pricing'))
 const Licenses = loadable(() => import('./containers/Licenses'))
@@ -33,7 +34,9 @@ function App() {
       </Route>
       <Route element={<PortalLayout />}>
         <Route path="profile" element={<Profile />} />
-        <Route path="organizations" element={<Organizations />} />
+        <Route exact path="organizations" element={<Navigate to="/organizations/list" />} />
+        <Route exact path="organizations/list" element={<OrganizationsList />} />
+        <Route exact path="organizations/add" element={<OrganizationsAdd />} />
         <Route path="education" element={<Education />} />
         <Route path="users" element={<Users />} />
         <Route path="pricing" element={<Pricing />} />

@@ -20,3 +20,9 @@ export const passwordPattern = (options = {}) => {
 
   return new RegExp(exp)
 }
+
+export const getMainPathname = (path) => {
+  const obj = path.split('/')
+
+  return `/${obj[1]}`
+}
