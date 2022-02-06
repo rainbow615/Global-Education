@@ -4,7 +4,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import ReactCodeInput from 'react-verification-code-input'
 
 import { getUser, removeUser, setConfirmLogin } from '../../utils/cookie'
-import { check2FACode } from '../../services/authService'
+import { send2FACode, check2FACode } from '../../services/authService'
 import { LinkButton } from '../../components/CommonComponent'
 import { ConfirmLabel } from './styles'
 
@@ -22,6 +22,18 @@ const ConfirmCodeForm = () => {
   const phoneNumber = user?.phone || ''
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isReSendingCode, setIsReSendingCode] = useState(false)
+
+  const onResendCode = () => {
+    setIsReSendingCode(true)
+    
+    send2FACode().then(() => {
+      setIsReSendingCode(false)
+      notification.success({
+        message: 'Resent the new code successfully.',
+      })
+    })
+  }
 
   const onFinish = (values) => {
     const code = values?.code
@@ -91,7 +103,9 @@ const ConfirmCodeForm = () => {
       </Form>
       <Space direction="vertical">
         <LinkButton>
-          <Link to="/">Re-send code</Link>
+          <Button type="link" onClick={onResendCode} loading={isReSendingCode}>
+            Re-send code
+          </Button>
         </LinkButton>
         <LinkButton>
           <Link to="/home">Back to Home</Link>
