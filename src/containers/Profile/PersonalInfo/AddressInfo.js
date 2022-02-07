@@ -6,12 +6,15 @@ import { CustomStatistic } from '../styles'
 
 const { Option } = Select
 
-const AddressInfo = () => {
+const AddressInfo = (props) => {
+  const { address1, address2, city, state, postal_code } = props
   const [modalVisible, setModalVisible] = useState(false)
 
   const onFinish = (values) => {
     console.log(values)
   }
+
+  const address = `${address1} ${city}, ${state} ${postal_code} \n ${address2 || ''}`
 
   return (
     <React.Fragment>
@@ -24,7 +27,7 @@ const AddressInfo = () => {
             </Button>
           </React.Fragment>
         }
-        value="555 Oak Blvd, Apt 5 San Diego, CA 92101"
+        value={address}
       />
       <Modal
         title="Change your Address"

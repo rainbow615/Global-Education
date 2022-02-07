@@ -9,7 +9,7 @@ export const Root = styled.div`
 `
 
 export const LeftSection = styled.div`
-  max-width: 320px;
+  max-width: 370px;
   margin-bottom: 40px;
 `
 

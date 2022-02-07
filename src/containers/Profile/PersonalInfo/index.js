@@ -6,17 +6,22 @@ import AddressInfo from './AddressInfo'
 import PasswordInfo from './PasswordInfo'
 import { CustomStatistic } from '../styles'
 
-const PersonalInfo = () => {
+const PersonalInfo = (props) => {
+  const { data } = props
+  const { email, full_name, phone, address1, address2, city, state, postal_code } = data
+
   return (
     <React.Fragment>
-      <CustomStatistic title="Name" value="John Ehrhart" />
-      <CustomStatistic
-        title="Email"
-        value="john@ehrhart.com"
-        suffix={<Tag color="success">Verified</Tag>}
+      <CustomStatistic title="Name" value={full_name} />
+      <CustomStatistic title="Email" value={email} suffix={<Tag color="success">Verified</Tag>} />
+      <PhoneNumberInfo phone={phone} />
+      <AddressInfo
+        address1={address1}
+        address2={address2}
+        city={city}
+        state={state}
+        postal_code={postal_code}
       />
-      <PhoneNumberInfo />
-      <AddressInfo />
       <PasswordInfo />
     </React.Fragment>
   )
