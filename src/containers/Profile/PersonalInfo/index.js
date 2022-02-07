@@ -16,7 +16,7 @@ const PersonalInfo = (props) => {
       <CustomStatistic title="Email" value={email} suffix={<Tag color="success">Verified</Tag>} />
       <PhoneNumberInfo phone={phone} />
       <AddressInfo data={data} />
-      <PasswordInfo />
+      <PasswordInfo email={email} />
     </React.Fragment>
   )
 }
