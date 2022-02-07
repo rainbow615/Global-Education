@@ -21,9 +21,9 @@ const PasswordInfo = (props) => {
     }
 
     confirm({
-      title: 'Are you sure change your password?',
+      title: 'Are you sure you would like to change your password?',
       icon: <ExclamationCircleOutlined />,
-      content: 'When clicked the OK button, you will receive an email.',
+      content: 'Click OK to receive a reset email.',
       onOk() {
         return new Promise((resolve, reject) => {
           requestResetPassword(encodeURI(email))
