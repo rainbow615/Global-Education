@@ -30,6 +30,13 @@ const OrganizationsAdd = () => {
     }
   }
 
+  const onRemoveRegions = (abbreviation) => () => {
+    const isSearch = _.findIndex(selectedRegions, { abbreviation: abbreviation })
+    const newRegions = [...selectedRegions]
+    newRegions.splice(isSearch, 1)
+    setSelectedRegions(newRegions)
+  }
+
   const onFinish = () => {}
 
   const onFinishFailed = () => {}
@@ -120,7 +127,7 @@ const OrganizationsAdd = () => {
                 renderItem={(item) => (
                   <List.Item
                     actions={[
-                      <Button type="link" danger>
+                      <Button type="link" danger onClick={onRemoveRegions(item.abbreviation)}>
                         Remove
                       </Button>,
                     ]}
