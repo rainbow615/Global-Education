@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { whoAmI, send2FACode, check2FACode } from '../../services/authService'
 import { setUser, removeUser } from '../../utils/cookie'
 import { LinkButton } from '../../components/CommonComponent'
+import CustomLoading from '../../components/Loading/Loading'
 import { ResultFailed } from '../../components/ResultPages'
 
 const codeRules = [
@@ -64,7 +65,7 @@ const CodeForm = () => {
 
   const onResendCode = () => {
     setIsReSendingCode(true)
-    
+
     send2FACode().then(() => {
       setIsReSendingCode(false)
       notification.success({
@@ -102,11 +103,7 @@ const CodeForm = () => {
   }
 
   if (isLoading) {
-    return (
-      <Space direction="vertical" align="center">
-        <Spin size="large" />
-      </Space>
-    )
+    return <CustomLoading />
   }
 
   if (!phoneNumber) {
