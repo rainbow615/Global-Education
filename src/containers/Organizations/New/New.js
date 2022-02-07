@@ -110,10 +110,10 @@ const OrganizationsAdd = () => {
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
-                onChange={onSelectRegions}
+                onSelect={onSelectRegions}
               >
-                {States.map((state) => (
-                  <Option key={state.abbreviation} value={state.abbreviation}>
+                {States.map((state, index) => (
+                  <Option key={index} value={state.abbreviation}>
                     {state.name}
                   </Option>
                 ))}
@@ -143,7 +143,9 @@ const OrganizationsAdd = () => {
               Delete
             </Button>
             <Space>
-              <Button size="large">Add</Button>
+              <Button size="large" htmlType="submit">
+                Add
+              </Button>
               <Button size="large" disabled={true}>
                 Publish
               </Button>
