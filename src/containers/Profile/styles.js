@@ -22,6 +22,12 @@ export const CustomStatistic = styled(Statistic)`
     align-items: center;
   }
 
+  .ant-statistic-content {
+    span {
+      white-space: pre;
+    }
+  }
+
   .ant-tag {
     vertical-align: top;
     font-size: 11px;
@@ -61,10 +67,10 @@ export const PaymentSection = styled(Card)`
 export const PaymentList = styled(List)`
   margin-top: 15px;
 
-	.ant-list-item-meta-title {
-		font-size: 1rem;
-		font-family: 'InterBold';
-	}
+  .ant-list-item-meta-title {
+    font-size: 1rem;
+    font-family: 'InterBold';
+  }
 
   .ant-list-item-action {
     margin-left: 5px;

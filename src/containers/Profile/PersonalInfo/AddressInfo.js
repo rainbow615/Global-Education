@@ -1,20 +1,59 @@
 import React, { useState } from 'react'
-import { Form, Input, Select, Space, Button, Modal } from 'antd'
+import { Form, Input, Select, Space, Button, Modal, notification } from 'antd'
 
+import { updateUser, useUser } from '../../../services/userService'
 import States from '../../../config/states.json'
 import { CustomStatistic } from '../styles'
 
 const { Option } = Select
 
 const AddressInfo = (props) => {
-  const { address1, address2, city, state, postal_code } = props
+  const { data } = props
+  const { user_id, address1, address2, city, state, postal_code } = data
+  const { mutate } = useUser(user_id)
+
   const [modalVisible, setModalVisible] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const onFinish = (values) => {
-    console.log(values)
+    setIsLoading(true)
+
+    const payload = {
+      first_name: data.first_name,
+      last_name: data.last_name,
+      full_name: data.full_name,
+      phone: data.phone,
+      enabled: data.enabled,
+      address1: values.address1,
+      address2: values?.address2 || '',
+      unit: data.unit,
+      city: values.city,
+      state: values.state,
+      postal_code: values.zip,
+    }
+
+    updateUser(user_id, payload)
+      .then(() => {
+        setIsLoading(false)
+        setModalVisible(false)
+        mutate()
+
+        notification.success({
+          message: 'Successfully updated!',
+        })
+      })
+      .catch((error) => {
+        setIsLoading(false)
+
+        notification.error({
+          message: 'Update Failure',
+          description: error?.data || '',
+        })
+      })
   }
 
-  const address = `${address1} ${city}, ${state} ${postal_code} \n ${address2 || ''}`
+  const address = `${address1} ${city}, ${state} ${postal_code}\n${address2 || ''}`
+  const initialValues = { address1, address2, city, state, zip: postal_code }
 
   return (
     <React.Fragment>
@@ -37,7 +76,7 @@ const AddressInfo = (props) => {
         onCancel={() => setModalVisible(false)}
         className="custom-modal"
       >
-        <Form name="complex-form" onFinish={onFinish}>
+        <Form name="complex-form" initialValues={initialValues} onFinish={onFinish}>
           <Form.Item
             name="address1"
             hasFeedback
@@ -66,7 +105,7 @@ const AddressInfo = (props) => {
               <Select placeholder="State">
                 {States.map((state, index) => (
                   <Option value={state.abbreviation} key={index}>
-                    {state.title}
+                    {state.name}
                   </Option>
                 ))}
               </Select>
@@ -85,7 +124,7 @@ const AddressInfo = (props) => {
               <Button htmlType="button" onClick={() => setModalVisible(false)}>
                 Cancel
               </Button>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" loading={isLoading}>
                 Update
               </Button>
             </Space>

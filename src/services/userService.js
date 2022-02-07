@@ -4,6 +4,10 @@ export function useUser(id) {
   return useAPI(`users/${id}`)
 }
 
+export function updateUser(id, payload) {
+  return api.put(`users/${id}`, payload)
+}
+
 // export function useUsers() {
 //   return useAPI(`/users`)
 // }
@@ -14,10 +18,6 @@ export function useUser(id) {
 
 // export function createUser(payload) {
 //   return api.post(`users`, payload)
-// }
-
-// export function updateUser(email, payload) {
-//   return api.put(`users/${email}`, payload)
 // }
 
 // export function deleteUser(userId) {

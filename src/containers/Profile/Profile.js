@@ -22,8 +22,6 @@ const Profile = () => {
   const { user_id } = getUser()
   const { data: user, error } = useUser(user_id)
 
-  console.log('========dd', user, error)
-
   if (error) {
     return <ResultFailed isBackButton={false} />
   }
