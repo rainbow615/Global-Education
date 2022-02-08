@@ -15,6 +15,7 @@ const Profile = loadable(() => import('./containers/Profile'))
 const OrganizationsList = loadable(() => import('./containers/Organizations/List'))
 const OrganizationsForm = loadable(() => import('./containers/Organizations/Form'))
 const EducationList = loadable(() => import('./containers/Education/List'))
+const EducationForm = loadable(() => import('./containers/Education/Form'))
 const Pricing = loadable(() => import('./containers/Pricing'))
 const Licenses = loadable(() => import('./containers/Licenses'))
 const Users = loadable(() => import('./containers/Users'))
@@ -38,7 +39,8 @@ function App() {
         <Route exact path="organizations/list" element={<OrganizationsList />} />
         <Route exact path="organizations/form" element={<OrganizationsForm />} />
         <Route exact path="education" element={<Navigate to="/education/list" />} />
-        <Route path="education/list" element={<EducationList />} />
+        <Route exact path="education/list" element={<EducationList />} />
+        <Route exact path="education/form" element={<EducationForm />} />
         <Route path="users" element={<Users />} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="licenses" element={<Licenses />} />

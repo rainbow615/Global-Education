@@ -9,7 +9,7 @@ import {
   CustomTableHeader,
   CustomSearchText,
 } from '../../../components/CommonComponent'
-import { Root, DateText } from './styles'
+import { DateText } from './styles'
 
 const { Text } = Typography
 
@@ -94,7 +94,7 @@ const EducationList = () => {
       <Container>
         <CustomTableHeader>
           <Button type="primary">
-            <Link to="/education/add">Add new</Link>
+            <Link to="/education/form">Add new</Link>
           </Button>
           <CustomSearchText placeholder="Search" enterButton allowClear loading={false} />
         </CustomTableHeader>
