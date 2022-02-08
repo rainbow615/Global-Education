@@ -66,7 +66,11 @@ const columns = [
     key: 'actions',
     align: 'right',
     width: 100,
-    render: () => <Button type="primary">Edit</Button>,
+    render: () => (
+      <Button type="primary">
+        <Link to="/education/form">Edit</Link>
+      </Button>
+    ),
   },
 ]
 
