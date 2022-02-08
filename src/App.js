@@ -36,7 +36,7 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route exact path="organizations" element={<Navigate to="/organizations/list" />} />
         <Route exact path="organizations/list" element={<OrganizationsList />} />
-        <Route exact path="organizations/add" element={<OrganizationsForm />} />
+        <Route exact path="organizations/form" element={<OrganizationsForm />} />
         <Route exact path="education" element={<Navigate to="/education/list" />} />
         <Route path="education/list" element={<EducationList />} />
         <Route path="users" element={<Users />} />

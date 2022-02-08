@@ -113,7 +113,7 @@ const OrganizationsList = () => {
       <Container>
         <CustomTableHeader>
           <Button type="primary">
-            <Link to="/organizations/add">Add new</Link>
+            <Link to="/organizations/form">Add new</Link>
           </Button>
           <CustomSearchText placeholder="Search" enterButton allowClear loading={false} />
         </CustomTableHeader>
