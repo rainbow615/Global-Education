@@ -78,14 +78,16 @@ const columns = [
     key: 'actions',
     align: 'right',
     width: 150,
-    render: () => (
+    render: (_obj, record) => (
       <Dropdown.Button
         overlay={menu}
         placement="bottomRight"
         icon={<DownOutlined />}
         type="primary"
       >
-        <Link to="/organizations/form/edit">Enter</Link>
+        <Link to="/organizations/form/edit" state={record}>
+          Enter
+        </Link>
       </Dropdown.Button>
     ),
   },
@@ -105,6 +107,7 @@ const OrganizationsList = () => {
   const dataSource = organizations.data.map((obj, index) => ({
     key: index + 1,
     name: obj.organization_name,
+    description: obj.organization_description,
     regions: `${obj.region} (${obj.state})`,
     created: [formatLocalizedDate(obj.created_date), 'Chentao Wang'],
     type: 'EMS',

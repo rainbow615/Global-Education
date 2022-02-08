@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { Form, Input, Select, List, Button, Space } from 'antd'
 import _ from 'lodash'
 
@@ -11,7 +11,8 @@ import { Root, RegionsCard, ActionButtons } from './styles'
 const { Option } = Select
 
 const OrganizationsForm = () => {
-  const { type } = useParams();
+  const location = useLocation()
+  const { type } = useParams()
   const breadCrumb = [
     {
       title: 'Organizations',
@@ -20,6 +21,7 @@ const OrganizationsForm = () => {
       title: type === 'new' ? 'Add' : 'Edit',
     },
   ]
+
   const [selectedRegions, setSelectedRegions] = useState([])
 
   const onSelectRegions = (value) => {
@@ -42,13 +44,15 @@ const OrganizationsForm = () => {
 
   const onFinishFailed = () => {}
 
+  console.log('initial value', location.state)
+
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
       <Root>
         <Form
           autoComplete="off"
-          initialValues={{}}
+          initialValues={location.state || {}}
           layout="vertical"
           name="contacts"
           onFinish={onFinish}
