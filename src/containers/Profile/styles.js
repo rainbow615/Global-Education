@@ -1,13 +1,6 @@
 import styled from 'styled-components'
 import { Card, List, Statistic } from 'antd'
 
-export const Root = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding-top: 40px;
-`
-
 export const LeftSection = styled.div`
   max-width: 370px;
   margin-bottom: 40px;

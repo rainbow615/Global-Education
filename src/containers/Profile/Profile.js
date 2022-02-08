@@ -4,10 +4,11 @@ import { useUser } from '../../services/userService'
 import CustomBreadcrumb from '../../components/CustomBreadcrumb/CustomBreadcrumb'
 import CustomLoading from '../../components/Loading/Loading'
 import { ResultFailed } from '../../components/ResultPages'
+import { Container } from '../../components/CommonComponent'
 import PersonalInfo from './PersonalInfo'
 import PermissionInfo from './PermissionInfo'
 import { getUser } from '../../utils/cookie'
-import { Root, LeftSection, RightSection } from './styles'
+import { LeftSection, RightSection } from './styles'
 
 const breadCrumb = [
   {
@@ -33,14 +34,14 @@ const Profile = () => {
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
-      <Root>
+      <Container>
         <LeftSection>
           <PersonalInfo data={user} />
         </LeftSection>
         <RightSection>
           <PermissionInfo />
         </RightSection>
-      </Root>
+      </Container>
     </React.Fragment>
   )
 }
