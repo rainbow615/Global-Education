@@ -13,7 +13,7 @@ const Login = loadable(() => import('./containers/Login'))
 const ResetPassword = loadable(() => import('./containers/ResetPassword'))
 const Profile = loadable(() => import('./containers/Profile'))
 const OrganizationsList = loadable(() => import('./containers/Organizations/List'))
-const OrganizationsAdd = loadable(() => import('./containers/Organizations/Form'))
+const OrganizationsForm = loadable(() => import('./containers/Organizations/Form'))
 const EducationList = loadable(() => import('./containers/Education/List'))
 const Pricing = loadable(() => import('./containers/Pricing'))
 const Licenses = loadable(() => import('./containers/Licenses'))
@@ -36,7 +36,7 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route exact path="organizations" element={<Navigate to="/organizations/list" />} />
         <Route exact path="organizations/list" element={<OrganizationsList />} />
-        <Route exact path="organizations/add" element={<OrganizationsAdd />} />
+        <Route exact path="organizations/add" element={<OrganizationsForm />} />
         <Route exact path="education" element={<Navigate to="/education/list" />} />
         <Route path="education/list" element={<EducationList />} />
         <Route path="users" element={<Users />} />
