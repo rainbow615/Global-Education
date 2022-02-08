@@ -28,6 +28,6 @@ export const getMainPathname = (path) => {
   return `/${obj[1]}`
 }
 
-export function formatLocalizedDate(date, format = 'LL') {
+export const formatLocalizedDate = (date, format = 'LL') => {
   return moment(new Date(date)).format(format)
 }
