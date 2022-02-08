@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { Form, Input, Select, List, Button, Space } from 'antd'
 import _ from 'lodash'
 
@@ -9,16 +10,16 @@ import { Root, RegionsCard, ActionButtons } from './styles'
 
 const { Option } = Select
 
-const breadCrumb = [
-  {
-    title: 'Organizations',
-  },
-  {
-    title: 'Add',
-  },
-]
-
 const OrganizationsForm = () => {
+  const { type } = useParams();
+  const breadCrumb = [
+    {
+      title: 'Organizations',
+    },
+    {
+      title: type === 'new' ? 'Add' : 'Edit',
+    },
+  ]
   const [selectedRegions, setSelectedRegions] = useState([])
 
   const onSelectRegions = (value) => {

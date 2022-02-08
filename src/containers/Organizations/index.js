@@ -9,7 +9,7 @@ function Organizations() {
     <Routes>
       <Route path="" element={<Navigate to="list" />} />
       <Route path="list" element={<OrganizationsList />} />
-      <Route path="form" element={<OrganizationsForm />} />
+      <Route path="form/:type" element={<OrganizationsForm />} />
     </Routes>
   )
 }

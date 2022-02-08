@@ -85,7 +85,7 @@ const columns = [
         icon={<DownOutlined />}
         type="primary"
       >
-        Enter
+        <Link to="/organizations/form/edit">Enter</Link>
       </Dropdown.Button>
     ),
   },
@@ -117,7 +117,7 @@ const OrganizationsList = () => {
       <Container>
         <CustomTableHeader>
           <Button type="primary">
-            <Link to="/organizations/form">Add new</Link>
+            <Link to="/organizations/form/new">Add new</Link>
           </Button>
           <CustomSearchText placeholder="Search" enterButton allowClear loading={false} />
         </CustomTableHeader>
