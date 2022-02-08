@@ -13,17 +13,17 @@ const PasswordInfo = (props) => {
   const onChangePassword = () => {
     if (!email) {
       notification.error({
-        message: 'Chane Failure',
-        description: 'We can not get your email. Please login again.',
+        message: 'Change Failure',
+        description: 'We could not update your email. Please login again.',
       })
 
       return
     }
 
     confirm({
-      title: 'Are you sure change your password?',
+      title: 'Are you sure you would like to change your password?',
       icon: <ExclamationCircleOutlined />,
-      content: 'When clicked the OK button, you will receive an email.',
+      content: 'Click OK to receive a reset email.',
       onOk() {
         return new Promise((resolve, reject) => {
           requestResetPassword(encodeURI(email))
@@ -35,7 +35,7 @@ const PasswordInfo = (props) => {
             })
             .catch((error) => {
               notification.error({
-                message: 'Send Failure',
+                message: 'Email Send Failure',
                 description: error?.data || '',
               })
               reject()
