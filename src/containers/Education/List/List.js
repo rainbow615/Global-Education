@@ -68,7 +68,7 @@ const columns = [
     width: 100,
     render: () => (
       <Button type="primary">
-        <Link to="/education/form">Edit</Link>
+        <Link to="/education/form/edit">Edit</Link>
       </Button>
     ),
   },
@@ -98,7 +98,7 @@ const EducationList = () => {
       <Container>
         <CustomTableHeader>
           <Button type="primary">
-            <Link to="/education/form">Add new</Link>
+            <Link to="/education/form/new">Add new</Link>
           </Button>
           <CustomSearchText placeholder="Search" enterButton allowClear loading={false} />
         </CustomTableHeader>

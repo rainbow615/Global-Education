@@ -9,7 +9,7 @@ function Education() {
     <Routes>
       <Route path="" element={<Navigate to="list" />} />
       <Route path="list" element={<EducationList />} />
-      <Route path="form" element={<EducationForm />} />
+      <Route path="form/:type" element={<EducationForm />} />
     </Routes>
   )
 }

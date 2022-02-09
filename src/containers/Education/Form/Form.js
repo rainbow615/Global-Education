@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Form, Input, Button, Space } from 'antd'
 import { Editor } from 'react-draft-wysiwyg'
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
@@ -6,16 +7,17 @@ import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.cs
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { Root, ActionButtons } from './styles'
 
-const breadCrumb = [
-  {
-    title: 'EducationForm',
-  },
-  {
-    title: 'Edit',
-  },
-]
-
 const EducationForm = () => {
+  const { type } = useParams()
+  const breadCrumb = [
+    {
+      title: 'JIT Education',
+    },
+    {
+      title: type === 'new' ? 'Add' : 'Edit',
+    },
+  ]
+
   const onFinish = () => {}
 
   const onFinishFailed = () => {}
