@@ -22,14 +22,3 @@ export const Root = styled(Container)`
     }
   }
 `
-
-export const ActionButtons = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 50px;
-
-  button {
-    min-width: 100px;
-  }
-`

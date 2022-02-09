@@ -78,7 +78,7 @@ const columns = [
     key: 'actions',
     align: 'right',
     width: 150,
-    render: (_obj, record) => (
+    render: (_, record) => (
       <Dropdown.Button
         overlay={menu}
         placement="bottomRight"

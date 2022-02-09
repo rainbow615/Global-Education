@@ -52,3 +52,14 @@ export const CustomTableHeader = styled.div`
 export const CustomSearchText = styled(Search)`
   width: 200px;
 `
+
+export const FormActionButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+
+  button {
+    min-width: 100px;
+  }
+`

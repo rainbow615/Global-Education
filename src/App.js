@@ -35,7 +35,7 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="organizations/*" element={<Organizations />} />
         <Route path="education/*" element={<Education />} />
-        <Route path="users" element={<Users />} />
+        <Route path="users/*" element={<Users />} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="licenses" element={<Licenses />} />
       </Route>

@@ -5,7 +5,8 @@ import { Editor } from 'react-draft-wysiwyg'
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
-import { Root, ActionButtons } from './styles'
+import { FormActionButtons } from '../../../components/CommonComponent'
+import { Root } from './styles'
 
 const EducationForm = () => {
   const { type } = useParams()
@@ -30,7 +31,7 @@ const EducationForm = () => {
           autoComplete="off"
           initialValues={{}}
           layout="vertical"
-          name="contacts"
+          name="education"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
@@ -44,7 +45,7 @@ const EducationForm = () => {
           <Form.Item>
             <Editor wrapperClassName="desc-wrapper" editorClassName="desc-editor" />
           </Form.Item>
-          <ActionButtons>
+          <FormActionButtons>
             <Button type="link" size="large" danger>
               Revert all changes
             </Button>
@@ -54,7 +55,7 @@ const EducationForm = () => {
               </Button>
               <Button size="large">Close</Button>
             </Space>
-          </ActionButtons>
+          </FormActionButtons>
         </Form>
       </Root>
     </React.Fragment>

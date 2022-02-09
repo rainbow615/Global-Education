@@ -4,9 +4,10 @@ import { Form, Input, Select, List, Button, Space } from 'antd'
 import _ from 'lodash'
 
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
+import { FormActionButtons } from '../../../components/CommonComponent'
 import { Types } from '../../../config/constants'
 import States from '../../../config/states.json'
-import { Root, RegionsCard, ActionButtons } from './styles'
+import { Root, RegionsCard } from './styles'
 
 const { Option } = Select
 
@@ -35,9 +36,9 @@ const OrganizationsForm = () => {
 
   const onRemoveRegions = (abbreviation) => () => {
     const isSearch = _.findIndex(selectedRegions, { abbreviation: abbreviation })
-    const newRegions = [...selectedRegions]
-    newRegions.splice(isSearch, 1)
-    setSelectedRegions(newRegions)
+    const newRegion = [...selectedRegions]
+    newRegion.splice(isSearch, 1)
+    setSelectedRegions(newRegion)
   }
 
   const onFinish = () => {}
@@ -54,7 +55,7 @@ const OrganizationsForm = () => {
           autoComplete="off"
           initialValues={location.state || {}}
           layout="vertical"
-          name="contacts"
+          name="organizations"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
@@ -143,7 +144,7 @@ const OrganizationsForm = () => {
               />
             </RegionsCard>
           </Form.Item>
-          <ActionButtons>
+          <FormActionButtons>
             <Button type="link" size="large" danger>
               Delete
             </Button>
@@ -155,7 +156,7 @@ const OrganizationsForm = () => {
                 Publish
               </Button>
             </Space>
-          </ActionButtons>
+          </FormActionButtons>
         </Form>
       </Root>
     </React.Fragment>

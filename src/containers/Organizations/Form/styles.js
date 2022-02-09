@@ -32,14 +32,3 @@ export const RegionsCard = styled.div`
     padding: 20px;
   }
 `
-
-export const ActionButtons = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 50px;
-
-  button {
-    width: 100px;
-  }
-`
