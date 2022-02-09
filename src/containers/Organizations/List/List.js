@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom'
 import { Button, Dropdown, Menu, Tag, Typography } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
+import { useOrganizations } from '../../../services/organizations'
+import { formatLocalizedDate } from '../../../utils'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
+import CustomLoading from '../../../components/Loading/Loading'
+import { ResultFailed } from '../../../components/ResultPages'
 import {
   Container,
   CustomTable,
@@ -87,26 +91,26 @@ const columns = [
   },
 ]
 
-const dataSource = [
-  {
-    key: 1,
-    name: 'San Diego County',
-    regions: 'California (CA)',
-    created: ['01/12/2022', 'Chentao Wang'],
+const OrganizationsList = () => {
+  const { data: organizations, error } = useOrganizations()
+
+  if (error) {
+    return <ResultFailed isBackButton={false} />
+  }
+
+  if (organizations?.isLoading) {
+    return <CustomLoading />
+  }
+
+  const dataSource = organizations.data.map((obj, index) => ({
+    key: index + 1,
+    name: obj.organization_name,
+    regions: `${obj.region} (${obj.state})`,
+    created: [formatLocalizedDate(obj.created_date), 'Chentao Wang'],
     type: 'EMS',
     status: 1,
-  },
-  {
-    key: 2,
-    name: 'San Diego County',
-    regions: 'California (CA)',
-    created: ['01/11/2022', 'Chentao Wang'],
-    type: 'EMS',
-    status: 0,
-  },
-]
+  }))
 
-const OrganizationsList = () => {
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />

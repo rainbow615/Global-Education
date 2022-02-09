@@ -36,7 +36,7 @@ const Profile = () => {
       <CustomBreadcrumb items={breadCrumb} />
       <Container>
         <LeftSection>
-          <PersonalInfo data={user} />
+          <PersonalInfo data={user.data} />
         </LeftSection>
         <RightSection>
           <PermissionInfo />

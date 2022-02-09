@@ -1,4 +1,5 @@
 import { parse as urlParse } from 'url'
+import moment from 'moment'
 
 export const getQueryParams = (url = window.location.href.replace(/#/g, '')) => {
   return urlParse(url, true).query
@@ -25,4 +26,8 @@ export const getMainPathname = (path) => {
   const obj = path.split('/')
 
   return `/${obj[1]}`
+}
+
+export function formatLocalizedDate(date, format = 'LL') {
+  return moment(new Date(date)).format(format)
 }

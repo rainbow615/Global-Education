@@ -1,6 +1,6 @@
 import api, { useAPI } from './api'
 
-export function useOrganizations(id) {
+export function useOrganizations() {
   return useAPI(`/organizations`)
 }
 
