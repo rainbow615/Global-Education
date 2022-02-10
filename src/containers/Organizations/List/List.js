@@ -101,11 +101,12 @@ const OrganizationsList = () => {
 
   const dataSource = organizations.data.map((obj, index) => ({
     key: index + 1,
+    id: obj.organization_id,
     name: obj.organization_name,
     description: obj.organization_description,
     regions: `${obj.region} (${obj.state})`,
     created: formatLocalizedDate(obj.created_date),
-    type: 'EMS',
+    type: obj.type,
     region: obj.region,
     state: obj.state,
     status: 1,

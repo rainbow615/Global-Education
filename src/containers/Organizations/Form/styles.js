@@ -20,16 +20,3 @@ export const Root = styled(Container)`
     }
   }
 `
-
-export const RegionsCard = styled.div`
-  width: calc(50% - 10px);
-  min-height: 250px;
-  overflow-y: auto;
-  background-color: white;
-  float: right;
-
-  .ant-list-items {
-    height: 250px;
-    padding: 20px;
-  }
-`

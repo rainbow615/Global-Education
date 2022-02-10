@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-import { Form, Input, Select, List, Button, Space } from 'antd'
-import _ from 'lodash'
+import { Form, Input, Select, Button, Space, notification } from 'antd'
 
+import { createOrganization, updateOrganization } from '../../../services/organizations'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import { Types } from '../../../config/constants'
 import States from '../../../config/states.json'
-import { Root, RegionsCard } from './styles'
+import { Root } from './styles'
 
 const { Option } = Select
 
 const OrganizationsForm = () => {
+  const [form] = Form.useForm()
   const location = useLocation()
   const { type } = useParams()
   const breadCrumb = [
@@ -23,37 +24,65 @@ const OrganizationsForm = () => {
     },
   ]
 
-  const [selectedRegions, setSelectedRegions] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [initial, setInitial] = useState()
 
-  const onSelectRegions = (value) => {
-    const isCheck = _.findIndex(selectedRegions, { abbreviation: value })
+  const onFinish = (values) => {
+    const payload = {
+      organization_name: values.name,
+      organization_description: values.description,
+      state: values.state,
+      type: values.type,
+      region: values.region,
+    }
 
-    if (isCheck === -1) {
-      const newState = _.findIndex(States, { abbreviation: value })
-      setSelectedRegions([...selectedRegions, States[newState]])
+    setIsLoading(true)
+
+    if (type === 'new') {
+      createOrganization(payload)
+        .then(() => {
+          setIsLoading(false)
+          form.resetFields()
+          notification.success({ message: 'A new organization has been created successfully!' })
+        })
+        .catch((error) => {
+          setIsLoading(false)
+
+          notification.error({
+            message: 'Add Failure',
+            description: error?.data || '',
+          })
+        })
+    } else {
+      const id = location.state.id
+
+      updateOrganization(id, payload)
+        .then(() => {
+          setIsLoading(false)
+          setInitial(values)
+          notification.success({ message: 'A organization has been updated successfully!' })
+        })
+        .catch((error) => {
+          setIsLoading(false)
+
+          notification.error({
+            message: 'Add Failure',
+            description: error?.data || '',
+          })
+        })
     }
   }
 
-  const onRemoveRegions = (abbreviation) => () => {
-    const isSearch = _.findIndex(selectedRegions, { abbreviation: abbreviation })
-    const newRegion = [...selectedRegions]
-    newRegion.splice(isSearch, 1)
-    setSelectedRegions(newRegion)
-  }
-
-  const onFinish = () => {}
-
   const onFinishFailed = () => {}
-
-  console.log('initial value', location.state)
 
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
       <Root>
         <Form
+          form={form}
           autoComplete="off"
-          initialValues={location.state || {}}
+          initialValues={initial || location.state}
           layout="vertical"
           name="organizations"
           onFinish={onFinish}
@@ -126,12 +155,16 @@ const OrganizationsForm = () => {
           </Form.Item>
 
           <FormActionButtons>
-            <Button type="link" size="large" danger>
-              Delete
-            </Button>
+            {type !== 'new' ? (
+              <Button type="link" size="large" danger>
+                Delete
+              </Button>
+            ) : (
+              <div />
+            )}
             <Space>
-              <Button size="large" htmlType="submit">
-                Add
+              <Button size="large" htmlType="submit" loading={isLoading}>
+                {type === 'new' ? 'Add' : 'Update'}
               </Button>
               <Button size="large" disabled={true}>
                 Publish
