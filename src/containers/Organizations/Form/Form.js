@@ -100,50 +100,31 @@ const OrganizationsForm = () => {
                 ))}
               </Select>
             </Form.Item>
-
             <Form.Item
-              label="Regions"
-              name="regions"
-              className="regions"
-              rules={[{ required: true, message: 'Please select Regions' }]}
+              label="Region"
+              name="region"
+              className="region"
+              hasFeedback
+              rules={[{ required: true, message: 'Please input Region' }]}
             >
-              <Select
-                placeholder="Regions"
-                size="large"
-                allowClear
-                showSearch
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
-                onSelect={onSelectRegions}
-              >
+              <Input placeholder="Region *" size="large" />
+            </Form.Item>
+            <Form.Item
+              label="State"
+              name="state"
+              className="state"
+              rules={[{ required: true, message: 'Please select State' }]}
+            >
+              <Select placeholder="State" size="large" allowClear>
                 {States.map((state, index) => (
                   <Option key={index} value={state.abbreviation}>
-                    {state.name}
+                    {state.abbreviation}
                   </Option>
                 ))}
               </Select>
             </Form.Item>
           </Form.Item>
-          <Form.Item>
-            <RegionsCard>
-              <List
-                dataSource={selectedRegions}
-                renderItem={(item) => (
-                  <List.Item
-                    actions={[
-                      <Button type="link" danger onClick={onRemoveRegions(item.abbreviation)}>
-                        Remove
-                      </Button>,
-                    ]}
-                  >
-                    <List.Item.Meta title={item.name} />
-                  </List.Item>
-                )}
-              />
-            </RegionsCard>
-          </Form.Item>
+
           <FormActionButtons>
             <Button type="link" size="large" danger>
               Delete

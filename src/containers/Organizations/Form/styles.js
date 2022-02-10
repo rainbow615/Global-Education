@@ -7,14 +7,15 @@ export const Root = styled(Container)`
   form {
     width: 100%;
 
-    .regions,
+    .state,
+    .region,
     .type {
       display: inline-block;
-      width: calc(50% - 10px);
-      margin: 0;
+      width: calc(33.33% - 10px);
+      margin: 0 0 0 15px;
 
-      &:last-child {
-        margin-left: 20px;
+      &:first-child {
+        margin-left: 0;
       }
     }
   }

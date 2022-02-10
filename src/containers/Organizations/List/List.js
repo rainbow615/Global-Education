@@ -42,7 +42,7 @@ const columns = [
     key: 'name',
   },
   {
-    title: 'Regions',
+    title: 'Region',
     dataIndex: 'regions',
     key: 'regions',
   },
@@ -51,12 +51,7 @@ const columns = [
     dataIndex: 'created',
     key: 'created',
     align: 'center',
-    render: (values) => (
-      <DateText>
-        <div>{values[0]}</div>
-        <div>{values[1]}</div>
-      </DateText>
-    ),
+    render: (value) => <DateText>{value}</DateText>,
   },
   {
     title: 'Type',
@@ -109,8 +104,10 @@ const OrganizationsList = () => {
     name: obj.organization_name,
     description: obj.organization_description,
     regions: `${obj.region} (${obj.state})`,
-    created: [formatLocalizedDate(obj.created_date), 'Chentao Wang'],
+    created: formatLocalizedDate(obj.created_date),
     type: 'EMS',
+    region: obj.region,
+    state: obj.state,
     status: 1,
   }))
 
