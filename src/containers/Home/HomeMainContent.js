@@ -3,7 +3,7 @@ import { Button, Col, Row } from 'antd'
 import { Link, scroller } from 'react-scroll'
 
 import AsyncImage from '../../components/AsyncImage'
-import { ContactsTopic } from '../../config/constants'
+import { CONTACTS_TOPIC } from '../../config/constants'
 import {
   TopBanner,
   Section,
@@ -27,7 +27,7 @@ const HomeMainContent = (props) => {
       spy: true,
       smooth: true,
     })
-    props.onChangeTopic && props.onChangeTopic(ContactsTopic[index].id)
+    props.onChangeTopic && props.onChangeTopic(CONTACTS_TOPIC[index].id)
   }
 
   return (

@@ -8,6 +8,7 @@ import { useOrganizations } from '../../../services/organizations'
 import { formatLocalizedDate } from '../../../utils'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { ResultFailed } from '../../../components/ResultPages'
+import { PUBLISHED_STATE } from '../../../config/constants'
 import {
   Container,
   CustomTable,
@@ -64,7 +65,9 @@ const columns = [
     dataIndex: 'status',
     key: 'status',
     render: (value) => (
-      <Text type={value ? 'success' : 'danger'}>{value ? 'Published' : 'Not Published'}</Text>
+      <Text type={value === PUBLISHED_STATE.PUBLISHED ? 'success' : 'danger'}>
+        {value === PUBLISHED_STATE.PUBLISHED ? 'Published' : 'Not Published'}
+      </Text>
     ),
   },
   {
@@ -114,7 +117,7 @@ const OrganizationsList = () => {
           type: record.type,
           region: record.region,
           state: record.state,
-          status: 1,
+          status: record.status,
         }
 
         if (searchText) {

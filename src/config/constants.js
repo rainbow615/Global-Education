@@ -1,7 +1,7 @@
-export const TopHeaderHeight = 70
-export const MobileSize = 760
+export const TOP_HEADER_HEIGHT = 70
+export const MOBILE_SIZE = 760
 
-export const ContactsTopic = [
+export const CONTACTS_TOPIC = [
   {
     id: 'bulk_order',
     name: 'Bulk orders',
@@ -16,7 +16,7 @@ export const ContactsTopic = [
   },
 ]
 
-export const Types = [
+export const TYPES = [
   {
     id: 'EMS',
     name: 'EMS',
@@ -30,3 +30,8 @@ export const Types = [
     name: 'Law',
   },
 ]
+
+export const PUBLISHED_STATE = {
+  PUBLISHED: 'PUBLISHED',
+  UNPUBLISHED: 'UNPUBLISHED'
+}

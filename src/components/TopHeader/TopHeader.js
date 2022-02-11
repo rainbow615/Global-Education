@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Menu, Dropdown } from 'antd'
 import { Link as RouterLink } from 'react-router-dom'
 
-import { MobileSize, TopHeaderHeight } from '../../config/constants'
+import { MOBILE_SIZE, TOP_HEADER_HEIGHT } from '../../config/constants'
 import Logo from '../../assets/img/logo-dark.svg'
 import { CustomHeader, CustomMenu, HamburgerButton, HamburgerIcon } from './styles'
 
@@ -10,15 +10,15 @@ const TopHeader = (props) => {
   const [isShowHamburger, setIsShowHamburger] = useState(false)
 
   const onScrollEvent = () => {
-    setIsShowHamburger(window.innerWidth <= MobileSize || window.pageYOffset > TopHeaderHeight)
+    setIsShowHamburger(window.innerWidth <= MOBILE_SIZE || window.pageYOffset > TOP_HEADER_HEIGHT)
   }
 
   const onresize = () => {
-    setIsShowHamburger(window.innerWidth <= MobileSize)
+    setIsShowHamburger(window.innerWidth <= MOBILE_SIZE)
   }
 
   useEffect(() => {
-    setIsShowHamburger(window.innerWidth <= MobileSize)
+    setIsShowHamburger(window.innerWidth <= MOBILE_SIZE)
 
     window.addEventListener('scroll', onScrollEvent)
     window.addEventListener('resize', onresize)

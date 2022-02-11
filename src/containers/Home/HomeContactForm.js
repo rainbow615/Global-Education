@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Form, Input, Select, notification, Space } from 'antd'
 import ReCAPTCHA from 'react-google-recaptcha'
 
-import { ContactsTopic } from '../../config/constants'
+import { CONTACTS_TOPIC } from '../../config/constants'
 import {
   Section,
   ContackSection,
@@ -111,7 +111,7 @@ const HomeContactForm = (props) => {
 
               <Form.Item name="topic" hasFeedback rules={topicRules}>
                 <Select placeholder="Topic" size="large" allowClear>
-                  {ContactsTopic.map((topic) => (
+                  {CONTACTS_TOPIC.map((topic) => (
                     <Option key={topic.id} value={topic.id}>
                       {topic.name}
                     </Option>

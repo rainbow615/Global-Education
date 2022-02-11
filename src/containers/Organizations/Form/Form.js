@@ -5,7 +5,7 @@ import { Form, Input, Select, Button, Space, notification } from 'antd'
 import { createOrganization, updateOrganization } from '../../../services/organizations'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
-import { Types } from '../../../config/constants'
+import { TYPES } from '../../../config/constants'
 import States from '../../../config/states.json'
 import { Root } from './styles'
 
@@ -122,7 +122,7 @@ const OrganizationsForm = () => {
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
               >
-                {Types.map((type) => (
+                {TYPES.map((type) => (
                   <Option key={type.id} value={type.name}>
                     {type.name}
                   </Option>
