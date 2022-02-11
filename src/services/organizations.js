@@ -11,3 +11,7 @@ export function createOrganization(payload) {
 export function updateOrganization(id, payload) {
   return api.put(`/organizations/${id}`, payload)
 }
+
+export function deleteOrganization(id) {
+  return api.delete(`/organizations/${id}`)
+}

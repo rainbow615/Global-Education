@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { Form, Input, Select, Button, Space, notification } from 'antd'
 import { CheckOutlined } from '@ant-design/icons'
 
-import { createOrganization, updateOrganization } from '../../../services/organizations'
+import {
+  createOrganization,
+  updateOrganization,
+  deleteOrganization,
+} from '../../../services/organizations'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import { PUBLISHED_STATE, TYPES } from '../../../config/constants'
@@ -15,6 +19,7 @@ const { Option } = Select
 const OrganizationsForm = () => {
   const [form] = Form.useForm()
   const location = useLocation()
+  const navigate = useNavigate()
   const { type } = useParams()
   const breadCrumb = [
     {
@@ -24,9 +29,11 @@ const OrganizationsForm = () => {
       title: type === 'new' ? 'Add' : 'Edit',
     },
   ]
+  const id = location?.state?.id
 
   const [isLoading, setIsLoading] = useState(false)
   const [isPublishing, setIsPublishing] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const [initial, setInitial] = useState()
 
   const onFinish = (values) => {
@@ -36,6 +43,7 @@ const OrganizationsForm = () => {
       state: values.state,
       type: values.type,
       region: values.region,
+      status: 'UNPUBLISHED',
     }
 
     setIsLoading(true)
@@ -56,8 +64,6 @@ const OrganizationsForm = () => {
           })
         })
     } else {
-      const id = location.state.id
-
       setIsLoading(true)
 
       updateOrganization(id, payload)
@@ -114,7 +120,26 @@ const OrganizationsForm = () => {
       })
   }
 
-  const onDelete = () => {}
+  const onDelete = () => {
+    setIsDeleting(true)
+
+    deleteOrganization(id)
+      .then(() => {
+        setIsDeleting(false)
+        notification.success({
+          message: `A organization has been deleted successfully!`,
+        })
+        navigate('/organizations/list')
+      })
+      .catch((error) => {
+        setIsDeleting(false)
+
+        notification.error({
+          message: 'Delete Failure',
+          description: error?.data || '',
+        })
+      })
+  }
 
   const isCheckPublish =
     (!initial && location?.state?.status === PUBLISHED_STATE.PUBLISHED) ||
@@ -205,7 +230,7 @@ const OrganizationsForm = () => {
                 type="link"
                 size="large"
                 danger
-                loading={isCheckPublish && isPublishing}
+                loading={(isCheckPublish && isPublishing) || isDeleting}
                 onClick={isCheckPublish ? onTogglePublish(false) : onDelete}
               >
                 {isCheckPublish ? 'Unpublish' : 'Delete'}
