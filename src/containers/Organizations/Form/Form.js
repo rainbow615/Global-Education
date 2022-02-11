@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import { Form, Input, Select, Button, Space, notification } from 'antd'
+import { CheckOutlined } from '@ant-design/icons'
 
 import { createOrganization, updateOrganization } from '../../../services/organizations'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
-import { TYPES } from '../../../config/constants'
+import { PUBLISHED_STATE, TYPES } from '../../../config/constants'
 import States from '../../../config/states.json'
 import { Root } from './styles'
 
@@ -25,6 +26,7 @@ const OrganizationsForm = () => {
   ]
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isPublishing, setIsPublishing] = useState(false)
   const [initial, setInitial] = useState()
 
   const onFinish = (values) => {
@@ -56,6 +58,8 @@ const OrganizationsForm = () => {
     } else {
       const id = location.state.id
 
+      setIsLoading(true)
+
       updateOrganization(id, payload)
         .then(() => {
           setIsLoading(false)
@@ -66,7 +70,7 @@ const OrganizationsForm = () => {
           setIsLoading(false)
 
           notification.error({
-            message: 'Add Failure',
+            message: 'Upate Failure',
             description: error?.data || '',
           })
         })
@@ -74,6 +78,47 @@ const OrganizationsForm = () => {
   }
 
   const onFinishFailed = () => {}
+
+  const onTogglePublish = (isPublish) => () => {
+    const org = location.state
+    const payload = {
+      organization_name: org.name,
+      organization_description: org.description,
+      state: org.state,
+      type: org.type,
+      region: org.region,
+      status: isPublish ? PUBLISHED_STATE.PUBLISHED : PUBLISHED_STATE.UNPUBLISHED,
+    }
+    const id = org.id
+
+    setIsPublishing(true)
+
+    updateOrganization(id, payload)
+      .then((result) => {
+        setIsPublishing(false)
+
+        if (result?.data) {
+          setInitial(result?.data[0])
+          notification.success({
+            message: `A organization has been ${isPublish ? '' : 'un'}published successfully!`,
+          })
+        }
+      })
+      .catch((error) => {
+        setIsPublishing(false)
+
+        notification.error({
+          message: 'Publish Failure',
+          description: error?.data || '',
+        })
+      })
+  }
+
+  const onDelete = () => {}
+
+  const isCheckPublish =
+    (!initial && location?.state?.status === PUBLISHED_STATE.PUBLISHED) ||
+    initial?.status === PUBLISHED_STATE.PUBLISHED
 
   return (
     <React.Fragment>
@@ -156,8 +201,14 @@ const OrganizationsForm = () => {
 
           <FormActionButtons>
             {type !== 'new' ? (
-              <Button type="link" size="large" danger>
-                Delete
+              <Button
+                type="link"
+                size="large"
+                danger
+                loading={isCheckPublish && isPublishing}
+                onClick={isCheckPublish ? onTogglePublish(false) : onDelete}
+              >
+                {isCheckPublish ? 'Unpublish' : 'Delete'}
               </Button>
             ) : (
               <div />
@@ -166,8 +217,15 @@ const OrganizationsForm = () => {
               <Button size="large" htmlType="submit" loading={isLoading}>
                 {type === 'new' ? 'Add' : 'Update'}
               </Button>
-              <Button size="large" disabled={type === 'new'}>
-                Publish
+              <Button
+                size="large"
+                className={isCheckPublish ? 'published' : ''}
+                icon={isCheckPublish ? <CheckOutlined /> : null}
+                disabled={type === 'new' || isCheckPublish}
+                onClick={onTogglePublish(true)}
+                loading={!isCheckPublish && isPublishing}
+              >
+                {isCheckPublish ? 'Published' : 'Publish'}
               </Button>
             </Space>
           </FormActionButtons>

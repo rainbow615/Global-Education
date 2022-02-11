@@ -18,5 +18,12 @@ export const Root = styled(Container)`
         margin-left: 0;
       }
     }
+
+    button.published {
+      background: #389e0d22;
+      border: 0;
+      color: #389e0d55;
+      border-left: 4px solid;
+    }
   }
 `
