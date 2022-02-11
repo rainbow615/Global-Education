@@ -166,7 +166,7 @@ const OrganizationsForm = () => {
               <Button size="large" htmlType="submit" loading={isLoading}>
                 {type === 'new' ? 'Add' : 'Update'}
               </Button>
-              <Button size="large" disabled={true}>
+              <Button size="large" disabled={type === 'new'}>
                 Publish
               </Button>
             </Space>
