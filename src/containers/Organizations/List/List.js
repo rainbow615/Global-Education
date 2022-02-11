@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Dropdown, Menu, Tag, Typography } from 'antd'
+import { debounce, map, get } from 'lodash'
 import { DownOutlined } from '@ant-design/icons'
 
 import { useOrganizations } from '../../../services/organizations'
@@ -89,27 +90,47 @@ const columns = [
 
 const OrganizationsList = () => {
   const { data: organizations, error } = useOrganizations()
+  const [searchText, setSearchText] = useState('')
 
   if (error) {
     return <ResultFailed isBackButton={false} />
   }
 
-  const dataSource = organizations?.data
-    ? organizations.data.map((obj, index) => ({
-        key: index + 1,
-        id: obj.organization_id,
-        name: obj.organization_name,
-        description: obj.organization_description,
-        regions: `${obj.region} (${obj.state})`,
-        created: formatLocalizedDate(obj.created_date),
-        type: obj.type,
-        region: obj.region,
-        state: obj.state,
-        status: 1,
-      }))
-    : []
+  const onSearch = (e) => {
+    setSearchText(e.target.value)
+  }
 
-  const onSearch = () => {}
+  const debouncedSearchHandler = debounce(onSearch, 800)
+
+  const dataSource = organizations?.data
+    ? map(organizations.data, (record, index) => {
+        const _record = {
+          key: index + 1,
+          id: record.organization_id,
+          name: record.organization_name,
+          description: record.organization_description,
+          regions: `${record.region} (${record.state})`,
+          created: formatLocalizedDate(record.created_date),
+          type: record.type,
+          region: record.region,
+          state: record.state,
+          status: 1,
+        }
+
+        if (searchText) {
+          const reg = new RegExp(searchText, 'gi')
+          const nameMatch = get(_record, 'name').match(reg)
+          const regionsMatch = get(_record, 'regions').match(reg)
+          const typeMatch = get(_record, 'type').match(reg)
+
+          if (!nameMatch && !regionsMatch && !typeMatch) {
+            return null
+          }
+        }
+
+        return _record
+      }).filter((record) => !!record)
+    : []
 
   return (
     <React.Fragment>
@@ -119,7 +140,13 @@ const OrganizationsList = () => {
           <Button type="primary">
             <Link to="/organizations/form/new">Add new</Link>
           </Button>
-          <CustomSearchText placeholder="Search" enterButton allowClear onPressEnter={onSearch} />
+          <CustomSearchText
+            placeholder="Search"
+            enterButton
+            allowClear
+            onChange={debouncedSearchHandler}
+            onPressEnter={debouncedSearchHandler}
+          />
         </CustomTableHeader>
         <CustomTable
           dataSource={dataSource}
