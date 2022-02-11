@@ -6,7 +6,6 @@ import { DownOutlined } from '@ant-design/icons'
 import { useOrganizations } from '../../../services/organizations'
 import { formatLocalizedDate } from '../../../utils'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
-import CustomLoading from '../../../components/Loading/Loading'
 import { ResultFailed } from '../../../components/ResultPages'
 import {
   Container,
@@ -95,22 +94,22 @@ const OrganizationsList = () => {
     return <ResultFailed isBackButton={false} />
   }
 
-  if (organizations?.isLoading) {
-    return <CustomLoading />
-  }
+  const dataSource = organizations?.data
+    ? organizations.data.map((obj, index) => ({
+        key: index + 1,
+        id: obj.organization_id,
+        name: obj.organization_name,
+        description: obj.organization_description,
+        regions: `${obj.region} (${obj.state})`,
+        created: formatLocalizedDate(obj.created_date),
+        type: obj.type,
+        region: obj.region,
+        state: obj.state,
+        status: 1,
+      }))
+    : []
 
-  const dataSource = organizations.data.map((obj, index) => ({
-    key: index + 1,
-    id: obj.organization_id,
-    name: obj.organization_name,
-    description: obj.organization_description,
-    regions: `${obj.region} (${obj.state})`,
-    created: formatLocalizedDate(obj.created_date),
-    type: obj.type,
-    region: obj.region,
-    state: obj.state,
-    status: 1,
-  }))
+  const onSearch = () => {}
 
   return (
     <React.Fragment>
@@ -120,12 +119,12 @@ const OrganizationsList = () => {
           <Button type="primary">
             <Link to="/organizations/form/new">Add new</Link>
           </Button>
-          <CustomSearchText placeholder="Search" enterButton allowClear loading={false} />
+          <CustomSearchText placeholder="Search" enterButton allowClear onPressEnter={onSearch} />
         </CustomTableHeader>
         <CustomTable
           dataSource={dataSource}
           columns={columns}
-          loading={false}
+          loading={organizations?.isLoading}
           pagination={{
             pageSize: 10,
           }}
