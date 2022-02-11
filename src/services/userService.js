@@ -8,6 +8,10 @@ export function updateUser(id, payload) {
   return api.put(`users/${id}`, payload)
 }
 
+export function useUsersList() {
+  return useAPI(`users`)
+}
+
 // export function useUsers() {
 //   return useAPI(`/users`)
 // }
