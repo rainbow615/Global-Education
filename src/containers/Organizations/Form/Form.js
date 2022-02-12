@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { Form, Input, Select, Button, Space, notification } from 'antd'
 import { CheckOutlined } from '@ant-design/icons'
@@ -35,6 +35,10 @@ const OrganizationsForm = () => {
   const [isPublishing, setIsPublishing] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [initial, setInitial] = useState()
+
+  useEffect(() => {
+    form.setFieldsValue({ region: 'North America' })
+  }, [form])
 
   const onFinish = (values) => {
     const payload = {
@@ -206,7 +210,7 @@ const OrganizationsForm = () => {
               hasFeedback
               rules={[{ required: true, message: 'Please input Region' }]}
             >
-              <Input placeholder="Region *" size="large" />
+              <Input placeholder="Region *" size="large" disabled />
             </Form.Item>
             <Form.Item
               label="State"
