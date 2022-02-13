@@ -14,7 +14,6 @@ const ResetPassword = loadable(() => import('./containers/ResetPassword'))
 const Profile = loadable(() => import('./containers/Profile'))
 const Organizations = loadable(() => import('./containers/Organizations'))
 const Education = loadable(() => import('./containers/Education'))
-const Pricing = loadable(() => import('./containers/Pricing'))
 const Licenses = loadable(() => import('./containers/Licenses'))
 const Users = loadable(() => import('./containers/Users'))
 
@@ -36,7 +35,6 @@ function App() {
         <Route path="organizations/*" element={<Organizations />} />
         <Route path="education/*" element={<Education />} />
         <Route path="users/*" element={<Users />} />
-        <Route path="pricing" element={<Pricing />} />
         <Route path="licenses" element={<Licenses />} />
       </Route>
     </Routes>

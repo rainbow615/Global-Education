@@ -18,10 +18,6 @@ const navLinks = [
     pathName: 'Users',
   },
   {
-    path: '/pricing',
-    pathName: 'Pricing',
-  },
-  {
     path: '/licenses',
     pathName: 'Licenses',
   },
