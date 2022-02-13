@@ -6,6 +6,7 @@ const ColorTheme = {
     textColor: '#1f2532',
     primary: '#1890ff',
     borderColor: '#d9d9d9',
+    warning: '#faad14',
   },
 }
 

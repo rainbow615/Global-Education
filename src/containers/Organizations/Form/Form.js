@@ -10,7 +10,8 @@ import {
 } from '../../../services/organizations'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
-import { PUBLISHED_STATE, TYPES } from '../../../config/constants'
+import { OrgActionsButton } from './ActionButtons'
+import { PUBLISHED_STATE, TYPES, ORG_ACTIONS } from '../../../config/constants'
 import States from '../../../config/states.json'
 import { Root } from './styles'
 
@@ -230,15 +231,16 @@ const OrganizationsForm = () => {
 
           <FormActionButtons>
             {type !== 'new' ? (
-              <Button
+              <OrgActionsButton
                 type="link"
                 size="large"
                 danger
                 loading={(isCheckPublish && isPublishing) || isDeleting}
                 onClick={isCheckPublish ? onTogglePublish(false) : onDelete}
+                actionType={isCheckPublish ? ORG_ACTIONS.UNPUBLISHED : ORG_ACTIONS.DELETE}
               >
                 {isCheckPublish ? 'Unpublish' : 'Delete'}
-              </Button>
+              </OrgActionsButton>
             ) : (
               <div />
             )}
@@ -246,16 +248,17 @@ const OrganizationsForm = () => {
               <Button size="large" htmlType="submit" loading={isLoading}>
                 {type === 'new' ? 'Add' : 'Update'}
               </Button>
-              <Button
+              <OrgActionsButton
                 size="large"
                 className={isCheckPublish ? 'published' : ''}
                 icon={isCheckPublish ? <CheckOutlined /> : null}
                 disabled={type === 'new' || isCheckPublish}
                 onClick={onTogglePublish(true)}
                 loading={!isCheckPublish && isPublishing}
+                actionType={ORG_ACTIONS.PUBLISHED}
               >
                 {isCheckPublish ? 'Published' : 'Publish'}
-              </Button>
+              </OrgActionsButton>
             </Space>
           </FormActionButtons>
         </Form>

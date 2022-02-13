@@ -33,5 +33,20 @@ export const TYPES = [
 
 export const PUBLISHED_STATE = {
   PUBLISHED: 'PUBLISHED',
-  UNPUBLISHED: 'UNPUBLISHED'
+  UNPUBLISHED: 'UNPUBLISHED',
+}
+
+export const ORG_ACTIONS = {
+  DELETE: 'DELETE',
+  PUBLISHED: 'PUBLISHED',
+  UNPUBLISHED: 'UNPUBLISHED',
+}
+
+export const ORG_CONFIRM_MSG = {
+  DELETE:
+    "You are deleting this organization. This organization and all of its data will not be recoverable. Type 'DELETE' to confirm.",
+  PUBLISH:
+    "You are publishing this organization. This will make the organization available in the MCP mobile application and bookstore. Type 'PUBLISH' to confirm.",
+  UNPUBLISH:
+    "You are unpublishing this organization. This will make the organization no longer available in the MCP mobile application and bookstore. Type 'UNPUBLISH' to confirm.",
 }
