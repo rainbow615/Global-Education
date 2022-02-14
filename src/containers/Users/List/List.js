@@ -46,17 +46,9 @@ const columns = [
   },
   {
     title: 'Roles',
-    dataIndex: 'roles',
-    key: 'roles',
-    render: (values) => (
-      <TagsWrap>
-        {values.map((value, index) => (
-          <Tag color="default" key={index}>
-            {value}
-          </Tag>
-        ))}
-      </TagsWrap>
-    ),
+    dataIndex: 'role',
+    key: 'role',
+    render: (value) => <Tag color="default">{value}</Tag>,
   },
   {
     title: '',
@@ -86,7 +78,7 @@ const UsersList = () => {
         name: obj.full_name,
         email: obj.email,
         registered: formatLocalizedDate(obj.created_date),
-        roles: [],
+        role: obj.role_name,
       }))
     : []
 
