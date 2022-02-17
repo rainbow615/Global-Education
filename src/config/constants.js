@@ -50,3 +50,5 @@ export const ORG_CONFIRM_MSG = {
   UNPUBLISH:
     "You are unpublishing this organization. This will make the organization no longer available in the MCP mobile application and bookstore. Type 'UNPUBLISH' to confirm.",
 }
+
+export const SEARCH_DELAY = 800

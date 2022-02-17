@@ -8,7 +8,7 @@ import { useOrganizations } from '../../../services/organizations'
 import { formatLocalizedDate } from '../../../utils'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { ResultFailed } from '../../../components/ResultPages'
-import { PUBLISHED_STATE } from '../../../config/constants'
+import { PUBLISHED_STATE, SEARCH_DELAY } from '../../../config/constants'
 import {
   Container,
   CustomTable,
@@ -103,7 +103,7 @@ const OrganizationsList = () => {
     setSearchText(e.target.value)
   }
 
-  const debouncedSearchHandler = debounce(onSearch, 800)
+  const debouncedSearchHandler = debounce(onSearch, SEARCH_DELAY)
 
   const dataSource = organizations?.data
     ? map(organizations.data, (record, index) => {

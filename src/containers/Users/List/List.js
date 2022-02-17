@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Tag } from 'antd'
+import { debounce, map, get } from 'lodash'
 
 import { useUsersList } from '../../../services/userService'
 import { formatLocalizedDate } from '../../../utils'
@@ -12,6 +13,7 @@ import {
   CustomSearchText,
 } from '../../../components/CommonComponent'
 import { ResultFailed } from '../../../components/ResultPages'
+import { SEARCH_DELAY } from '../../../config/constants'
 
 const breadCrumb = [
   {
@@ -65,21 +67,54 @@ const columns = [
 
 const UsersList = () => {
   const { data: users, error } = useUsersList()
+  const [searchText, setSearchText] = useState('')
 
   if (error) {
     return <ResultFailed isBackButton={false} />
   }
 
+  const onSearch = (e) => {
+    setSearchText(e.target.value)
+  }
+
+  const debouncedSearchHandler = debounce(onSearch, SEARCH_DELAY)
+
   const dataSource = users?.data
-    ? users.data.map((obj, index) => ({
-        key: index + 1,
-        id: obj.user_id,
-        name: obj.full_name,
-        email: obj.email,
-        registered: formatLocalizedDate(obj.created_date),
-        role: obj.role_name,
-      }))
+    ? map(users.data, (record, index) => {
+        const _record = {
+          key: index + 1,
+          id: record.user_id,
+          name: record.full_name,
+          email: record.email,
+          registered: formatLocalizedDate(record.created_date),
+          role: record.role_name,
+        }
+
+        if (searchText) {
+          const reg = new RegExp(searchText, 'gi')
+          const nameMatch = get(_record, 'name').match(reg)
+          const emailMatch = get(_record, 'email').match(reg)
+          const roleMatch = get(_record, 'role').match(reg)
+
+          if (!nameMatch && !emailMatch && !roleMatch) {
+            return null
+          }
+        }
+
+        return _record
+      }).filter((record) => !!record)
     : []
+
+  // const dataSource = users?.data
+  //   ? users.data.map((obj, index) => ({
+  //       key: index + 1,
+  //       id: obj.user_id,
+  //       name: obj.full_name,
+  //       email: obj.email,
+  //       registered: formatLocalizedDate(obj.created_date),
+  //       role: obj.role_name,
+  //     }))
+  //   : []
 
   return (
     <React.Fragment>
@@ -89,7 +124,13 @@ const UsersList = () => {
           <Button type="primary">
             <Link to="/users/form/new">Add new</Link>
           </Button>
-          <CustomSearchText placeholder="Search" enterButton allowClear loading={false} />
+          <CustomSearchText
+            placeholder="Search"
+            enterButton
+            allowClear
+            onChange={debouncedSearchHandler}
+            onPressEnter={debouncedSearchHandler}
+          />
         </CustomTableHeader>
         <CustomTable
           dataSource={dataSource}
