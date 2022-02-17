@@ -24,14 +24,6 @@ const breadCrumb = [
 
 const columns = [
   {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-    render: (value) => (
-      <Text type={value ? 'success' : 'danger'}>{value ? 'Published' : 'Draft'}</Text>
-    ),
-  },
-  {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
@@ -41,23 +33,21 @@ const columns = [
     dataIndex: 'created',
     key: 'created',
     align: 'center',
-    render: (values) => (
-      <DateText>
-        <div>{values[0]}</div>
-        <div>{values[1]}</div>
-      </DateText>
-    ),
+    render: (value) => <DateText>{value}</DateText>,
   },
   {
     title: 'Updated',
     dataIndex: 'updated',
     key: 'updated',
     align: 'center',
-    render: (values) => (
-      <DateText>
-        <div>{values[0]}</div>
-        <div>{values[1]}</div>
-      </DateText>
+    render: (value) => <DateText>{value}</DateText>,
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    render: (value) => (
+      <Text type={value ? 'success' : 'danger'}>{value ? 'Published' : 'Draft'}</Text>
     ),
   },
   {
@@ -79,15 +69,15 @@ const dataSource = [
     key: 1,
     status: 1,
     name: 'Dystonic Reactions Explained',
-    created: ['02/07/2022', 'Chentao Wang'],
-    updated: ['02/07/2022', 'Chentao Wang'],
+    created: '02/07/2022',
+    updated: '02/07/2022',
   },
   {
     key: 2,
     status: 0,
     name: 'Allergic Reactions (skin signs)',
-    created: ['02/07/2022', 'Chentao Wang'],
-    updated: ['02/07/2022', 'Chentao Wang'],
+    created: '02/06/2022',
+    updated: '02/06/2022',
   },
 ]
 
