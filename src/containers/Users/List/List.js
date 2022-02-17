@@ -12,7 +12,6 @@ import {
   CustomSearchText,
 } from '../../../components/CommonComponent'
 import { ResultFailed } from '../../../components/ResultPages'
-import { TagsWrap } from './styles'
 
 const breadCrumb = [
   {

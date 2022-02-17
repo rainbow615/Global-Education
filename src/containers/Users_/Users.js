@@ -67,7 +67,7 @@ const EventUsers = () => {
       align: 'right',
       fixed: 'right',
       width: 102,
-      render: (text, record) => (
+      render: (_text, record) => (
         <Row justify="end">
           <Button
             type="text"

@@ -83,8 +83,6 @@ const OrganizationsForm = () => {
           })
         })
     } else {
-      setIsLoading(true)
-
       updateOrganization(id, payload)
         .then(() => {
           setIsLoading(false)
