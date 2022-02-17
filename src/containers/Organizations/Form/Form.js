@@ -156,7 +156,7 @@ const OrganizationsForm = () => {
       <Root>
         <Form
           form={form}
-          autoComplete="off"
+          autoComplete="nope"
           initialValues={initial || location.state}
           layout="vertical"
           name="organizations"
@@ -219,7 +219,17 @@ const OrganizationsForm = () => {
               className="state"
               rules={[{ required: true, message: 'Please select State' }]}
             >
-              <Select placeholder="State" size="large" allowClear>
+              <Select
+                autoComplete="nope"
+                placeholder="State"
+                size="large"
+                allowClear
+                showSearch
+                optionFilterProp="children"
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
+              >
                 {States.map((state, index) => (
                   <Option key={index} value={state.abbreviation}>
                     {state.abbreviation}
