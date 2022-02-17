@@ -55,10 +55,24 @@ const OrganizationsForm = () => {
 
     if (type === 'new') {
       createOrganization(payload)
-        .then(() => {
+        .then((res) => {
           setIsLoading(false)
-          form.resetFields()
           notification.success({ message: 'A new organization has been created successfully!' })
+
+          if (res && res.data && res.data[0]) {
+            const record = {
+              key: 0,
+              id: res.data[0].organization_id,
+              name: res.data[0].organization_name,
+              description: res.data[0].organization_description,
+              type: res.data[0].type,
+              region: res.data[0].region,
+              state: res.data[0].state,
+              status: res.data[0].status,
+            }
+
+            navigate('/organizations/form/edit', { state: record })
+          }
         })
         .catch((error) => {
           setIsLoading(false)
