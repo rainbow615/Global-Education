@@ -1,14 +1,14 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Form, Input, Button, Space } from 'antd'
 
+import CustomCkEditor from '../../../components/CustomCkEditor/CustomCkEditor'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import { Root } from './styles'
 
 const EducationForm = () => {
   const { type } = useParams()
-  const [desc, setDesc] = useState('')
   const breadCrumb = [
     {
       title: 'JIT Education',
@@ -17,12 +17,13 @@ const EducationForm = () => {
       title: type === 'new' ? 'Add' : 'Edit',
     },
   ]
+  const [editorContent, setEditorContent] = useState()
 
-  const onFinish = () => {}
+  const onFinish = (values) => {
+    console.log(values, editorContent)
+  }
 
   const onFinishFailed = () => {}
-
-  console.log('==============', desc)
 
   return (
     <React.Fragment>
@@ -43,7 +44,12 @@ const EducationForm = () => {
           >
             <Input placeholder="Name *" size="large" />
           </Form.Item>
-          <Form.Item>
+          <Form.Item className="wyswyg-editor">
+            <CustomCkEditor
+              onChange={(_event, editor) => {
+                setEditorContent(editor.getData())
+              }}
+            />
           </Form.Item>
           <FormActionButtons>
             <Button type="link" size="large" danger>

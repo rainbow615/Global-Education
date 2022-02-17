@@ -31,3 +31,11 @@ export const getMainPathname = (path) => {
 export const formatLocalizedDate = (date, format = 'LL') => {
   return moment(new Date(date)).format(format)
 }
+
+export const convertImageToBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = (error) => reject(error)
+  })
