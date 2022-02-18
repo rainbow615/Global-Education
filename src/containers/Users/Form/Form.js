@@ -7,6 +7,7 @@ import _ from 'lodash'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import AddNewTeamModal from './AddNewTeamModal'
+import AddNewTeamRole from './AddNewRoleModal'
 import { Root, RowSection, RegionsCard, RowSectionHeader, AddNewTeamButton } from './styles'
 
 const { Option } = Select
@@ -85,6 +86,7 @@ const UsersForm = () => {
 
   const [selectedTeams, setSelectedTeams] = useState([])
   const [teamModalVisible, setTeamModalVisible] = useState(false)
+  const [roleModalVisible, setRoleModalVisible] = useState(false)
 
   const onSelectTeams = (value) => {
     const isCheck = _.findIndex(selectedTeams, { id: value })
@@ -106,8 +108,16 @@ const UsersForm = () => {
     setTeamModalVisible(true)
   }
 
+  const onOpenAddRole = () => {
+    setRoleModalVisible(true)
+  }
+
   const onCloseAddNewTeam = () => {
     setTeamModalVisible(false)
+  }
+
+  const onCloseAddNewRole = () => {
+    setRoleModalVisible(false)
   }
 
   const onFinish = () => {}
@@ -194,7 +204,7 @@ const UsersForm = () => {
             <div>
               <RowSectionHeader>
                 <Text>Access</Text>
-                <Button>Add role</Button>
+                <Button onClick={onOpenAddRole}>Add role</Button>
               </RowSectionHeader>
               <Table
                 className="access-table"
@@ -212,6 +222,7 @@ const UsersForm = () => {
           </FormActionButtons>
         </Form>
         <AddNewTeamModal visible={teamModalVisible} onClose={onCloseAddNewTeam} />
+        <AddNewTeamRole visible={roleModalVisible} onClose={onCloseAddNewRole} />
       </Root>
     </React.Fragment>
   )

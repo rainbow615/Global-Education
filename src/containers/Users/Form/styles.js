@@ -91,5 +91,29 @@ export const AddNewModal = styled(Modal)`
     .ant-form-item {
       margin-top: 35px;
     }
+
+    .organization,
+    .role {
+      display: inline-block;
+      width: calc(50% - 10px);
+      margin: 0;
+    }
+
+    .organization {
+      margin-left: 20px;
+    }
+  }
+`
+
+export const ConfirmTextTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  span {
+    &:last-child {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
   }
 `
