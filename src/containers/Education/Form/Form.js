@@ -20,7 +20,12 @@ const EducationForm = () => {
   const [editorContent, setEditorContent] = useState()
 
   const onFinish = (values) => {
-    console.log(values, editorContent)
+    const payload = {
+      name: values.name,
+      content: editorContent,
+    }
+
+    console.log(JSON.stringify(payload))
   }
 
   const onFinishFailed = () => {}

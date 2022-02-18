@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Card, List, Statistic } from 'antd'
+import { Card, List, Statistic, Modal } from 'antd'
 
 export const LeftSection = styled.div`
   max-width: 370px;
@@ -91,5 +91,13 @@ export const OrgCard = styled(Card)`
 
   .ant-menu {
     border: 0;
+  }
+`
+
+export const AddressInfoModal = styled(Modal)`
+  .bottom-actions {
+    text-align: right;
+    margin-top: 45px;
+    margin-bottom: 0;
   }
 `

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Form, Input, Select, Space, Button, Modal, notification } from 'antd'
+import { Form, Input, Select, Space, Button, notification } from 'antd'
 
 import { updateUser, useUser } from '../../../services/userService'
 import States from '../../../config/states.json'
-import { CustomStatistic } from '../styles'
+import { CustomStatistic, AddressInfoModal } from '../styles'
 
 const { Option } = Select
 
@@ -68,15 +68,14 @@ const AddressInfo = (props) => {
         }
         value={address}
       />
-      <Modal
+      <AddressInfoModal
         title="Change your Address"
         centered
         visible={modalVisible}
         footer={null}
         onCancel={() => setModalVisible(false)}
-        className="custom-modal"
       >
-        <Form name="complex-form" initialValues={initialValues} onFinish={onFinish}>
+        <Form name="address-form" initialValues={initialValues} onFinish={onFinish}>
           <Form.Item
             name="address1"
             hasFeedback
@@ -130,7 +129,7 @@ const AddressInfo = (props) => {
             </Space>
           </Form.Item>
         </Form>
-      </Modal>
+      </AddressInfoModal>
     </React.Fragment>
   )
 }

@@ -1,0 +1,47 @@
+import React, { useState } from 'react'
+import { Button, Form, Input, Typography } from 'antd'
+
+import { FormActionButtons } from '../../../components/CommonComponent'
+import { AddNewModal } from './styles'
+
+const { Title } = Typography
+
+const AddNewTeamModal = (props) => {
+  const { visible, onClose } = props
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const onFinish = (values) => {
+    console.log(values)
+    onClose()
+  }
+
+  return (
+    <React.Fragment>
+      <AddNewModal visible={visible} footer={null} onCancel={() => onClose()}>
+        <Form name="new-team-form" initialValues={{}} onFinish={onFinish}>
+          <Title level={3}>Add new organization</Title>
+          <Form.Item
+            name="teamName"
+            hasFeedback
+            rules={[{ required: true, message: 'Team name is required' }]}
+          >
+            <Input placeholder="Team name" />
+          </Form.Item>
+          <Form.Item>
+            <FormActionButtons>
+              <Button htmlType="button" onClick={() => onClose()}>
+                Cancel
+              </Button>
+              <Button type="primary" htmlType="submit" loading={isLoading}>
+                Finish
+              </Button>
+            </FormActionButtons>
+          </Form.Item>
+        </Form>
+      </AddNewModal>
+    </React.Fragment>
+  )
+}
+
+export default AddNewTeamModal

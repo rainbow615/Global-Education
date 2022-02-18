@@ -105,17 +105,6 @@ const UsersList = () => {
       }).filter((record) => !!record)
     : []
 
-  // const dataSource = users?.data
-  //   ? users.data.map((obj, index) => ({
-  //       key: index + 1,
-  //       id: obj.user_id,
-  //       name: obj.full_name,
-  //       email: obj.email,
-  //       registered: formatLocalizedDate(obj.created_date),
-  //       role: obj.role_name,
-  //     }))
-  //   : []
-
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />

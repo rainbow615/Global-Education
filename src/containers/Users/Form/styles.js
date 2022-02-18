@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { Button, Modal } from 'antd'
+
 import { Container } from '../../../components/CommonComponent'
 
 export const Root = styled(Container)`
@@ -65,4 +67,29 @@ export const RowSectionHeader = styled.div`
   align-items: center;
   height: 38px;
   margin-bottom: 10px;
+`
+
+export const AddNewTeamButton = styled(Button)`
+  width: 100%;
+  border: 0px;
+  text-align: left;
+  padding-left: 0;
+`
+
+export const AddNewModal = styled(Modal)`
+  form {
+    margin-top: 30px;
+
+    h3 {
+      text-align: center;
+    }
+
+    div {
+      margin-top: 0;
+    }
+
+    .ant-form-item {
+      margin-top: 35px;
+    }
+  }
 `

@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Form, Input, Button, List, Space, Select, Typography, Table } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
 import _ from 'lodash'
 
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
-import { Root, RowSection, RegionsCard, RowSectionHeader } from './styles'
+import AddNewTeamModal from './AddNewTeamModal'
+import { Root, RowSection, RegionsCard, RowSectionHeader, AddNewTeamButton } from './styles'
 
 const { Option } = Select
 const { Text } = Typography
@@ -82,6 +84,7 @@ const UsersForm = () => {
   ]
 
   const [selectedTeams, setSelectedTeams] = useState([])
+  const [teamModalVisible, setTeamModalVisible] = useState(false)
 
   const onSelectTeams = (value) => {
     const isCheck = _.findIndex(selectedTeams, { id: value })
@@ -97,6 +100,14 @@ const UsersForm = () => {
     const newTeam = [...selectedTeams]
     newTeam.splice(isSearch, 1)
     setSelectedTeams(newTeam)
+  }
+
+  const onOpenAddNewTeam = () => {
+    setTeamModalVisible(true)
+  }
+
+  const onCloseAddNewTeam = () => {
+    setTeamModalVisible(false)
   }
 
   const onFinish = () => {}
@@ -157,6 +168,11 @@ const UsersForm = () => {
                     {state.name}
                   </Option>
                 ))}
+                <Option key="action" disabled>
+                  <AddNewTeamButton icon={<PlusOutlined />} onClick={onOpenAddNewTeam}>
+                    Add new
+                  </AddNewTeamButton>
+                </Option>
               </Select>
               <RegionsCard>
                 <List
@@ -195,6 +211,7 @@ const UsersForm = () => {
             </Space>
           </FormActionButtons>
         </Form>
+        <AddNewTeamModal visible={teamModalVisible} onClose={onCloseAddNewTeam} />
       </Root>
     </React.Fragment>
   )
