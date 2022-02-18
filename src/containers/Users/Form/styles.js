@@ -76,7 +76,7 @@ export const AddNewTeamButton = styled(Button)`
   padding-left: 0;
 `
 
-export const AddNewModal = styled(Modal)`
+export const AddNewTeamModalView = styled(Modal)`
   form {
     margin-top: 30px;
 
@@ -91,6 +91,12 @@ export const AddNewModal = styled(Modal)`
     .ant-form-item {
       margin-top: 35px;
     }
+  }
+`
+
+export const AddNewRoleModalView = styled(Modal)`
+  form {
+    margin-top: 30px;
 
     .organization,
     .role {

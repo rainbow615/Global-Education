@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Form, Input, Select, Typography } from 'antd'
 
 import { FormActionButtons } from '../../../components/CommonComponent'
-import { AddNewModal, ConfirmTextTitle } from './styles'
+import { AddNewRoleModalView, ConfirmTextTitle } from './styles'
 
 const { Option } = Select
 const { Text } = Typography
@@ -40,8 +40,8 @@ const AddNewRoleModal = (props) => {
 
   return (
     <React.Fragment>
-      <AddNewModal layout="vertical" visible={visible} footer={null} onCancel={() => onClose()}>
-        <Form name="new-team-form" initialValues={{}} onFinish={onFinish}>
+      <AddNewRoleModalView layout="vertical" visible={visible} footer={null} onCancel={() => onClose()}>
+        <Form name="new-role-form" initialValues={{}} onFinish={onFinish}>
           <Form.Item>
             <Form.Item
               label="Role"
@@ -74,15 +74,14 @@ const AddNewRoleModal = (props) => {
               </Select>
             </Form.Item>
           </Form.Item>
-
+          <ConfirmTextTitle>
+            <Text>Confirmation</Text>
+            <Text>Type "CONFIRM" to confirm your action.</Text>
+          </ConfirmTextTitle>
           <Form.Item
             name="confirmation"
             rules={[{ required: true, message: 'Confirmation is required' }]}
           >
-            <ConfirmTextTitle>
-              <Text>Confirmation</Text>
-              <Text>Type "CONFIRM" to confirm your action.</Text>
-            </ConfirmTextTitle>
             <Input placeholder="Confirmation" />
           </Form.Item>
           <Form.Item>
@@ -96,7 +95,7 @@ const AddNewRoleModal = (props) => {
             </FormActionButtons>
           </Form.Item>
         </Form>
-      </AddNewModal>
+      </AddNewRoleModalView>
     </React.Fragment>
   )
 }

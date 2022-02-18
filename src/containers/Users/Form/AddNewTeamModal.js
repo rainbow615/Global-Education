@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Form, Input, Typography } from 'antd'
 
 import { FormActionButtons } from '../../../components/CommonComponent'
-import { AddNewModal } from './styles'
+import { AddNewTeamModalView } from './styles'
 
 const { Title } = Typography
 
@@ -18,7 +18,7 @@ const AddNewTeamModal = (props) => {
 
   return (
     <React.Fragment>
-      <AddNewModal visible={visible} footer={null} onCancel={() => onClose()}>
+      <AddNewTeamModalView visible={visible} footer={null} onCancel={() => onClose()}>
         <Form name="new-team-form" initialValues={{}} onFinish={onFinish}>
           <Title level={3}>Add new organization</Title>
           <Form.Item
@@ -39,7 +39,7 @@ const AddNewTeamModal = (props) => {
             </FormActionButtons>
           </Form.Item>
         </Form>
-      </AddNewModal>
+      </AddNewTeamModalView>
     </React.Fragment>
   )
 }
