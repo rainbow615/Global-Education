@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Form, Input, Button, Space } from 'antd'
 
 import CustomCkEditor from '../../../components/CustomCkEditor/CustomCkEditor'
@@ -8,6 +8,7 @@ import { FormActionButtons } from '../../../components/CommonComponent'
 import { Root } from './styles'
 
 const EducationForm = () => {
+  const navigate = useNavigate()
   const { type } = useParams()
   const breadCrumb = [
     {
@@ -24,6 +25,8 @@ const EducationForm = () => {
       name: values.name,
       content: editorContent,
     }
+
+    navigate('/education/review', { state: payload })
 
     console.log(JSON.stringify(payload))
   }
