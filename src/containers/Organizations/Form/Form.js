@@ -112,7 +112,6 @@ const OrganizationsForm = () => {
       region: org.region,
       status: isPublish ? PUBLISHED_STATE.PUBLISHED : PUBLISHED_STATE.UNPUBLISHED,
     }
-    const id = org.id
 
     setIsPublishing(true)
 

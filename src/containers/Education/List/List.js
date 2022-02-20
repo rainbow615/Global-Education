@@ -61,9 +61,9 @@ const columns = [
     key: 'actions',
     align: 'right',
     width: 100,
-    render: () => (
+    render: (_, record) => (
       <Button type="primary">
-        <Link to="/education/form/edit">Edit</Link>
+        <Link to="/education/form/edit" state={record}>Edit</Link>
       </Button>
     ),
   },
@@ -89,6 +89,7 @@ const EducationList = () => {
           key: index + 1,
           id: record.jit_id,
           name: record.jit_name,
+          content: record.jit_content,
           created: formatLocalizedDate(record.created_date),
           updated: formatLocalizedDate(record.modified_date),
           status: record.status,
