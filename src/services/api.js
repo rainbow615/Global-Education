@@ -54,7 +54,7 @@ export function getCacheKey(url, params) {
 }
 
 export function useAPI(url, params, config) {
-  const { data, mutate } = useSWR(getCacheKey(url, params), async () => {
+  const { data, mutate } = useSWR(url ? getCacheKey(url, params) : null, async () => {
     const { data } = await api.get(url, { params, ...config })
     return { data, isLoading: false }
   })
@@ -62,7 +62,7 @@ export function useAPI(url, params, config) {
   const cachedResponse = useApiResponse(data)
 
   return {
-    data: cachedResponse || { isLoading: true },
+    data: cachedResponse || { isLoading: url ? true : false },
     mutate,
   }
 }

@@ -5,13 +5,13 @@ export function useEducations(orgId) {
 }
 
 export function useEducation(id) {
-  return useAPI(`jit/${id}`)
+  return useAPI(id ? `jit/${id}` : null)
 }
 
 export function createEducation(payload) {
   return api.post(`/jit`, payload)
 }
 
-export function updateEducation(payload) {
-  return api.put(`/jit`, payload)
+export function updateEducation(id, payload) {
+  return api.put(`/jit/${id}`, payload)
 }
