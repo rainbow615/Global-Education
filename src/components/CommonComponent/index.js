@@ -6,7 +6,6 @@ const { Search } = Input
 export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   padding-top: 40px;
 `
 
