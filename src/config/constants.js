@@ -34,6 +34,7 @@ export const TYPES = [
 export const PUBLISHED_STATE = {
   PUBLISHED: 'PUBLISHED',
   UNPUBLISHED: 'UNPUBLISHED',
+  DRAFT: 'DRAFT'
 }
 
 export const ORG_ACTIONS = {

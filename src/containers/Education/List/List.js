@@ -13,7 +13,7 @@ import {
   CustomTableHeader,
   CustomSearchText,
 } from '../../../components/CommonComponent'
-import { SEARCH_DELAY } from '../../../config/constants'
+import { PUBLISHED_STATE, SEARCH_DELAY } from '../../../config/constants'
 import { DateText } from './styles'
 
 const { Text } = Typography
@@ -52,7 +52,11 @@ const columns = [
     dataIndex: 'status',
     key: 'status',
     render: (value) => (
-      <Text type={value ? 'success' : 'danger'}>{value ? 'Published' : 'Draft'}</Text>
+      <Text type={value === PUBLISHED_STATE.PUBLISHED ? 'success' : 'danger'}>
+        {value === PUBLISHED_STATE.PUBLISHED && 'Published'}
+        {value === PUBLISHED_STATE.UNPUBLISHED && 'Unpublished'}
+        {value === PUBLISHED_STATE.DRAFT && 'Draft'}
+      </Text>
     ),
   },
   {
@@ -63,7 +67,9 @@ const columns = [
     width: 100,
     render: (_, record) => (
       <Button type="primary">
-        <Link to="/education/form/edit" state={record}>Edit</Link>
+        <Link to="/education/form/edit" state={record}>
+          Edit
+        </Link>
       </Button>
     ),
   },
