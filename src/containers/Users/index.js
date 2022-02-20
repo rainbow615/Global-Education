@@ -3,6 +3,7 @@ import loadable from '@loadable/component'
 
 const UsersList = loadable(() => import('./List'))
 const UsersForm = loadable(() => import('./Form'))
+const ManagementForm = loadable(() => import('./Management'))
 
 function Users() {
   return (
@@ -10,6 +11,7 @@ function Users() {
       <Route path="" element={<Navigate to="list" />} />
       <Route path="list" element={<UsersList />} />
       <Route path="form/:type" element={<UsersForm />} />
+      <Route path="manage" element={<ManagementForm />} />
     </Routes>
   )
 }
