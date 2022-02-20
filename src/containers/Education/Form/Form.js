@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Form, Input, Button, Space } from 'antd'
+import { useLocation, useParams, useNavigate, Link } from 'react-router-dom'
 
 import CustomCkEditor from '../../../components/CustomCkEditor/CustomCkEditor'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
@@ -67,7 +68,9 @@ const EducationForm = () => {
               <Button size="large" htmlType="submit">
                 Send to Review
               </Button>
-              <Button size="large">Close</Button>
+              <Button size="large">
+                <Link to="/education/list">Close</Link>
+              </Button>
             </Space>
           </FormActionButtons>
         </Form>
