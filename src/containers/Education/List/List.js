@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { debounce, map, get } from 'lodash'
 import { Button, Typography } from 'antd'
 
+import { useEducations } from '../../../services/jitService'
+import { formatLocalizedDate } from '../../../utils'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
+import { ResultFailed } from '../../../components/ResultPages'
 import {
   Container,
   CustomTable,
   CustomTableHeader,
   CustomSearchText,
 } from '../../../components/CommonComponent'
+import { SEARCH_DELAY } from '../../../config/constants'
 import { DateText } from './styles'
 
 const { Text } = Typography
@@ -82,6 +87,43 @@ const dataSource = [
 ]
 
 const EducationList = () => {
+  const { data: jits, error } = useEducations(null)
+  const [searchText, setSearchText] = useState('')
+
+  if (error) {
+    return <ResultFailed isBackButton={false} />
+  }
+
+  const onSearch = (e) => {
+    setSearchText(e.target.value)
+  }
+
+  const debouncedSearchHandler = debounce(onSearch, SEARCH_DELAY)
+
+  const dataSource = jits?.data
+    ? map(jits.data, (record, index) => {
+        const _record = {
+          key: index + 1,
+          id: record.jit_id,
+          name: record.jit_name,
+          created: formatLocalizedDate(record.created_date),
+          updated: formatLocalizedDate(record.modified_date),
+          status: record.status,
+        }
+
+        if (searchText) {
+          const reg = new RegExp(searchText, 'gi')
+          const nameMatch = get(_record, 'name').match(reg)
+
+          if (!nameMatch) {
+            return null
+          }
+        }
+
+        return _record
+      }).filter((record) => !!record)
+    : []
+
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
@@ -90,7 +132,13 @@ const EducationList = () => {
           <Button type="primary">
             <Link to="/education/form/new">Add new</Link>
           </Button>
-          <CustomSearchText placeholder="Search" enterButton allowClear loading={false} />
+          <CustomSearchText
+            placeholder="Search"
+            enterButton
+            allowClear
+            onChange={debouncedSearchHandler}
+            onPressEnter={debouncedSearchHandler}
+          />
         </CustomTableHeader>
         <CustomTable
           dataSource={dataSource}
