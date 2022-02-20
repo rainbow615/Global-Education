@@ -18,7 +18,7 @@ export const Section = styled.div`
 
 export const HTMLViewer = styled.div`
   margin-top: 10px;
-  min-height: 500px;
+  min-height: 300px;
   background-color: white;
   padding: 30px 20px;
   border: 1px solid;
