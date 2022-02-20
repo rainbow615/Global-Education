@@ -69,23 +69,6 @@ const columns = [
   },
 ]
 
-const dataSource = [
-  {
-    key: 1,
-    status: 1,
-    name: 'Dystonic Reactions Explained',
-    created: '02/07/2022',
-    updated: '02/07/2022',
-  },
-  {
-    key: 2,
-    status: 0,
-    name: 'Allergic Reactions (skin signs)',
-    created: '02/06/2022',
-    updated: '02/06/2022',
-  },
-]
-
 const EducationList = () => {
   const { data: jits, error } = useEducations(null)
   const [searchText, setSearchText] = useState('')
@@ -143,7 +126,7 @@ const EducationList = () => {
         <CustomTable
           dataSource={dataSource}
           columns={columns}
-          loading={false}
+          loading={jits?.isLoading}
           pagination={{
             pageSize: 10,
           }}
