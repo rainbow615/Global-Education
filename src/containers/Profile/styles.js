@@ -17,7 +17,7 @@ export const CustomStatistic = styled(Statistic)`
 
   .ant-statistic-content {
     span {
-      white-space: pre;
+      white-space: pre-wrap;
     }
   }
 
