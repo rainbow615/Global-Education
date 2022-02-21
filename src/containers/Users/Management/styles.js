@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Descriptions, Statistic, Modal } from 'antd'
+import { Descriptions, Statistic, Modal, Card } from 'antd'
 
 export const LeftSection = styled.div`
   max-width: 370px;
@@ -10,11 +10,7 @@ export const RightSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  .section-label {
-    font-size: 0.8rem;
-    opacity: 0.45;
-  }
+  flex: 1;
 `
 
 export const CustomDescriptions = styled(Descriptions)`
@@ -50,5 +46,36 @@ export const AddressInfoModal = styled(Modal)`
     text-align: right;
     margin-top: 45px;
     margin-bottom: 0;
+  }
+`
+
+export const TableSection = styled.div`
+  width: 100%;
+
+  .section-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    & > span {
+      font-size: 0.8rem;
+      opacity: 0.45;
+    }
+  }
+`
+
+export const OrgCard = styled(Card)`
+  min-width: 320px;
+  min-height: 250px;
+
+  .ant-menu {
+    border: 0;
+
+    .ant-menu-title-content {
+      display: flex;
+      justify-content: space-between;
+			align-items: center;
+    }
   }
 `

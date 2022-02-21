@@ -3,6 +3,7 @@ import React from 'react'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { Container } from '../../../components/CommonComponent'
 import UserInfo from './UserInfo'
+import PermissionInfo from './PermissionInfo'
 import { LeftSection, RightSection } from './styles'
 
 const UserManagement = () => {
@@ -22,7 +23,9 @@ const UserManagement = () => {
         <LeftSection>
           <UserInfo />
         </LeftSection>
-        <RightSection></RightSection>
+        <RightSection>
+          <PermissionInfo />
+        </RightSection>
       </Container>
     </React.Fragment>
   )
