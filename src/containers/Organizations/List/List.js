@@ -5,7 +5,7 @@ import { debounce, map, get } from 'lodash'
 import { DownOutlined } from '@ant-design/icons'
 
 import { useOrganizations } from '../../../services/organizations'
-import { formatLocalizedDate } from '../../../utils'
+import { formatLocalizedDate, regExpEscape } from '../../../utils'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { ResultFailed } from '../../../components/ResultPages'
 import { PUBLISHED_STATE, SEARCH_DELAY } from '../../../config/constants'
@@ -44,9 +44,9 @@ const columns = [
     key: 'name',
   },
   {
-    title: 'Region',
-    dataIndex: 'regions',
-    key: 'regions',
+    title: 'State',
+    dataIndex: 'state',
+    key: 'state',
   },
   {
     title: 'Created',
@@ -113,21 +113,22 @@ const OrganizationsList = () => {
           id: record.organization_id,
           name: record.organization_name,
           description: record.organization_description,
-          regions: `${record.region} (${record.state})`,
           created: formatLocalizedDate(record.created_date),
           type: record.type,
           region: record.region,
           state: record.state,
+          status_text: record.status === PUBLISHED_STATE.PUBLISHED ? 'Published' : 'Not Published',
           status: record.status,
         }
 
         if (searchText) {
-          const reg = new RegExp(searchText, 'gi')
+          const reg = new RegExp(regExpEscape(searchText), 'gi')
           const nameMatch = get(_record, 'name').match(reg)
-          const regionsMatch = get(_record, 'regions').match(reg)
+          const stateMatch = get(_record, 'state').match(reg)
           const typeMatch = get(_record, 'type').match(reg)
+          const statusMatch = get(_record, 'status_text').match(reg)
 
-          if (!nameMatch && !regionsMatch && !typeMatch) {
+          if (!nameMatch && !stateMatch && !typeMatch && !statusMatch) {
             return null
           }
         }
