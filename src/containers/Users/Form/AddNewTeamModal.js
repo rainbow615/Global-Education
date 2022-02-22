@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Typography } from 'antd'
+import { Button, Form, Input, Typography, Space } from 'antd'
 
-import { FormActionButtons } from '../../../components/CommonComponent'
 import { AddNewTeamModalView } from './styles'
 
 const { Title } = Typography
@@ -28,15 +27,15 @@ const AddNewTeamModal = (props) => {
           >
             <Input placeholder="Team name" />
           </Form.Item>
-          <Form.Item>
-            <FormActionButtons>
+          <Form.Item className="bottom-actions">
+            <Space>
               <Button htmlType="button" onClick={() => onClose()}>
                 Cancel
               </Button>
               <Button type="primary" htmlType="submit" loading={isLoading}>
                 Finish
               </Button>
-            </FormActionButtons>
+            </Space>
           </Form.Item>
         </Form>
       </AddNewTeamModalView>

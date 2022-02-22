@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { Button, Modal } from 'antd'
+import { Button } from 'antd'
 
-import { Container } from '../../../components/CommonComponent'
+import { Container, CustomModal } from '../../../components/CommonComponent'
 
 export const Root = styled(Container)`
   max-width: 800px;
@@ -76,7 +76,7 @@ export const AddNewTeamButton = styled(Button)`
   padding-left: 0;
 `
 
-export const AddNewTeamModalView = styled(Modal)`
+export const AddNewTeamModalView = styled(CustomModal)`
   form {
     margin-top: 30px;
 
@@ -94,7 +94,7 @@ export const AddNewTeamModalView = styled(Modal)`
   }
 `
 
-export const AddNewRoleModalView = styled(Modal)`
+export const AddNewRoleModalView = styled(CustomModal)`
   form {
     margin-top: 30px;
 

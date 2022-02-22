@@ -3,7 +3,8 @@ import { Form, Input, Select, Space, Button, notification } from 'antd'
 
 import { updateUser, useUser } from '../../../services/userService'
 import States from '../../../config/states.json'
-import { CustomStatistic, AddressInfoModal } from '../styles'
+import { CustomModal } from '../../../components/CommonComponent'
+import { CustomStatistic } from '../styles'
 
 const { Option } = Select
 
@@ -68,7 +69,7 @@ const AddressInfo = (props) => {
         }
         value={address}
       />
-      <AddressInfoModal
+      <CustomModal
         title="Change your Address"
         centered
         visible={modalVisible}
@@ -129,7 +130,7 @@ const AddressInfo = (props) => {
             </Space>
           </Form.Item>
         </Form>
-      </AddressInfoModal>
+      </CustomModal>
     </React.Fragment>
   )
 }

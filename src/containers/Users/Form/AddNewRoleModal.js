@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Select, Typography } from 'antd'
+import { Button, Form, Input, Select, Typography, Space } from 'antd'
 
-import { FormActionButtons } from '../../../components/CommonComponent'
 import { AddNewRoleModalView, ConfirmTextTitle } from './styles'
 
 const { Option } = Select
@@ -84,15 +83,15 @@ const AddNewRoleModal = (props) => {
           >
             <Input placeholder="Confirmation" />
           </Form.Item>
-          <Form.Item>
-            <FormActionButtons>
+          <Form.Item className="bottom-actions">
+            <Space>
               <Button htmlType="button" onClick={() => onClose()}>
                 Cancel
               </Button>
               <Button type="primary" htmlType="submit" loading={isLoading}>
                 Finish
               </Button>
-            </FormActionButtons>
+            </Space>
           </Form.Item>
         </Form>
       </AddNewRoleModalView>

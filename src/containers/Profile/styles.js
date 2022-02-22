@@ -94,11 +94,3 @@ export const OrgCard = styled(Card)`
     border: 0;
   }
 `
-
-export const AddressInfoModal = styled(Modal)`
-  .bottom-actions {
-    text-align: right;
-    margin-top: 45px;
-    margin-bottom: 0;
-  }
-`

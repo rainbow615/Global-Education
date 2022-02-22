@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Input, Table } from 'antd'
+import { Input, Table, Modal } from 'antd'
 
 const { Search } = Input
 
@@ -67,4 +67,12 @@ export const DateText = styled.div`
   text-align: center;
   font-size: 0.7rem;
   opacity: 0.8;
+`
+
+export const CustomModal = styled(Modal)`
+  .bottom-actions {
+    text-align: right;
+    margin-top: 45px;
+    margin-bottom: 0;
+  }
 `
