@@ -6,21 +6,15 @@ import EmailInfo from './EmailInfo'
 import PhoneNumberInfo from './PhoneNumberInfo'
 import AddressInfo from './AddressInfo'
 
-const data = {
-  address1: '555 Oak Blvd',
-  address2: '201 Parkway',
-  city: 'San Diego',
-  state: 'CA',
-  postal_code: '92102',
-}
-
 const UserInfo = (props) => {
+  const { data } = props
+
   return (
     <React.Fragment>
-      <TopInfo />
-      <NameInfo />
-      <EmailInfo />
-      <PhoneNumberInfo phone="6502570295" />
+      <TopInfo data={data} />
+      <NameInfo data={data} />
+      <EmailInfo data={data} />
+      <PhoneNumberInfo data={data} />
       <AddressInfo data={data} />
     </React.Fragment>
   )

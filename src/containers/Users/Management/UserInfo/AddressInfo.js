@@ -14,7 +14,9 @@ const AddressInfo = (props) => {
 
   const onFinish = (values) => {}
 
-  const address = `${address1} ${city}, ${state} ${postal_code}\n${address2 || ''}`
+  const address = `${address1 || ''} ${city || ''}${state ? ',' : ''} ${state || ''} ${postal_code || ''}\n${
+    address2 || ''
+  }`
   const initialValues = { address1, address2, city, state, zip: postal_code }
 
   return (

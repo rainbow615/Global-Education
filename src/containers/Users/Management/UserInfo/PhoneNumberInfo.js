@@ -4,7 +4,7 @@ import { Button } from 'antd'
 import { CustomStatistic } from '../styles'
 
 const PhoneNumberInfo = (props) => {
-  const { phone } = props
+  const { phone } = props.data
 
   return (
     <React.Fragment>

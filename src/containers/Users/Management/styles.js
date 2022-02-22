@@ -16,6 +16,10 @@ export const RightSection = styled.div`
 export const CustomDescriptions = styled(Descriptions)`
   margin-bottom: 30px;
 
+	th {
+		width: 50%;
+	}
+
   span {
     color: ${(props) => props.theme.palette.disabledText};
   }

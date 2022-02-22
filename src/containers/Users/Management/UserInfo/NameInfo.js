@@ -3,7 +3,9 @@ import { Button } from 'antd'
 
 import { CustomStatistic } from '../styles'
 
-const NameInfo = () => {
+const NameInfo = (props) => {
+  const { full_name } = props.data
+
   return (
     <React.Fragment>
       <CustomStatistic
@@ -15,7 +17,7 @@ const NameInfo = () => {
             </Button>
           </React.Fragment>
         }
-        value="Chentao Wang"
+        value={full_name}
       />
     </React.Fragment>
   )

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { Container } from '../../../components/CommonComponent'
@@ -7,12 +8,14 @@ import PermissionInfo from './PermissionInfo'
 import { LeftSection, RightSection } from './styles'
 
 const UserManagement = () => {
+  const location = useLocation()
+
   const breadCrumb = [
     {
       title: 'Users',
     },
     {
-      title: 'klj41kl23jkl1j2',
+      title: 'Profile',
     },
   ]
 
@@ -21,7 +24,7 @@ const UserManagement = () => {
       <CustomBreadcrumb items={breadCrumb} />
       <Container>
         <LeftSection>
-          <UserInfo />
+          <UserInfo data={location?.state} />
         </LeftSection>
         <RightSection>
           <PermissionInfo />

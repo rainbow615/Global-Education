@@ -1,13 +1,19 @@
 import { Descriptions } from 'antd'
 
+import { formatLocalizedDate } from '../../../../utils'
 import { CustomDescriptions } from '../styles'
 
-const TopInfo = () => {
+const TopInfo = (props) => {
+  const { created_date, modified_date } = props.data
+
   return (
     <CustomDescriptions layout="vertical">
-      <Descriptions.Item label="ID">klj41kl23jkl1j2</Descriptions.Item>
-      <Descriptions.Item label="Created">01/12/2022</Descriptions.Item>
-      <Descriptions.Item label="Edited">01/12/2022</Descriptions.Item>
+      <Descriptions.Item label="Created">
+        {formatLocalizedDate(created_date, 'MM/DD/YYYY')}
+      </Descriptions.Item>
+      <Descriptions.Item label="Edited">
+        {formatLocalizedDate(modified_date, 'MM/DD/YYYY')}
+      </Descriptions.Item>
     </CustomDescriptions>
   )
 }

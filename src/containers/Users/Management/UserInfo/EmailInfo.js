@@ -3,7 +3,9 @@ import { Button } from 'antd'
 
 import { CustomStatistic } from '../styles'
 
-const EmailInfo = () => {
+const EmailInfo = (props) => {
+  const { email } = props.data
+
   return (
     <React.Fragment>
       <CustomStatistic
@@ -15,7 +17,7 @@ const EmailInfo = () => {
             </Button>
           </React.Fragment>
         }
-        value="Allwithyou999@gmail.com"
+        value={email}
       />
     </React.Fragment>
   )
