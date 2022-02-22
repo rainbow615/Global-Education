@@ -22,7 +22,7 @@ const EducationForm = () => {
     },
   ]
 
-  const [editorContent, setEditorContent] = useState()
+  const [editorContent, setEditorContent] = useState(location?.state?.content || '')
   const [isLoading, setIsLoading] = useState(false)
 
   const onFinish = (values) => {
@@ -40,7 +40,7 @@ const EducationForm = () => {
           setIsLoading(false)
           notification.success({ message: 'A new JIT Education has been created successfully!' })
 
-          navigate('/education/review', { state: payload })
+          navigate('/education/review', { state: { id: res.data.jit_id, ...payload } })
         })
         .catch((error) => {
           setIsLoading(false)
@@ -57,7 +57,7 @@ const EducationForm = () => {
         .then(() => {
           setIsLoading(false)
           notification.success({ message: 'A JIT Education has been updated successfully!' })
-          navigate('/education/review', { state: payload })
+          navigate('/education/review', { state: { id, ...payload } })
         })
         .catch((error) => {
           setIsLoading(false)
