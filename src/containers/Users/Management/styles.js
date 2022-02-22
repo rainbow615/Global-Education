@@ -16,9 +16,9 @@ export const RightSection = styled.div`
 export const CustomDescriptions = styled(Descriptions)`
   margin-bottom: 30px;
 
-	th {
-		width: 50%;
-	}
+  th {
+    width: 50%;
+  }
 
   span {
     color: ${(props) => props.theme.palette.disabledText};
@@ -45,14 +45,6 @@ export const CustomStatistic = styled(Statistic)`
   }
 `
 
-export const AddressInfoModal = styled(Modal)`
-  .bottom-actions {
-    text-align: right;
-    margin-top: 45px;
-    margin-bottom: 0;
-  }
-`
-
 export const TableSection = styled.div`
   width: 100%;
 
@@ -72,14 +64,4 @@ export const TableSection = styled.div`
 export const OrgCard = styled(Card)`
   min-width: 320px;
   min-height: 250px;
-
-  .ant-menu {
-    border: 0;
-
-    .ant-menu-title-content {
-      display: flex;
-      justify-content: space-between;
-			align-items: center;
-    }
-  }
 `

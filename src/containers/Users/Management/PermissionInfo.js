@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Menu, Space, Table } from 'antd'
+import { Button, List, Space, Table } from 'antd'
 
 import { TableSection, OrgCard } from './styles'
 
@@ -30,6 +30,12 @@ const columns = [
   },
 ]
 
+const teamData = [
+  {
+    title: 'Mission Critical Protocols',
+  },
+]
+
 const accessData = [
   {
     key: '1',
@@ -48,14 +54,17 @@ const PermissionInfo = () => {
             <Button>Add</Button>
           </div>
           <OrgCard>
-            <Menu selectable={false}>
-              <Menu.Item key="1">
-                <span>Mission Critical Protocols</span>
-                <Button type="link" danger>
-                  Remove
-                </Button>
-              </Menu.Item>
-            </Menu>
+            <List
+              dataSource={teamData}
+              renderItem={(item) => (
+                <List.Item>
+                  <span>{item.title}</span>
+                  <Button type="link" danger>
+                    Remove
+                  </Button>
+                </List.Item>
+              )}
+            />
           </OrgCard>
         </TableSection>
         <TableSection>

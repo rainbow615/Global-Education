@@ -70,9 +70,18 @@ export const DateText = styled.div`
 `
 
 export const CustomModal = styled(Modal)`
-  .bottom-actions {
-    text-align: right;
-    margin-top: 45px;
-    margin-bottom: 0;
+  form {
+    margin-top: 30px;
+
+    h3 {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .bottom-actions {
+      text-align: right;
+      margin-top: 45px;
+      margin-bottom: 0;
+    }
   }
 `

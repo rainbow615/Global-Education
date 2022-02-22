@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Form, Input, Select, Space, Button } from 'antd'
 
 import States from '../../../../config/states.json'
-import { CustomStatistic, AddressInfoModal } from '../styles'
+import { CustomModal } from '../../../../components/CommonComponent'
+import { CustomStatistic } from '../styles'
 
 const { Option } = Select
 
@@ -14,9 +15,9 @@ const AddressInfo = (props) => {
 
   const onFinish = (values) => {}
 
-  const address = `${address1 || ''} ${city || ''}${state ? ',' : ''} ${state || ''} ${postal_code || ''}\n${
-    address2 || ''
-  }`
+  const address = `${address1 || ''} ${city || ''}${state ? ',' : ''} ${state || ''} ${
+    postal_code || ''
+  }\n${address2 || ''}`
   const initialValues = { address1, address2, city, state, zip: postal_code }
 
   return (
@@ -32,7 +33,7 @@ const AddressInfo = (props) => {
         }
         value={address}
       />
-      <AddressInfoModal
+      <CustomModal
         title="Change your Address"
         centered
         visible={modalVisible}
@@ -93,7 +94,7 @@ const AddressInfo = (props) => {
             </Space>
           </Form.Item>
         </Form>
-      </AddressInfoModal>
+      </CustomModal>
     </React.Fragment>
   )
 }

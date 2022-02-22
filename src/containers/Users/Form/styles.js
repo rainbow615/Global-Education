@@ -78,26 +78,14 @@ export const AddNewTeamButton = styled(Button)`
 
 export const AddNewTeamModalView = styled(CustomModal)`
   form {
-    margin-top: 30px;
-
-    h3 {
-      text-align: center;
-    }
-
     div {
       margin-top: 0;
-    }
-
-    .ant-form-item {
-      margin-top: 35px;
     }
   }
 `
 
 export const AddNewRoleModalView = styled(CustomModal)`
   form {
-    margin-top: 30px;
-
     .organization,
     .role {
       display: inline-block;
