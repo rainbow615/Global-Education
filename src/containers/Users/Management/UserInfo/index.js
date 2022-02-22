@@ -1,21 +1,24 @@
 import React from 'react'
+import { Button, Form, Input, Space, Typography } from 'antd'
+
+import { CustomStatistic } from '../styles'
 
 import TopInfo from './TopInfo'
-import NameInfo from './NameInfo'
-import EmailInfo from './EmailInfo'
-import PhoneNumberInfo from './PhoneNumberInfo'
-import AddressInfo from './AddressInfo'
 
 const UserInfo = (props) => {
   const { data } = props
+  const { full_name, email, phone, address1, address2, city, state, postal_code } = data
+  const address = `${address1 || ''} ${city || ''}${state ? ',' : ''} ${state || ''} ${
+    postal_code || ''
+  }\n${address2 || ''}`
 
   return (
     <React.Fragment>
       <TopInfo data={data} />
-      <NameInfo data={data} />
-      <EmailInfo data={data} />
-      <PhoneNumberInfo data={data} />
-      <AddressInfo data={data} />
+      <CustomStatistic title="Name" value={full_name} />
+      <CustomStatistic title="Email" value={email} />
+      <CustomStatistic title="Phone" value={`+1 (XXX) XXX-${phone.substr(-4)}`} />
+      <CustomStatistic title="Address" value={address} />
     </React.Fragment>
   )
 }
