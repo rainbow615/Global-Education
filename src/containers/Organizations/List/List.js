@@ -14,8 +14,9 @@ import {
   CustomTable,
   CustomTableHeader,
   CustomSearchText,
+  DateText,
 } from '../../../components/CommonComponent'
-import { DateText, ActionsMenu } from './styles'
+import { ActionsMenu } from './styles'
 
 const { Text } = Typography
 

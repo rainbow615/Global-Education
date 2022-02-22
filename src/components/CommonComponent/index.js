@@ -62,3 +62,9 @@ export const FormActionButtons = styled.div`
     min-width: 100px;
   }
 `
+
+export const DateText = styled.div`
+  text-align: center;
+  font-size: 0.7rem;
+  opacity: 0.8;
+`

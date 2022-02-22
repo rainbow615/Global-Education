@@ -12,9 +12,9 @@ import {
   CustomTable,
   CustomTableHeader,
   CustomSearchText,
+  DateText
 } from '../../../components/CommonComponent'
 import { PUBLISHED_STATE, SEARCH_DELAY } from '../../../config/constants'
-import { DateText } from './styles'
 
 const { Text } = Typography
 
