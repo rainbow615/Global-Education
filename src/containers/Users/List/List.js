@@ -36,11 +36,6 @@ const columns = [
     key: 'email',
   },
   {
-    title: 'ID',
-    dataIndex: 'id',
-    key: 'id',
-  },
-  {
     title: 'Registered',
     dataIndex: 'registered',
     key: 'registered',
@@ -57,9 +52,11 @@ const columns = [
     key: 'actions',
     align: 'right',
     width: 100,
-    render: () => (
+    render: (_, record) => (
       <Button type="primary">
-        <Link to="/users/manage">Manage</Link>
+        <Link to="/users/manage" state={record}>
+          Manage
+        </Link>
       </Button>
     ),
   },
@@ -85,9 +82,9 @@ const UsersList = () => {
           key: index + 1,
           id: record.user_id,
           name: record.full_name,
-          email: record.email,
           registered: formatLocalizedDate(record.created_date),
           role: record.role_name,
+          ...record,
         }
 
         if (searchText) {
