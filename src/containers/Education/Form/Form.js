@@ -15,6 +15,7 @@ const EducationForm = () => {
   const breadCrumb = [
     {
       title: 'JIT Education',
+      link: '/education',
     },
     {
       title: type === 'new' ? 'Add' : 'Edit',

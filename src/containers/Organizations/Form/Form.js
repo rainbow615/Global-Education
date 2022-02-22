@@ -25,6 +25,7 @@ const OrganizationsForm = () => {
   const breadCrumb = [
     {
       title: 'Organizations',
+      link: '/organizations'
     },
     {
       title: type === 'new' ? 'Add' : 'Edit',

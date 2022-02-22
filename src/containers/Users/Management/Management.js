@@ -15,6 +15,7 @@ const UserManagement = () => {
   const breadCrumb = [
     {
       title: 'Users',
+      link: '/users',
     },
     {
       title: 'Profile',

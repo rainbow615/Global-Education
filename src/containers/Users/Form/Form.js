@@ -78,6 +78,7 @@ const UsersForm = () => {
   const breadCrumb = [
     {
       title: 'Users',
+      link: '/users',
     },
     {
       title: type === 'new' ? 'Add' : 'Edit',

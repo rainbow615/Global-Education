@@ -19,9 +19,12 @@ const ChangeReview = () => {
   const breadCrumb = [
     {
       title: 'JIT Education',
+      link: '/education',
     },
     {
       title: title,
+      link: '/education/form/edit',
+      state: data,
     },
     {
       title: 'Change Review',
