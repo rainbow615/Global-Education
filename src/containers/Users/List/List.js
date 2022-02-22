@@ -4,7 +4,7 @@ import { Button, Tag } from 'antd'
 import { debounce, map, get } from 'lodash'
 
 import { useUsersList } from '../../../services/userService'
-import { formatLocalizedDate } from '../../../utils'
+import { formatLocalizedDate, regExpEscape } from '../../../utils'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import {
   Container,
@@ -88,7 +88,7 @@ const UsersList = () => {
         }
 
         if (searchText) {
-          const reg = new RegExp(searchText, 'gi')
+          const reg = new RegExp(regExpEscape(searchText), 'gi')
           const nameMatch = get(_record, 'name').match(reg)
           const emailMatch = get(_record, 'email').match(reg)
           const roleMatch = get(_record, 'role').match(reg)

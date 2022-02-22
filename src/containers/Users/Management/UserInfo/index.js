@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button, Form, Input, Space, Typography } from 'antd'
 
 import { CustomStatistic } from '../styles'
 

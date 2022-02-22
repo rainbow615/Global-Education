@@ -4,7 +4,7 @@ import { debounce, map, get } from 'lodash'
 import { Button, Typography } from 'antd'
 
 import { useEducations } from '../../../services/jitService'
-import { formatLocalizedDate } from '../../../utils'
+import { formatLocalizedDate, regExpEscape } from '../../../utils'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { ResultFailed } from '../../../components/ResultPages'
 import {
@@ -102,7 +102,7 @@ const EducationList = () => {
         }
 
         if (searchText) {
-          const reg = new RegExp(searchText, 'gi')
+          const reg = new RegExp(regExpEscape(searchText), 'gi')
           const nameMatch = get(_record, 'name').match(reg)
 
           if (!nameMatch) {
