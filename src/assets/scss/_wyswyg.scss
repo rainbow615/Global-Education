@@ -1,6 +1,11 @@
 .wyswyg-editor {
   font-size: 1rem;
 
+  .ck.ck-toolbar,
+  .ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+    border-color: #d9d9d9;
+  }
+
   ul,
   ol {
     padding-left: 20px;

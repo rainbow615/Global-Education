@@ -21,5 +21,5 @@ export const HTMLViewer = styled.div`
   min-height: 300px;
   background-color: white;
   padding: 30px 20px;
-  border: 1px solid;
+  border: 1px solid ${(props) => props.theme.palette.borderColor};
 `
