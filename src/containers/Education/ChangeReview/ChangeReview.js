@@ -36,7 +36,9 @@ const ChangeReview = () => {
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
         <Button type="link" icon={<RollbackOutlined />}>
-          <RouterLink to="/education/form/edit">&nbsp;Send Back to Editor</RouterLink>
+          <RouterLink to="/education/form/edit" state={data}>
+            &nbsp;Send Back to Editor
+          </RouterLink>
         </Button>
       </Topbar>
 
