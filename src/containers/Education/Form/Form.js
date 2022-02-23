@@ -101,7 +101,7 @@ const EducationForm = () => {
           </Form.Item>
           <FormActionButtons>
             <Button type="link" size="large" danger>
-              Revert all changes
+              Delete Draft
             </Button>
             <Space>
               <Button size="large" htmlType="submit" loading={isLoading}>
