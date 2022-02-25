@@ -43,8 +43,8 @@ const EducationForm = () => {
       content: jitData?.content || '',
     }
     const isNeed =
-      (type === 'new' && (name || editorContent)) ||
-      (type === 'edit' && !compareObjects(originValues, formValues))
+      (type === 'new' && name) ||
+      (type === 'edit' && name && !compareObjects(originValues, formValues))
 
     return isNeed
   }, [jitData, form, editorContent, type])
