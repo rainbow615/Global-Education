@@ -1,4 +1,5 @@
 import { parse as urlParse } from 'url'
+import _ from 'lodash'
 import moment from 'moment'
 
 export const getQueryParams = (url = window.location.href.replace(/#/g, '')) => {
@@ -40,6 +41,11 @@ export const convertImageToBase64 = (file) =>
     reader.onerror = (error) => reject(error)
   })
 
-export const regExpEscape = function (string) {
+export const regExpEscape = (string) => {
+  // eslint-disable-next-line
   return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+}
+
+export const compareObjects = (obj1, obj2) => {
+  return _.isEqual(obj1, obj2)
 }
