@@ -12,7 +12,7 @@ import {
   CustomTable,
   CustomTableHeader,
   CustomSearchText,
-  DateText
+  DateText,
 } from '../../../components/CommonComponent'
 import { PUBLISHED_STATE, SEARCH_DELAY } from '../../../config/constants'
 
@@ -54,8 +54,9 @@ const columns = [
     render: (value) => (
       <Text type={value === PUBLISHED_STATE.PUBLISHED ? 'success' : 'danger'}>
         {value === PUBLISHED_STATE.PUBLISHED && 'Published'}
-        {value === PUBLISHED_STATE.UNPUBLISHED && 'Unpublished'}
+        {value === PUBLISHED_STATE.UNPUBLISHED && 'Not published'}
         {value === PUBLISHED_STATE.DRAFT && 'Draft'}
+        {value === PUBLISHED_STATE.INREVIEW && 'In review'}
       </Text>
     ),
   },
