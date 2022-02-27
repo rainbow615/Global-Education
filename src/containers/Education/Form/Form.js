@@ -1,17 +1,18 @@
-import React, { useState, useCallback } from 'react'
-import { useLocation, useParams, useNavigate } from 'react-router-dom'
-import { Form, Input, Button, Space, Modal, notification } from 'antd'
+import React, { useState, useCallback, useEffect } from 'react'
+import { useLocation, useParams, useNavigate, Link } from 'react-router-dom'
+import { debounce } from 'lodash'
+import { Form, Input, Button, Space, message, Modal, notification } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 import { createEducation, updateEducation } from '../../../services/jitService'
 import { compareObjects } from '../../../utils'
-import { PUBLISHED_STATE } from '../../../config/constants'
+import { PUBLISHED_STATE, AUTO_SAVE_DELAY } from '../../../config/constants'
 import CustomCkEditor from '../../../components/CustomCkEditor/CustomCkEditor'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import { Root } from './styles'
 
-const { confirm } = Modal
+// const { confirm } = Modal
 
 const EducationForm = () => {
   const location = useLocation()
@@ -29,82 +30,30 @@ const EducationForm = () => {
     },
   ]
 
+  const [jitId, setJitId] = useState(jitData?.id || '')
   const [editorContent, setEditorContent] = useState(jitData?.content || '')
-  const [isLoadStatus, setIsLoadStatus] = useState('')
-
-  const isChanged = useCallback(() => {
-    const name = form.getFieldValue('name')
-    const formValues = {
-      name,
-      content: editorContent,
-    }
-    const originValues = {
-      name: jitData?.name,
-      content: jitData?.content || '',
-    }
-    const isNeed =
-      (type === 'new' && name) ||
-      (type === 'edit' && name && !compareObjects(originValues, formValues))
-
-    return isNeed
-  }, [jitData, form, editorContent, type])
+  const [isLoad, setIsLoad] = useState(false)
+  const [isDisableAutoLoad, setIsDisableAutoLoad] = useState(false)
 
   const onSaveForm = useCallback(
-    (payload, actionType, backLink) => {
-      setIsLoadStatus(actionType)
+    (payload) => {
+      setIsLoad(true)
+      updateEducation(jitId, payload)
+        .then(() => {
+          setIsLoad(false)
+          notification.success({ message: 'A JIT Education has been updated successfully!' })
+          navigate('/education/review', { state: { id: jitId, ...payload } })
+        })
+        .catch((error) => {
+          setIsLoad(false)
 
-      if (type === 'new') {
-        createEducation(payload)
-          .then((res) => {
-            setIsLoadStatus('')
-
-            if (actionType === PUBLISHED_STATE.INREVIEW) {
-              notification.success({
-                message: 'A new JIT Education has been created successfully!',
-              })
-              navigate('/education/review', { state: { id: res.data.jit_id, ...payload } })
-            } else if (actionType === PUBLISHED_STATE.DRAFT) {
-              notification.success({
-                message: 'A new JIT Education draft has been created successfully!',
-              })
-
-              backLink && navigate(backLink)
-            }
+          notification.error({
+            message: 'Upate Failure',
+            description: error?.data || '',
           })
-          .catch((error) => {
-            setIsLoadStatus('')
-
-            notification.error({
-              message: 'Add Failure',
-              description: error?.data || '',
-            })
-          })
-      } else {
-        const id = jitData?.id
-
-        updateEducation(id, payload)
-          .then(() => {
-            setIsLoadStatus('')
-
-            if (actionType === PUBLISHED_STATE.INREVIEW) {
-              notification.success({ message: 'A JIT Education has been updated successfully!' })
-              navigate('/education/review', { state: { id, ...payload } })
-            } else if (actionType === PUBLISHED_STATE.DRAFT) {
-              notification.success({ message: 'A draft has been updated successfully!' })
-              backLink && navigate(backLink)
-            }
-          })
-          .catch((error) => {
-            setIsLoadStatus('')
-
-            notification.error({
-              message: 'Upate Failure',
-              description: error?.data || '',
-            })
-          })
-      }
+        })
     },
-    [jitData, type, navigate]
+    [jitId, navigate]
   )
 
   const onFinish = (values) => {
@@ -114,34 +63,44 @@ const EducationForm = () => {
       status: PUBLISHED_STATE.INREVIEW,
     }
 
-    onSaveForm(payload, PUBLISHED_STATE.INREVIEW)
+    onSaveForm(payload)
   }
 
-  const onClose = () => {
-    const backLink = '/education/list'
+  const onChangeValues = (value, fieldName) => {
+    let content = editorContent
 
-    if (isChanged()) {
-      confirm({
-        title: 'Save changes',
-        icon: <ExclamationCircleOutlined />,
-        content: 'Do you want to save your changes before leaving this page?',
-        onOk() {
-          const payload = {
-            name: form.getFieldValue('name'),
-            content: editorContent,
-            status: PUBLISHED_STATE.DRAFT,
-          }
+    if (fieldName === 'content') {
+      setEditorContent(value)
+      content = value
+    }
 
-          onSaveForm(payload, PUBLISHED_STATE.DRAFT, backLink)
-        },
-        onCancel() {
-          navigate(backLink)
-        },
-      })
-    } else {
-      navigate(backLink)
+    const payload = {
+      name: form.getFieldValue('name') || 'Untitled',
+      content: content,
+      status: PUBLISHED_STATE.DRAFT,
+    }
+
+    if (!isDisableAutoLoad) {
+      const hide = message.loading('Saving...', 0)
+
+      if (!jitId) {
+        setIsDisableAutoLoad(true)
+
+        createEducation(payload).then((res) => {
+          setIsDisableAutoLoad(false)
+          setTimeout(hide, 0)
+
+          if (res?.data?.jit_id) setJitId(res.data.jit_id)
+        })
+      } else {
+        updateEducation(jitId, payload).then(() => {
+          setTimeout(hide, 0)
+        })
+      }
     }
   }
+
+  const debouncedChangeHandler = debounce(onChangeValues, AUTO_SAVE_DELAY)
 
   return (
     <React.Fragment>
@@ -160,13 +119,13 @@ const EducationForm = () => {
             hasFeedback
             rules={[{ required: true, message: 'Please input Name' }]}
           >
-            <Input placeholder="Name *" size="large" />
+            <Input placeholder="Name *" size="large" onChange={(e) => debouncedChangeHandler()} />
           </Form.Item>
           <Form.Item className="wyswyg-editor">
             <CustomCkEditor
               data={jitData?.content}
               onChange={(_event, editor) => {
-                setEditorContent(editor.getData())
+                debouncedChangeHandler(editor.getData(), 'content')
               }}
             />
           </Form.Item>
@@ -182,18 +141,13 @@ const EducationForm = () => {
               <Button
                 size="large"
                 htmlType="submit"
-                loading={isLoadStatus === PUBLISHED_STATE.INREVIEW}
-                disabled={isLoadStatus}
+                loading={isLoad}
+                disabled={isLoad || isDisableAutoLoad || !jitId}
               >
                 Send to Review
               </Button>
-              <Button
-                size="large"
-                onClick={onClose}
-                loading={isLoadStatus === PUBLISHED_STATE.DRAFT}
-                disabled={isLoadStatus}
-              >
-                Close
+              <Button size="large">
+                <Link to="/education/list">Close</Link>
               </Button>
             </Space>
           </FormActionButtons>

@@ -54,3 +54,4 @@ export const ORG_CONFIRM_MSG = {
 }
 
 export const SEARCH_DELAY = 800
+export const AUTO_SAVE_DELAY = 1000
