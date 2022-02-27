@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
-import { Button, Space, Typography } from 'antd'
-import { RollbackOutlined } from '@ant-design/icons'
+import { Button, Space, Typography, notification } from 'antd'
+import { RollbackOutlined, CheckOutlined } from '@ant-design/icons'
 
+import { updateEducation } from '../../../services/jitService'
+import { PUBLISHED_STATE } from '../../../config/constants'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
 
@@ -31,6 +33,47 @@ const ChangeReview = () => {
     },
   ]
 
+  const [isLoad, setIsLoad] = useState(false)
+  const [jitStatus, setJitStatus] = useState(data.status)
+
+  const onSubmit = () => {
+    let status = PUBLISHED_STATE.UNPUBLISHED
+
+    if (jitStatus !== PUBLISHED_STATE.PUBLISHED) {
+      status = PUBLISHED_STATE.PUBLISHED
+    }
+
+    const payload = {
+      organization_id: null,
+      parent_id: null,
+      name: data.name,
+      content: data.content,
+      status,
+    }
+
+    setIsLoad(true)
+    updateEducation(data.id, payload)
+      .then(() => {
+        setIsLoad(false)
+        setJitStatus(status)
+        notification.success({
+          message: `A JIT Education has been ${
+            status === PUBLISHED_STATE.PUBLISHED ? 'published' : 'unpublished'
+          } successfully!`,
+        })
+      })
+      .catch((error) => {
+        setIsLoad(false)
+
+        notification.error({
+          message: 'Upate Failure',
+          description: error?.data || '',
+        })
+      })
+  }
+
+  const isPublish = jitStatus === PUBLISHED_STATE.PUBLISHED
+
   return (
     <React.Fragment>
       <Topbar>
@@ -49,12 +92,36 @@ const ChangeReview = () => {
         </Section>
       </Root>
       <FormActionButtons>
-        <Button type="link" size="large" danger>
-          Delete Draft
-        </Button>
+        {isPublish && (
+          <Button type="link" size="large" danger onClick={onSubmit} loading={isPublish && isLoad}>
+            {isPublish ? 'Unpublish' : 'Delete'}
+          </Button>
+        )}
+        {!isPublish && (
+          <Button type="link" size="large" danger>
+            Delete
+          </Button>
+        )}
         <Space>
-          <Button size="large" htmlType="submit">
-            Approve Change
+          {isPublish && (
+            <Button size="large">
+              <RouterLink to="/education/form/edit" state={data}>
+                Update
+              </RouterLink>
+            </Button>
+          )}
+          <Button size="large">
+            <RouterLink to="/education/list">Close</RouterLink>
+          </Button>
+          <Button
+            size="large"
+            className={isPublish ? 'published' : ''}
+            icon={isPublish ? <CheckOutlined /> : null}
+            onClick={onSubmit}
+            loading={!isPublish && isLoad}
+            disabled={isPublish}
+          >
+            Publish
           </Button>
         </Space>
       </FormActionButtons>

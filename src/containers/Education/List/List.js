@@ -68,7 +68,14 @@ const columns = [
     width: 100,
     render: (_, record) => (
       <Button type="primary">
-        <Link to="/education/form/edit" state={record}>
+        <Link
+          to={
+            record.status !== PUBLISHED_STATE.DRAFT
+              ? '/education/review'
+              : '/education/form/edit'
+          }
+          state={record}
+        >
           Edit
         </Link>
       </Button>
@@ -95,6 +102,7 @@ const EducationList = () => {
         const _record = {
           key: index + 1,
           id: record.jit_id,
+          parentId: record.parent_id,
           name: record.jit_name,
           content: record.jit_content,
           created: formatLocalizedDate(record.created_date),

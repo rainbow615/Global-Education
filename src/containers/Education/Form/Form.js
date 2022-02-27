@@ -1,18 +1,14 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useLocation, useParams, useNavigate, Link } from 'react-router-dom'
 import { debounce } from 'lodash'
-import { Form, Input, Button, Space, message, Modal, notification } from 'antd'
-import { ExclamationCircleOutlined } from '@ant-design/icons'
+import { Form, Input, Button, Space, message, notification } from 'antd'
 
 import { createEducation, updateEducation } from '../../../services/jitService'
-import { compareObjects } from '../../../utils'
 import { PUBLISHED_STATE, AUTO_SAVE_DELAY } from '../../../config/constants'
 import CustomCkEditor from '../../../components/CustomCkEditor/CustomCkEditor'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import { Root } from './styles'
-
-// const { confirm } = Modal
 
 const EducationForm = () => {
   const location = useLocation()
@@ -60,7 +56,7 @@ const EducationForm = () => {
     const payload = {
       name: values.name,
       content: editorContent,
-      status: PUBLISHED_STATE.INREVIEW,
+      status: PUBLISHED_STATE.UNPUBLISHED,
     }
 
     onSaveForm(payload)

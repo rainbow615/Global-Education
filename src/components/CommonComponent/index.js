@@ -60,6 +60,13 @@ export const FormActionButtons = styled.div`
 
   button {
     min-width: 100px;
+
+    &.published, &.published[disabled]:hover {
+      background: #389e0d22;
+      border: 0;
+      color: #389e0d55;
+      border-left: 4px solid;
+    }
   }
 `
 
