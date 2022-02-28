@@ -4,9 +4,10 @@ import { Button, Space, Typography, notification } from 'antd'
 import { RollbackOutlined, CheckOutlined } from '@ant-design/icons'
 
 import { createEducation, updateEducation } from '../../../services/jitService'
-import { PUBLISHED_STATE } from '../../../config/constants'
+import { PUBLISHED_STATE, JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
+import ConfirmActionButton from '../../../components/ConfirmActionButton'
 
 import { Root, Topbar, Section, HTMLViewer } from './styles'
 
@@ -115,9 +116,17 @@ const ChangeReview = () => {
       </Root>
       <FormActionButtons>
         {isPublish && (
-          <Button type="link" size="large" danger onClick={onSubmit} loading={isPublish && isLoad}>
-            {isPublish ? 'Unpublish' : 'Delete'}
-          </Button>
+          <ConfirmActionButton
+            type="link"
+            size="large"
+            danger
+            onClick={onSubmit}
+            loading={isPublish && isLoad}
+            actionType={JIT_ACTIONS.UNPUBLISHED}
+            message={JIT_CONFIRM_MSG.UNPUBLISHED}
+          >
+            Unpublish
+          </ConfirmActionButton>
         )}
         {!isPublish && (
           <Button type="link" size="large" danger>
@@ -133,16 +142,18 @@ const ChangeReview = () => {
           <Button size="large">
             <RouterLink to="/education/list">Close</RouterLink>
           </Button>
-          <Button
+          <ConfirmActionButton
             size="large"
             className={isPublish ? 'published' : ''}
             icon={isPublish ? <CheckOutlined /> : null}
             onClick={onSubmit}
             loading={!isPublish && isLoad}
             disabled={isPublish}
+            actionType={JIT_ACTIONS.PUBLISHED}
+            message={JIT_CONFIRM_MSG.PUBLISHED}
           >
             Publish
-          </Button>
+          </ConfirmActionButton>
         </Space>
       </FormActionButtons>
     </React.Fragment>
