@@ -47,9 +47,9 @@ export const ORG_ACTIONS = {
 export const ORG_CONFIRM_MSG = {
   DELETE:
     "You are deleting this organization. This organization and all of its data will not be recoverable. Type 'DELETE' to confirm.",
-  PUBLISH:
+  PUBLISHED:
     "You are publishing this organization. This will make the organization available in the MCP mobile application and bookstore. Type 'PUBLISH' to confirm.",
-  UNPUBLISH:
+  UNPUBLISHED:
     "You are unpublishing this organization. This will make the organization no longer available in the MCP mobile application and bookstore. Type 'UNPUBLISH' to confirm.",
 }
 

@@ -10,8 +10,8 @@ import {
 } from '../../../services/organizations'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
-import { OrgActionsButton } from './ActionButtons'
-import { PUBLISHED_STATE, TYPES, ORG_ACTIONS } from '../../../config/constants'
+import ConfirmActionButton from '../../../components/ConfirmActionButton'
+import { PUBLISHED_STATE, TYPES, ORG_ACTIONS, ORG_CONFIRM_MSG } from '../../../config/constants'
 import States from '../../../config/states.json'
 import { Root } from './styles'
 
@@ -25,7 +25,7 @@ const OrganizationsForm = () => {
   const breadCrumb = [
     {
       title: 'Organizations',
-      link: '/organizations'
+      link: '/organizations',
     },
     {
       title: type === 'new' ? 'Add' : 'Edit',
@@ -253,16 +253,17 @@ const OrganizationsForm = () => {
 
           <FormActionButtons>
             {type !== 'new' ? (
-              <OrgActionsButton
+              <ConfirmActionButton
                 type="link"
                 size="large"
                 danger
                 loading={(isCheckPublish && isPublishing) || isDeleting}
                 onClick={isCheckPublish ? onTogglePublish(false) : onDelete}
                 actionType={isCheckPublish ? ORG_ACTIONS.UNPUBLISHED : ORG_ACTIONS.DELETE}
+                message={isCheckPublish ? ORG_CONFIRM_MSG.UNPUBLISHED : ORG_CONFIRM_MSG.DELETE}
               >
                 {isCheckPublish ? 'Unpublish' : 'Delete'}
-              </OrgActionsButton>
+              </ConfirmActionButton>
             ) : (
               <div />
             )}
@@ -270,7 +271,7 @@ const OrganizationsForm = () => {
               <Button size="large" htmlType="submit" loading={isLoading}>
                 {type === 'new' ? 'Add' : 'Update'}
               </Button>
-              <OrgActionsButton
+              <ConfirmActionButton
                 size="large"
                 className={isCheckPublish ? 'published' : ''}
                 icon={isCheckPublish ? <CheckOutlined /> : null}
@@ -278,9 +279,10 @@ const OrganizationsForm = () => {
                 onClick={onTogglePublish(true)}
                 loading={!isCheckPublish && isPublishing}
                 actionType={ORG_ACTIONS.PUBLISHED}
+                message={ORG_CONFIRM_MSG.PUBLISHED}
               >
                 {isCheckPublish ? 'Published' : 'Publish'}
-              </OrgActionsButton>
+              </ConfirmActionButton>
             </Space>
           </FormActionButtons>
         </Form>
