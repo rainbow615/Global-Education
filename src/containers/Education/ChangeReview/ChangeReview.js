@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Link as RouterLink, useLocation } from 'react-router-dom'
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, Typography, notification } from 'antd'
 import { RollbackOutlined, CheckOutlined } from '@ant-design/icons'
 
-import { updateEducation } from '../../../services/jitService'
+import { createEducation, updateEducation } from '../../../services/jitService'
 import { PUBLISHED_STATE } from '../../../config/constants'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
@@ -14,6 +14,7 @@ const { Text } = Typography
 
 const ChangeReview = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   const data = location?.state
   const title = data?.name || ''
   const content = data?.content || ''
@@ -34,6 +35,7 @@ const ChangeReview = () => {
   ]
 
   const [isLoad, setIsLoad] = useState(false)
+  const [isUpdate, setIsUpdate] = useState(false)
   const [jitStatus, setJitStatus] = useState(data.status)
 
   const onSubmit = () => {
@@ -72,6 +74,26 @@ const ChangeReview = () => {
       })
   }
 
+  const onUpdate = () => {
+    const payload = {
+      organization_id: null,
+      parent_id: data.id,
+      name: data.name,
+      content: data.content,
+      status: PUBLISHED_STATE.DRAFT,
+    }
+
+    setIsUpdate(true)
+
+    createEducation(payload).then((res) => {
+      const newId = res.data.jit_id
+
+      setIsUpdate(false)
+
+      navigate('/education/form/edit', { state: { id: newId, ...payload } })
+    })
+  }
+
   const isPublish = jitStatus === PUBLISHED_STATE.PUBLISHED
 
   return (
@@ -104,10 +126,8 @@ const ChangeReview = () => {
         )}
         <Space>
           {isPublish && (
-            <Button size="large">
-              <RouterLink to="/education/form/edit" state={data}>
-                Update
-              </RouterLink>
+            <Button size="large" onClick={onUpdate} loading={isUpdate}>
+              Update
             </Button>
           )}
           <Button size="large">

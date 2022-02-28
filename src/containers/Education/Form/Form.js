@@ -56,6 +56,7 @@ const EducationForm = () => {
     const payload = {
       name: values.name,
       content: editorContent,
+      parentId: jitData?.parentId || null,
       status: PUBLISHED_STATE.UNPUBLISHED,
     }
 

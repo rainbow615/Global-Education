@@ -70,9 +70,7 @@ const columns = [
       <Button type="primary">
         <Link
           to={
-            record.status !== PUBLISHED_STATE.DRAFT
-              ? '/education/review'
-              : '/education/form/edit'
+            record.status !== PUBLISHED_STATE.DRAFT ? '/education/review' : '/education/form/edit'
           }
           state={record}
         >
