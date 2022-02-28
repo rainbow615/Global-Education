@@ -3,7 +3,7 @@ import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, Typography, notification } from 'antd'
 import { RollbackOutlined, CheckOutlined } from '@ant-design/icons'
 
-import { createEducation, updateEducation } from '../../../services/jitService'
+import { createEducation, updateEducation, deleteEducation } from '../../../services/jitService'
 import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
@@ -99,13 +99,20 @@ const ChangeReview = () => {
   const onDelete = () => {
     setIsDelete(true)
 
-    const payload = {
-      organization_id: null,
-      parent_id: null,
-      name: data.name,
-      content: data.content,
-      status: JIT_ACTIONS.DELETE,
-    }
+    deleteEducation(data.id)
+      .then(() => {
+        setIsDelete(false)
+        notification.success({ message: 'A JIT Education has been deleted successfully!' })
+        navigate('/education/list')
+      })
+      .catch((error) => {
+        setIsDelete(false)
+
+        notification.error({
+          message: 'Delete Failure',
+          description: error?.data || '',
+        })
+      })
   }
 
   const isPublish = jitStatus === JIT_ACTIONS.PUBLISHED

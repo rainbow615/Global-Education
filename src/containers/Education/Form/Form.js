@@ -71,7 +71,7 @@ const EducationForm = () => {
     deleteEducation(jitId)
       .then(() => {
         setIsDelete(false)
-        notification.success({ message: 'A JIT Education has been deleted successfully!' })
+        notification.success({ message: 'The draft has been deleted successfully!' })
         navigate('/education/list')
       })
       .catch((error) => {
