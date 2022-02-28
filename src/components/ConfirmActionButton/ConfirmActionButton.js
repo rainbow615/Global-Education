@@ -12,11 +12,13 @@ const ConfirmActionButton = (props) => {
   const [confirmText, setConfirmText] = useState('')
 
   const onClickButton = () => {
+    setConfirmText('')
     setVisible(true)
   }
 
   const onOkEvent = () => {
     setVisible(false)
+    setConfirmText('')
 
     if (confirmText) onClick && onClick()
   }
@@ -49,7 +51,7 @@ const ConfirmActionButton = (props) => {
           </div>
           <div className="description">{message}</div>
           <div>
-            <Input onChange={(e) => setConfirmText(e.target.value)} />
+            <Input value={confirmText} onChange={(e) => setConfirmText(e.target.value)} />
           </div>
           <div className="actions">
             <Button onClick={() => setVisible(false)}>Cancel</Button>
