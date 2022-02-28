@@ -8,7 +8,7 @@ import { useOrganizations } from '../../../services/organizations'
 import { formatLocalizedDate, regExpEscape } from '../../../utils'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { ResultFailed } from '../../../components/ResultPages'
-import { PUBLISHED_STATE, SEARCH_DELAY } from '../../../config/constants'
+import { ORG_ACTIONS, SEARCH_DELAY } from '../../../config/constants'
 import {
   Container,
   CustomTable,
@@ -66,8 +66,8 @@ const columns = [
     dataIndex: 'status',
     key: 'status',
     render: (value) => (
-      <Text type={value === PUBLISHED_STATE.PUBLISHED ? 'success' : 'danger'}>
-        {value === PUBLISHED_STATE.PUBLISHED ? 'Published' : 'Not Published'}
+      <Text type={value === ORG_ACTIONS.PUBLISHED ? 'success' : 'danger'}>
+        {value === ORG_ACTIONS.PUBLISHED ? 'Published' : 'Not Published'}
       </Text>
     ),
   },
@@ -117,7 +117,7 @@ const OrganizationsList = () => {
           type: record.type,
           region: record.region,
           state: record.state,
-          status_text: record.status === PUBLISHED_STATE.PUBLISHED ? 'Published' : 'Not Published',
+          status_text: record.status === ORG_ACTIONS.PUBLISHED ? 'Published' : 'Not Published',
           status: record.status,
         }
 

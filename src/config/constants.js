@@ -31,13 +31,6 @@ export const TYPES = [
   },
 ]
 
-export const PUBLISHED_STATE = {
-  PUBLISHED: 'PUBLISHED',
-  UNPUBLISHED: 'UNPUBLISHED',
-  DRAFT: 'DRAFT',
-  INREVIEW: 'INREVIEW',
-}
-
 export const ORG_ACTIONS = {
   DELETE: 'DELETE',
   PUBLISHED: 'PUBLISHED',
@@ -57,11 +50,14 @@ export const JIT_ACTIONS = {
   DELETE: 'DELETE',
   PUBLISHED: 'PUBLISHED',
   UNPUBLISHED: 'UNPUBLISHED',
+  DRAFT: 'DRAFT',
+  INREVIEW: 'INREVIEW',
 }
 
 export const JIT_CONFIRM_MSG = {
-  DELETE:
+  DELETE_DRAFT:
     "You are deleting this draft. This draft will not be recoverable. Type 'DELETE' to confirm.",
+  DELETE: "You are deleting this JIT Education. Type 'DELETE' to confirm.",
   PUBLISHED: "You are publishing this JIT Education. Type 'PUBLISH' to confirm.",
   UNPUBLISHED: "You are unpublishing this JIT Education. Type 'UNPUBLISH' to confirm.",
 }

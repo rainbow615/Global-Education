@@ -4,7 +4,7 @@ import { Button, Space, Typography, notification } from 'antd'
 import { RollbackOutlined, CheckOutlined } from '@ant-design/icons'
 
 import { createEducation, updateEducation } from '../../../services/jitService'
-import { PUBLISHED_STATE, JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
+import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
@@ -37,13 +37,14 @@ const ChangeReview = () => {
 
   const [isLoad, setIsLoad] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
+  const [isDelete, setIsDelete] = useState(false)
   const [jitStatus, setJitStatus] = useState(data.status)
 
   const onSubmit = () => {
-    let status = PUBLISHED_STATE.UNPUBLISHED
+    let status = JIT_ACTIONS.UNPUBLISHED
 
-    if (jitStatus !== PUBLISHED_STATE.PUBLISHED) {
-      status = PUBLISHED_STATE.PUBLISHED
+    if (jitStatus !== JIT_ACTIONS.PUBLISHED) {
+      status = JIT_ACTIONS.PUBLISHED
     }
 
     const payload = {
@@ -61,7 +62,7 @@ const ChangeReview = () => {
         setJitStatus(status)
         notification.success({
           message: `A JIT Education has been ${
-            status === PUBLISHED_STATE.PUBLISHED ? 'published' : 'unpublished'
+            status === JIT_ACTIONS.PUBLISHED ? 'published' : 'unpublished'
           } successfully!`,
         })
       })
@@ -81,7 +82,7 @@ const ChangeReview = () => {
       parent_id: data.id,
       name: data.name,
       content: data.content,
-      status: PUBLISHED_STATE.DRAFT,
+      status: JIT_ACTIONS.DRAFT,
     }
 
     setIsUpdate(true)
@@ -95,7 +96,19 @@ const ChangeReview = () => {
     })
   }
 
-  const isPublish = jitStatus === PUBLISHED_STATE.PUBLISHED
+  const onDelete = () => {
+    setIsDelete(true)
+
+    const payload = {
+      organization_id: null,
+      parent_id: null,
+      name: data.name,
+      content: data.content,
+      status: JIT_ACTIONS.DELETE,
+    }
+  }
+
+  const isPublish = jitStatus === JIT_ACTIONS.PUBLISHED
 
   return (
     <React.Fragment>
@@ -129,9 +142,17 @@ const ChangeReview = () => {
           </ConfirmActionButton>
         )}
         {!isPublish && (
-          <Button type="link" size="large" danger>
+          <ConfirmActionButton
+            type="link"
+            size="large"
+            danger
+            loading={isDelete}
+            onClick={onDelete}
+            actionType={JIT_ACTIONS.DELETE}
+            message={JIT_CONFIRM_MSG.DELETE}
+          >
             Delete
-          </Button>
+          </ConfirmActionButton>
         )}
         <Space>
           {isPublish && (

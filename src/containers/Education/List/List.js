@@ -14,7 +14,7 @@ import {
   CustomSearchText,
   DateText,
 } from '../../../components/CommonComponent'
-import { PUBLISHED_STATE, SEARCH_DELAY } from '../../../config/constants'
+import { JIT_ACTIONS, SEARCH_DELAY } from '../../../config/constants'
 
 const { Text } = Typography
 
@@ -52,11 +52,11 @@ const columns = [
     dataIndex: 'status',
     key: 'status',
     render: (value) => (
-      <Text type={value === PUBLISHED_STATE.PUBLISHED ? 'success' : 'danger'}>
-        {value === PUBLISHED_STATE.PUBLISHED && 'Published'}
-        {value === PUBLISHED_STATE.UNPUBLISHED && 'Not published'}
-        {value === PUBLISHED_STATE.DRAFT && 'Draft'}
-        {value === PUBLISHED_STATE.INREVIEW && 'In review'}
+      <Text type={value === JIT_ACTIONS.PUBLISHED ? 'success' : 'danger'}>
+        {value === JIT_ACTIONS.PUBLISHED && 'Published'}
+        {value === JIT_ACTIONS.UNPUBLISHED && 'Not published'}
+        {value === JIT_ACTIONS.DRAFT && 'Draft'}
+        {value === JIT_ACTIONS.INREVIEW && 'In review'}
       </Text>
     ),
   },
@@ -70,7 +70,7 @@ const columns = [
       <Button type="primary">
         <Link
           to={
-            record.status !== PUBLISHED_STATE.DRAFT ? '/education/review' : '/education/form/edit'
+            record.status !== JIT_ACTIONS.DRAFT ? '/education/review' : '/education/form/edit'
           }
           state={record}
         >

@@ -11,7 +11,7 @@ import {
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
-import { PUBLISHED_STATE, TYPES, ORG_ACTIONS, ORG_CONFIRM_MSG } from '../../../config/constants'
+import { ORG_ACTIONS, TYPES, ORG_CONFIRM_MSG } from '../../../config/constants'
 import States from '../../../config/states.json'
 import { Root } from './styles'
 
@@ -111,7 +111,7 @@ const OrganizationsForm = () => {
       state: org.state,
       type: org.type,
       region: org.region,
-      status: isPublish ? PUBLISHED_STATE.PUBLISHED : PUBLISHED_STATE.UNPUBLISHED,
+      status: isPublish ? ORG_ACTIONS.PUBLISHED : ORG_ACTIONS.UNPUBLISHED,
     }
 
     setIsPublishing(true)
@@ -159,8 +159,8 @@ const OrganizationsForm = () => {
   }
 
   const isCheckPublish =
-    (!initial && location?.state?.status === PUBLISHED_STATE.PUBLISHED) ||
-    initial?.status === PUBLISHED_STATE.PUBLISHED
+    (!initial && location?.state?.status === ORG_ACTIONS.PUBLISHED) ||
+    initial?.status === ORG_ACTIONS.PUBLISHED
 
   return (
     <React.Fragment>

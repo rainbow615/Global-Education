@@ -4,12 +4,7 @@ import { debounce } from 'lodash'
 import { Form, Input, Button, Space, message, notification } from 'antd'
 
 import { createEducation, updateEducation, deleteEducation } from '../../../services/jitService'
-import {
-  PUBLISHED_STATE,
-  AUTO_SAVE_DELAY,
-  JIT_ACTIONS,
-  JIT_CONFIRM_MSG,
-} from '../../../config/constants'
+import { JIT_ACTIONS, AUTO_SAVE_DELAY, JIT_CONFIRM_MSG } from '../../../config/constants'
 import CustomCkEditor from '../../../components/CustomCkEditor/CustomCkEditor'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
@@ -64,7 +59,7 @@ const EducationForm = () => {
       name: values.name,
       content: editorContent,
       parentId: jitData?.parentId || null,
-      status: PUBLISHED_STATE.UNPUBLISHED,
+      status: JIT_ACTIONS.UNPUBLISHED,
     }
 
     onSaveForm(payload)
@@ -100,7 +95,7 @@ const EducationForm = () => {
     const payload = {
       name: form.getFieldValue('name') || 'Untitled',
       content: content,
-      status: PUBLISHED_STATE.DRAFT,
+      status: JIT_ACTIONS.DRAFT,
     }
 
     if (!isDisableAutoLoad) {
@@ -161,7 +156,7 @@ const EducationForm = () => {
                 onClick={onDelete}
                 loading={isDelete}
                 actionType={JIT_ACTIONS.DELETE}
-                message={JIT_CONFIRM_MSG.DELETE}
+                message={JIT_CONFIRM_MSG.DELETE_DRAFT}
               >
                 Delete Draft
               </ConfirmActionButton>
