@@ -15,3 +15,7 @@ export function createEducation(payload) {
 export function updateEducation(id, payload) {
   return api.put(`/jit/${id}`, payload)
 }
+
+export function deleteEducation(id) {
+  return api.delete(`/jit/${id}`)
+}

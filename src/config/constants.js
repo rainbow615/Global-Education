@@ -53,5 +53,18 @@ export const ORG_CONFIRM_MSG = {
     "You are unpublishing this organization. This will make the organization no longer available in the MCP mobile application and bookstore. Type 'UNPUBLISH' to confirm.",
 }
 
+export const JIT_ACTIONS = {
+  DELETE: 'DELETE',
+  PUBLISHED: 'PUBLISHED',
+  UNPUBLISHED: 'UNPUBLISHED',
+}
+
+export const JIT_CONFIRM_MSG = {
+  DELETE:
+    "You are deleting this draft. This draft will not be recoverable. Type 'DELETE' to confirm.",
+  PUBLISHED: "You are publishing this JIT Education. Type 'PUBLISH' to confirm.",
+  UNPUBLISHED: "You are unpublishing this JIT Education. Type 'UNPUBLISH' to confirm.",
+}
+
 export const SEARCH_DELAY = 800
 export const AUTO_SAVE_DELAY = 1000

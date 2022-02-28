@@ -3,11 +3,17 @@ import { useLocation, useParams, useNavigate, Link } from 'react-router-dom'
 import { debounce } from 'lodash'
 import { Form, Input, Button, Space, message, notification } from 'antd'
 
-import { createEducation, updateEducation } from '../../../services/jitService'
-import { PUBLISHED_STATE, AUTO_SAVE_DELAY } from '../../../config/constants'
+import { createEducation, updateEducation, deleteEducation } from '../../../services/jitService'
+import {
+  PUBLISHED_STATE,
+  AUTO_SAVE_DELAY,
+  JIT_ACTIONS,
+  JIT_CONFIRM_MSG,
+} from '../../../config/constants'
 import CustomCkEditor from '../../../components/CustomCkEditor/CustomCkEditor'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
+import ConfirmActionButton from '../../../components/ConfirmActionButton'
 import { Root } from './styles'
 
 const EducationForm = () => {
@@ -29,6 +35,7 @@ const EducationForm = () => {
   const [jitId, setJitId] = useState(jitData?.id || '')
   const [editorContent, setEditorContent] = useState(jitData?.content || '')
   const [isLoad, setIsLoad] = useState(false)
+  const [isDelete, setIsDelete] = useState(false)
   const [isDisableAutoLoad, setIsDisableAutoLoad] = useState(false)
 
   const onSaveForm = useCallback(
@@ -61,6 +68,25 @@ const EducationForm = () => {
     }
 
     onSaveForm(payload)
+  }
+
+  const onDelete = () => {
+    setIsDelete(true)
+
+    deleteEducation(jitId)
+      .then(() => {
+        setIsDelete(false)
+        notification.success({ message: 'A JIT Education has been deleted successfully!' })
+        navigate('/education/list')
+      })
+      .catch((error) => {
+        setIsDelete(false)
+
+        notification.error({
+          message: 'Delete Failure',
+          description: error?.data || '',
+        })
+      })
   }
 
   const onChangeValues = (value, fieldName) => {
@@ -127,10 +153,18 @@ const EducationForm = () => {
             />
           </Form.Item>
           <FormActionButtons>
-            {type !== 'new' ? (
-              <Button type="link" size="large" danger>
+            {type !== 'new' || jitId ? (
+              <ConfirmActionButton
+                type="link"
+                size="large"
+                danger
+                onClick={onDelete}
+                loading={isDelete}
+                actionType={JIT_ACTIONS.DELETE}
+                message={JIT_CONFIRM_MSG.DELETE}
+              >
                 Delete Draft
-              </Button>
+              </ConfirmActionButton>
             ) : (
               <span />
             )}
