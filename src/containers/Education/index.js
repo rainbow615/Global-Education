@@ -4,6 +4,7 @@ import loadable from '@loadable/component'
 const EducationList = loadable(() => import('./List'))
 const EducationForm = loadable(() => import('./Form'))
 const EducationReview = loadable(() => import('./ChangeReview'))
+const ProtocolsProof = loadable(() => import('./ProtocolsProof'))
 
 function Education() {
   return (
@@ -12,6 +13,7 @@ function Education() {
       <Route path="list" element={<EducationList />} />
       <Route path="form/:type" element={<EducationForm />} />
       <Route path="review" element={<EducationReview />} />
+      <Route path="proof" element={<ProtocolsProof />} />
     </Routes>
   )
 }

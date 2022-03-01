@@ -59,8 +59,8 @@ const EducationForm = () => {
     const payload = {
       name: values.name,
       content: editorContent,
-      parentId: jitData?.parentId || null,
-      status: JIT_ACTIONS.UNPUBLISHED,
+      parent_id: jitData?.parent_id || null,
+      status: JIT_ACTIONS.INREVIEW,
     }
 
     onSaveForm(payload)

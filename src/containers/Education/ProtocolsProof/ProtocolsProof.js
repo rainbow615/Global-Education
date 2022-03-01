@@ -1,26 +1,22 @@
 import React, { useState } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, Typography, notification } from 'antd'
-import { RollbackOutlined } from '@ant-design/icons'
+import { RollbackOutlined, CheckOutlined } from '@ant-design/icons'
 
-import { updateEducation, deleteEducation, useEducation } from '../../../services/jitService'
+import { createEducation, updateEducation, deleteEducation } from '../../../services/jitService'
 import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
-import CustomLoading from '../../../components/Loading/Loading'
 import { FormActionButtons } from '../../../components/CommonComponent'
-import { ResultFailed } from '../../../components/ResultPages'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
 
 import { Root, Topbar, Section, HTMLViewer } from './styles'
-import { formatLocalizedDate } from '../../../utils'
 
 const { Text } = Typography
 
-const ChangeReview = () => {
+const ProtocolsProof = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
-  const id = data.id
   const title = data?.name || ''
   const content = data?.content || ''
 
@@ -35,27 +31,21 @@ const ChangeReview = () => {
       state: data,
     },
     {
-      title: 'Change Review',
+      title: 'Protocals Proof',
     },
   ]
 
   const [isLoad, setIsLoad] = useState(false)
+  const [isUpdate, setIsUpdate] = useState(false)
   const [isDelete, setIsDelete] = useState(false)
-
-  const { data: parentJit, error } = useEducation(data.parent_id || null)
-
-  console.log('=====parentJit=', parentJit, data.parent_id)
-
-  if (error) {
-    return <ResultFailed isBackButton={false} />
-  }
-
-  if (parentJit?.isLoading) {
-    return <CustomLoading />
-  }
+  const [jitStatus, setJitStatus] = useState(data.status)
 
   const onSubmit = () => {
-    let status = JIT_ACTIONS.APPROVED
+    let status = JIT_ACTIONS.UNPUBLISHED
+
+    if (jitStatus !== JIT_ACTIONS.PUBLISHED) {
+      status = JIT_ACTIONS.PUBLISHED
+    }
 
     const payload = {
       organization_id: null,
@@ -66,13 +56,15 @@ const ChangeReview = () => {
     }
 
     setIsLoad(true)
-    updateEducation(id, payload)
+    updateEducation(data.id, payload)
       .then(() => {
         setIsLoad(false)
+        setJitStatus(status)
         notification.success({
-          message: `This JIT Education is ready to approve now!`,
+          message: `A JIT Education has been ${
+            status === JIT_ACTIONS.PUBLISHED ? 'published' : 'unpublished'
+          } successfully!`,
         })
-        navigate('/education/proof', { state: { id, ...payload } })
       })
       .catch((error) => {
         setIsLoad(false)
@@ -84,10 +76,30 @@ const ChangeReview = () => {
       })
   }
 
+  const onUpdate = () => {
+    const payload = {
+      organization_id: null,
+      parent_id: data.id,
+      name: data.name,
+      content: data.content,
+      status: JIT_ACTIONS.DRAFT,
+    }
+
+    setIsUpdate(true)
+
+    createEducation(payload).then((res) => {
+      const newId = res.data.jit_id
+
+      setIsUpdate(false)
+
+      navigate('/education/form/edit', { state: { id: newId, ...payload } })
+    })
+  }
+
   const onDelete = () => {
     setIsDelete(true)
 
-    deleteEducation(id)
+    deleteEducation(data.id)
       .then(() => {
         setIsDelete(false)
         notification.success({ message: 'A JIT Education has been deleted successfully!' })
@@ -103,60 +115,77 @@ const ChangeReview = () => {
       })
   }
 
+  const isPublish = jitStatus === JIT_ACTIONS.PUBLISHED
+
   return (
     <React.Fragment>
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
         <Button type="link" icon={<RollbackOutlined />}>
           <RouterLink to="/education/form/edit" state={data}>
-            &nbsp;Send Back to Editor
+            &nbsp;Send Back to Review
           </RouterLink>
         </Button>
       </Topbar>
 
       <Root>
-        {parentJit?.data && (
-          <Section>
-            <Text>
-              {`Last published ${formatLocalizedDate(
-                parentJit?.data[0]['modified_date'],
-                'MM/DD/YYYY'
-              )}`}
-            </Text>
-            <HTMLViewer
-              className="wyswyg-editor"
-              dangerouslySetInnerHTML={{ __html: parentJit?.data?.jit_content || '' }}
-            />
-          </Section>
-        )}
         <Section>
           <Text>Current draft</Text>
           <HTMLViewer className="wyswyg-editor" dangerouslySetInnerHTML={{ __html: content }} />
         </Section>
       </Root>
       <FormActionButtons>
-        <ConfirmActionButton
-          type="link"
-          size="large"
-          danger
-          loading={isDelete}
-          onClick={onDelete}
-          actionType={JIT_ACTIONS.DELETE}
-          message={JIT_CONFIRM_MSG.DELETE}
-        >
-          Delete
-        </ConfirmActionButton>
+        {isPublish && (
+          <ConfirmActionButton
+            type="link"
+            size="large"
+            danger
+            onClick={onSubmit}
+            loading={isPublish && isLoad}
+            actionType={JIT_ACTIONS.UNPUBLISHED}
+            message={JIT_CONFIRM_MSG.UNPUBLISHED}
+          >
+            Unpublish
+          </ConfirmActionButton>
+        )}
+        {!isPublish && (
+          <ConfirmActionButton
+            type="link"
+            size="large"
+            danger
+            loading={isDelete}
+            onClick={onDelete}
+            actionType={JIT_ACTIONS.DELETE}
+            message={JIT_CONFIRM_MSG.DELETE}
+          >
+            Delete
+          </ConfirmActionButton>
+        )}
         <Space>
+          {isPublish && (
+            <Button size="large" onClick={onUpdate} loading={isUpdate}>
+              Update
+            </Button>
+          )}
           <Button size="large">
             <RouterLink to="/education/list">Close</RouterLink>
           </Button>
-          <Button size="large" onClick={onSubmit} loading={isLoad}>
-            Accept Changes
-          </Button>
+          <ConfirmActionButton
+            size="large"
+            className={isPublish ? 'published' : ''}
+            icon={isPublish ? <CheckOutlined /> : null}
+            onClick={onSubmit}
+            loading={!isPublish && isLoad}
+            disabled={isPublish}
+            actionType={JIT_ACTIONS.PUBLISHED}
+            message={JIT_CONFIRM_MSG.PUBLISHED}
+          >
+            Publish
+          </ConfirmActionButton>
         </Space>
       </FormActionButtons>
     </React.Fragment>
   )
 }
 
-export default ChangeReview
+export default ProtocolsProof

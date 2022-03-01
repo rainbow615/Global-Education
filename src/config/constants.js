@@ -1,5 +1,7 @@
 export const TOP_HEADER_HEIGHT = 70
 export const MOBILE_SIZE = 760
+export const SEARCH_DELAY = 800
+export const AUTO_SAVE_DELAY = 1000
 
 export const CONTACTS_TOPIC = [
   {
@@ -52,6 +54,7 @@ export const JIT_ACTIONS = {
   UNPUBLISHED: 'UNPUBLISHED',
   DRAFT: 'DRAFT',
   INREVIEW: 'INREVIEW',
+  APPROVED: 'APPROVED',
 }
 
 export const JIT_CONFIRM_MSG = {
@@ -62,5 +65,10 @@ export const JIT_CONFIRM_MSG = {
   UNPUBLISHED: "You are unpublishing this JIT Education. Type 'UNPUBLISH' to confirm.",
 }
 
-export const SEARCH_DELAY = 800
-export const AUTO_SAVE_DELAY = 1000
+export const JIT_RETURN_LINK = {
+  PUBLISHED: '/education/proof',
+  UNPUBLISHED: '/education/proof',
+  DRAFT: '/education/form/edit',
+  INREVIEW: '/education/review',
+  APPROVED: '/education/proof',
+}

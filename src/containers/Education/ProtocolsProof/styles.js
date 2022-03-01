@@ -8,8 +8,7 @@ export const Topbar = styled.div`
 `
 
 export const Root = styled(Container)`
-  justify-content: space-between;
-
+  justify-content: flex-start;
 `
 
 export const Section = styled.div`

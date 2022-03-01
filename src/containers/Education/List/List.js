@@ -14,7 +14,7 @@ import {
   CustomSearchText,
   DateText,
 } from '../../../components/CommonComponent'
-import { JIT_ACTIONS, SEARCH_DELAY } from '../../../config/constants'
+import { JIT_ACTIONS, SEARCH_DELAY, JIT_RETURN_LINK } from '../../../config/constants'
 
 const { Text } = Typography
 
@@ -56,6 +56,8 @@ const columns = [
         {value === JIT_ACTIONS.PUBLISHED && 'Published'}
         {value === JIT_ACTIONS.UNPUBLISHED && 'In review'}
         {value === JIT_ACTIONS.DRAFT && 'Draft'}
+        {value === JIT_ACTIONS.INREVIEW && 'In review'}
+        {value === JIT_ACTIONS.APPROVED && 'Approved'}
       </Text>
     ),
   },
@@ -67,10 +69,7 @@ const columns = [
     width: 100,
     render: (_, record) => (
       <Button type="primary">
-        <Link
-          to={record.status !== JIT_ACTIONS.DRAFT ? '/education/review' : '/education/form/edit'}
-          state={record}
-        >
+        <Link to={JIT_RETURN_LINK[record.status]} state={record}>
           {record.status === JIT_ACTIONS.DRAFT ? 'Edit' : 'View'}
         </Link>
       </Button>
@@ -97,7 +96,7 @@ const EducationList = () => {
         const _record = {
           key: index + 1,
           id: record.jit_id,
-          parentId: record.parent_id,
+          parent_id: record.parent_id,
           name: record.jit_name,
           content: record.jit_content,
           created: formatLocalizedDate(record.created_date),
