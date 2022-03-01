@@ -54,9 +54,8 @@ const columns = [
     render: (value) => (
       <Text type={value === JIT_ACTIONS.PUBLISHED ? 'success' : 'danger'}>
         {value === JIT_ACTIONS.PUBLISHED && 'Published'}
-        {value === JIT_ACTIONS.UNPUBLISHED && 'Not published'}
+        {value === JIT_ACTIONS.UNPUBLISHED && 'In review'}
         {value === JIT_ACTIONS.DRAFT && 'Draft'}
-        {value === JIT_ACTIONS.INREVIEW && 'In review'}
       </Text>
     ),
   },
@@ -69,12 +68,10 @@ const columns = [
     render: (_, record) => (
       <Button type="primary">
         <Link
-          to={
-            record.status !== JIT_ACTIONS.DRAFT ? '/education/review' : '/education/form/edit'
-          }
+          to={record.status !== JIT_ACTIONS.DRAFT ? '/education/review' : '/education/form/edit'}
           state={record}
         >
-          Edit
+          {record.status === JIT_ACTIONS.DRAFT ? 'Edit' : 'View'}
         </Link>
       </Button>
     ),
