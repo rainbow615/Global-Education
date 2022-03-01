@@ -32,6 +32,7 @@ const EducationForm = () => {
   const [isLoad, setIsLoad] = useState(false)
   const [isDelete, setIsDelete] = useState(false)
   const [isDisableAutoLoad, setIsDisableAutoLoad] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
 
   const onSaveForm = useCallback(
     (payload) => {
@@ -104,16 +105,35 @@ const EducationForm = () => {
       if (!jitId) {
         setIsDisableAutoLoad(true)
 
-        createEducation(payload).then((res) => {
-          setIsDisableAutoLoad(false)
-          setTimeout(hide, 0)
+        createEducation(payload)
+          .then((res) => {
+            setIsDisableAutoLoad(false)
+            setTimeout(hide, 0)
+            setErrorMsg('')
 
-          if (res?.data?.jit_id) setJitId(res.data.jit_id)
-        })
+            if (res?.data?.jit_id) setJitId(res.data.jit_id)
+          })
+          .catch((error) => {
+            setIsDisableAutoLoad(false)
+            setTimeout(hide, 0)
+
+            if (error?.status === 500) {
+              setErrorMsg(error?.data || '')
+            }
+          })
       } else {
-        updateEducation(jitId, payload).then(() => {
-          setTimeout(hide, 0)
-        })
+        updateEducation(jitId, payload)
+          .then(() => {
+            setTimeout(hide, 0)
+            setErrorMsg('')
+          })
+          .catch((error) => {
+            setTimeout(hide, 0)
+
+            if (error?.status === 500) {
+              setErrorMsg(error?.data || '')
+            }
+          })
       }
     }
   }
@@ -136,6 +156,8 @@ const EducationForm = () => {
             name="name"
             hasFeedback
             rules={[{ required: true, message: 'Please input Name' }]}
+            validateStatus={errorMsg ? 'error' : undefined}
+            help={errorMsg}
           >
             <Input placeholder="Name *" size="large" onChange={(e) => debouncedChangeHandler()} />
           </Form.Item>
@@ -168,7 +190,7 @@ const EducationForm = () => {
                 size="large"
                 htmlType="submit"
                 loading={isLoad}
-                disabled={isLoad || isDisableAutoLoad || !jitId}
+                disabled={isLoad || isDisableAutoLoad || !jitId || errorMsg}
               >
                 Send to Review
               </Button>
