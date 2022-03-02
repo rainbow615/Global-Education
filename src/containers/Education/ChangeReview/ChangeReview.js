@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
-import { Button, Space, Typography, notification } from 'antd'
+import { Button, Space, notification } from 'antd'
 import { RollbackOutlined } from '@ant-design/icons'
+import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
 
 import { updateEducation, deleteEducation, useEducation } from '../../../services/jitService'
 import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
@@ -10,11 +11,18 @@ import CustomLoading from '../../../components/Loading/Loading'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import { ResultFailed } from '../../../components/ResultPages'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
+import { formatLocalizedDate, formatHTMLForDiff } from '../../../utils'
 
-import { Root, Topbar, Section, HTMLViewer } from './styles'
-import { formatLocalizedDate } from '../../../utils'
+import { Root, Topbar } from './styles'
 
-const { Text } = Typography
+const compareStyles = {
+  variables: {
+    light: {
+      codeFoldGutterBackground: '#6F767E',
+      codeFoldBackground: '#E2E4E5',
+    },
+  },
+}
 
 const ChangeReview = () => {
   const location = useLocation()
@@ -43,8 +51,6 @@ const ChangeReview = () => {
   const [isDelete, setIsDelete] = useState(false)
 
   const { data: parentJit, error } = useEducation(data.parent_id || null)
-
-  console.log('=====parentJit=', parentJit, data.parent_id)
 
   if (error) {
     return <ResultFailed isBackButton={false} />
@@ -103,6 +109,8 @@ const ChangeReview = () => {
       })
   }
 
+  const parentJitData = parentJit?.data && parentJit.data.length > 0 ? parentJit.data[0] : null
+
   return (
     <React.Fragment>
       <Topbar>
@@ -115,24 +123,19 @@ const ChangeReview = () => {
       </Topbar>
 
       <Root>
-        {parentJit?.data && (
-          <Section>
-            <Text>
-              {`Last published ${formatLocalizedDate(
-                parentJit?.data[0]['modified_date'],
-                'MM/DD/YYYY'
-              )}`}
-            </Text>
-            <HTMLViewer
-              className="wyswyg-editor"
-              dangerouslySetInnerHTML={{ __html: parentJit?.data?.jit_content || '' }}
-            />
-          </Section>
-        )}
-        <Section>
-          <Text>Current draft</Text>
-          <HTMLViewer className="wyswyg-editor" dangerouslySetInnerHTML={{ __html: content }} />
-        </Section>
+        <ReactDiffViewer
+          oldValue={formatHTMLForDiff(parentJitData?.jit_content || '')}
+          newValue={formatHTMLForDiff(content)}
+          splitView={true}
+          compareMethod={DiffMethod.CHARS}
+          styles={compareStyles}
+          leftTitle={`Last published ${
+            parentJitData?.modified_date
+              ? formatLocalizedDate(parentJitData.modified_date, 'MM/DD/YYYY')
+              : '_'
+          }`}
+          rightTitle="Current draft"
+        />
       </Root>
       <FormActionButtons>
         <ConfirmActionButton

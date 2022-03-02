@@ -9,18 +9,4 @@ export const Topbar = styled.div`
 
 export const Root = styled(Container)`
   justify-content: space-between;
-
-`
-
-export const Section = styled.div`
-  flex: 1;
-  max-width: calc(50% - 20px);
-`
-
-export const HTMLViewer = styled.div`
-  margin-top: 10px;
-  min-height: 300px;
-  background-color: white;
-  padding: 30px 20px;
-  border: 1px solid ${(props) => props.theme.palette.borderColor};
 `

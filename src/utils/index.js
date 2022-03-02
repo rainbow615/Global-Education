@@ -1,5 +1,6 @@
 import { parse as urlParse } from 'url'
 import moment from 'moment'
+import { html } from 'js-beautify'
 
 export const getQueryParams = (url = window.location.href.replace(/#/g, '')) => {
   return urlParse(url, true).query
@@ -43,4 +44,21 @@ export const convertImageToBase64 = (file) =>
 export const regExpEscape = (string) => {
   // eslint-disable-next-line
   return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+}
+
+export const formatHTMLForDiff = (htmlStr, textOnly = true) => {
+  const htmlStylingOptions = {
+    indent_size: 4,
+    html: {
+      end_with_newline: true,
+    },
+  }
+  
+  const formattedHTML = html(htmlStr, htmlStylingOptions)
+
+  if (textOnly) {
+    return new DOMParser().parseFromString(formattedHTML, 'text/html').body.innerText
+  }
+
+  return formattedHTML
 }
