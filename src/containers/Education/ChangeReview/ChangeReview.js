@@ -127,7 +127,7 @@ const ChangeReview = () => {
           oldValue={formatHTMLForDiff(parentJitData?.jit_content || '')}
           newValue={formatHTMLForDiff(content)}
           splitView={true}
-          compareMethod={DiffMethod.CHARS}
+          compareMethod={DiffMethod.WORDS}
           styles={compareStyles}
           leftTitle={`Last published ${
             parentJitData?.modified_date
