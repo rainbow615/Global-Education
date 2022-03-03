@@ -1,5 +1,7 @@
 import styled from 'styled-components'
+
 import { Container } from '../../../components/CommonComponent'
+import iphoneBezel from '../../../assets/img/iphone.png'
 
 export const Topbar = styled.div`
   display: flex;
@@ -8,18 +10,21 @@ export const Topbar = styled.div`
 `
 
 export const Root = styled(Container)`
-  justify-content: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `
 
-export const Section = styled.div`
-  flex: 1;
-  max-width: calc(50% - 20px);
+export const MobielViewer = styled.div`
+  background-image: url(${iphoneBezel});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 420px;
+  height: 822px;
+  padding: 80px 36px 69px 55px;
 `
 
 export const HTMLViewer = styled.div`
-  margin-top: 10px;
-  min-height: 300px;
-  background-color: white;
-  padding: 30px 20px;
-  border: 1px solid ${(props) => props.theme.palette.borderColor};
+  height: 100%;
+  overflow-y: auto;
 `

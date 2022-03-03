@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
-import { Button, Space, Typography, notification } from 'antd'
+import { Button, Space, notification } from 'antd'
 import { RollbackOutlined, CheckOutlined } from '@ant-design/icons'
 
 import { createEducation, updateEducation, deleteEducation } from '../../../services/jitService'
@@ -9,9 +9,7 @@ import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcr
 import { FormActionButtons } from '../../../components/CommonComponent'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
 
-import { Root, Topbar, Section, HTMLViewer } from './styles'
-
-const { Text } = Typography
+import { Root, Topbar, MobielViewer, HTMLViewer } from './styles'
 
 const ProtocolsProof = () => {
   const location = useLocation()
@@ -129,10 +127,9 @@ const ProtocolsProof = () => {
       </Topbar>
 
       <Root>
-        <Section>
-          <Text>Current draft</Text>
+        <MobielViewer>
           <HTMLViewer className="wyswyg-editor" dangerouslySetInnerHTML={{ __html: content }} />
-        </Section>
+        </MobielViewer>
       </Root>
       <FormActionButtons>
         {isPublish && (
