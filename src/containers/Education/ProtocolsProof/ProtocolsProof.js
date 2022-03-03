@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, notification } from 'antd'
 import { RollbackOutlined, CheckOutlined } from '@ant-design/icons'
@@ -36,13 +36,24 @@ const ProtocolsProof = () => {
   const [isLoad, setIsLoad] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
   const [isDelete, setIsDelete] = useState(false)
-  const [jitStatus, setJitStatus] = useState(data.status)
+  const [jitStatus, setJitStatus] = useState(data?.status)
+
+  useEffect(() => {
+    if (!data) {
+      navigate('/education/list')
+    }
+  })
 
   const onSubmit = () => {
+    let updateId = data.id
     let status = JIT_ACTIONS.UNPUBLISHED
 
     if (jitStatus !== JIT_ACTIONS.PUBLISHED) {
       status = JIT_ACTIONS.PUBLISHED
+    }
+
+    if (data.parent_id) {
+      updateId = data.parent_id
     }
 
     const payload = {
@@ -54,7 +65,7 @@ const ProtocolsProof = () => {
     }
 
     setIsLoad(true)
-    updateEducation(data.id, payload)
+    updateEducation(updateId, payload)
       .then(() => {
         setIsLoad(false)
         setJitStatus(status)
@@ -85,13 +96,17 @@ const ProtocolsProof = () => {
 
     setIsUpdate(true)
 
-    createEducation(payload).then((res) => {
-      const newId = res.data.jit_id
+    if (data.parent_id) {
+      navigate('/education/form/edit', { state: { id: data.id, ...payload } })
+    } else {
+      createEducation(payload).then((res) => {
+        const newId = res.data.jit_id
 
-      setIsUpdate(false)
+        setIsUpdate(false)
 
-      navigate('/education/form/edit', { state: { id: newId, ...payload } })
-    })
+        navigate('/education/form/edit', { state: { id: newId, ...payload } })
+      })
+    }
   }
 
   const onDelete = () => {
@@ -120,7 +135,7 @@ const ProtocolsProof = () => {
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
         <Button type="link" icon={<RollbackOutlined />}>
-          <RouterLink to="/education/form/edit" state={data}>
+          <RouterLink to="/education/review" state={data}>
             &nbsp;Send Back to Review
           </RouterLink>
         </Button>

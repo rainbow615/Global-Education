@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, notification } from 'antd'
 import { RollbackOutlined } from '@ant-design/icons'
@@ -28,7 +28,7 @@ const ChangeReview = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
-  const id = data.id
+  const id = data?.id
   const title = data?.name || ''
   const content = data?.content || ''
 
@@ -50,7 +50,13 @@ const ChangeReview = () => {
   const [isLoad, setIsLoad] = useState(false)
   const [isDelete, setIsDelete] = useState(false)
 
-  const { data: parentJit, error } = useEducation(data.parent_id || null)
+  useEffect(() => {
+    if (!data) {
+      navigate('/education/list')
+    }
+  })
+
+  const { data: parentJit, error } = useEducation(data?.parent_id || null)
 
   if (error) {
     return <ResultFailed isBackButton={false} />
@@ -65,7 +71,7 @@ const ChangeReview = () => {
 
     const payload = {
       organization_id: null,
-      parent_id: null,
+      parent_id: data.parent_id,
       name: data.name,
       content: data.content,
       status,
