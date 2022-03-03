@@ -9,7 +9,7 @@ import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcr
 import { FormActionButtons } from '../../../components/CommonComponent'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
 
-import { Root, Topbar, MobielViewer, HTMLViewer } from './styles'
+import { Root, Topbar, MobielViewer, BookViewer, HTMLViewer } from './styles'
 
 const ProtocolsProof = () => {
   const location = useLocation()
@@ -130,6 +130,9 @@ const ProtocolsProof = () => {
         <MobielViewer>
           <HTMLViewer className="wyswyg-editor" dangerouslySetInnerHTML={{ __html: content }} />
         </MobielViewer>
+        <BookViewer>
+          <HTMLViewer className="wyswyg-editor" dangerouslySetInnerHTML={{ __html: content }} />
+        </BookViewer>
       </Root>
       <FormActionButtons>
         {isPublish && (
