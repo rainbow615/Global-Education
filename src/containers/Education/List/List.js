@@ -54,9 +54,9 @@ const columns = [
     render: (value) => (
       <Text type={value === JIT_ACTIONS.PUBLISHED ? 'success' : 'danger'}>
         {value === JIT_ACTIONS.PUBLISHED && 'Published'}
-        {value === JIT_ACTIONS.UNPUBLISHED && 'In review'}
+        {value === JIT_ACTIONS.UNPUBLISHED && 'In-Review'}
         {value === JIT_ACTIONS.DRAFT && 'Draft'}
-        {value === JIT_ACTIONS.INREVIEW && 'In review'}
+        {value === JIT_ACTIONS.INREVIEW && 'In-Review'}
         {value === JIT_ACTIONS.APPROVED && 'Approved'}
       </Text>
     ),

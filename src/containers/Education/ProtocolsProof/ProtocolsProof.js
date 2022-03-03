@@ -31,7 +31,7 @@ const ProtocolsProof = () => {
       state: data,
     },
     {
-      title: 'Protocals Proof',
+      title: 'Protocols Proof',
     },
   ]
 
