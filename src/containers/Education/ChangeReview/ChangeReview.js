@@ -126,14 +126,14 @@ const ChangeReview = () => {
         <ReactDiffViewer
           oldValue={formatHTMLForDiff(parentJitData?.jit_content || '')}
           newValue={formatHTMLForDiff(content)}
-          splitView={true}
+          splitView={!!parentJitData?.modified_date}
           compareMethod={DiffMethod.WORDS}
           styles={compareStyles}
-          leftTitle={`Last published ${
+          leftTitle={
             parentJitData?.modified_date
-              ? formatLocalizedDate(parentJitData.modified_date, 'MM/DD/YYYY')
-              : '_'
-          }`}
+              ? `Last published ${formatLocalizedDate(parentJitData.modified_date, 'MM/DD/YYYY')}`
+              : 'Current draft'
+          }
           rightTitle="Current draft"
         />
       </Root>
