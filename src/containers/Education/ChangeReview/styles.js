@@ -10,3 +10,11 @@ export const Topbar = styled.div`
 export const Root = styled(Container)`
   justify-content: space-between;
 `
+
+export const TitleView = styled.div`
+  .sub-title {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-top: 20px;
+  }
+`

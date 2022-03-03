@@ -13,13 +13,15 @@ import { ResultFailed } from '../../../components/ResultPages'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
 import { formatLocalizedDate, formatHTMLForDiff } from '../../../utils'
 
-import { Root, Topbar } from './styles'
+import { Root, Topbar, TitleView } from './styles'
 
 const compareStyles = {
   variables: {
     light: {
       codeFoldGutterBackground: '#6F767E',
       codeFoldBackground: '#E2E4E5',
+      diffViewerTitleBackground: '#f0f2f5',
+      diffViewerTitleColor: '#1f2532',
     },
   },
 }
@@ -115,6 +117,13 @@ const ChangeReview = () => {
       })
   }
 
+  const renderTitleBar = (title, subTitle) => (
+    <TitleView>
+      {title}
+      <div className="sub-title">{subTitle}:</div>
+    </TitleView>
+  )
+
   const parentJitData = parentJit?.data && parentJit.data.length > 0 ? parentJit.data[0] : null
 
   return (
@@ -130,17 +139,32 @@ const ChangeReview = () => {
 
       <Root>
         <ReactDiffViewer
-          oldValue={formatHTMLForDiff(parentJitData?.jit_content || '')}
-          newValue={formatHTMLForDiff(content)}
+          oldValue={formatHTMLForDiff(parentJitData?.jit_name || '')}
+          newValue={formatHTMLForDiff(title)}
           splitView={!!parentJitData?.modified_date}
           compareMethod={DiffMethod.WORDS}
           styles={compareStyles}
           leftTitle={
             parentJitData?.modified_date
-              ? `Last published ${formatLocalizedDate(parentJitData.modified_date, 'MM/DD/YYYY')}`
-              : 'Current draft'
+              ? renderTitleBar(
+                  `Last published ${formatLocalizedDate(
+                    parentJitData.modified_date,
+                    'MM/DD/YYYY'
+                  )}`,
+                  'Title'
+                )
+              : renderTitleBar('Current draft', 'Title')
           }
-          rightTitle="Current draft"
+          rightTitle={renderTitleBar('Current draft', 'Title')}
+        />
+        <ReactDiffViewer
+          oldValue={formatHTMLForDiff(parentJitData?.jit_content || '')}
+          newValue={formatHTMLForDiff(content)}
+          splitView={!!parentJitData?.modified_date}
+          compareMethod={DiffMethod.WORDS}
+          styles={compareStyles}
+          leftTitle={renderTitleBar('', 'Body')}
+          rightTitle={renderTitleBar('', 'Body')}
         />
       </Root>
       <FormActionButtons>
