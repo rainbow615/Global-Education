@@ -52,10 +52,6 @@ const ProtocolsProof = () => {
       status = JIT_ACTIONS.PUBLISHED
     }
 
-    if (data.parent_id) {
-      updateId = data.parent_id
-    }
-
     const payload = {
       organization_id: null,
       parent_id: data.parent_id,
@@ -96,17 +92,13 @@ const ProtocolsProof = () => {
 
     setIsUpdate(true)
 
-    if (data.parent_id) {
-      navigate('/education/form/edit', { state: { id: data.id, ...payload } })
-    } else {
-      createEducation(payload).then((res) => {
-        const newId = res.data.jit_id
+    createEducation(payload).then((res) => {
+      const newId = res.data.jit_id
 
-        setIsUpdate(false)
+      setIsUpdate(false)
 
-        navigate('/education/form/edit', { state: { id: newId, ...payload } })
-      })
-    }
+      navigate('/education/form/edit', { state: { id: newId, ...payload } })
+    })
   }
 
   const onDelete = () => {
@@ -134,11 +126,13 @@ const ProtocolsProof = () => {
     <React.Fragment>
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
-        <Button type="link" icon={<RollbackOutlined />}>
-          <RouterLink to="/education/review" state={data}>
-            &nbsp;Send Back to Review
-          </RouterLink>
-        </Button>
+        {!isPublish && (
+          <Button type="link" icon={<RollbackOutlined />}>
+            <RouterLink to="/education/review" state={data}>
+              &nbsp;Send Back to Review
+            </RouterLink>
+          </Button>
+        )}
       </Topbar>
       <TitleBar>{title}</TitleBar>
       <Root>
