@@ -9,6 +9,15 @@ export const Topbar = styled.div`
   align-items: center;
 `
 
+export const TitleBar = styled.div`
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 10px;
+`
+
 export const Root = styled(Container)`
   justify-content: space-around;
   flex-wrap: wrap;

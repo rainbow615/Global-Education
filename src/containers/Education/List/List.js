@@ -52,12 +52,21 @@ const columns = [
     dataIndex: 'status',
     key: 'status',
     render: (value) => (
-      <Text type={value === JIT_ACTIONS.PUBLISHED ? 'success' : 'danger'}>
+      <Text
+        type={
+          value === JIT_ACTIONS.PUBLISHED
+            ? 'success'
+            : value !== JIT_ACTIONS.DELETED
+            ? 'warning'
+            : 'danger'
+        }
+      >
         {value === JIT_ACTIONS.PUBLISHED && 'Published'}
         {value === JIT_ACTIONS.UNPUBLISHED && 'In-Review'}
         {value === JIT_ACTIONS.DRAFT && 'Draft'}
         {value === JIT_ACTIONS.INREVIEW && 'In-Review'}
         {value === JIT_ACTIONS.APPROVED && 'Approved'}
+        {value === JIT_ACTIONS.DELETED && 'Deleted'}
       </Text>
     ),
   },
@@ -67,13 +76,16 @@ const columns = [
     key: 'actions',
     align: 'right',
     width: 100,
-    render: (_, record) => (
-      <Button type="primary">
-        <Link to={JIT_RETURN_LINK[record.status]} state={record}>
-          {record.status === JIT_ACTIONS.DRAFT ? 'Edit' : 'View'}
-        </Link>
-      </Button>
-    ),
+    render: (_, record) =>
+      record.status !== JIT_ACTIONS.DELETED ? (
+        <Button type="primary">
+          <Link to={JIT_RETURN_LINK[record.status]} state={record}>
+            {record.status === JIT_ACTIONS.DRAFT ? 'Edit' : 'View'}
+          </Link>
+        </Button>
+      ) : (
+        ''
+      ),
   },
 ]
 
