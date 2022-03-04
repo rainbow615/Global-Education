@@ -71,4 +71,5 @@ export const JIT_RETURN_LINK = {
   DRAFT: '/education/form/edit',
   INREVIEW: '/education/review',
   APPROVED: '/education/proof',
+  DELETED: '',
 }

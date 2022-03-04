@@ -33,7 +33,7 @@ const menu = (
   <ActionsMenu>
     <Menu.Item key="1">Protocols</Menu.Item>
     <Menu.Item key="2">Components</Menu.Item>
-    <Menu.Item key="3">JIT Education</Menu.Item>
+    <Menu.Item key="3">Org Education</Menu.Item>
   </ActionsMenu>
 )
 

@@ -11,7 +11,7 @@ const navLinks = [
   },
   {
     path: '/education',
-    pathName: 'JIT Education',
+    pathName: 'Global Education',
   },
   {
     path: '/users',
