@@ -23,7 +23,7 @@ const EducationForm = () => {
       link: '/education',
     },
     {
-      title: type === 'new' ? 'Add' : 'Edit',
+      title: type === 'new' ? 'Add' : `Draft: ${jitData?.name}`,
     },
   ]
 

@@ -40,12 +40,7 @@ const ChangeReview = () => {
       link: '/education',
     },
     {
-      title: title,
-      link: '/education/form/edit',
-      state: data,
-    },
-    {
-      title: 'Change Review',
+      title: `In-Review: ${title}`,
     },
   ]
 

@@ -2,6 +2,8 @@ import { parse as urlParse } from 'url'
 import moment from 'moment'
 import { html } from 'js-beautify'
 
+import { JIT_ACTIONS } from '../config/constants'
+
 export const getQueryParams = (url = window.location.href.replace(/#/g, '')) => {
   return urlParse(url, true).query
 }
@@ -53,7 +55,7 @@ export const formatHTMLForDiff = (htmlStr, textOnly = true) => {
       end_with_newline: true,
     },
   }
-  
+
   const formattedHTML = html(htmlStr, htmlStylingOptions)
 
   if (textOnly) {
@@ -61,4 +63,17 @@ export const formatHTMLForDiff = (htmlStr, textOnly = true) => {
   }
 
   return formattedHTML
+}
+
+export const getStatusName = (value) => {
+  let statusName = ''
+
+  if (value === JIT_ACTIONS.PUBLISHED) statusName = 'Published'
+  if (value === JIT_ACTIONS.UNPUBLISHED) statusName = 'In-Review'
+  if (value === JIT_ACTIONS.DRAFT) statusName = 'Draft'
+  if (value === JIT_ACTIONS.INREVIEW) statusName = 'In-Review'
+  if (value === JIT_ACTIONS.APPROVED) statusName = 'Approved'
+  if (value === JIT_ACTIONS.DELETED) statusName = 'Deleted'
+
+  return statusName
 }

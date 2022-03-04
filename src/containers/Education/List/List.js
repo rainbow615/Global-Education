@@ -4,7 +4,7 @@ import { debounce, map, get } from 'lodash'
 import { Button, Typography } from 'antd'
 
 import { useEducations } from '../../../services/jitService'
-import { formatLocalizedDate, regExpEscape } from '../../../utils'
+import { formatLocalizedDate, getStatusName, regExpEscape } from '../../../utils'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { ResultFailed } from '../../../components/ResultPages'
 import {
@@ -61,12 +61,7 @@ const columns = [
             : 'danger'
         }
       >
-        {value === JIT_ACTIONS.PUBLISHED && 'Published'}
-        {value === JIT_ACTIONS.UNPUBLISHED && 'In-Review'}
-        {value === JIT_ACTIONS.DRAFT && 'Draft'}
-        {value === JIT_ACTIONS.INREVIEW && 'In-Review'}
-        {value === JIT_ACTIONS.APPROVED && 'Approved'}
-        {value === JIT_ACTIONS.DELETED && 'Deleted'}
+        {getStatusName(value)}
       </Text>
     ),
   },
