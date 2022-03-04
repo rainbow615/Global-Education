@@ -9,7 +9,15 @@ import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcr
 import { FormActionButtons } from '../../../components/CommonComponent'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
 
-import { Root, Topbar, TitleBar, MobielViewer, BookViewer, ViewerContainer, HTMLViewer } from './styles'
+import {
+  Root,
+  Topbar,
+  TitleBar,
+  MobielViewer,
+  BookViewer,
+  ViewerContainer,
+  HTMLViewer,
+} from './styles'
 
 const ProtocolsProof = () => {
   const location = useLocation()
@@ -20,16 +28,11 @@ const ProtocolsProof = () => {
 
   const breadCrumb = [
     {
-      title: 'JIT Education',
+      title: 'Global Education',
       link: '/education',
     },
     {
-      title: title,
-      link: '/education/form/edit',
-      state: data,
-    },
-    {
-      title: 'Protocols Proof',
+      title: `Proof: ${title}`,
     },
   ]
 

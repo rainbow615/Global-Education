@@ -20,7 +20,7 @@ const { Text } = Typography
 
 const breadCrumb = [
   {
-    title: 'JIT Education',
+    title: 'Global Education',
   },
   {
     title: 'List',

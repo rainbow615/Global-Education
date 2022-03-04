@@ -19,7 +19,7 @@ const EducationForm = () => {
   const { type } = useParams()
   const breadCrumb = [
     {
-      title: 'JIT Education',
+      title: 'Global Education',
       link: '/education',
     },
     {

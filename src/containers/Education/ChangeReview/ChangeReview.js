@@ -36,7 +36,7 @@ const ChangeReview = () => {
 
   const breadCrumb = [
     {
-      title: 'JIT Education',
+      title: 'Global Education',
       link: '/education',
     },
     {
