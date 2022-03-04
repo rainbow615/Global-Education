@@ -58,7 +58,7 @@ const ProtocolsProof = () => {
 
     const payload = {
       organization_id: null,
-      parent_id: null,
+      parent_id: data.parent_id,
       name: data.name,
       content: data.content,
       status,
