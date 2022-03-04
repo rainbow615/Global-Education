@@ -56,7 +56,7 @@ const columns = [
         type={
           value === JIT_ACTIONS.PUBLISHED
             ? 'success'
-            : value !== JIT_ACTIONS.DELETED
+            : value !== JIT_ACTIONS.UNPUBLISHED
             ? 'warning'
             : 'danger'
         }

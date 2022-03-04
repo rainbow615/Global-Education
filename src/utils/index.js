@@ -69,7 +69,7 @@ export const getStatusName = (value) => {
   let statusName = ''
 
   if (value === JIT_ACTIONS.PUBLISHED) statusName = 'Published'
-  if (value === JIT_ACTIONS.UNPUBLISHED) statusName = 'In-Review'
+  if (value === JIT_ACTIONS.UNPUBLISHED) statusName = 'Unpublished'
   if (value === JIT_ACTIONS.DRAFT) statusName = 'Draft'
   if (value === JIT_ACTIONS.INREVIEW) statusName = 'In-Review'
   if (value === JIT_ACTIONS.APPROVED) statusName = 'Approved'
