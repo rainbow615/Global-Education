@@ -19,13 +19,12 @@ export const TitleBar = styled.div`
 `
 
 export const Root = styled(Container)`
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
-
-  @media only screen and (max-width: 1370px) {
-    flex-direction: column;
-    align-items: center;
-  }
+  transform: scale(0.7);
+  height: 688px;
+  padding: 0;
+  margin-top: -40px;
 `
 
 export const MobielViewer = styled.div`
@@ -37,6 +36,8 @@ export const MobielViewer = styled.div`
   height: 822px;
   padding: 80px 36px 69px 55px;
   margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
 `
 
 export const BookViewer = styled.div`
@@ -47,10 +48,15 @@ export const BookViewer = styled.div`
   max-height: 822px;
   max-width: 600px;
   min-width: 400px;
-  overflow-y: auto;
+`
+
+export const ViewerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 `
 
 export const HTMLViewer = styled.div`
-  height: 100%;
+  flex: 1;
   overflow-y: auto;
 `
