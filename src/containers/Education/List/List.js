@@ -109,13 +109,15 @@ const EducationList = () => {
           created: formatLocalizedDate(record.created_date),
           updated: formatLocalizedDate(record.modified_date),
           status: record.status,
+          status_name: getStatusName(record.status),
         }
 
         if (searchText) {
           const reg = new RegExp(regExpEscape(searchText), 'gi')
           const nameMatch = get(_record, 'name').match(reg)
+          const statusMatch = get(_record, 'status_name').match(reg)
 
-          if (!nameMatch) {
+          if (!nameMatch && !statusMatch) {
             return null
           }
         }
