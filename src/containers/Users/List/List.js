@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Tag } from 'antd'
+import { Button } from 'antd'
 import { debounce, map, get } from 'lodash'
 
 import { useUsersList } from '../../../services/userService'
 import { formatLocalizedDate, regExpEscape } from '../../../utils'
+import { SEARCH_DELAY } from '../../../config/constants'
+import USERS_COLUMNS from './columns'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import {
   Container,
@@ -13,7 +15,6 @@ import {
   CustomSearchText,
 } from '../../../components/CommonComponent'
 import { ResultFailed } from '../../../components/ResultPages'
-import { SEARCH_DELAY } from '../../../config/constants'
 
 const breadCrumb = [
   {
@@ -21,44 +22,6 @@ const breadCrumb = [
   },
   {
     title: 'List',
-  },
-]
-
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
-  },
-  {
-    title: 'Registered',
-    dataIndex: 'registered',
-    key: 'registered',
-  },
-  {
-    title: 'Roles',
-    dataIndex: 'role',
-    key: 'role',
-    render: (value) => <Tag color="default">{value}</Tag>,
-  },
-  {
-    title: '',
-    dataIndex: 'actions',
-    key: 'actions',
-    align: 'right',
-    width: 100,
-    render: (_, record) => (
-      <Button type="primary">
-        <Link to="/users/manage" state={record}>
-          Manage
-        </Link>
-      </Button>
-    ),
   },
 ]
 
@@ -120,7 +83,7 @@ const UsersList = () => {
         </CustomTableHeader>
         <CustomTable
           dataSource={dataSource}
-          columns={columns}
+          columns={USERS_COLUMNS}
           loading={users?.isLoading}
           pagination={{
             pageSize: 10,
