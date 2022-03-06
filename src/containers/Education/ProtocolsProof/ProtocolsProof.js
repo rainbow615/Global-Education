@@ -124,6 +124,11 @@ const ProtocolsProof = () => {
   }
 
   const isPublish = jitStatus === JIT_ACTIONS.PUBLISHED
+  const publicConfirmMsg = `${
+    data.parent_id
+      ? `This document is a copy of ${data.parent_id} and will replace that document when published. \n\n`
+      : ''
+  }${JIT_CONFIRM_MSG.PUBLISHED}`
 
   return (
     <React.Fragment>
@@ -195,7 +200,7 @@ const ProtocolsProof = () => {
             loading={!isPublish && isLoad}
             disabled={isPublish}
             actionType={JIT_ACTIONS.PUBLISHED}
-            message={JIT_CONFIRM_MSG.PUBLISHED}
+            message={publicConfirmMsg}
           >
             Publish
           </ConfirmActionButton>

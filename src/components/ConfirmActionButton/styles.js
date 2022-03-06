@@ -19,6 +19,7 @@ export const ConfirmModalBody = styled.div`
   .description {
     font-size: 0.9rem;
     margin-bottom: 5px;
+    white-space: pre-wrap;
   }
 
   .actions {
