@@ -10,6 +10,11 @@ const { Text } = Typography
 
 const EDUCATION_COLUMNS = [
   {
+    title: 'Doc #',
+    dataIndex: 'document_number',
+    key: 'document_number',
+  },
+  {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',

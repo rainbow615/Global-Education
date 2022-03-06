@@ -44,6 +44,7 @@ const EducationList = () => {
         const _record = {
           key: index + 1,
           id: record.jit_id,
+          document_number: record.document_number || '',
           parent_id: record.parent_id,
           name: record.jit_name,
           content: record.jit_content,
@@ -55,10 +56,11 @@ const EducationList = () => {
 
         if (searchText) {
           const reg = new RegExp(regExpEscape(searchText), 'gi')
+          const docNumberMatch = get(_record, 'document_number').match(reg)
           const nameMatch = get(_record, 'name').match(reg)
           const statusMatch = get(_record, 'status_name').match(reg)
 
-          if (!nameMatch && !statusMatch) {
+          if (!docNumberMatch && !nameMatch && !statusMatch) {
             return null
           }
         }
