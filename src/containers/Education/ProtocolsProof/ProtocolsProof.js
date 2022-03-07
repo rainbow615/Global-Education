@@ -144,7 +144,7 @@ const ProtocolsProof = () => {
   const parentJitData = parentJit?.data && parentJit.data.length > 0 ? parentJit.data[0] : null
   const publicConfirmMsg = `${
     data.parent_id
-      ? `This document is a copy of ${parentJitData.document_number}: "${parentJitData.jit_name}" and will replace that document when published. \n\n`
+      ? `This document is a copy of "${parentJitData.document_number}: ${parentJitData.jit_name}" and will replace that document when published. \n\n`
       : ''
   }${JIT_CONFIRM_MSG.PUBLISHED}`
 
