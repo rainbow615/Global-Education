@@ -29,7 +29,6 @@ const CopyTooltip = ({ value, record }) => {
   if (!parentJit?.isLoading && parentJit?.data && parentJit.data.length > 0) {
     const parentJitData = parentJit.data[0]
     tipMessage = `This document is a copy of "${parentJitData.document_number}: ${parentJitData.jit_name}" and will replace that document when published.`
-    console.log('======================')
   }
 
   const onVisible = useCallback((isShow) => {
