@@ -3,11 +3,18 @@ import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, notification } from 'antd'
 import { RollbackOutlined, CheckOutlined } from '@ant-design/icons'
 
-import { createEducation, updateEducation, deleteEducation } from '../../../services/jitService'
+import {
+  createEducation,
+  updateEducation,
+  deleteEducation,
+  useEducation,
+} from '../../../services/jitService'
 import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
+import CustomLoading from '../../../components/Loading/Loading'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
+import { ResultFailed } from '../../../components/ResultPages'
 
 import {
   Root,
@@ -46,6 +53,16 @@ const ProtocolsProof = () => {
       navigate('/education/list')
     }
   })
+
+  const { data: parentJit, error } = useEducation(data?.parent_id || null)
+
+  if (error) {
+    return <ResultFailed isBackButton={false} />
+  }
+
+  if (parentJit?.isLoading) {
+    return <CustomLoading />
+  }
 
   const onSubmit = () => {
     let updateId = data.id
@@ -124,9 +141,10 @@ const ProtocolsProof = () => {
   }
 
   const isPublish = jitStatus === JIT_ACTIONS.PUBLISHED
+  const parentJitData = parentJit?.data && parentJit.data.length > 0 ? parentJit.data[0] : null
   const publicConfirmMsg = `${
     data.parent_id
-      ? `This document is a copy of ${data.parent_id} and will replace that document when published. \n\n`
+      ? `This document is a copy of ${parentJitData.document_number}: "${parentJitData.jit_name}" and will replace that document when published. \n\n`
       : ''
   }${JIT_CONFIRM_MSG.PUBLISHED}`
 
