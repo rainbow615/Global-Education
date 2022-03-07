@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 import { Button, Space, Typography, Tooltip } from 'antd'
 
 import { DateText } from '../../../components/CommonComponent'
+import CopyTooltip from './CopyTooltip'
 import { JIT_ACTIONS, JIT_RETURN_LINK } from '../../../config/constants'
 import { getStatusName } from '../../../utils'
-import { CopyLabel } from './styles'
 
 const { Text } = Typography
 
@@ -18,27 +18,7 @@ const EDUCATION_COLUMNS = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    render: (value, record) => {
-      const isCopied =
-        record.parent_id &&
-        (record.status === JIT_ACTIONS.DRAFT ||
-          record.status === JIT_ACTIONS.INREVIEW ||
-          record.status === JIT_ACTIONS.APPROVED)
-
-      return (
-        <Space align="center">
-          {value}
-          {isCopied && (
-            <Tooltip
-              title={`This document is a copy of ${record.parent_id} and will replace that document when published.`}
-              color="cyan"
-            >
-              <CopyLabel color="red">Copy</CopyLabel>
-            </Tooltip>
-          )}
-        </Space>
-      )
-    },
+    render: (value, record) => <CopyTooltip value={value} record={record} />,
   },
   {
     title: 'Created',
