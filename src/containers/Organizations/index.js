@@ -11,7 +11,7 @@ function Organizations() {
       <Route path="" element={<Navigate to="list" />} />
       <Route path="list" element={<OrganizationsList />} />
       <Route path="form/:type" element={<OrganizationsForm />} />
-      <Route path="local-education" element={<LocalEducation />} />
+      <Route path="local-education/*" element={<LocalEducation />} />
     </Routes>
   )
 }

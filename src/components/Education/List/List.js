@@ -21,10 +21,10 @@ const breadCrumb = [
 ]
 
 const EducationList = (props) => {
-  const { isGlobal } = props
+  const { isGlobal, orgId } = props
   const prefixLink = isGlobal ? 'global-' : 'local-'
 
-  const { data: jits, error } = useEducations(null)
+  const { data: jits, error } = useEducations(orgId || null)
   const [searchText, setSearchText] = useState('')
 
   if (error) {
