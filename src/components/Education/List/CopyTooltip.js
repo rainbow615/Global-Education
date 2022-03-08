@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Space, Tooltip } from 'antd'
 
 import { useEducation } from '../../../services/jitService'
-import CustomLoading from '../../../components/Loading/Loading'
-import { ResultFailed } from '../../../components/ResultPages'
+import CustomLoading from '../../Loading/Loading'
+import { ResultFailed } from '../../ResultPages'
 import ColorTheme from '../../../theme/theme'
 import { JIT_ACTIONS } from '../../../config/constants'
 import { CopyLabel } from './styles'
@@ -23,8 +23,6 @@ const CopyTooltip = ({ value, record }) => {
   if (error) {
     tipMessage = <ResultFailed isBackButton={false} />
   }
-
-  console.log('=', parentJit?.isLoading, parentJit?.data)
 
   if (!parentJit?.isLoading && parentJit?.data && parentJit.data.length > 0) {
     const parentJitData = parentJit.data[0]

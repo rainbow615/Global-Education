@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Container } from '../../../components/CommonComponent'
+import { Container } from '../../CommonComponent'
 import iphoneBezel from '../../../assets/img/iphone.png'
 
 export const Topbar = styled.div`

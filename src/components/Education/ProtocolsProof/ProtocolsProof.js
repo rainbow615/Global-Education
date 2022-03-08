@@ -26,7 +26,9 @@ import {
   HTMLViewer,
 } from './styles'
 
-const ProtocolsProof = () => {
+const ProtocolsProof = (props) => {
+  const { isGlobal } = props
+  const prefixLink = isGlobal ? 'global-' : 'local-'
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
@@ -50,7 +52,7 @@ const ProtocolsProof = () => {
 
   useEffect(() => {
     if (!data) {
-      navigate('/education/list')
+      navigate(`/${prefixLink}education/list`)
     }
   })
 
@@ -117,7 +119,7 @@ const ProtocolsProof = () => {
 
       setIsUpdate(false)
 
-      navigate('/education/form/edit', { state: { id: newId, ...payload } })
+      navigate(`/${prefixLink}education/form/edit`, { state: { id: newId, ...payload } })
     })
   }
 
@@ -128,7 +130,7 @@ const ProtocolsProof = () => {
       .then(() => {
         setIsDelete(false)
         notification.success({ message: 'A JIT Education has been deleted successfully!' })
-        navigate('/education/list')
+        navigate(`/${prefixLink}education/list`)
       })
       .catch((error) => {
         setIsDelete(false)
@@ -154,7 +156,7 @@ const ProtocolsProof = () => {
         <CustomBreadcrumb items={breadCrumb} />
         {!isPublish && (
           <Button type="link" icon={<RollbackOutlined />}>
-            <RouterLink to="/education/review" state={data}>
+            <RouterLink to={`/${prefixLink}education/review`} state={data}>
               &nbsp;Send Back to Review
             </RouterLink>
           </Button>
@@ -208,7 +210,7 @@ const ProtocolsProof = () => {
             </Button>
           )}
           <Button size="large">
-            <RouterLink to="/education/list">Close</RouterLink>
+            <RouterLink to={`/${prefixLink}education/list`}>Close</RouterLink>
           </Button>
           <ConfirmActionButton
             size="large"

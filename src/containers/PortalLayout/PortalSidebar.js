@@ -10,7 +10,7 @@ const navLinks = [
     pathName: 'Organizations',
   },
   {
-    path: '/education',
+    path: '/global-education',
     pathName: 'Global Education',
   },
   {

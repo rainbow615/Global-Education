@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Container } from '../../../components/CommonComponent'
+import { Container } from '../../CommonComponent'
 
 export const Topbar = styled.div`
   display: flex;

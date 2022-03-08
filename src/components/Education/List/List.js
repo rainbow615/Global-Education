@@ -6,15 +6,10 @@ import { Button } from 'antd'
 import { useEducations } from '../../../services/jitService'
 import { formatLocalizedDate, getStatusName, regExpEscape } from '../../../utils'
 import { SEARCH_DELAY } from '../../../config/constants'
-import EDUCATION_COLUMNS from './columns'
-import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
-import { ResultFailed } from '../../../components/ResultPages'
-import {
-  Container,
-  CustomTable,
-  CustomTableHeader,
-  CustomSearchText,
-} from '../../../components/CommonComponent'
+import getColumns from './columns'
+import CustomBreadcrumb from '../../CustomBreadcrumb/CustomBreadcrumb'
+import { ResultFailed } from '../../ResultPages'
+import { Container, CustomTable, CustomTableHeader, CustomSearchText } from '../../CommonComponent'
 
 const breadCrumb = [
   {
@@ -25,7 +20,10 @@ const breadCrumb = [
   },
 ]
 
-const EducationList = () => {
+const EducationList = (props) => {
+  const { isGlobal } = props
+  const prefixLink = isGlobal ? 'global-' : 'local-'
+
   const { data: jits, error } = useEducations(null)
   const [searchText, setSearchText] = useState('')
 
@@ -75,7 +73,7 @@ const EducationList = () => {
       <Container>
         <CustomTableHeader>
           <Button type="primary">
-            <Link to="/education/form/new">Add new</Link>
+            <Link to={`/${prefixLink}education/form/new`}>Add new</Link>
           </Button>
           <CustomSearchText
             placeholder="Search"
@@ -87,7 +85,7 @@ const EducationList = () => {
         </CustomTableHeader>
         <CustomTable
           dataSource={dataSource}
-          columns={EDUCATION_COLUMNS}
+          columns={getColumns(true)}
           loading={jits?.isLoading}
           pagination={{
             pageSize: 10,

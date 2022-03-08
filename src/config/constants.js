@@ -65,12 +65,3 @@ export const JIT_CONFIRM_MSG = {
   PUBLISHED: "You are publishing this JIT Education. Type 'PUBLISH' to confirm.",
   UNPUBLISHED: "You are unpublishing this JIT Education. Type 'UNPUBLISH' to confirm.",
 }
-
-export const JIT_RETURN_LINK = {
-  PUBLISHED: '/education/proof',
-  UNPUBLISHED: '/education/proof',
-  DRAFT: '/education/form/edit',
-  INREVIEW: '/education/review',
-  APPROVED: '/education/proof',
-  DELETED: '',
-}

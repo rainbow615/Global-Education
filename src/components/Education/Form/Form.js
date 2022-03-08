@@ -11,17 +11,28 @@ import { FormActionButtons } from '../../../components/CommonComponent'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
 import { Root } from './styles'
 
-const EducationForm = () => {
+const EducationForm = (props) => {
+  const { isGlobal } = props
+  const prefixLink = isGlobal ? 'global-' : 'local-'
   const location = useLocation()
   const jitData = location?.state
   const navigate = useNavigate()
   const [form] = Form.useForm()
   const { type } = useParams()
   const breadCrumb = [
-    {
-      title: 'Global Education',
-      link: '/education',
-    },
+    ...(isGlobal
+      ? [
+          {
+            title: 'Global Education',
+            link: `/${prefixLink}education`,
+          },
+        ]
+      : [
+          {
+            title: 'Local Education',
+            link: `/${prefixLink}education`,
+          },
+        ]),
     {
       title: type === 'new' ? 'Add' : `Draft: ${jitData?.name}`,
     },
@@ -41,7 +52,7 @@ const EducationForm = () => {
         .then(() => {
           setIsLoad(false)
           notification.success({ message: 'A JIT Education has been updated successfully!' })
-          navigate('/education/review', { state: { id: jitId, ...payload } })
+          navigate(`/${prefixLink}education/review`, { state: { id: jitId, ...payload } })
         })
         .catch((error) => {
           setIsLoad(false)
@@ -52,7 +63,7 @@ const EducationForm = () => {
           })
         })
     },
-    [jitId, navigate]
+    [jitId, navigate, prefixLink]
   )
 
   const onFinish = (values) => {
@@ -73,7 +84,7 @@ const EducationForm = () => {
       .then(() => {
         setIsDelete(false)
         notification.success({ message: 'The draft has been deleted successfully!' })
-        navigate('/education/list')
+        navigate(`/${prefixLink}education/list`)
       })
       .catch((error) => {
         setIsDelete(false)
@@ -195,7 +206,7 @@ const EducationForm = () => {
                 Send to Review
               </Button>
               <Button size="large">
-                <Link to="/education/list">Close</Link>
+                <Link to={`/${prefixLink}education/list`}>Close</Link>
               </Button>
             </Space>
           </FormActionButtons>
