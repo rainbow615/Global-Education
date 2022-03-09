@@ -92,7 +92,7 @@ const ChangeReview = (props) => {
       .then(() => {
         setIsDelete(false)
         notification.success({ message: 'A JIT Education has been deleted successfully!' })
-        navigate(`/${prefixLink}education/list`)
+        navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {
         setIsDelete(false)

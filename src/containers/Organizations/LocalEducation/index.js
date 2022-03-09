@@ -15,8 +15,6 @@ function LocalEducation() {
     return <Navigate to="/organizations/list" />
   }
 
-  console.log('=========state=', state)
-
   return (
     <Routes>
       <Route path="" element={<Navigate to="list" />} />
