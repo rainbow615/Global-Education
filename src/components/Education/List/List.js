@@ -33,6 +33,7 @@ const EducationList = (props) => {
         const _record = {
           key: index + 1,
           id: record.jit_id,
+          orgId: record.organization_id,
           document_number: record.document_number || '',
           parent_id: record.parent_id,
           name: record.jit_name,
@@ -78,7 +79,7 @@ const EducationList = (props) => {
         </CustomTableHeader>
         <CustomTable
           dataSource={dataSource}
-          columns={getColumns(true)}
+          columns={getColumns(isGlobal)}
           loading={jits?.isLoading}
           pagination={{
             pageSize: 10,

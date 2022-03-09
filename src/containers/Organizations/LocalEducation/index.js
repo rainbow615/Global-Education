@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import loadable from '@loadable/component'
 import { useLocation } from 'react-router-dom'
 

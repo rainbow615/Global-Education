@@ -27,7 +27,7 @@ const compareStyles = {
 }
 
 const ChangeReview = (props) => {
-  const { isGlobal } = props
+  const { breadCrumb, isGlobal, orgId } = props
   const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
   const location = useLocation()
   const navigate = useNavigate()
@@ -36,22 +36,12 @@ const ChangeReview = (props) => {
   const title = data?.name || ''
   const content = data?.content || ''
 
-  const breadCrumb = [
-    {
-      title: 'Global Education',
-      link: '/global-education',
-    },
-    {
-      title: `In-Review: ${title}`,
-    },
-  ]
-
   const [isLoad, setIsLoad] = useState(false)
   const [isDelete, setIsDelete] = useState(false)
 
   useEffect(() => {
     if (!data) {
-      navigate(`/${prefixLink}education/list`)
+      navigate(`/${prefixLink}education/list`, { state: { orgId } })
     }
   })
 

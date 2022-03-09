@@ -34,7 +34,7 @@ const EducationForm = (props) => {
         .then(() => {
           setIsLoad(false)
           notification.success({ message: 'A JIT Education has been updated successfully!' })
-          navigate(`/${prefixLink}education/review`, { state: { id: jitId, ...payload } })
+          navigate(`/${prefixLink}education/review`, { state: { id: jitId, orgId, ...payload } })
         })
         .catch((error) => {
           setIsLoad(false)
@@ -45,7 +45,7 @@ const EducationForm = (props) => {
           })
         })
     },
-    [jitId, navigate, prefixLink]
+    [jitId, navigate, prefixLink, orgId]
   )
 
   const onFinish = (values) => {
@@ -67,7 +67,7 @@ const EducationForm = (props) => {
       .then(() => {
         setIsDelete(false)
         notification.success({ message: 'The draft has been deleted successfully!' })
-        navigate(`/${prefixLink}education/list`)
+        navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {
         setIsDelete(false)
@@ -190,7 +190,9 @@ const EducationForm = (props) => {
                 Send to Review
               </Button>
               <Button size="large">
-                <Link to={`/${prefixLink}education/list`}>Close</Link>
+                <Link to={`/${prefixLink}education/list`} state={{ orgId }}>
+                  Close
+                </Link>
               </Button>
             </Space>
           </FormActionButtons>

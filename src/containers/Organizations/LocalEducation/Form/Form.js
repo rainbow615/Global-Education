@@ -23,8 +23,6 @@ const LocalEducationForm = (props) => {
     },
   ]
 
-  console.log('=========orgId=', orgId)
-
   return <EducationForm breadCrumb={breadCrumb} orgId={orgId} />
 }
 
