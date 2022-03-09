@@ -28,7 +28,7 @@ import {
 
 const ProtocolsProof = (props) => {
   const { isGlobal } = props
-  const prefixLink = isGlobal ? 'global-' : 'local-'
+  const prefixLink = isGlobal ? 'global-' : 'organizations/ local-'
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
@@ -38,7 +38,7 @@ const ProtocolsProof = (props) => {
   const breadCrumb = [
     {
       title: 'Global Education',
-      link: '/education',
+      link: '/global-education',
     },
     {
       title: `Proof: ${title}`,

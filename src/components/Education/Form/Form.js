@@ -12,31 +12,13 @@ import ConfirmActionButton from '../../../components/ConfirmActionButton'
 import { Root } from './styles'
 
 const EducationForm = (props) => {
-  const { isGlobal } = props
-  const prefixLink = isGlobal ? 'global-' : 'local-'
+  const { breadCrumb, isGlobal } = props
+  const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
   const location = useLocation()
   const jitData = location?.state
   const navigate = useNavigate()
   const [form] = Form.useForm()
   const { type } = useParams()
-  const breadCrumb = [
-    ...(isGlobal
-      ? [
-          {
-            title: 'Global Education',
-            link: `/${prefixLink}education`,
-          },
-        ]
-      : [
-          {
-            title: 'Local Education',
-            link: `/${prefixLink}education`,
-          },
-        ]),
-    {
-      title: type === 'new' ? 'Add' : `Draft: ${jitData?.name}`,
-    },
-  ]
 
   const [jitId, setJitId] = useState(jitData?.id || '')
   const [editorContent, setEditorContent] = useState(jitData?.content || '')

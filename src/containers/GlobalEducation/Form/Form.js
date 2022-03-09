@@ -1,9 +1,23 @@
 import React from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 
 import EducationForm from '../../../components/Education/Form'
 
 const GlobalEducationForm = () => {
-  return <EducationForm isGlobal />
+  const { type } = useParams()
+  const location = useLocation()
+  const jitData = location?.state
+  const breadCrumb = [
+    {
+      title: 'Global Education',
+      link: '/global-education',
+    },
+    {
+      title: type === 'new' ? 'Add' : `Draft: ${jitData?.name}`,
+    },
+  ]
+
+  return <EducationForm breadCrumb={breadCrumb} isGlobal />
 }
 
 export default GlobalEducationForm

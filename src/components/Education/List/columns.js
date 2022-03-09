@@ -9,7 +9,7 @@ import { getStatusName } from '../../../utils'
 const { Text } = Typography
 
 const getColumns = (isGlobal) => {
-  const prefixLink = isGlobal ? 'global-' : 'local-'
+  const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
   const returnLinks = {
     PUBLISHED: `/${prefixLink}education/proof`,
     UNPUBLISHED: `/${prefixLink}education/proof`,

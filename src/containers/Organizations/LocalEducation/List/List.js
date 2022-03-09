@@ -1,13 +1,24 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
 
 import EducationList from '../../../../components/Education/List'
 
-const LocalEducationList = () => {
-  const { state } = useLocation()
-  const id = state?.id || null
+const breadCrumb = [
+  {
+    title: 'Organizations',
+    link: '/organizations/list',
+  },
+  {
+    title: 'Local Education',
+  },
+  {
+    title: 'List',
+  },
+]
 
-  return <EducationList orgId={id} />
+const LocalEducationList = (props) => {
+  const { orgId } = props
+
+  return <EducationList breadCrumb={breadCrumb} orgId={orgId} />
 }
 
 export default LocalEducationList

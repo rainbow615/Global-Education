@@ -11,18 +11,9 @@ import CustomBreadcrumb from '../../CustomBreadcrumb/CustomBreadcrumb'
 import { ResultFailed } from '../../ResultPages'
 import { Container, CustomTable, CustomTableHeader, CustomSearchText } from '../../CommonComponent'
 
-const breadCrumb = [
-  {
-    title: 'Global Education',
-  },
-  {
-    title: 'List',
-  },
-]
-
 const EducationList = (props) => {
-  const { isGlobal, orgId } = props
-  const prefixLink = isGlobal ? 'global-' : 'local-'
+  const { breadCrumb, isGlobal, orgId } = props
+  const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
 
   const { data: jits, error } = useEducations(orgId || null)
   const [searchText, setSearchText] = useState('')
@@ -73,7 +64,9 @@ const EducationList = (props) => {
       <Container>
         <CustomTableHeader>
           <Button type="primary">
-            <Link to={`/${prefixLink}education/form/new`}>Add new</Link>
+            <Link to={`/${prefixLink}education/form/new`} state={{ orgId }}>
+              Add new
+            </Link>
           </Button>
           <CustomSearchText
             placeholder="Search"
