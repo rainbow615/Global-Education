@@ -27,23 +27,13 @@ import {
 } from './styles'
 
 const ProtocolsProof = (props) => {
-  const { isGlobal } = props
-  const prefixLink = isGlobal ? 'global-' : 'organizations/ local-'
+  const { breadCrumb, isGlobal, orgId } = props
+  const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
   const title = data?.name || ''
   const content = data?.content || ''
-
-  const breadCrumb = [
-    {
-      title: 'Global Education',
-      link: '/global-education',
-    },
-    {
-      title: `Proof: ${title}`,
-    },
-  ]
 
   const [isLoad, setIsLoad] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
@@ -52,7 +42,7 @@ const ProtocolsProof = (props) => {
 
   useEffect(() => {
     if (!data) {
-      navigate(`/${prefixLink}education/list`)
+      navigate(`/${prefixLink}education/list`, { state: { orgId } })
     }
   })
 
@@ -75,7 +65,7 @@ const ProtocolsProof = (props) => {
     }
 
     const payload = {
-      organization_id: null,
+      organization_id: orgId || null,
       parent_id: data.parent_id,
       name: data.name,
       content: data.content,
@@ -105,7 +95,7 @@ const ProtocolsProof = (props) => {
 
   const onUpdate = () => {
     const payload = {
-      organization_id: null,
+      organization_id: orgId || null,
       parent_id: data.id,
       name: data.name,
       content: data.content,
@@ -119,7 +109,7 @@ const ProtocolsProof = (props) => {
 
       setIsUpdate(false)
 
-      navigate(`/${prefixLink}education/form/edit`, { state: { id: newId, ...payload } })
+      navigate(`/${prefixLink}education/form/edit`, { state: { id: newId, orgId, ...payload } })
     })
   }
 
@@ -149,6 +139,8 @@ const ProtocolsProof = (props) => {
       ? `This document is a copy of "${parentJitData.document_number}: ${parentJitData.jit_name}" and will replace that document when published. \n\n`
       : ''
   }${JIT_CONFIRM_MSG.PUBLISHED}`
+
+  console.log('=============', data)
 
   return (
     <React.Fragment>
@@ -210,7 +202,9 @@ const ProtocolsProof = (props) => {
             </Button>
           )}
           <Button size="large">
-            <RouterLink to={`/${prefixLink}education/list`}>Close</RouterLink>
+            <RouterLink to={`/${prefixLink}education/list`} state={{ orgId }}>
+              Close
+            </RouterLink>
           </Button>
           <ConfirmActionButton
             size="large"

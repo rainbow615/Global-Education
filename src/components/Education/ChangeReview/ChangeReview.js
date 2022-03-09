@@ -59,7 +59,7 @@ const ChangeReview = (props) => {
     let status = JIT_ACTIONS.APPROVED
 
     const payload = {
-      organization_id: null,
+      organization_id: orgId || null,
       parent_id: data.parent_id,
       name: data.name,
       content: data.content,
@@ -73,7 +73,7 @@ const ChangeReview = (props) => {
         notification.success({
           message: `This JIT Education is ready to approve now!`,
         })
-        navigate(`/${prefixLink}education/proof`, { state: { id, ...payload } })
+        navigate(`/${prefixLink}education/proof`, { state: { id, orgId, ...payload } })
       })
       .catch((error) => {
         setIsLoad(false)
@@ -168,7 +168,9 @@ const ChangeReview = (props) => {
         </ConfirmActionButton>
         <Space>
           <Button size="large">
-            <RouterLink to={`/${prefixLink}education/list`}>Close</RouterLink>
+            <RouterLink to={`/${prefixLink}education/list`} state={{ orgId }}>
+              Close
+            </RouterLink>
           </Button>
           <Button size="large" onClick={onSubmit} loading={isLoad}>
             Accept Changes
