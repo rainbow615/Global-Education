@@ -16,6 +16,7 @@ const LocalEducationForm = (props) => {
     {
       title: 'Local Education',
       link: '/organizations/local-education/list',
+      state: { orgId },
     },
     {
       title: type === 'new' ? 'Add' : `Draft: ${jitData?.name}`,

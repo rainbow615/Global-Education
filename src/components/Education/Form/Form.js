@@ -12,7 +12,7 @@ import ConfirmActionButton from '../../../components/ConfirmActionButton'
 import { Root } from './styles'
 
 const EducationForm = (props) => {
-  const { breadCrumb, isGlobal } = props
+  const { breadCrumb, isGlobal, orgId } = props
   const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
   const location = useLocation()
   const jitData = location?.state
@@ -50,6 +50,7 @@ const EducationForm = (props) => {
 
   const onFinish = (values) => {
     const payload = {
+      organization_id: orgId || null,
       name: values.name,
       content: editorContent,
       parent_id: jitData?.parent_id || null,
@@ -87,6 +88,7 @@ const EducationForm = (props) => {
     }
 
     const payload = {
+      organization_id: orgId || null,
       name: form.getFieldValue('name') || 'Untitled',
       content: content,
       status: JIT_ACTIONS.DRAFT,
