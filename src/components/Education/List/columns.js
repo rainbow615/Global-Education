@@ -4,7 +4,8 @@ import { Button, Typography } from 'antd'
 import { DateText } from '../../CommonComponent'
 import CopyTooltip from './CopyTooltip'
 import { JIT_ACTIONS } from '../../../config/constants'
-import { getStatusName } from '../../../utils'
+import { getJITStatusName } from '../../../utils'
+import { ActionButton } from './styles'
 
 const { Text } = Typography
 
@@ -59,7 +60,7 @@ const getColumns = (isGlobal) => {
               : 'danger'
           }
         >
-          {getStatusName(value)}
+          {getJITStatusName(value)}
         </Text>
       ),
     },
@@ -71,11 +72,11 @@ const getColumns = (isGlobal) => {
       width: 100,
       render: (_, record) =>
         record.status !== JIT_ACTIONS.DELETED ? (
-          <Button type="primary">
+          <ActionButton type="primary">
             <Link to={returnLinks[record.status]} state={record}>
               {record.status === JIT_ACTIONS.DRAFT ? 'Edit' : 'View'}
             </Link>
-          </Button>
+          </ActionButton>
         ) : (
           ''
         ),

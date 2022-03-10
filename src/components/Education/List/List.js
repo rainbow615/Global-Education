@@ -4,7 +4,7 @@ import { debounce, map, get } from 'lodash'
 import { Button } from 'antd'
 
 import { useEducations } from '../../../services/jitService'
-import { formatLocalizedDate, getStatusName, regExpEscape } from '../../../utils'
+import { formatLocalizedDate, getJITStatusName, regExpEscape } from '../../../utils'
 import { SEARCH_DELAY } from '../../../config/constants'
 import getColumns from './columns'
 import CustomBreadcrumb from '../../CustomBreadcrumb/CustomBreadcrumb'
@@ -41,7 +41,7 @@ const EducationList = (props) => {
           created: formatLocalizedDate(record.created_date),
           updated: formatLocalizedDate(record.modified_date),
           status: record.status,
-          status_name: getStatusName(record.status),
+          status_name: getJITStatusName(record.status),
         }
 
         if (searchText) {

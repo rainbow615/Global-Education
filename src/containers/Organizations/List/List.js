@@ -9,7 +9,6 @@ import { ORG_ACTIONS, SEARCH_DELAY } from '../../../config/constants'
 import ORG_COLUMNS from './columns'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { ResultFailed } from '../../../components/ResultPages'
-
 import {
   Container,
   CustomTable,

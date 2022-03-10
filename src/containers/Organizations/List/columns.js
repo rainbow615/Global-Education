@@ -11,7 +11,11 @@ const { Text } = Typography
 const menu = (orgId) => {
   return (
     <ActionsMenu>
-      <Menu.Item key="1">Protocols</Menu.Item>
+      <Menu.Item key="1">
+        <Link to="/organizations/protocols/list" state={{ orgId }}>
+          Protocols
+        </Link>
+      </Menu.Item>
       <Menu.Item key="2">Components</Menu.Item>
       <Menu.Item key="3">
         <Link to="/organizations/local-education/list" state={{ orgId }}>

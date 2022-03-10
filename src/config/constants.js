@@ -65,3 +65,10 @@ export const JIT_CONFIRM_MSG = {
   PUBLISHED: "You are publishing this JIT Education. Type 'PUBLISH' to confirm.",
   UNPUBLISHED: "You are unpublishing this JIT Education. Type 'UNPUBLISH' to confirm.",
 }
+
+export const PROTOCOL_STATUS = {
+  BUILDING: 'BUILDING',
+  INREVIEW: 'INREVIEW',
+  READYTOPUBLISH: 'READYTOPUBLISH',
+  PUBLISHED: 'PUBLISHED',
+}

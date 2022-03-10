@@ -2,7 +2,7 @@ import { parse as urlParse } from 'url'
 import moment from 'moment'
 import { html } from 'js-beautify'
 
-import { JIT_ACTIONS } from '../config/constants'
+import { JIT_ACTIONS, PROTOCOL_STATUS } from '../config/constants'
 
 export const getQueryParams = (url = window.location.href.replace(/#/g, '')) => {
   return urlParse(url, true).query
@@ -65,7 +65,7 @@ export const formatHTMLForDiff = (htmlStr, textOnly = true) => {
   return formattedHTML
 }
 
-export const getStatusName = (value) => {
+export const getJITStatusName = (value) => {
   let statusName = ''
 
   if (value === JIT_ACTIONS.PUBLISHED) statusName = 'Published'
@@ -74,6 +74,39 @@ export const getStatusName = (value) => {
   if (value === JIT_ACTIONS.INREVIEW) statusName = 'In-Review'
   if (value === JIT_ACTIONS.APPROVED) statusName = 'Approved'
   if (value === JIT_ACTIONS.DELETED) statusName = 'Deleted'
+
+  return statusName
+}
+
+export const getProtocolStatusName = (value) => {
+  let statusName = ''
+
+  if (value === PROTOCOL_STATUS.PUBLISHED) statusName = 'Published'
+  if (value === PROTOCOL_STATUS.BUILDING) statusName = 'Building'
+  if (value === PROTOCOL_STATUS.INREVIEW) statusName = 'In-Review'
+  if (value === PROTOCOL_STATUS.READYTOPUBLISH) statusName = 'Ready to publish'
+
+  return statusName
+}
+
+export const getProtocolStatusColor = (value) => {
+  let statusName = ''
+
+  if (value === PROTOCOL_STATUS.PUBLISHED) statusName = 'success'
+  if (value === PROTOCOL_STATUS.BUILDING) statusName = 'danger'
+  if (value === PROTOCOL_STATUS.INREVIEW) statusName = 'info'
+  if (value === PROTOCOL_STATUS.READYTOPUBLISH) statusName = 'warning'
+
+  return statusName
+}
+
+export const getProtocolButtonName = (value) => {
+  let statusName = ''
+
+  if (value === PROTOCOL_STATUS.PUBLISHED) statusName = 'View'
+  if (value === PROTOCOL_STATUS.BUILDING) statusName = 'Build'
+  if (value === PROTOCOL_STATUS.INREVIEW) statusName = 'Review'
+  if (value === PROTOCOL_STATUS.READYTOPUBLISH) statusName = 'Publish'
 
   return statusName
 }
