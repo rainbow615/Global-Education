@@ -28,6 +28,7 @@ const breadCrumb = [
 
 const dataSource = [
   {
+    key: 1,
     protocol_number: 's-130',
     protocol_title: 'Allergic Reactions / Anaphylaxis',
     protocol_tags: ['Treatment', 'Allergy', 'BLS', 'ALS'],
@@ -37,6 +38,7 @@ const dataSource = [
     protocol_created: '01/12/2022',
   },
   {
+    key: 2,
     protocol_number: 's-131',
     protocol_title: 'Envenomation Injuries',
     protocol_tags: ['Treatment', 'Allergy', 'BLS', 'ALS'],
@@ -46,6 +48,7 @@ const dataSource = [
     protocol_created: '01/12/2022',
   },
   {
+    key: 3,
     protocol_number: 's-132',
     protocol_title: 'Altered Neurologic Function (Non-Traumatic)',
     protocol_tags: ['Treatment', 'Allergy', 'BLS', 'ALS'],
@@ -55,6 +58,7 @@ const dataSource = [
     protocol_created: '01/12/2022',
   },
   {
+    key: 4,
     protocol_number: 's-133',
     protocol_title: 'Burns',
     protocol_tags: ['Treatment', 'Allergy', 'ALS'],
