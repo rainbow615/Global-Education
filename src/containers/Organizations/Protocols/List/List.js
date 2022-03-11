@@ -69,7 +69,8 @@ const dataSource = [
   },
 ]
 
-const OrgProtocolsList = () => {
+const OrgProtocolsList = (props) => {
+  const { orgId } = props
   const [searchText, setSearchText] = useState('')
 
   const onSearch = (e) => {
@@ -85,14 +86,12 @@ const OrgProtocolsList = () => {
         <CustomTableHeader>
           <Space>
             <Button type="primary">
-              <Link to="/organizations/protocols/form/new">Add new</Link>
+              <Link to="/organizations/protocols/form/new" state={{ orgId }}>
+                Add new
+              </Link>
             </Button>
-            <Button type="primary">
-              <Link to="/organizations/protocols/form/new">Approve All</Link>
-            </Button>
-            <Button type="primary">
-              <Link to="/organizations/protocols/form/new">Publish All</Link>
-            </Button>
+            <Button type="primary">Approve All</Button>
+            <Button type="primary">Publish All</Button>
           </Space>
           <CustomSearchText
             placeholder="Search"

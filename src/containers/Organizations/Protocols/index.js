@@ -3,6 +3,7 @@ import loadable from '@loadable/component'
 import { useLocation } from 'react-router-dom'
 
 const OrgProtocolsList = loadable(() => import('./List'))
+const OrgProtocolsForm = loadable(() => import('./Form'))
 
 function OrgProtocols() {
   const { state } = useLocation()
@@ -16,6 +17,7 @@ function OrgProtocols() {
     <Routes>
       <Route path="" element={<Navigate to="list" />} />
       <Route path="list" element={<OrgProtocolsList orgId={orgId} />} />
+      <Route path="form/:type" element={<OrgProtocolsForm orgId={orgId} />} />
     </Routes>
   )
 }

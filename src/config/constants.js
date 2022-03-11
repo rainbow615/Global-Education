@@ -72,3 +72,27 @@ export const PROTOCOL_STATUS = {
   READYTOPUBLISH: 'READYTOPUBLISH',
   PUBLISHED: 'PUBLISHED',
 }
+
+export const PROTOCOLS_TAGS = [
+  {
+    id: 'treatment',
+    name: 'Treatment',
+  },
+  {
+    id: 'allergy',
+    name: 'Allergy',
+  },
+  {
+    id: 'bls',
+    name: 'BLS',
+  },
+  {
+    id: 'als',
+    name: 'ALS',
+  },
+]
+
+export const PROTOCOLS_CONFIRM_MSG = {
+  DELETE_DRAFT:
+    "You are deleting this draft. This draft will not be recoverable. Type 'DELETE' to confirm.",
+}
