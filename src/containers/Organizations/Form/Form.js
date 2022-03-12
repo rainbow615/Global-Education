@@ -7,7 +7,7 @@ import {
   createOrganization,
   updateOrganization,
   deleteOrganization,
-} from '../../../services/organizations'
+} from '../../../services/orgService'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'

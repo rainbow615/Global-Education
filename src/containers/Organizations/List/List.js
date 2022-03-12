@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Button } from 'antd'
 import { debounce, map, get } from 'lodash'
 
-import { useOrganizations } from '../../../services/organizations'
+import { useOrganizations } from '../../../services/orgService'
 import { formatLocalizedDate, regExpEscape } from '../../../utils'
 import { ORG_ACTIONS, SEARCH_DELAY } from '../../../config/constants'
 import ORG_COLUMNS from './columns'
