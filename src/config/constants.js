@@ -75,20 +75,68 @@ export const PROTOCOL_STATUS = {
 
 export const PROTOCOLS_TAGS = [
   {
-    id: 'treatment',
-    name: 'Treatment',
+    id: 'Medical',
+    name: 'Medical',
   },
   {
-    id: 'allergy',
-    name: 'Allergy',
+    id: 'Trauma',
+    name: 'Trauma',
   },
   {
-    id: 'bls',
-    name: 'BLS',
+    id: 'General Care',
+    name: 'General Care',
   },
   {
-    id: 'als',
-    name: 'ALS',
+    id: 'Cardiac',
+    name: 'Cardiac',
+  },
+  {
+    id: 'Resuscitation',
+    name: 'Resuscitation',
+  },
+  {
+    id: 'Dysrhythmias',
+    name: 'Dysrhythmias',
+  },
+  {
+    id: 'Adult',
+    name: 'Adult',
+  },
+  {
+    id: 'Pediatric',
+    name: 'Pediatric',
+  },
+  {
+    id: 'OB / GYN',
+    name: 'OB / GYN',
+  },
+  {
+    id: 'Respiratory',
+    name: 'Respiratory',
+  },
+  {
+    id: 'Toxins',
+    name: 'Toxins',
+  },
+  {
+    id: 'Environmental',
+    name: 'Environmental',
+  },
+  {
+    id: 'Trauma',
+    name: 'Trauma',
+  },
+  {
+    id: 'Neurological',
+    name: 'Neurological',
+  },
+  {
+    id: 'Procedures',
+    name: 'Procedures',
+  },
+  {
+    id: 'Operations',
+    name: 'Operations',
   },
 ]
 
