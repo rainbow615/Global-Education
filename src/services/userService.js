@@ -11,19 +11,3 @@ export function updateUser(id, payload) {
 export function useUsersList() {
   return useAPI(`users`)
 }
-
-// export function useUsers() {
-//   return useAPI(`/users`)
-// }
-
-// export function checkEmailVerificationStatus(email) {
-//   return api.get(`users/verified/${email}`)
-// }
-
-// export function createUser(payload) {
-//   return api.post(`users`, payload)
-// }
-
-// export function deleteUser(userId) {
-//   return api.delete(`users/${userId}`)
-// }
