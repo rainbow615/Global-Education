@@ -93,6 +93,7 @@ const OrgProtocolsList = (props) => {
         const _record = {
           key: index + 1,
           ...record,
+          orgId,
           created_date: formatLocalizedDate(record.created_date),
           modified_date: formatLocalizedDate(record.modified_date),
           last_published_date: record.last_published_date

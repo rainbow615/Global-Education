@@ -72,7 +72,7 @@ const PROTOCOLS_COLUMNS = [
     width: 120,
     render: (_, record) => (
       <ActionButton type="primary">
-        <Link to="/organizations/form/edit" state={record}>
+        <Link to="/organizations/protocols/form/edit" state={record}>
           {getProtocolButtonName(record.status)}
         </Link>
       </ActionButton>
