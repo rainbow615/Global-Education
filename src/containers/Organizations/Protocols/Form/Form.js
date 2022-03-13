@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Form, Input, Select, Button, Space } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
 
 import {
   PROTOCOLS_TAGS,
@@ -11,16 +10,10 @@ import {
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../../components/CommonComponent'
 import ConfirmActionButton from '../../../../components/ConfirmActionButton'
-import { Root, Topbar, AddNewTeamButton } from './styles'
+import SelectCategory from './SelectCategory'
+import { Root, Topbar } from './styles'
 
 const { Option } = Select
-
-const categories = [
-  {
-    id: '123',
-    name: '100 - Treatment protocols',
-  },
-]
 
 const OrgProtocolsForm = (props) => {
   const { type } = useParams()
@@ -40,12 +33,6 @@ const OrgProtocolsForm = (props) => {
     },
   ]
   const [form] = Form.useForm()
-
-  const onSelectCategory = (value) => {
-    console.log(`selected ${value}`)
-  }
-
-  const onOpenAddNewCategory = () => {}
 
   const onSelectTags = (value) => {
     console.log(`selected ${value}`)
@@ -97,27 +84,7 @@ const OrgProtocolsForm = (props) => {
               hasFeedback
               rules={[{ required: true, message: 'Please select Type' }]}
             >
-              <Select
-                size="large"
-                allowClear
-                showSearch
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
-                onSelect={onSelectCategory}
-              >
-                {categories.map((cat, index) => (
-                  <Option key={index} value={cat.id}>
-                    {cat.name}
-                  </Option>
-                ))}
-                <Option key="action" disabled>
-                  <AddNewTeamButton icon={<PlusOutlined />} onClick={onOpenAddNewCategory}>
-                    Add new
-                  </AddNewTeamButton>
-                </Option>
-              </Select>
+              <SelectCategory />
             </Form.Item>
             <Form.Item
               label="Tags"
@@ -144,17 +111,19 @@ const OrgProtocolsForm = (props) => {
             </Form.Item>
           </Form.Item>
           <FormActionButtons>
-            {type === 'edit' && <ConfirmActionButton
-              type="link"
-              size="large"
-              danger
-              onClick={onDelete}
-              loading={false}
-              actionType={PROTOCOL_STATUS.DELETE}
-              message={PROTOCOLS_CONFIRM_MSG.DELETE_DRAFT}
-            >
-              Delete
-            </ConfirmActionButton>}
+            {type === 'edit' && (
+              <ConfirmActionButton
+                type="link"
+                size="large"
+                danger
+                onClick={onDelete}
+                loading={false}
+                actionType={PROTOCOL_STATUS.DELETE}
+                message={PROTOCOLS_CONFIRM_MSG.DELETE_DRAFT}
+              >
+                Delete
+              </ConfirmActionButton>
+            )}
             <Space>
               <Button size="large" htmlType="submit" loading={false} disabled={false}>
                 Send to Review

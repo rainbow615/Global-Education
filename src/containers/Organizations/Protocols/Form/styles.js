@@ -16,7 +16,7 @@ export const Root = styled(Container)`
     }
 
     .number {
-        width: 100px;
+      width: 100px;
     }
 
     .category,
@@ -33,7 +33,7 @@ export const Topbar = styled(Space)`
   align-items: center;
 `
 
-export const AddNewTeamButton = styled(Button)`
+export const AddNewCategoryButton = styled(Button)`
   width: 100%;
   border: 0px;
   text-align: left;
