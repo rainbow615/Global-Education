@@ -105,8 +105,17 @@ const OrgProtocolsList = (props) => {
           const nameMatch = get(_record, 'protocol_name').match(reg)
           const statusMatch = get(_record, 'status').match(reg)
           const numberMatch = get(_record, 'protocol_number').match(reg)
+          let tagMatch = false
 
-          if (!numberMatch && !nameMatch && !statusMatch ) {
+          for (let i = 0; i < record?.tags.length; i++) {
+            const tag = record?.tags[i] || ''
+            if (tag.match(reg)) {
+              tagMatch = true
+              break
+            }
+          }
+
+          if (!numberMatch && !nameMatch && !statusMatch && !tagMatch) {
             return null
           }
         }
