@@ -20,13 +20,13 @@ const PROTOCOLS_COLUMNS = [
   },
   {
     title: 'Name',
-    dataIndex: 'protocol_title',
-    key: 'protocol_title',
+    dataIndex: 'protocol_name',
+    key: 'protocol_name',
   },
   {
     title: 'Tags',
-    dataIndex: 'protocol_tags',
-    key: 'protocol_tags',
+    dataIndex: 'tags',
+    key: 'tags',
     render: (values) => (
       <div>
         {values.map((value, index) => (
@@ -37,30 +37,30 @@ const PROTOCOLS_COLUMNS = [
   },
   {
     title: 'Status',
-    dataIndex: 'protocol_status',
-    key: 'protocol_status',
+    dataIndex: 'status',
+    key: 'status',
     render: (value) => (
       <Text type={getProtocolStatusColor(value)}>{getProtocolStatusName(value)}</Text>
     ),
   },
   {
     title: 'Last published',
-    dataIndex: 'protocol_published',
-    key: 'protocol_published',
+    dataIndex: 'last_published_date',
+    key: 'last_published_date',
     align: 'center',
     render: (value) => <DateText>{value}</DateText>,
   },
   {
     title: 'Edited',
-    dataIndex: 'protocol_updated',
-    key: 'protocol_updated',
+    dataIndex: 'modified_date',
+    key: 'modified_date',
     align: 'center',
     render: (value) => <DateText>{value}</DateText>,
   },
   {
     title: 'Created',
-    dataIndex: 'protocol_created',
-    key: 'protocol_created',
+    dataIndex: 'created_date',
+    key: 'created_date',
     align: 'center',
     render: (value) => <DateText>{value}</DateText>,
   },
@@ -73,7 +73,7 @@ const PROTOCOLS_COLUMNS = [
     render: (_, record) => (
       <ActionButton type="primary">
         <Link to="/organizations/form/edit" state={record}>
-          {getProtocolButtonName(record.protocol_status)}
+          {getProtocolButtonName(record.status)}
         </Link>
       </ActionButton>
     ),

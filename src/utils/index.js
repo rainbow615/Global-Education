@@ -81,6 +81,7 @@ export const getJITStatusName = (value) => {
 export const getProtocolStatusName = (value) => {
   let statusName = ''
 
+  if (value === PROTOCOL_STATUS.DRAFT) statusName = 'Draft'
   if (value === PROTOCOL_STATUS.PUBLISHED) statusName = 'Published'
   if (value === PROTOCOL_STATUS.BUILDING) statusName = 'Building'
   if (value === PROTOCOL_STATUS.INREVIEW) statusName = 'In-Review'
@@ -92,6 +93,7 @@ export const getProtocolStatusName = (value) => {
 export const getProtocolStatusColor = (value) => {
   let statusName = ''
 
+  if (value === PROTOCOL_STATUS.DRAFT) statusName = 'danger'
   if (value === PROTOCOL_STATUS.PUBLISHED) statusName = 'success'
   if (value === PROTOCOL_STATUS.BUILDING) statusName = 'danger'
   if (value === PROTOCOL_STATUS.INREVIEW) statusName = 'info'
@@ -103,6 +105,7 @@ export const getProtocolStatusColor = (value) => {
 export const getProtocolButtonName = (value) => {
   let statusName = ''
 
+  if (value === PROTOCOL_STATUS.DRAFT) statusName = 'Build'
   if (value === PROTOCOL_STATUS.PUBLISHED) statusName = 'View'
   if (value === PROTOCOL_STATUS.BUILDING) statusName = 'Build'
   if (value === PROTOCOL_STATUS.INREVIEW) statusName = 'Review'

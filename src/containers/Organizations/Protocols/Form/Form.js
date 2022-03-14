@@ -1,6 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Form, Input, Select, Button, Space, notification } from 'antd'
+import { Link, useParams } from 'react-router-dom'
+import { Form, Input, Select, Button, Space } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
 import {
@@ -23,6 +23,7 @@ const categories = [
 ]
 
 const OrgProtocolsForm = (props) => {
+  const { type } = useParams()
   const { orgId } = props
   const breadCrumb = [
     {
@@ -143,7 +144,7 @@ const OrgProtocolsForm = (props) => {
             </Form.Item>
           </Form.Item>
           <FormActionButtons>
-            <ConfirmActionButton
+            {type === 'edit' && <ConfirmActionButton
               type="link"
               size="large"
               danger
@@ -153,7 +154,7 @@ const OrgProtocolsForm = (props) => {
               message={PROTOCOLS_CONFIRM_MSG.DELETE_DRAFT}
             >
               Delete
-            </ConfirmActionButton>
+            </ConfirmActionButton>}
             <Space>
               <Button size="large" htmlType="submit" loading={false} disabled={false}>
                 Send to Review
