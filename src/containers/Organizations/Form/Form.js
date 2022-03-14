@@ -31,7 +31,8 @@ const OrganizationsForm = () => {
       title: type === 'new' ? 'Add' : 'Edit',
     },
   ]
-  const id = location?.state?.id
+  const data = location?.state
+  const id = data?.id
 
   const [isLoading, setIsLoading] = useState(false)
   const [isPublishing, setIsPublishing] = useState(false)
@@ -104,13 +105,12 @@ const OrganizationsForm = () => {
   const onFinishFailed = () => {}
 
   const onTogglePublish = (isPublish) => () => {
-    const org = location.state
     const payload = {
-      organization_name: org.name,
-      organization_description: org.description,
-      state: org.state,
-      type: org.type,
-      region: org.region,
+      organization_name: data.name,
+      organization_description: data.description,
+      state: data.state,
+      type: data.type,
+      region: data.region,
       status: isPublish ? ORG_ACTIONS.PUBLISHED : ORG_ACTIONS.UNPUBLISHED,
     }
 
@@ -159,7 +159,7 @@ const OrganizationsForm = () => {
   }
 
   const isCheckPublish =
-    (!initial && location?.state?.status === ORG_ACTIONS.PUBLISHED) ||
+    (!initial && data?.status === ORG_ACTIONS.PUBLISHED) ||
     initial?.status === ORG_ACTIONS.PUBLISHED
 
   return (
@@ -169,7 +169,7 @@ const OrganizationsForm = () => {
         <Form
           form={form}
           autoComplete="nope"
-          initialValues={initial || location.state}
+          initialValues={initial || data}
           layout="vertical"
           name="organizations"
           onFinish={onFinish}
