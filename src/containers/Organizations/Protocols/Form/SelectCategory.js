@@ -58,30 +58,39 @@ const SelectCategory = (props) => {
 
   return (
     <React.Fragment>
-      <Select
-        size="large"
-        allowClear
-        showSearch
-        placeholder={categories.isLoading ? 'Loading...' : 'Choose category'}
-        optionFilterProp="children"
-        filterOption={(input, option) =>
-          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-        }
-        disabled={categories.isLoading || error}
-        onSelect={onSelectCategory}
+      <Form.Item
+        label="Category"
+        name="category_id"
+        className="category"
+        hasFeedback
+        rules={[{ required: true, message: 'Please select category' }]}
       >
-        {categories?.data &&
-          categories.data.map((cat, index) => (
-            <Option key={index} value={cat.category_id}>
-              {`${cat.category_code} - ${cat.category_name}`}
-            </Option>
-          ))}
-        <Option key="action" disabled>
-          <AddNewCategoryButton icon={<PlusOutlined />} onClick={onToggleModal(true)}>
-            Add new
-          </AddNewCategoryButton>
-        </Option>
-      </Select>
+        <Select
+          size="large"
+          allowClear
+          showSearch
+          placeholder={categories.isLoading ? 'Loading...' : 'Choose category'}
+          optionFilterProp="children"
+          filterOption={(input, option) =>
+            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }
+          disabled={categories.isLoading || error}
+          onSelect={onSelectCategory}
+        >
+          {categories?.data &&
+            categories.data.map((cat, index) => (
+              <Option key={index} value={cat.category_id}>
+                {`${cat.category_code} - ${cat.category_name}`}
+              </Option>
+            ))}
+          <Option key="action" disabled>
+            <AddNewCategoryButton icon={<PlusOutlined />} onClick={onToggleModal(true)}>
+              Add new
+            </AddNewCategoryButton>
+          </Option>
+        </Select>
+      </Form.Item>
+
       <CustomModal visible={visible} footer={null} onCancel={onToggleModal(false)}>
         <Form ref={formRef} name="new-category-form" initialValues={{}} onFinish={onFinish}>
           <Title level={3}>Add new category</Title>

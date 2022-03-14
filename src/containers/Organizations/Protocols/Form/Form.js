@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Link, useLocation, useParams } from 'react-router-dom'
-import { Form, Input, Select, Button, Space } from 'antd'
+import { Link, useLocation, useParams, useNavigate } from 'react-router-dom'
+import { Form, Input, Select, Button, Space, notification } from 'antd'
 
+import { createProtocol, updateProtocol } from '../../../../services/protocolService'
 import {
   PROTOCOLS_TAGS,
   PROTOCOLS_CONFIRM_MSG,
@@ -33,11 +34,14 @@ const OrgProtocolsForm = (props) => {
   ]
 
   const [form] = Form.useForm()
+  const navigate = useNavigate()
   const { type } = useParams()
   const location = useLocation()
   const data = location?.state
+  const id = data?.protocol_id
 
   const [initial, setInitial] = useState()
+  const [isLoading, setIsLoading] = useState(false)
 
   const onSelectTags = (value) => {
     console.log(`selected ${value}`)
@@ -47,6 +51,49 @@ const OrgProtocolsForm = (props) => {
 
   const onFinish = (values) => {
     console.log(values)
+    const payload = {
+      organization_id: orgId,
+      parent_id: null,
+      protocol_name: values.protocol_name,
+      protocol_number: values.protocol_number,
+      category_id: values.category_id,
+      tags: values.tags,
+      status: PROTOCOL_STATUS.DRAFT,
+    }
+
+    setIsLoading(true)
+
+    if (type === 'new') {
+      createProtocol(payload)
+        .then((res) => {
+          setIsLoading(false)
+          notification.success({ message: 'A new protocol has been created successfully!' })
+          navigate('/organizations/protocols/list', { state: { orgId } })
+        })
+        .catch((error) => {
+          setIsLoading(false)
+
+          notification.error({
+            message: 'Add Failure',
+            description: error?.data || '',
+          })
+        })
+    } else {
+      updateProtocol(id, payload)
+        .then(() => {
+          setIsLoading(false)
+          setInitial(values)
+          notification.success({ message: 'A protocol has been updated successfully!' })
+        })
+        .catch((error) => {
+          setIsLoading(false)
+
+          notification.error({
+            message: 'Upate Failure',
+            description: error?.data || '',
+          })
+        })
+    }
   }
 
   const onFinishFailed = () => {}
@@ -62,7 +109,7 @@ const OrgProtocolsForm = (props) => {
           autoComplete="nope"
           initialValues={initial || data}
           layout="vertical"
-          name="organizations"
+          name="protocols"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
@@ -84,15 +131,7 @@ const OrgProtocolsForm = (props) => {
             >
               <Input size="large" />
             </Form.Item>
-            <Form.Item
-              label="Category"
-              name="category_id"
-              className="category"
-              hasFeedback
-              rules={[{ required: true, message: 'Please select Type' }]}
-            >
-              <SelectCategory orgId={orgId} />
-            </Form.Item>
+            <SelectCategory orgId={orgId} />
             <Form.Item
               label="Tags"
               name="tags"
@@ -133,7 +172,7 @@ const OrgProtocolsForm = (props) => {
             )}
             {type === 'new' && <div />}
             <Space>
-              <Button size="large" htmlType="submit" loading={false} disabled={false}>
+              <Button size="large" htmlType="submit" loading={isLoading} disabled={isLoading}>
                 Send to Review
               </Button>
               <Button size="large">
