@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import { Link, useLocation, useParams, useNavigate } from 'react-router-dom'
 import { Form, Input, Select, Button, Space, notification } from 'antd'
 
-import { createProtocol, updateProtocol } from '../../../../services/protocolService'
+import {
+  createProtocol,
+  updateProtocol,
+  deleteProtocol,
+} from '../../../../services/protocolService'
 import {
   PROTOCOLS_TAGS,
   PROTOCOLS_CONFIRM_MSG,
@@ -42,12 +46,32 @@ const OrgProtocolsForm = (props) => {
 
   const [initial, setInitial] = useState()
   const [isLoading, setIsLoading] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const onSelectTags = (value) => {
     console.log(`selected ${value}`)
   }
 
-  const onDelete = () => {}
+  const onDelete = () => {
+    setIsDeleting(true)
+
+    deleteProtocol(id)
+      .then(() => {
+        setIsDeleting(false)
+        notification.success({
+          message: `A draft has been deleted successfully!`,
+        })
+        navigate('/organizations/protocols/list', { state: { orgId } })
+      })
+      .catch((error) => {
+        setIsDeleting(false)
+
+        notification.error({
+          message: 'Delete Failure',
+          description: error?.data || '',
+        })
+      })
+  }
 
   const onFinish = (values) => {
     console.log(values)
@@ -162,13 +186,13 @@ const OrgProtocolsForm = (props) => {
             </Form.Item>
           </Form.Item>
           <FormActionButtons>
-            {type === 'edit' && (
+            {type === 'edit' && id && (
               <ConfirmActionButton
                 type="link"
                 size="large"
                 danger
                 onClick={onDelete}
-                loading={false}
+                loading={isDeleting}
                 actionType={PROTOCOL_ACTIONS.DELETE}
                 message={PROTOCOLS_CONFIRM_MSG.DELETE_DRAFT}
               >
