@@ -102,12 +102,11 @@ const OrgProtocolsList = (props) => {
 
         if (searchText) {
           const reg = new RegExp(regExpEscape(searchText), 'gi')
-          const nameMatch = get(_record, 'name').match(reg)
-          const stateMatch = get(_record, 'state').match(reg)
-          const typeMatch = get(_record, 'type').match(reg)
-          const statusMatch = get(_record, 'status_text').match(reg)
+          const nameMatch = get(_record, 'protocol_name').match(reg)
+          const statusMatch = get(_record, 'status').match(reg)
+          const numberMatch = get(_record, 'protocol_number').match(reg)
 
-          if (!nameMatch && !stateMatch && !typeMatch && !statusMatch) {
+          if (!numberMatch && !nameMatch && !statusMatch ) {
             return null
           }
         }
@@ -115,8 +114,6 @@ const OrgProtocolsList = (props) => {
         return _record
       }).filter((record) => !!record)
     : []
-
-  console.log('=======', dataSource, protocols)
 
   return (
     <React.Fragment>
