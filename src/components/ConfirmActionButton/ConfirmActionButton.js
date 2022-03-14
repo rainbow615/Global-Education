@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Button, Input, Modal } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
-import { ORG_ACTIONS } from '../../config/constants'
 import { ConfirmModalBody } from './styles'
 
 const ConfirmActionButton = (props) => {

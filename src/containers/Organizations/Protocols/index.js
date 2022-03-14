@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 
 const OrgProtocolsList = loadable(() => import('./List'))
 const OrgProtocolsForm = loadable(() => import('./Form'))
+const OrgProtocolsChangeReview = loadable(() => import('./ChangeReview'))
 
 function OrgProtocols() {
   const { state } = useLocation()
@@ -18,6 +19,7 @@ function OrgProtocols() {
       <Route path="" element={<Navigate to="list" />} />
       <Route path="list" element={<OrgProtocolsList orgId={orgId} />} />
       <Route path="form/:type" element={<OrgProtocolsForm orgId={orgId} />} />
+      <Route path="review" element={<OrgProtocolsChangeReview orgId={orgId} />} />
     </Routes>
   )
 }

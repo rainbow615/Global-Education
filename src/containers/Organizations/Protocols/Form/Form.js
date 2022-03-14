@@ -6,7 +6,7 @@ import { createProtocol, updateProtocol } from '../../../../services/protocolSer
 import {
   PROTOCOLS_TAGS,
   PROTOCOLS_CONFIRM_MSG,
-  PROTOCOL_STATUS,
+  PROTOCOL_ACTIONS,
 } from '../../../../config/constants'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../../components/CommonComponent'
@@ -58,7 +58,7 @@ const OrgProtocolsForm = (props) => {
       protocol_number: values.protocol_number,
       category_id: values.category_id,
       tags: values.tags,
-      status: PROTOCOL_STATUS.DRAFT,
+      status: type === 'new' ? PROTOCOL_ACTIONS.DRAFT : PROTOCOL_ACTIONS.INREVIEW,
     }
 
     setIsLoading(true)
@@ -68,7 +68,9 @@ const OrgProtocolsForm = (props) => {
         .then((res) => {
           setIsLoading(false)
           notification.success({ message: 'A new protocol has been created successfully!' })
-          navigate('/organizations/protocols/list', { state: { orgId } })
+
+          const resData = res?.data || {}
+          navigate('/organizations/protocols/review', { state: { orgId, ...resData } })
         })
         .catch((error) => {
           setIsLoading(false)
@@ -80,10 +82,13 @@ const OrgProtocolsForm = (props) => {
         })
     } else {
       updateProtocol(id, payload)
-        .then(() => {
+        .then((res) => {
           setIsLoading(false)
           setInitial(values)
           notification.success({ message: 'A protocol has been updated successfully!' })
+
+          const resData = res?.data || {}
+          navigate('/organizations/protocols/review', { state: { orgId, ...resData } })
         })
         .catch((error) => {
           setIsLoading(false)
@@ -164,7 +169,7 @@ const OrgProtocolsForm = (props) => {
                 danger
                 onClick={onDelete}
                 loading={false}
-                actionType={PROTOCOL_STATUS.DELETE}
+                actionType={PROTOCOL_ACTIONS.DELETE}
                 message={PROTOCOLS_CONFIRM_MSG.DELETE_DRAFT}
               >
                 Delete

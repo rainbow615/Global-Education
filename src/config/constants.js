@@ -66,12 +66,13 @@ export const JIT_CONFIRM_MSG = {
   UNPUBLISHED: "You are unpublishing this JIT Education. Type 'UNPUBLISH' to confirm.",
 }
 
-export const PROTOCOL_STATUS = {
+export const PROTOCOL_ACTIONS = {
   DRAFT: 'DRAFT',
   BUILDING: 'BUILDING',
   INREVIEW: 'INREVIEW',
   READYTOPUBLISH: 'READYTOPUBLISH',
   PUBLISHED: 'PUBLISHED',
+  DELETE: 'DELETE',
 }
 
 export const PROTOCOLS_TAGS = [
@@ -144,4 +145,5 @@ export const PROTOCOLS_TAGS = [
 export const PROTOCOLS_CONFIRM_MSG = {
   DELETE_DRAFT:
     "You are deleting this draft. This draft will not be recoverable. Type 'DELETE' to confirm.",
+  DELETE: "You are deleting this protocol. Type 'DELETE' to confirm.",
 }

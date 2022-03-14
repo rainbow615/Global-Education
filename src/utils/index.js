@@ -2,7 +2,7 @@ import { parse as urlParse } from 'url'
 import moment from 'moment'
 import { html } from 'js-beautify'
 
-import { JIT_ACTIONS, PROTOCOL_STATUS } from '../config/constants'
+import { JIT_ACTIONS, PROTOCOL_ACTIONS } from '../config/constants'
 
 export const getQueryParams = (url = window.location.href.replace(/#/g, '')) => {
   return urlParse(url, true).query
@@ -81,11 +81,11 @@ export const getJITStatusName = (value) => {
 export const getProtocolStatusName = (value) => {
   let statusName = ''
 
-  if (value === PROTOCOL_STATUS.DRAFT) statusName = 'Draft'
-  if (value === PROTOCOL_STATUS.PUBLISHED) statusName = 'Published'
-  if (value === PROTOCOL_STATUS.BUILDING) statusName = 'Building'
-  if (value === PROTOCOL_STATUS.INREVIEW) statusName = 'In-Review'
-  if (value === PROTOCOL_STATUS.READYTOPUBLISH) statusName = 'Ready to publish'
+  if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'Draft'
+  if (value === PROTOCOL_ACTIONS.PUBLISHED) statusName = 'Published'
+  if (value === PROTOCOL_ACTIONS.BUILDING) statusName = 'Building'
+  if (value === PROTOCOL_ACTIONS.INREVIEW) statusName = 'In-Review'
+  if (value === PROTOCOL_ACTIONS.READYTOPUBLISH) statusName = 'Ready to publish'
 
   return statusName
 }
@@ -93,11 +93,11 @@ export const getProtocolStatusName = (value) => {
 export const getProtocolStatusColor = (value) => {
   let statusName = ''
 
-  if (value === PROTOCOL_STATUS.DRAFT) statusName = 'danger'
-  if (value === PROTOCOL_STATUS.PUBLISHED) statusName = 'success'
-  if (value === PROTOCOL_STATUS.BUILDING) statusName = 'danger'
-  if (value === PROTOCOL_STATUS.INREVIEW) statusName = 'info'
-  if (value === PROTOCOL_STATUS.READYTOPUBLISH) statusName = 'warning'
+  if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'danger'
+  if (value === PROTOCOL_ACTIONS.PUBLISHED) statusName = 'success'
+  if (value === PROTOCOL_ACTIONS.BUILDING) statusName = 'danger'
+  if (value === PROTOCOL_ACTIONS.INREVIEW) statusName = 'info'
+  if (value === PROTOCOL_ACTIONS.READYTOPUBLISH) statusName = 'warning'
 
   return statusName
 }
@@ -105,11 +105,11 @@ export const getProtocolStatusColor = (value) => {
 export const getProtocolButtonName = (value) => {
   let statusName = ''
 
-  if (value === PROTOCOL_STATUS.DRAFT) statusName = 'Build'
-  if (value === PROTOCOL_STATUS.PUBLISHED) statusName = 'View'
-  if (value === PROTOCOL_STATUS.BUILDING) statusName = 'Build'
-  if (value === PROTOCOL_STATUS.INREVIEW) statusName = 'Review'
-  if (value === PROTOCOL_STATUS.READYTOPUBLISH) statusName = 'Publish'
+  if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'Build'
+  if (value === PROTOCOL_ACTIONS.PUBLISHED) statusName = 'View'
+  if (value === PROTOCOL_ACTIONS.BUILDING) statusName = 'Build'
+  if (value === PROTOCOL_ACTIONS.INREVIEW) statusName = 'Review'
+  if (value === PROTOCOL_ACTIONS.READYTOPUBLISH) statusName = 'Publish'
 
   return statusName
 }

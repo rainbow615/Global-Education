@@ -11,6 +11,15 @@ import { ActionButton } from './styles'
 
 const { Text } = Typography
 
+const returnLinks = {
+  PUBLISHED: '/organizations/protocols/proof',
+  UNPUBLISHED: '/organizations/protocols/proof',
+  DRAFT: '/organizations/protocols/form/edit',
+  INREVIEW: '/organizations/protocols/review',
+  APPROVED: '/organizations/protocols/proof',
+  DELETED: '',
+}
+
 const PROTOCOLS_COLUMNS = [
   {
     title: '#',
@@ -72,7 +81,7 @@ const PROTOCOLS_COLUMNS = [
     width: 120,
     render: (_, record) => (
       <ActionButton type="primary">
-        <Link to="/organizations/protocols/form/edit" state={record}>
+        <Link to={returnLinks[record.status]} state={record}>
           {getProtocolButtonName(record.status)}
         </Link>
       </ActionButton>
