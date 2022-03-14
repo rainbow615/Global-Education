@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { Form, Input, Select, Button, Space } from 'antd'
 
 import {
@@ -16,7 +16,6 @@ import { Root, Topbar } from './styles'
 const { Option } = Select
 
 const OrgProtocolsForm = (props) => {
-  const { type } = useParams()
   const { orgId } = props
   const breadCrumb = [
     {
@@ -32,7 +31,13 @@ const OrgProtocolsForm = (props) => {
       title: 'Builder',
     },
   ]
+
   const [form] = Form.useForm()
+  const { type } = useParams()
+  const location = useLocation()
+  const data = location?.state
+
+  const [initial, setInitial] = useState()
 
   const onSelectTags = (value) => {
     console.log(`selected ${value}`)
@@ -40,7 +45,9 @@ const OrgProtocolsForm = (props) => {
 
   const onDelete = () => {}
 
-  const onFinish = (values) => {}
+  const onFinish = (values) => {
+    console.log(values)
+  }
 
   const onFinishFailed = () => {}
 
@@ -53,7 +60,7 @@ const OrgProtocolsForm = (props) => {
         <Form
           form={form}
           autoComplete="nope"
-          initialValues={{}}
+          initialValues={initial || data}
           layout="vertical"
           name="organizations"
           onFinish={onFinish}
@@ -61,7 +68,7 @@ const OrgProtocolsForm = (props) => {
         >
           <Form.Item
             label="Name"
-            name="name"
+            name="protocol_name"
             hasFeedback
             rules={[{ required: true, message: 'Please input Name' }]}
           >
@@ -70,7 +77,7 @@ const OrgProtocolsForm = (props) => {
           <Form.Item>
             <Form.Item
               label="Number"
-              name="number"
+              name="protocol_number"
               className="number"
               hasFeedback
               rules={[{ required: true, message: 'Please input Number' }]}
@@ -79,7 +86,7 @@ const OrgProtocolsForm = (props) => {
             </Form.Item>
             <Form.Item
               label="Category"
-              name="category"
+              name="category_id"
               className="category"
               hasFeedback
               rules={[{ required: true, message: 'Please select Type' }]}
@@ -124,6 +131,7 @@ const OrgProtocolsForm = (props) => {
                 Delete
               </ConfirmActionButton>
             )}
+            {type === 'new' && <div />}
             <Space>
               <Button size="large" htmlType="submit" loading={false} disabled={false}>
                 Send to Review
