@@ -84,7 +84,7 @@ const OrgProtocolsForm = (props) => {
               hasFeedback
               rules={[{ required: true, message: 'Please select Type' }]}
             >
-              <SelectCategory />
+              <SelectCategory orgId={orgId} />
             </Form.Item>
             <Form.Item
               label="Tags"
