@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Select, Space, Typography } from 'antd'
+import { Button, Form, Input, Select, Space, Typography, notification } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
-import { useCategories } from '../../../../services/categoryService'
+import { useCategories, createCategory } from '../../../../services/categoryService'
 import { CustomModal } from '../../../../components/CommonComponent'
 import { AddNewCategoryButton } from './styles'
 
@@ -11,7 +11,9 @@ const { Option } = Select
 
 const SelectCategory = (props) => {
   const { orgId } = props
+  let formRef = React.createRef()
   const [visible, setVisible] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const { data: categories, error } = useCategories(orgId)
 
@@ -19,8 +21,39 @@ const SelectCategory = (props) => {
     console.log(`selected ${value}`)
   }
 
+  const onToggleModal = (isShow) => () => {
+    setVisible(isShow)
+
+    if (!isShow) {
+      formRef.current.resetFields()
+    }
+  }
+
   const onFinish = (values) => {
     console.log(values)
+    setIsLoading(true)
+
+    const payload = {
+      organization_id: orgId,
+      category_code: values.categoryCode,
+      category_name: values.categoryName,
+    }
+
+    createCategory(payload)
+      .then((res) => {
+        onToggleModal(false)
+        notification.success({ message: 'A new category has been added successfully!' })
+        setVisible(false)
+      })
+      .catch((error) => {
+        console.log(error)
+        setIsLoading(false)
+
+        notification.error({
+          message: 'Add Failure',
+          description: error?.data || '',
+        })
+      })
   }
 
   return (
@@ -34,7 +67,7 @@ const SelectCategory = (props) => {
         filterOption={(input, option) =>
           option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
         }
-        disabled={categories.isLoading}
+        disabled={categories.isLoading || error}
         onSelect={onSelectCategory}
       >
         {categories?.data &&
@@ -44,14 +77,21 @@ const SelectCategory = (props) => {
             </Option>
           ))}
         <Option key="action" disabled>
-          <AddNewCategoryButton icon={<PlusOutlined />} onClick={() => setVisible(true)}>
+          <AddNewCategoryButton icon={<PlusOutlined />} onClick={onToggleModal(true)}>
             Add new
           </AddNewCategoryButton>
         </Option>
       </Select>
-      <CustomModal visible={visible} footer={null} onCancel={() => setVisible(false)}>
-        <Form name="new-category-form" initialValues={{}} onFinish={onFinish}>
+      <CustomModal visible={visible} footer={null} onCancel={onToggleModal(false)}>
+        <Form ref={formRef} name="new-category-form" initialValues={{}} onFinish={onFinish}>
           <Title level={3}>Add new category</Title>
+          <Form.Item
+            name="categoryCode"
+            hasFeedback
+            rules={[{ required: true, message: 'Category code is required' }]}
+          >
+            <Input placeholder="Category code" />
+          </Form.Item>
           <Form.Item
             name="categoryName"
             hasFeedback
@@ -61,10 +101,10 @@ const SelectCategory = (props) => {
           </Form.Item>
           <Form.Item className="bottom-actions">
             <Space>
-              <Button htmlType="button" onClick={() => setVisible(false)}>
+              <Button htmlType="button" disabled={isLoading} onClick={onToggleModal(false)}>
                 Cancel
               </Button>
-              <Button type="primary" htmlType="submit" loading={false}>
+              <Button type="primary" htmlType="submit" loading={isLoading}>
                 Finish
               </Button>
             </Space>
