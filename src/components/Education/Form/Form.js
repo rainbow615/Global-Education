@@ -23,7 +23,7 @@ const EducationForm = (props) => {
   const [jitId, setJitId] = useState(jitData?.id || '')
   const [editorContent, setEditorContent] = useState(jitData?.content || '')
   const [isLoad, setIsLoad] = useState(false)
-  const [isDelete, setIsDelete] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const [isDisableAutoLoad, setIsDisableAutoLoad] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
 
@@ -61,16 +61,16 @@ const EducationForm = (props) => {
   }
 
   const onDelete = () => {
-    setIsDelete(true)
+    setIsDeleting(true)
 
     deleteEducation(jitId)
       .then(() => {
-        setIsDelete(false)
+        setIsDeleting(false)
         notification.success({ message: 'The draft has been deleted successfully!' })
         navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {
-        setIsDelete(false)
+        setIsDeleting(false)
 
         notification.error({
           message: 'Delete Failure',
@@ -171,7 +171,7 @@ const EducationForm = (props) => {
                 size="large"
                 danger
                 onClick={onDelete}
-                loading={isDelete}
+                loading={isDeleting}
                 actionType={JIT_ACTIONS.DELETE}
                 message={JIT_CONFIRM_MSG.DELETE_DRAFT}
               >

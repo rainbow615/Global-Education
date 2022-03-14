@@ -37,7 +37,7 @@ const ProtocolsProof = (props) => {
 
   const [isLoad, setIsLoad] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
-  const [isDelete, setIsDelete] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const [jitStatus, setJitStatus] = useState(data?.status)
 
   useEffect(() => {
@@ -114,16 +114,16 @@ const ProtocolsProof = (props) => {
   }
 
   const onDelete = () => {
-    setIsDelete(true)
+    setIsDeleting(true)
 
     deleteEducation(data.id)
       .then(() => {
-        setIsDelete(false)
+        setIsDeleting(false)
         notification.success({ message: 'A JIT Education has been deleted successfully!' })
         navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {
-        setIsDelete(false)
+        setIsDeleting(false)
 
         notification.error({
           message: 'Delete Failure',
@@ -185,7 +185,7 @@ const ProtocolsProof = (props) => {
             type="link"
             size="large"
             danger
-            loading={isDelete}
+            loading={isDeleting}
             onClick={onDelete}
             actionType={JIT_ACTIONS.DELETE}
             message={JIT_CONFIRM_MSG.DELETE}

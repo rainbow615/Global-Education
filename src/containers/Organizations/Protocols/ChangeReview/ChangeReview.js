@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, notification } from 'antd'
 
+import { deleteProtocol } from '../../../../services/protocolService'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../../components/CommonComponent'
 import ConfirmActionButton from '../../../../components/ConfirmActionButton'
@@ -14,6 +15,7 @@ const ChangeReview = (props) => {
   const navigate = useNavigate()
   const data = location?.state
   const title = data?.protocol_name || ''
+  const id = data?.protocol_id
   const breadCrumb = [
     {
       title: 'Organizations',
@@ -30,7 +32,7 @@ const ChangeReview = (props) => {
   ]
 
   const [isLoad, setIsLoad] = useState(false)
-  const [isDelete, setIsDelete] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
     if (!data) {
@@ -40,7 +42,26 @@ const ChangeReview = (props) => {
 
   const onSubmit = () => {}
 
-  const onDelete = () => {}
+  const onDelete = () => {
+    setIsDeleting(true)
+
+    deleteProtocol(id)
+      .then(() => {
+        setIsDeleting(false)
+        notification.success({
+          message: `A protocol has been deleted successfully!`,
+        })
+        navigate('/organizations/protocols/list', { state: { orgId } })
+      })
+      .catch((error) => {
+        setIsDeleting(false)
+
+        notification.error({
+          message: 'Delete Failure',
+          description: error?.data || '',
+        })
+      })
+  }
 
   return (
     <React.Fragment>
@@ -53,7 +74,7 @@ const ChangeReview = (props) => {
             type="link"
             size="large"
             danger
-            loading={isDelete}
+            loading={isDeleting}
             onClick={onDelete}
             actionType={PROTOCOL_ACTIONS.DELETE}
             message={PROTOCOLS_CONFIRM_MSG.DELETE}
