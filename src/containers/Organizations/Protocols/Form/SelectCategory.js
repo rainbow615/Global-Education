@@ -35,7 +35,6 @@ const SelectCategory = (props) => {
 
     const payload = {
       organization_id: orgId,
-      category_code: values.categoryCode,
       category_name: values.categoryName,
     }
 
@@ -80,7 +79,7 @@ const SelectCategory = (props) => {
           {categories?.data &&
             categories.data.map((cat, index) => (
               <Option key={index} value={cat.category_id}>
-                {`${cat.category_code} - ${cat.category_name}`}
+                {cat.category_name}
               </Option>
             ))}
           <Option key="action" disabled>
@@ -93,14 +92,7 @@ const SelectCategory = (props) => {
 
       <CustomModal visible={visible} footer={null} onCancel={onToggleModal(false)}>
         <Form ref={formRef} name="new-category-form" initialValues={{}} onFinish={onFinish}>
-          <Title level={3}>Add new category</Title>
-          <Form.Item
-            name="categoryCode"
-            hasFeedback
-            rules={[{ required: true, message: 'Category code is required' }]}
-          >
-            <Input placeholder="Category code" />
-          </Form.Item>
+          <Title level={3}>New Category</Title>
           <Form.Item
             name="categoryName"
             hasFeedback
@@ -114,7 +106,7 @@ const SelectCategory = (props) => {
                 Cancel
               </Button>
               <Button type="primary" htmlType="submit" loading={isLoading}>
-                Finish
+                Add
               </Button>
             </Space>
           </Form.Item>

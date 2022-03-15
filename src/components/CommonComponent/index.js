@@ -90,6 +90,10 @@ export const CustomModal = styled(Modal)`
       text-align: right;
       margin-top: 45px;
       margin-bottom: 0;
+
+      button {
+        min-width: 80px;
+      }
     }
   }
 `
