@@ -77,68 +77,64 @@ export const PROTOCOL_ACTIONS = {
 
 export const PROTOCOLS_TAGS = [
   {
-    id: 'Medical',
-    name: 'Medical',
-  },
-  {
-    id: 'Trauma',
-    name: 'Trauma',
-  },
-  {
-    id: 'General Care',
-    name: 'General Care',
+    id: 'Adult',
+    name: 'Adult',
   },
   {
     id: 'Cardiac',
     name: 'Cardiac',
   },
   {
-    id: 'Resuscitation',
-    name: 'Resuscitation',
-  },
-  {
     id: 'Dysrhythmias',
     name: 'Dysrhythmias',
-  },
-  {
-    id: 'Adult',
-    name: 'Adult',
-  },
-  {
-    id: 'Pediatric',
-    name: 'Pediatric',
-  },
-  {
-    id: 'OB / GYN',
-    name: 'OB / GYN',
-  },
-  {
-    id: 'Respiratory',
-    name: 'Respiratory',
-  },
-  {
-    id: 'Toxins',
-    name: 'Toxins',
   },
   {
     id: 'Environmental',
     name: 'Environmental',
   },
   {
-    id: 'Trauma',
-    name: 'Trauma',
+    id: 'General Care',
+    name: 'General Care',
+  },
+  {
+    id: 'Medical',
+    name: 'Medical',
   },
   {
     id: 'Neurological',
     name: 'Neurological',
   },
   {
-    id: 'Procedures',
-    name: 'Procedures',
+    id: 'OB / GYN',
+    name: 'OB / GYN',
   },
   {
     id: 'Operations',
     name: 'Operations',
+  },
+  {
+    id: 'Pediatric',
+    name: 'Pediatric',
+  },
+  {
+    id: 'Procedures',
+    name: 'Procedures',
+  },
+  {
+    id: 'Respiratory',
+    name: 'Respiratory',
+  },
+  {
+    id: 'Resuscitation',
+    name: 'Resuscitation',
+  },
+  {
+    id: 'Toxins',
+    name: 'Toxins',
+  },
+  {
+    id: 'Trauma',
+    name: 'Trauma',
   },
 ]
 
