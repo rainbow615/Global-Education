@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, notification } from 'antd'
+import { RollbackOutlined } from '@ant-design/icons'
 
 import { deleteProtocol } from '../../../../services/protocolService'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
@@ -67,6 +68,11 @@ const ChangeReview = (props) => {
     <React.Fragment>
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
+        <Button type="link" icon={<RollbackOutlined />}>
+          <RouterLink to={`/organizations/protocols/form/edit`} state={data}>
+            &nbsp;Send Back to Build
+          </RouterLink>
+        </Button>
       </Topbar>
       <Root>
         <FormActionButtons>
