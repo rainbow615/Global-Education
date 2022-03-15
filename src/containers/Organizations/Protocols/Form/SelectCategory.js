@@ -11,11 +11,13 @@ const { Option } = Select
 
 const SelectCategory = (props) => {
   const { orgId, onChange } = props
-  let formRef = React.createRef()
+  const [catModalForm] = Form.useForm()
+
   const [visible, setVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
 
-  const { data: categories, error } = useCategories(orgId)
+  const { data: categories, error, mutate } = useCategories(orgId)
 
   const onSelectCategory = () => {
     onChange && onChange()
@@ -25,13 +27,14 @@ const SelectCategory = (props) => {
     setVisible(isShow)
 
     if (!isShow) {
-      formRef.current.resetFields()
+      catModalForm.resetFields()
+      setErrorMsg('')
     }
   }
 
   const onFinish = (values) => {
-    console.log(values)
     setIsLoading(true)
+    setErrorMsg('')
 
     const payload = {
       organization_id: orgId,
@@ -39,19 +42,24 @@ const SelectCategory = (props) => {
     }
 
     createCategory(payload)
-      .then((res) => {
-        onToggleModal(false)
+      .then(() => {
         notification.success({ message: 'A new category has been added successfully!' })
+        mutate()
+        setIsLoading(false)
         setVisible(false)
+        catModalForm.resetFields()
       })
       .catch((error) => {
-        console.log(error)
         setIsLoading(false)
 
-        notification.error({
-          message: 'Add Failure',
-          description: error?.data || '',
-        })
+        if (error?.status === 500) {
+          setErrorMsg(error?.data || '')
+        } else {
+          notification.error({
+            message: 'Add Failure',
+            description: error?.data || '',
+          })
+        }
       })
   }
 
@@ -91,12 +99,14 @@ const SelectCategory = (props) => {
       </Form.Item>
 
       <CustomModal visible={visible} footer={null} onCancel={onToggleModal(false)}>
-        <Form ref={formRef} name="new-category-form" initialValues={{}} onFinish={onFinish}>
+        <Form form={catModalForm} name="new-category-form" initialValues={{}} onFinish={onFinish}>
           <Title level={3}>New Category</Title>
           <Form.Item
             name="categoryName"
             hasFeedback
             rules={[{ required: true, message: 'Category name is required' }]}
+            validateStatus={errorMsg ? 'error' : undefined}
+            help={errorMsg}
           >
             <Input placeholder="Category name" />
           </Form.Item>
