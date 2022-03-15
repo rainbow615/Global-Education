@@ -57,6 +57,7 @@ const PROTOCOLS_COLUMNS = [
     dataIndex: 'last_published_date',
     key: 'last_published_date',
     align: 'center',
+    width: 120,
     render: (value) => <DateText>{value}</DateText>,
   },
   {
@@ -64,6 +65,7 @@ const PROTOCOLS_COLUMNS = [
     dataIndex: 'modified_date',
     key: 'modified_date',
     align: 'center',
+    width: 120,
     render: (value) => <DateText>{value}</DateText>,
   },
   {
@@ -71,6 +73,7 @@ const PROTOCOLS_COLUMNS = [
     dataIndex: 'created_date',
     key: 'created_date',
     align: 'center',
+    width: 120,
     render: (value) => <DateText>{value}</DateText>,
   },
   {
