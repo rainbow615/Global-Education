@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useParams, useNavigate } from 'react-router-dom'
-import { Form, Input, Select, Button, Space, notification } from 'antd'
+import { Form, Input, Select, Button, Space, message, notification } from 'antd'
+import { debounce } from 'lodash'
 
 import {
   createProtocol,
@@ -11,6 +12,7 @@ import {
   PROTOCOLS_TAGS,
   PROTOCOLS_CONFIRM_MSG,
   PROTOCOL_ACTIONS,
+  AUTO_SAVE_DELAY,
 } from '../../../../config/constants'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../../components/CommonComponent'
@@ -42,15 +44,13 @@ const OrgProtocolsForm = (props) => {
   const { type } = useParams()
   const location = useLocation()
   const data = location?.state
-  const id = data?.protocol_id
 
   const [initial, setInitial] = useState()
+  const [id, setId] = useState(data?.protocol_id || '')
   const [isLoading, setIsLoading] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
-
-  const onSelectTags = (value) => {
-    console.log(`selected ${value}`)
-  }
+  const [isDisableAutoLoad, setIsDisableAutoLoad] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
 
   const onDelete = () => {
     setIsDeleting(true)
@@ -74,7 +74,6 @@ const OrgProtocolsForm = (props) => {
   }
 
   const onFinish = (values) => {
-    console.log(values)
     const payload = {
       organization_id: orgId,
       parent_id: data?.parent_id || null,
@@ -82,50 +81,85 @@ const OrgProtocolsForm = (props) => {
       protocol_number: values.protocol_number,
       category_id: values.category_id,
       tags: values.tags,
-      status: type === 'new' ? PROTOCOL_ACTIONS.DRAFT : PROTOCOL_ACTIONS.INREVIEW,
+      status: PROTOCOL_ACTIONS.INREVIEW,
     }
 
     setIsLoading(true)
 
-    if (type === 'new') {
-      createProtocol(payload)
-        .then((res) => {
-          setIsLoading(false)
-          notification.success({ message: 'A new protocol has been created successfully!' })
+    updateProtocol(id, payload)
+      .then((res) => {
+        setIsLoading(false)
+        setInitial(values)
+        notification.success({ message: 'A protocol has been updated successfully!' })
 
-          const resData = res?.data || {}
-          navigate('/organizations/protocols/review', { state: { orgId, ...resData } })
-        })
-        .catch((error) => {
-          setIsLoading(false)
+        const resData = res?.data || {}
+        navigate('/organizations/protocols/review', { state: { orgId, ...resData } })
+      })
+      .catch((error) => {
+        setIsLoading(false)
 
-          notification.error({
-            message: 'Add Failure',
-            description: error?.data || '',
-          })
+        notification.error({
+          message: 'Upate Failure',
+          description: error?.data || '',
         })
-    } else {
-      updateProtocol(id, payload)
-        .then((res) => {
-          setIsLoading(false)
-          setInitial(values)
-          notification.success({ message: 'A protocol has been updated successfully!' })
-
-          const resData = res?.data || {}
-          navigate('/organizations/protocols/review', { state: { orgId, ...resData } })
-        })
-        .catch((error) => {
-          setIsLoading(false)
-
-          notification.error({
-            message: 'Upate Failure',
-            description: error?.data || '',
-          })
-        })
-    }
+      })
   }
 
   const onFinishFailed = () => {}
+
+  const onChangeValues = () => {
+    const { category_id, protocol_name, protocol_number, tags } = form.getFieldsValue(true)
+
+    if (category_id && protocol_name && protocol_number && tags && tags.length > 0) {
+      const payload = {
+        organization_id: orgId,
+        parent_id: data?.parent_id || null,
+        protocol_name,
+        protocol_number,
+        category_id,
+        tags,
+        status: PROTOCOL_ACTIONS.DRAFT,
+      }
+
+      const hide = message.loading('Saving...', 0)
+
+      if (!id) {
+        setIsDisableAutoLoad(true)
+
+        createProtocol(payload)
+          .then((res) => {
+            setIsDisableAutoLoad(false)
+            setTimeout(hide, 0)
+            setErrorMsg('')
+
+            if (res?.data?.protocol_id) setId(res.data.protocol_id)
+          })
+          .catch((error) => {
+            setIsDisableAutoLoad(false)
+            setTimeout(hide, 0)
+
+            if (error?.status === 500) {
+              setErrorMsg(error?.data || '')
+            }
+          })
+      } else {
+        updateProtocol(id, payload)
+          .then(() => {
+            setTimeout(hide, 0)
+            setErrorMsg('')
+          })
+          .catch((error) => {
+            setTimeout(hide, 0)
+
+            if (error?.status === 500) {
+              setErrorMsg(error?.data || '')
+            }
+          })
+      }
+    }
+  }
+
+  const debouncedChangeHandler = debounce(onChangeValues, AUTO_SAVE_DELAY)
 
   return (
     <React.Fragment>
@@ -147,8 +181,10 @@ const OrgProtocolsForm = (props) => {
             name="protocol_name"
             hasFeedback
             rules={[{ required: true, message: 'Please input Name' }]}
+            validateStatus={errorMsg ? 'error' : undefined}
+            help={errorMsg}
           >
-            <Input size="large" />
+            <Input size="large" onChange={() => debouncedChangeHandler()} />
           </Form.Item>
           <Form.Item>
             <Form.Item
@@ -158,9 +194,9 @@ const OrgProtocolsForm = (props) => {
               hasFeedback
               rules={[{ required: true, message: 'Please input Number' }]}
             >
-              <Input size="large" />
+              <Input size="large" onChange={() => debouncedChangeHandler()} />
             </Form.Item>
-            <SelectCategory orgId={orgId} />
+            <SelectCategory orgId={orgId} onChange={() => debouncedChangeHandler()} />
             <Form.Item
               label="Tags"
               name="tags"
@@ -174,7 +210,7 @@ const OrgProtocolsForm = (props) => {
                 allowClear
                 showSearch
                 showArrow
-                onChange={onSelectTags}
+                onChange={() => debouncedChangeHandler()}
                 optionLabelProp="label"
               >
                 {PROTOCOLS_TAGS.map((tag, index) => (
@@ -201,7 +237,12 @@ const OrgProtocolsForm = (props) => {
             )}
             {type === 'new' && <div />}
             <Space>
-              <Button size="large" htmlType="submit" loading={isLoading} disabled={isLoading}>
+              <Button
+                size="large"
+                htmlType="submit"
+                loading={isLoading}
+                disabled={!id || isDisableAutoLoad || isLoading || errorMsg}
+              >
                 Send to Review
               </Button>
               <Button size="large">

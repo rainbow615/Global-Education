@@ -10,15 +10,15 @@ const { Title } = Typography
 const { Option } = Select
 
 const SelectCategory = (props) => {
-  const { orgId } = props
+  const { orgId, onChange } = props
   let formRef = React.createRef()
   const [visible, setVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const { data: categories, error } = useCategories(orgId)
 
-  const onSelectCategory = (value) => {
-    console.log(`selected ${value}`)
+  const onSelectCategory = () => {
+    onChange && onChange()
   }
 
   const onToggleModal = (isShow) => () => {
