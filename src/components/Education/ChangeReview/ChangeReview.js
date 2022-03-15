@@ -130,6 +130,7 @@ const ChangeReview = (props) => {
           newValue={formatHTMLForDiff(title)}
           splitView={!!parentJitData?.modified_date}
           compareMethod={DiffMethod.WORDS}
+          showDiffOnly={false}
           styles={compareStyles}
           leftTitle={
             parentJitData?.modified_date
@@ -149,6 +150,7 @@ const ChangeReview = (props) => {
           newValue={formatHTMLForDiff(content)}
           splitView={!!parentJitData?.modified_date}
           compareMethod={DiffMethod.WORDS}
+          showDiffOnly={false}
           styles={compareStyles}
           leftTitle={renderTitleBar('', 'Body')}
           rightTitle={renderTitleBar('', 'Body')}
