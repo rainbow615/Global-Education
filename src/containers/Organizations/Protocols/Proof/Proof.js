@@ -3,14 +3,14 @@ import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, notification } from 'antd'
 import { RollbackOutlined } from '@ant-design/icons'
 
-import { deleteProtocol, updateProtocol } from '../../../../services/protocolService'
+import { deleteProtocol } from '../../../../services/protocolService'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../../components/CommonComponent'
 import ConfirmActionButton from '../../../../components/ConfirmActionButton'
 import { PROTOCOL_ACTIONS, PROTOCOLS_CONFIRM_MSG } from '../../../../config/constants'
 import { Root, Topbar } from './styles'
 
-const ChangeReview = (props) => {
+const Proof = (props) => {
   const { orgId } = props
   const location = useLocation()
   const navigate = useNavigate()
@@ -28,11 +28,11 @@ const ChangeReview = (props) => {
       state: { orgId },
     },
     {
-      title: `In-Review: ${title}`,
+      title: `Proof: ${title}`,
     },
   ]
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoad, setIsLoad] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
@@ -41,34 +41,7 @@ const ChangeReview = (props) => {
     }
   })
 
-  const onSubmit = () => {
-    const payload = {
-      organization_id: orgId,
-      parent_id: data?.parent_id || null,
-      protocol_name: data.protocol_name,
-      protocol_number: data.protocol_number,
-      category_id: data.category_id,
-      tags: data.tags,
-      status: PROTOCOL_ACTIONS.APPROVED,
-    }
-
-    updateProtocol(id, payload)
-      .then((res) => {
-        setIsLoading(false)
-        notification.success({ message: 'A protocol has been updated successfully!' })
-
-        const resData = res?.data || {}
-        navigate('/organizations/protocols/proof', { state: { orgId, ...resData } })
-      })
-      .catch((error) => {
-        setIsLoading(false)
-
-        notification.error({
-          message: 'Upate Failure',
-          description: error?.data || '',
-        })
-      })
-  }
+  const onSubmit = () => {}
 
   const onDelete = () => {
     setIsDeleting(true)
@@ -97,13 +70,13 @@ const ChangeReview = (props) => {
         <CustomBreadcrumb items={breadCrumb} />
         <Button type="link" icon={<RollbackOutlined />}>
           <RouterLink to={`/organizations/protocols/form/edit`} state={data}>
-            &nbsp;Send Back to Build
+            &nbsp;Send Back to Review
           </RouterLink>
         </Button>
       </Topbar>
       <Root>
         <div>
-          <h1>---------Change Review---------</h1>
+          <h1>--------Proof------------</h1>
         </div>
         <FormActionButtons>
           <ConfirmActionButton
@@ -123,8 +96,8 @@ const ChangeReview = (props) => {
                 Close
               </RouterLink>
             </Button>
-            <Button size="large" onClick={onSubmit} loading={isLoading}>
-              Accept Changes
+            <Button size="large" onClick={onSubmit} loading={isLoad}>
+              Publish
             </Button>
           </Space>
         </FormActionButtons>
@@ -133,4 +106,4 @@ const ChangeReview = (props) => {
   )
 }
 
-export default ChangeReview
+export default Proof

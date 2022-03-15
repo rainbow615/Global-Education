@@ -77,7 +77,7 @@ const OrgProtocolsForm = (props) => {
     console.log(values)
     const payload = {
       organization_id: orgId,
-      parent_id: null,
+      parent_id: data?.parent_id || null,
       protocol_name: values.protocol_name,
       protocol_number: values.protocol_number,
       category_id: values.category_id,
