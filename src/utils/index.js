@@ -81,7 +81,7 @@ export const getJITStatusName = (value) => {
 export const getProtocolStatusName = (value) => {
   let statusName = ''
 
-  if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'Draft'
+  if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'Building'
   if (value === PROTOCOL_ACTIONS.PUBLISHED) statusName = 'Published'
   if (value === PROTOCOL_ACTIONS.BUILDING) statusName = 'Building'
   if (value === PROTOCOL_ACTIONS.INREVIEW) statusName = 'In-Review'
