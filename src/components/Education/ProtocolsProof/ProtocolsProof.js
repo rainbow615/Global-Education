@@ -87,7 +87,7 @@ const ProtocolsProof = (props) => {
         setIsLoading(false)
 
         notification.error({
-          message: 'Upate Failure',
+          message: 'Upate failed!',
           description: error?.data || '',
         })
       })
@@ -126,7 +126,7 @@ const ProtocolsProof = (props) => {
         setIsDeleting(false)
 
         notification.error({
-          message: 'Delete Failure',
+          message: 'Delete failed!',
           description: error?.data || '',
         })
       })

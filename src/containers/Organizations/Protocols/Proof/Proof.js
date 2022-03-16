@@ -69,7 +69,7 @@ const Proof = (props) => {
           setProtocolStatus(status)
 
           notification.success({
-            message: `A protocol has been ${
+            message: `Protocol has been ${
               status === PROTOCOL_ACTIONS.PUBLISHED ? 'published' : 'unpublished'
             } successfully!`,
           })
@@ -86,7 +86,7 @@ const Proof = (props) => {
         setIsLoading({ isNext: false, isBack: false })
 
         notification.error({
-          message: 'Upate Failure',
+          message: 'Upate failed!',
           description: error?.data || '',
         })
       })
@@ -101,7 +101,7 @@ const Proof = (props) => {
       .then(() => {
         setIsDeleting(false)
         notification.success({
-          message: `A protocol has been deleted successfully!`,
+          message: `Protocol has been deleted successfully!`,
         })
         navigate('/organizations/protocols/list', { state: { orgId } })
       })
@@ -109,7 +109,7 @@ const Proof = (props) => {
         setIsDeleting(false)
 
         notification.error({
-          message: 'Delete Failure',
+          message: 'Delete failed!',
           description: error?.data || '',
         })
       })

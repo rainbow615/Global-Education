@@ -190,7 +190,7 @@ const OrganizationsForm = () => {
             hasFeedback
             validateStatus={errorMsg ? 'error' : undefined}
             help={errorMsg || null}
-            rules={[{ required: true, message: 'Please input Name' }]}
+            rules={[{ required: true, message: 'Please input a name' }]}
           >
             <Input placeholder="Name *" size="large" />
           </Form.Item>

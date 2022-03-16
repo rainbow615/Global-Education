@@ -57,7 +57,7 @@ const ChangeReview = (props) => {
     updateProtocol(id, payload)
       .then((res) => {
         setIsLoading({ isNext: false, isBack: false })
-        if (isNext) notification.success({ message: 'A protocol has been updated successfully!' })
+        if (isNext) notification.success({ message: 'Protocol has been updated successfully!' })
 
         const resData = res?.data || {}
         navigate(isNext ? '/organizations/protocols/proof' : '/organizations/protocols/form/edit', {
@@ -68,7 +68,7 @@ const ChangeReview = (props) => {
         setIsLoading({ isNext: false, isBack: false })
 
         notification.error({
-          message: 'Upate Failure',
+          message: 'Upate failed!',
           description: error?.data || '',
         })
       })
@@ -81,7 +81,7 @@ const ChangeReview = (props) => {
       .then(() => {
         setIsDeleting(false)
         notification.success({
-          message: `A protocol has been deleted successfully!`,
+          message: `Protocol has been deleted successfully!`,
         })
         navigate('/organizations/protocols/list', { state: { orgId } })
       })
@@ -89,7 +89,7 @@ const ChangeReview = (props) => {
         setIsDeleting(false)
 
         notification.error({
-          message: 'Delete Failure',
+          message: 'Delete failed!',
           description: error?.data || '',
         })
       })

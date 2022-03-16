@@ -150,7 +150,7 @@ const EducationForm = (props) => {
           <Form.Item
             name="name"
             hasFeedback
-            rules={[{ required: true, message: 'Please input Name' }]}
+            rules={[{ required: true, message: 'Please input a name' }]}
             validateStatus={errorMsg ? 'error' : undefined}
             help={errorMsg}
           >
