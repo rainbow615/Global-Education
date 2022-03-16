@@ -36,7 +36,7 @@ const ChangeReview = (props) => {
   const title = data?.name || ''
   const content = data?.content || ''
 
-  const [isLoad, setIsLoad] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
@@ -66,17 +66,17 @@ const ChangeReview = (props) => {
       status,
     }
 
-    setIsLoad(true)
+    setIsLoading(true)
     updateEducation(id, payload)
       .then(() => {
-        setIsLoad(false)
+        setIsLoading(false)
         notification.success({
           message: `This JIT Education is ready to approve now!`,
         })
         navigate(`/${prefixLink}education/proof`, { state: { id, orgId, ...payload } })
       })
       .catch((error) => {
-        setIsLoad(false)
+        setIsLoading(false)
 
         notification.error({
           message: 'Upate Failure',
@@ -174,7 +174,7 @@ const ChangeReview = (props) => {
               Close
             </RouterLink>
           </Button>
-          <Button size="large" onClick={onSubmit} loading={isLoad}>
+          <Button size="large" onClick={onSubmit} loading={isLoading}>
             Accept Changes
           </Button>
         </Space>

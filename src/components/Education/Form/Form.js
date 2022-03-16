@@ -22,22 +22,22 @@ const EducationForm = (props) => {
 
   const [jitId, setJitId] = useState(jitData?.id || '')
   const [editorContent, setEditorContent] = useState(jitData?.content || '')
-  const [isLoad, setIsLoad] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [isDisableAutoLoad, setIsDisableAutoLoad] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
 
   const onSaveForm = useCallback(
     (payload) => {
-      setIsLoad(true)
+      setIsLoading(true)
       updateEducation(jitId, payload)
         .then(() => {
-          setIsLoad(false)
+          setIsLoading(false)
           notification.success({ message: 'A JIT Education has been updated successfully!' })
           navigate(`/${prefixLink}education/review`, { state: { id: jitId, orgId, ...payload } })
         })
         .catch((error) => {
-          setIsLoad(false)
+          setIsLoading(false)
 
           notification.error({
             message: 'Upate Failure',
@@ -184,8 +184,8 @@ const EducationForm = (props) => {
               <Button
                 size="large"
                 htmlType="submit"
-                loading={isLoad}
-                disabled={isLoad || isDisableAutoLoad || !jitId || errorMsg}
+                loading={isLoading}
+                disabled={isLoading || isDisableAutoLoad || !jitId || errorMsg}
               >
                 Send to Review
               </Button>

@@ -32,7 +32,7 @@ const Proof = (props) => {
     },
   ]
 
-  const [isLoad, setIsLoad] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
@@ -96,7 +96,7 @@ const Proof = (props) => {
                 Close
               </RouterLink>
             </Button>
-            <Button size="large" onClick={onSubmit} loading={isLoad}>
+            <Button size="large" onClick={onSubmit} loading={isLoading}>
               Publish
             </Button>
           </Space>
