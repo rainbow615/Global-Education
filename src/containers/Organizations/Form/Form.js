@@ -38,6 +38,7 @@ const OrganizationsForm = () => {
   const [isPublishing, setIsPublishing] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [initial, setInitial] = useState()
+  const [errorMsg, setErrorMsg] = useState('')
 
   useEffect(() => {
     form.setFieldsValue({ region: 'North America' })
@@ -54,6 +55,7 @@ const OrganizationsForm = () => {
     }
 
     setIsLoading(true)
+    setErrorMsg('')
 
     if (type === 'new') {
       createOrganization(payload)
@@ -79,10 +81,14 @@ const OrganizationsForm = () => {
         .catch((error) => {
           setIsLoading(false)
 
-          notification.error({
-            message: 'Add Failure',
-            description: error?.data || '',
-          })
+          if (error?.status === 500) {
+            setErrorMsg(error?.data || '')
+          } else {
+            notification.error({
+              message: 'Add Failure',
+              description: error?.data || '',
+            })
+          }
         })
     } else {
       updateOrganization(id, payload)
@@ -94,10 +100,14 @@ const OrganizationsForm = () => {
         .catch((error) => {
           setIsLoading(false)
 
-          notification.error({
-            message: 'Upate Failure',
-            description: error?.data || '',
-          })
+          if (error?.status === 500) {
+            setErrorMsg(error?.data || '')
+          } else {
+            notification.error({
+              message: 'Upate Failure',
+              description: error?.data || '',
+            })
+          }
         })
     }
   }
@@ -178,6 +188,8 @@ const OrganizationsForm = () => {
           <Form.Item
             name="name"
             hasFeedback
+            validateStatus={errorMsg ? 'error' : undefined}
+            help={errorMsg || null}
             rules={[{ required: true, message: 'Please input Name' }]}
           >
             <Input placeholder="Name *" size="large" />
@@ -268,7 +280,12 @@ const OrganizationsForm = () => {
               <div />
             )}
             <Space>
-              <Button size="large" htmlType="submit" loading={isLoading}>
+              <Button
+                size="large"
+                htmlType="submit"
+                disabled={isLoading}
+                loading={isLoading}
+              >
                 {type === 'new' ? 'Add' : 'Update'}
               </Button>
               <ConfirmActionButton

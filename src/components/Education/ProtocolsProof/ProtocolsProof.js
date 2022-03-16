@@ -35,7 +35,7 @@ const ProtocolsProof = (props) => {
   const title = data?.name || ''
   const content = data?.content || ''
 
-  const [isLoad, setIsLoad] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [jitStatus, setJitStatus] = useState(data?.status)
@@ -72,10 +72,10 @@ const ProtocolsProof = (props) => {
       status,
     }
 
-    setIsLoad(true)
+    setIsLoading(true)
     updateEducation(updateId, payload)
       .then(() => {
-        setIsLoad(false)
+        setIsLoading(false)
         setJitStatus(status)
         notification.success({
           message: `A JIT Education has been ${
@@ -84,7 +84,7 @@ const ProtocolsProof = (props) => {
         })
       })
       .catch((error) => {
-        setIsLoad(false)
+        setIsLoading(false)
 
         notification.error({
           message: 'Upate Failure',
@@ -173,7 +173,7 @@ const ProtocolsProof = (props) => {
             size="large"
             danger
             onClick={onSubmit}
-            loading={isPublish && isLoad}
+            loading={isPublish && isLoading}
             actionType={JIT_ACTIONS.UNPUBLISHED}
             message={JIT_CONFIRM_MSG.UNPUBLISHED}
           >
@@ -209,7 +209,7 @@ const ProtocolsProof = (props) => {
             className={isPublish ? 'published' : ''}
             icon={isPublish ? <CheckOutlined /> : null}
             onClick={onSubmit}
-            loading={!isPublish && isLoad}
+            loading={!isPublish && isLoading}
             disabled={isPublish}
             actionType={JIT_ACTIONS.PUBLISHED}
             message={publicConfirmMsg}
