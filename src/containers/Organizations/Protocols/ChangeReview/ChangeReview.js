@@ -57,7 +57,7 @@ const ChangeReview = (props) => {
     updateProtocol(id, payload)
       .then((res) => {
         setIsLoading({ isNext: false, isBack: false })
-        if (isNext) notification.success({ message: 'Protocol has been updated successfully!' })
+        if (isNext) notification.success({ message: 'Protocol is ready to approve now!' })
 
         const resData = res?.data || {}
         navigate(isNext ? '/organizations/protocols/proof' : '/organizations/protocols/form/edit', {
