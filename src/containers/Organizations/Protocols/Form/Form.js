@@ -59,7 +59,7 @@ const OrgProtocolsForm = (props) => {
       .then(() => {
         setIsDeleting(false)
         notification.success({
-          message: `A draft has been deleted successfully!`,
+          message: `Protocol draft has been deleted successfully!`,
         })
         navigate('/organizations/protocols/list', { state: { orgId } })
       })
@@ -67,7 +67,7 @@ const OrgProtocolsForm = (props) => {
         setIsDeleting(false)
 
         notification.error({
-          message: 'Delete Failure',
+          message: 'Delete failed!',
           description: error?.data || '',
         })
       })
@@ -90,7 +90,7 @@ const OrgProtocolsForm = (props) => {
       .then((res) => {
         setIsLoading(false)
         setInitial(values)
-        notification.success({ message: 'A protocol has been updated successfully!' })
+        notification.success({ message: 'Protocol has been updated successfully!' })
 
         const resData = res?.data || {}
         navigate('/organizations/protocols/review', { state: { orgId, ...resData } })
@@ -99,7 +99,7 @@ const OrgProtocolsForm = (props) => {
         setIsLoading(false)
 
         notification.error({
-          message: 'Upate Failure',
+          message: 'Update failed!',
           description: error?.data || '',
         })
       })
@@ -180,7 +180,7 @@ const OrgProtocolsForm = (props) => {
             label="Name"
             name="protocol_name"
             hasFeedback
-            rules={[{ required: true, message: 'Please input Name' }]}
+            rules={[{ required: true, message: 'Please input a name.' }]}
             validateStatus={errorMsg ? 'error' : undefined}
             help={errorMsg}
           >
@@ -192,7 +192,7 @@ const OrgProtocolsForm = (props) => {
               name="protocol_number"
               className="number"
               hasFeedback
-              rules={[{ required: true, message: 'Please input Number' }]}
+              rules={[{ required: true, message: 'Please input a number.' }]}
             >
               <Input size="large" onChange={() => debouncedChangeHandler()} />
             </Form.Item>
@@ -202,7 +202,7 @@ const OrgProtocolsForm = (props) => {
               name="tags"
               className="tags"
               hasFeedback
-              rules={[{ required: true, message: 'Please select tags' }]}
+              rules={[{ required: true, message: 'Please select 1 or more tag.' }]}
             >
               <Select
                 mode="multiple"
