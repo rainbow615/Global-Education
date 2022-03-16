@@ -83,7 +83,7 @@ export const getProtocolStatusName = (value) => {
 
   if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'Building'
   if (value === PROTOCOL_ACTIONS.PUBLISHED) statusName = 'Published'
-  if (value === PROTOCOL_ACTIONS.BUILDING) statusName = 'Building'
+  if (value === PROTOCOL_ACTIONS.UNPUBLISHED) statusName = 'Unpublished'
   if (value === PROTOCOL_ACTIONS.INREVIEW) statusName = 'In-Review'
   if (value === PROTOCOL_ACTIONS.APPROVED) statusName = 'Ready to publish'
 
@@ -95,7 +95,7 @@ export const getProtocolStatusColor = (value) => {
 
   if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'danger'
   if (value === PROTOCOL_ACTIONS.PUBLISHED) statusName = 'success'
-  if (value === PROTOCOL_ACTIONS.BUILDING) statusName = 'danger'
+  if (value === PROTOCOL_ACTIONS.UNPUBLISHED) statusName = 'danger'
   if (value === PROTOCOL_ACTIONS.INREVIEW) statusName = 'info'
   if (value === PROTOCOL_ACTIONS.APPROVED) statusName = 'warning'
 
@@ -105,11 +105,11 @@ export const getProtocolStatusColor = (value) => {
 export const getProtocolButtonName = (value) => {
   let statusName = ''
 
-  if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'Build'
+  if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'Edit'
   if (value === PROTOCOL_ACTIONS.PUBLISHED) statusName = 'View'
-  if (value === PROTOCOL_ACTIONS.BUILDING) statusName = 'Build'
-  if (value === PROTOCOL_ACTIONS.INREVIEW) statusName = 'Review'
-  if (value === PROTOCOL_ACTIONS.APPROVED) statusName = 'Publish'
+  if (value === PROTOCOL_ACTIONS.UNPUBLISHED) statusName = 'View'
+  if (value === PROTOCOL_ACTIONS.INREVIEW) statusName = 'View'
+  if (value === PROTOCOL_ACTIONS.APPROVED) statusName = 'View'
 
   return statusName
 }
