@@ -38,7 +38,7 @@ const EmailForm = () => {
 
   const onFinishFailed = (errorInfo) => {
     notification.error({
-      message: 'Login Failure',
+      message: 'Login failed!',
       description: errorInfo,
     })
     console.log('Failed:', errorInfo)

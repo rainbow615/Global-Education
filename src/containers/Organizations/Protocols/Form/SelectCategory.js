@@ -56,7 +56,7 @@ const SelectCategory = (props) => {
           setErrorMsg(error?.data || '')
         } else {
           notification.error({
-            message: 'Add Failure',
+            message: 'Add failed!',
             description: error?.data || '',
           })
         }

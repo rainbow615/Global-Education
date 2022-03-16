@@ -85,7 +85,7 @@ const OrganizationsForm = () => {
             setErrorMsg(error?.data || '')
           } else {
             notification.error({
-              message: 'Add Failure',
+              message: 'Add failed!',
               description: error?.data || '',
             })
           }
@@ -104,7 +104,7 @@ const OrganizationsForm = () => {
             setErrorMsg(error?.data || '')
           } else {
             notification.error({
-              message: 'Update Failure',
+              message: 'Update failed!',
               description: error?.data || '',
             })
           }
@@ -141,7 +141,7 @@ const OrganizationsForm = () => {
         setIsPublishing(false)
 
         notification.error({
-          message: 'Publish Failure',
+          message: 'Publish failed!',
           description: error?.data || '',
         })
       })
@@ -162,7 +162,7 @@ const OrganizationsForm = () => {
         setIsDeleting(false)
 
         notification.error({
-          message: 'Delete Failure',
+          message: 'Delete failed!',
           description: error?.data || '',
         })
       })

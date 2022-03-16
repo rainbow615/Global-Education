@@ -48,7 +48,7 @@ const PasswordForm = () => {
               removeUser()
 
               notification.error({
-                message: 'Verification Failure',
+                message: 'Verification failed!',
                 description: 'Sorry, the request failed. Please try again.',
               })
             }
@@ -58,7 +58,7 @@ const PasswordForm = () => {
         setIsLoading(false)
 
         notification.error({
-          message: 'Login Failure',
+          message: 'Login failed!',
           description: error?.data || '',
         })
       })

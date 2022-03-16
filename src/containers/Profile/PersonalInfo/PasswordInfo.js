@@ -13,7 +13,7 @@ const PasswordInfo = (props) => {
   const onChangePassword = () => {
     if (!email) {
       notification.error({
-        message: 'Change Failure',
+        message: 'Change failed!',
         description: 'We could not update your email. Please login again.',
       })
 
@@ -35,7 +35,7 @@ const PasswordInfo = (props) => {
             })
             .catch((error) => {
               notification.error({
-                message: 'Email Send Failure',
+                message: 'Email Send failed!',
                 description: error?.data || '',
               })
               reject()

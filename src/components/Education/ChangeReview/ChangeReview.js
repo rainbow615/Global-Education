@@ -79,7 +79,7 @@ const ChangeReview = (props) => {
         setIsLoading(false)
 
         notification.error({
-          message: 'Update Failure',
+          message: 'Update failed!',
           description: error?.data || '',
         })
       })
@@ -98,7 +98,7 @@ const ChangeReview = (props) => {
         setIsDeleting(false)
 
         notification.error({
-          message: 'Delete Failure',
+          message: 'Delete failed!',
           description: error?.data || '',
         })
       })

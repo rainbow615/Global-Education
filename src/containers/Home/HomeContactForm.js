@@ -57,7 +57,7 @@ const HomeContactForm = (props) => {
         setIsLoading(false)
 
         notification.error({
-          message: 'Contact Failure',
+          message: 'Contact failed!',
           description: 'Sorry, the request failed. Please try again later.',
         })
       })

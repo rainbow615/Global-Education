@@ -40,7 +40,7 @@ const EducationForm = (props) => {
           setIsLoading(false)
 
           notification.error({
-            message: 'Update Failure',
+            message: 'Update failed!',
             description: error?.data || '',
           })
         })
@@ -73,7 +73,7 @@ const EducationForm = (props) => {
         setIsDeleting(false)
 
         notification.error({
-          message: 'Delete Failure',
+          message: 'Delete failed!',
           description: error?.data || '',
         })
       })
