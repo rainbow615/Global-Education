@@ -87,7 +87,7 @@ const ProtocolsProof = (props) => {
         setIsLoading(false)
 
         notification.error({
-          message: 'Upate failed!',
+          message: 'Update failed!',
           description: error?.data || '',
         })
       })
