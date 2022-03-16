@@ -106,7 +106,7 @@ const SelectCategory = (props) => {
             hasFeedback
             rules={[{ required: true, message: 'Category name is required' }]}
             validateStatus={errorMsg ? 'error' : undefined}
-            help={errorMsg}
+            help={errorMsg || null}
           >
             <Input placeholder="Category name" />
           </Form.Item>
