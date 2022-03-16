@@ -32,7 +32,7 @@ const ChangeReview = (props) => {
     },
   ]
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState({ isNext: false, isBack: false })
   const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
@@ -41,7 +41,9 @@ const ChangeReview = (props) => {
     }
   })
 
-  const onSubmit = () => {
+  const onSubmit = (isNext) => () => {
+    setIsLoading({ isNext, isBack: !isNext })
+
     const payload = {
       organization_id: orgId,
       parent_id: data?.parent_id || null,
@@ -49,19 +51,21 @@ const ChangeReview = (props) => {
       protocol_number: data.protocol_number,
       category_id: data.category_id,
       tags: data.tags,
-      status: PROTOCOL_ACTIONS.APPROVED,
+      status: isNext ? PROTOCOL_ACTIONS.APPROVED : PROTOCOL_ACTIONS.DRAFT,
     }
 
     updateProtocol(id, payload)
       .then((res) => {
-        setIsLoading(false)
-        notification.success({ message: 'A protocol has been updated successfully!' })
+        setIsLoading({ isNext: false, isBack: false })
+        if (isNext) notification.success({ message: 'A protocol has been updated successfully!' })
 
         const resData = res?.data || {}
-        navigate('/organizations/protocols/proof', { state: { orgId, ...resData } })
+        navigate(isNext ? '/organizations/protocols/proof' : '/organizations/protocols/form/edit', {
+          state: { orgId, ...resData },
+        })
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ isNext: false, isBack: false })
 
         notification.error({
           message: 'Upate Failure',
@@ -95,10 +99,14 @@ const ChangeReview = (props) => {
     <React.Fragment>
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
-        <Button type="link" icon={<RollbackOutlined />}>
-          <RouterLink to={`/organizations/protocols/form/edit`} state={data}>
-            &nbsp;Send Back to Build
-          </RouterLink>
+        <Button
+          size="large"
+          type="link"
+          icon={<RollbackOutlined />}
+          onClick={onSubmit(false)}
+          loading={isLoading.isBack}
+        >
+          &nbsp;Send Back to Build
         </Button>
       </Topbar>
       <Root>
@@ -123,7 +131,7 @@ const ChangeReview = (props) => {
                 Close
               </RouterLink>
             </Button>
-            <Button size="large" onClick={onSubmit} loading={isLoading}>
+            <Button size="large" onClick={onSubmit(true)} loading={isLoading.isNext}>
               Accept Changes
             </Button>
           </Space>

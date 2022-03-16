@@ -36,7 +36,7 @@ const ProtocolsProof = (props) => {
   const content = data?.content || ''
 
   const [isLoading, setIsLoading] = useState(false)
-  const [isUpdate, setIsUpdate] = useState(false)
+  const [isUpdating, setIsUpdating] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [jitStatus, setJitStatus] = useState(data?.status)
 
@@ -102,12 +102,12 @@ const ProtocolsProof = (props) => {
       status: JIT_ACTIONS.DRAFT,
     }
 
-    setIsUpdate(true)
+    setIsUpdating(true)
 
     createEducation(payload).then((res) => {
       const newId = res.data.jit_id
 
-      setIsUpdate(false)
+      setIsUpdating(false)
 
       navigate(`/${prefixLink}education/form/edit`, { state: { id: newId, orgId, ...payload } })
     })
@@ -195,7 +195,7 @@ const ProtocolsProof = (props) => {
         )}
         <Space>
           {isPublish && (
-            <Button size="large" onClick={onUpdate} loading={isUpdate}>
+            <Button size="large" onClick={onUpdate} loading={isUpdating}>
               Update
             </Button>
           )}

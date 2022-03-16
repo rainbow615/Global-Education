@@ -142,4 +142,6 @@ export const PROTOCOLS_CONFIRM_MSG = {
   DELETE_DRAFT:
     "You are deleting this draft. This draft will not be recoverable. Type 'DELETE' to confirm.",
   DELETE: "You are deleting this protocol. Type 'DELETE' to confirm.",
+  PUBLISHED: "You are publishing this protocol. Type 'PUBLISH' to confirm.",
+  UNPUBLISHED: "You are unpublishing this protocol. Type 'UNPUBLISH' to confirm.",
 }
