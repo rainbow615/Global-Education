@@ -68,7 +68,7 @@ const ChangeReview = (props) => {
         setIsLoading({ isNext: false, isBack: false })
 
         notification.error({
-          message: 'Upate failed!',
+          message: 'Update failed!',
           description: error?.data || '',
         })
       })
