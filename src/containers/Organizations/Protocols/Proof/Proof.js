@@ -59,7 +59,7 @@ const Proof = (props) => {
       protocol_number: data.protocol_number,
       category_id: data.category_id,
       tags: data.tags,
-      status: isBack ? PROTOCOL_ACTIONS.APPROVED : status,
+      status: isBack ? PROTOCOL_ACTIONS.INREVIEW : status,
     }
 
     updateProtocol(id, payload)
