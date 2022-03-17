@@ -35,7 +35,7 @@ const ProtocolsProof = (props) => {
   const title = data?.name || ''
   const content = data?.content || ''
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState({ isNext: false, isBack: false })
   const [isUpdating, setIsUpdating] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [jitStatus, setJitStatus] = useState(data?.status)
@@ -56,7 +56,9 @@ const ProtocolsProof = (props) => {
     return <CustomLoading />
   }
 
-  const onSubmit = () => {
+  const onSubmit = (isBack) => () => {
+    setIsLoading({ isNext: !isBack, isBack })
+
     let updateId = data.id
     let status = JIT_ACTIONS.UNPUBLISHED
 
@@ -69,22 +71,30 @@ const ProtocolsProof = (props) => {
       parent_id: data.parent_id,
       name: data.name,
       content: data.content,
-      status,
+      status: isBack ? JIT_ACTIONS.INREVIEW : status,
     }
 
-    setIsLoading(true)
     updateEducation(updateId, payload)
-      .then(() => {
-        setIsLoading(false)
-        setJitStatus(status)
-        notification.success({
-          message: `A JIT Education has been ${
-            status === JIT_ACTIONS.PUBLISHED ? 'published' : 'unpublished'
-          } successfully!`,
-        })
+      .then((res) => {
+        setIsLoading({ isNext: false, isBack: false })
+        if (!isBack) {
+          setJitStatus(status)
+          notification.success({
+            message: `A JIT Education has been ${
+              status === JIT_ACTIONS.PUBLISHED ? 'published' : 'unpublished'
+            } successfully!`,
+          })
+        }
+
+        const resData = res?.data || {}
+        if (isBack) {
+          navigate(`/${prefixLink}education/review`, {
+            state: { orgId, ...resData },
+          })
+        }
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ isNext: false, isBack: false })
 
         notification.error({
           message: 'Update failed!',
@@ -145,10 +155,14 @@ const ProtocolsProof = (props) => {
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
         {!isPublish && (
-          <Button type="link" icon={<RollbackOutlined />}>
-            <RouterLink to={`/${prefixLink}education/review`} state={data}>
-              &nbsp;Send Back to Review
-            </RouterLink>
+          <Button
+            size="large"
+            type="link"
+            icon={<RollbackOutlined />}
+            onClick={onSubmit(true)}
+            loading={isLoading.isBack}
+          >
+            &nbsp;Send Back to Review
           </Button>
         )}
       </Topbar>
@@ -172,8 +186,8 @@ const ProtocolsProof = (props) => {
             type="link"
             size="large"
             danger
-            onClick={onSubmit}
-            loading={isPublish && isLoading}
+            onClick={onSubmit(false)}
+            loading={isPublish && isLoading.isNext}
             actionType={JIT_ACTIONS.UNPUBLISHED}
             message={JIT_CONFIRM_MSG.UNPUBLISHED}
           >
@@ -208,8 +222,8 @@ const ProtocolsProof = (props) => {
             size="large"
             className={isPublish ? 'published' : ''}
             icon={isPublish ? <CheckOutlined /> : null}
-            onClick={onSubmit}
-            loading={!isPublish && isLoading}
+            onClick={onSubmit(false)}
+            loading={!isPublish && isLoading.isNext}
             disabled={isPublish}
             actionType={JIT_ACTIONS.PUBLISHED}
             message={publicConfirmMsg}

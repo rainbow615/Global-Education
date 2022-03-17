@@ -36,7 +36,7 @@ const ChangeReview = (props) => {
   const title = data?.name || ''
   const content = data?.content || ''
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState({ isNext: false, isBack: false })
   const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
@@ -55,28 +55,32 @@ const ChangeReview = (props) => {
     return <CustomLoading />
   }
 
-  const onSubmit = () => {
-    let status = JIT_ACTIONS.APPROVED
+  const onSubmit = (isNext) => () => {
+    setIsLoading({ isNext, isBack: !isNext })
 
     const payload = {
       organization_id: orgId || null,
       parent_id: data.parent_id,
       name: data.name,
       content: data.content,
-      status,
+      status: isNext ? JIT_ACTIONS.APPROVED : JIT_ACTIONS.DRAFT,
     }
 
-    setIsLoading(true)
     updateEducation(id, payload)
       .then(() => {
-        setIsLoading(false)
-        notification.success({
-          message: `This JIT Education is ready to approve now!`,
+        setIsLoading({ isNext: false, isBack: false })
+        if (isNext) {
+          notification.success({
+            message: `This JIT Education is ready to approve now!`,
+          })
+        }
+
+        navigate(isNext ? `/${prefixLink}education/proof` : `/${prefixLink}education/form/edit`, {
+          state: { id, orgId, ...payload },
         })
-        navigate(`/${prefixLink}education/proof`, { state: { id, orgId, ...payload } })
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ isNext: false, isBack: false })
 
         notification.error({
           message: 'Update failed!',
@@ -117,10 +121,14 @@ const ChangeReview = (props) => {
     <React.Fragment>
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
-        <Button type="link" icon={<RollbackOutlined />}>
-          <RouterLink to={`/${prefixLink}education/form/edit`} state={data}>
-            &nbsp;Send Back to Editor
-          </RouterLink>
+        <Button
+          size="large"
+          type="link"
+          icon={<RollbackOutlined />}
+          onClick={onSubmit(false)}
+          loading={isLoading.isBack}
+        >
+          &nbsp;Send Back to Editor
         </Button>
       </Topbar>
 
@@ -174,7 +182,7 @@ const ChangeReview = (props) => {
               Close
             </RouterLink>
           </Button>
-          <Button size="large" onClick={onSubmit} loading={isLoading}>
+          <Button size="large" onClick={onSubmit(true)} loading={isLoading.isNext}>
             Accept Changes
           </Button>
         </Space>
