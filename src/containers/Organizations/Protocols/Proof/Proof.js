@@ -3,7 +3,11 @@ import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, notification } from 'antd'
 import { RollbackOutlined, CheckOutlined } from '@ant-design/icons'
 
-import { deleteProtocol, updateProtocol } from '../../../../services/protocolService'
+import {
+  deleteProtocol,
+  updateProtocol,
+  createProtocol,
+} from '../../../../services/protocolService'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../../components/CommonComponent'
 import ConfirmActionButton from '../../../../components/ConfirmActionButton'
@@ -96,7 +100,27 @@ const Proof = (props) => {
       })
   }
 
-  const onUpdate = () => {}
+  const onUpdate = () => {
+    const payload = {
+      organization_id: orgId,
+      parent_id: data.protocol_id,
+      protocol_name: data.protocol_name,
+      protocol_number: data.protocol_number,
+      category_id: data.category_id,
+      tags: data.tags,
+      status: PROTOCOL_ACTIONS.DRAFT,
+    }
+
+    setIsUpdating(true)
+
+    createProtocol(payload).then((res) => {
+      const newId = res.data.protocol_id
+
+      setIsUpdating(false)
+
+      navigate(`/organizations/protocols/form/edit`, { state: { protocol_id: newId, orgId, ...payload } })
+    })
+  }
 
   const onDelete = () => {
     setIsDeleting(true)
