@@ -55,7 +55,7 @@ const OrgProtocolsList = (props) => {
           modified_date: formatLocalizedDate(record.modified_date),
           last_published_date: record.last_published_date
             ? formatLocalizedDate(record.last_published_date)
-            : 'Never',
+            : null,
         }
 
         if (searchText) {

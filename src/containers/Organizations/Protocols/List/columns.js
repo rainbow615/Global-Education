@@ -58,7 +58,7 @@ const PROTOCOLS_COLUMNS = [
     key: 'last_published_date',
     align: 'center',
     width: 120,
-    render: (value) => <DateText>{value}</DateText>,
+    render: (value) => <DateText>{value || 'Never'}</DateText>,
   },
   {
     title: 'Edited',

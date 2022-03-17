@@ -36,6 +36,7 @@ const Proof = (props) => {
   const [isUpdating, setIsUpdating] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [protocolStatus, setProtocolStatus] = useState(data?.status)
+  const [lastPublishedDate, setLastPublishedDate] = useState(data?.last_published_date)
 
   useEffect(() => {
     if (!data) {
@@ -65,8 +66,12 @@ const Proof = (props) => {
     updateProtocol(id, payload)
       .then((res) => {
         setIsLoading({ isNext: false, isBack: false })
+
+        const resData = res?.data || {}
+
         if (!isBack) {
           setProtocolStatus(status)
+          setLastPublishedDate(resData?.last_published_date)
 
           notification.success({
             message: `Protocol has been ${
@@ -75,7 +80,6 @@ const Proof = (props) => {
           })
         }
 
-        const resData = res?.data || {}
         if (isBack) {
           navigate('/organizations/protocols/review', {
             state: { orgId, ...resData },
@@ -121,7 +125,7 @@ const Proof = (props) => {
     <React.Fragment>
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
-        {!isPublish && (
+        {!lastPublishedDate && !isPublish && (
           <Button
             size="large"
             type="link"
