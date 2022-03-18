@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { debounce, map, get } from 'lodash'
-import { Button, Space } from 'antd'
 
 import { useProtocols } from '../../../../services/protocolService'
 import { formatLocalizedDate, regExpEscape } from '../../../../utils'
 import { SEARCH_DELAY } from '../../../../config/constants'
 import PROTOCOLS_COLUMNS from './columns'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
+import ActionButtons from './ActionButtons'
 import { ResultFailed } from '../../../../components/ResultPages'
 import {
   Container,
@@ -87,15 +86,7 @@ const OrgProtocolsList = (props) => {
       <CustomBreadcrumb items={breadCrumb} />
       <Container>
         <CustomTableHeader>
-          <Space>
-            <Button type="primary">
-              <Link to="/organizations/protocols/form/new" state={{ orgId }}>
-                Add new
-              </Link>
-            </Button>
-            <Button type="primary">Approve All</Button>
-            <Button type="primary">Publish All</Button>
-          </Space>
+          <ActionButtons orgId={orgId} />
           <CustomSearchText
             placeholder="Search"
             enterButton
