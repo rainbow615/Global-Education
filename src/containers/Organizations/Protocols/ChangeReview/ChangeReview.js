@@ -51,8 +51,6 @@ const ChangeReview = (props) => {
 
   const { data: parentProtocol, error } = useProtocol(data?.parent_id || null)
 
-  console.log('========', data?.parent_id, parentProtocol)
-
   if (error) {
     return <ResultFailed isBackButton={false} />
   }

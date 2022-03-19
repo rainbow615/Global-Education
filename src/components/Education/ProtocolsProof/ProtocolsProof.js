@@ -11,20 +11,13 @@ import {
 } from '../../../services/jitService'
 import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
+import PreviewPage from '../../PreviewPage/PreviewPage'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import CustomLoading from '../../../components/Loading/Loading'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
 import { ResultFailed } from '../../../components/ResultPages'
 
-import {
-  Root,
-  Topbar,
-  TitleBar,
-  MobielViewer,
-  BookViewer,
-  ViewerContainer,
-  HTMLViewer,
-} from './styles'
+import { Topbar } from './styles'
 
 const ProtocolsProof = (props) => {
   const { breadCrumb, isGlobal, orgId } = props
@@ -166,20 +159,7 @@ const ProtocolsProof = (props) => {
           </Button>
         )}
       </Topbar>
-      <Root>
-        <MobielViewer>
-          <ViewerContainer>
-            <TitleBar>{title}</TitleBar>
-            <HTMLViewer className="wyswyg-editor" dangerouslySetInnerHTML={{ __html: content }} />
-          </ViewerContainer>
-        </MobielViewer>
-        <BookViewer>
-          <ViewerContainer>
-            <TitleBar>{title}</TitleBar>
-            <HTMLViewer className="wyswyg-editor" dangerouslySetInnerHTML={{ __html: content }} />
-          </ViewerContainer>
-        </BookViewer>
-      </Root>
+      <PreviewPage title={title} content={content} />
       <FormActionButtons>
         {isPublish && (
           <ConfirmActionButton
