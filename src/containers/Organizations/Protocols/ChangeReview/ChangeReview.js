@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, notification } from 'antd'
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
+import _ from 'lodash'
 import { RollbackOutlined } from '@ant-design/icons'
 
 import { deleteProtocol, updateProtocol, useProtocol } from '../../../../services/protocolService'
+import { useCategories } from '../../../../services/categoryService'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import CustomLoading from '../../../../components/Loading/Loading'
 import { ResultFailed } from '../../../../components/ResultPages'
@@ -49,13 +51,14 @@ const ChangeReview = (props) => {
     }
   })
 
-  const { data: parentProtocol, error } = useProtocol(data?.parent_id || null)
+  const { data: parentProtocol, error: protocolError } = useProtocol(data?.parent_id || null)
+  const { data: categories, error: categoryError } = useCategories(orgId)
 
-  if (error) {
+  if (protocolError || categoryError) {
     return <ResultFailed isBackButton={false} />
   }
 
-  if (parentProtocol?.isLoading) {
+  if (parentProtocol?.isLoading || categories.isLoading) {
     return <CustomLoading />
   }
 
@@ -121,8 +124,9 @@ const ChangeReview = (props) => {
   )
 
   const parentProtocolData = parentProtocol?.data || null
-  const oldContent = `<div>${data.protocol_number}</div>`
-  const newContent = `<div>${parentProtocolData.protocol_number}</div>`
+
+  const parentCategory = _.find(categories.data, { category_id: parentProtocolData?.category_id })
+  const childCategory = _.find(categories.data, { category_id: data.category_id })
 
   return (
     <React.Fragment>
@@ -160,14 +164,34 @@ const ChangeReview = (props) => {
           rightTitle={renderTitleBar('Current draft', 'Title')}
         />
         <ReactDiffViewer
-          oldValue={formatHTMLForDiff(oldContent)}
-          newValue={formatHTMLForDiff(newContent)}
+          oldValue={formatHTMLForDiff(parentProtocolData?.protocol_number || '')}
+          newValue={formatHTMLForDiff(data.protocol_number)}
+          splitView={!!parentProtocolData}
+          compareMethod={DiffMethod.CHARS}
+          showDiffOnly={false}
+          styles={DIFF_VIEW_STYLES}
+          leftTitle={renderTitleBar('', 'Number')}
+          rightTitle={renderTitleBar('', 'Number')}
+        />
+        <ReactDiffViewer
+          oldValue={formatHTMLForDiff(parentCategory?.category_name || '')}
+          newValue={formatHTMLForDiff(childCategory.category_name)}
+          splitView={!!parentProtocolData}
+          compareMethod={DiffMethod.CHARS}
+          showDiffOnly={false}
+          styles={DIFF_VIEW_STYLES}
+          leftTitle={renderTitleBar('', 'Category')}
+          rightTitle={renderTitleBar('', 'Category')}
+        />
+        <ReactDiffViewer
+          oldValue={formatHTMLForDiff(parentProtocolData?.tags.toString() || '')}
+          newValue={formatHTMLForDiff(data.tags.toString())}
           splitView={!!parentProtocolData}
           compareMethod={DiffMethod.WORDS}
           showDiffOnly={false}
           styles={DIFF_VIEW_STYLES}
-          leftTitle={renderTitleBar('', 'Body')}
-          rightTitle={renderTitleBar('', 'Body')}
+          leftTitle={renderTitleBar('', 'Tags')}
+          rightTitle={renderTitleBar('', 'Tags')}
         />
         <FormActionButtons>
           <ConfirmActionButton
