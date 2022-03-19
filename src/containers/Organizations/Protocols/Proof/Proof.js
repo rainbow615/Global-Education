@@ -9,10 +9,11 @@ import {
   createProtocol,
 } from '../../../../services/protocolService'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
+import PreviewPage from '../../../../components/PreviewPage/PreviewPage'
 import { FormActionButtons } from '../../../../components/CommonComponent'
 import ConfirmActionButton from '../../../../components/ConfirmActionButton'
 import { PROTOCOL_ACTIONS, PROTOCOLS_CONFIRM_MSG } from '../../../../config/constants'
-import { Root, Topbar } from './styles'
+import { Topbar } from './styles'
 
 const Proof = (props) => {
   const { orgId } = props
@@ -118,7 +119,9 @@ const Proof = (props) => {
 
       setIsUpdating(false)
 
-      navigate(`/organizations/protocols/form/edit`, { state: { protocol_id: newId, orgId, ...payload } })
+      navigate(`/organizations/protocols/form/edit`, {
+        state: { protocol_id: newId, orgId, ...payload },
+      })
     })
   }
 
@@ -144,6 +147,7 @@ const Proof = (props) => {
   }
 
   const isPublish = protocolStatus === PROTOCOL_ACTIONS.PUBLISHED
+  const content = `<div>${data.protocol_number}</div>`
 
   return (
     <React.Fragment>
@@ -161,63 +165,59 @@ const Proof = (props) => {
           </Button>
         )}
       </Topbar>
-      <Root>
-        <div>
-          <h1>--------Proof------------</h1>
-        </div>
-        <FormActionButtons>
+      <PreviewPage title={title} content={content} />
+      <FormActionButtons>
+        {isPublish && (
+          <ConfirmActionButton
+            type="link"
+            size="large"
+            danger
+            onClick={onSubmit(false)}
+            loading={isPublish && isLoading.isNext}
+            actionType={PROTOCOL_ACTIONS.UNPUBLISHED}
+            message={PROTOCOLS_CONFIRM_MSG.UNPUBLISHED}
+          >
+            Unpublish
+          </ConfirmActionButton>
+        )}
+        {!isPublish && (
+          <ConfirmActionButton
+            type="link"
+            size="large"
+            danger
+            loading={isDeleting}
+            onClick={onDelete}
+            actionType={PROTOCOL_ACTIONS.DELETE}
+            message={PROTOCOLS_CONFIRM_MSG.DELETE}
+          >
+            Delete
+          </ConfirmActionButton>
+        )}
+        <Space>
           {isPublish && (
-            <ConfirmActionButton
-              type="link"
-              size="large"
-              danger
-              onClick={onSubmit(false)}
-              loading={isPublish && isLoading.isNext}
-              actionType={PROTOCOL_ACTIONS.UNPUBLISHED}
-              message={PROTOCOLS_CONFIRM_MSG.UNPUBLISHED}
-            >
-              Unpublish
-            </ConfirmActionButton>
-          )}
-          {!isPublish && (
-            <ConfirmActionButton
-              type="link"
-              size="large"
-              danger
-              loading={isDeleting}
-              onClick={onDelete}
-              actionType={PROTOCOL_ACTIONS.DELETE}
-              message={PROTOCOLS_CONFIRM_MSG.DELETE}
-            >
-              Delete
-            </ConfirmActionButton>
-          )}
-          <Space>
-            {isPublish && (
-              <Button size="large" onClick={onUpdate} loading={isUpdating}>
-                Update
-              </Button>
-            )}
-            <Button size="large">
-              <RouterLink to={`/organizations/protocols/list`} state={{ orgId }}>
-                Close
-              </RouterLink>
+            <Button size="large" onClick={onUpdate} loading={isUpdating}>
+              Update
             </Button>
-            <ConfirmActionButton
-              size="large"
-              className={isPublish ? 'published' : ''}
-              icon={isPublish ? <CheckOutlined /> : null}
-              onClick={onSubmit(false)}
-              loading={!isPublish && isLoading.isNext}
-              disabled={isPublish}
-              actionType={PROTOCOL_ACTIONS.PUBLISHED}
-              message={PROTOCOLS_CONFIRM_MSG.PUBLISHED}
-            >
-              Publish
-            </ConfirmActionButton>
-          </Space>
-        </FormActionButtons>
-      </Root>
+          )}
+          <Button size="large">
+            <RouterLink to={`/organizations/protocols/list`} state={{ orgId }}>
+              Close
+            </RouterLink>
+          </Button>
+          <ConfirmActionButton
+            size="large"
+            className={isPublish ? 'published' : ''}
+            icon={isPublish ? <CheckOutlined /> : null}
+            onClick={onSubmit(false)}
+            loading={!isPublish && isLoading.isNext}
+            disabled={isPublish}
+            actionType={PROTOCOL_ACTIONS.PUBLISHED}
+            message={PROTOCOLS_CONFIRM_MSG.PUBLISHED}
+          >
+            Publish
+          </ConfirmActionButton>
+        </Space>
+      </FormActionButtons>
     </React.Fragment>
   )
 }
