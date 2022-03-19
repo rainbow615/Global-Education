@@ -9,11 +9,11 @@ import {
   deleteProtocol,
 } from '../../../../services/protocolService'
 import {
-  PROTOCOLS_TAGS,
   PROTOCOLS_CONFIRM_MSG,
   PROTOCOL_ACTIONS,
   AUTO_SAVE_DELAY,
 } from '../../../../config/constants'
+import Tags from '../../../../config/tags.json'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../../components/CommonComponent'
 import ConfirmActionButton from '../../../../components/ConfirmActionButton'
@@ -213,7 +213,7 @@ const OrgProtocolsForm = (props) => {
                 onChange={() => debouncedChangeHandler()}
                 optionLabelProp="label"
               >
-                {PROTOCOLS_TAGS.map((tag, index) => (
+                {Tags.map((tag, index) => (
                   <Option key={index} value={tag.id} label={tag.name}>
                     {tag.name}
                   </Option>

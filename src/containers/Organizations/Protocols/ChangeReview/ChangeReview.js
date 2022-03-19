@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Space, notification } from 'antd'
+import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
 import { RollbackOutlined } from '@ant-design/icons'
 
-import { deleteProtocol, updateProtocol } from '../../../../services/protocolService'
+import { deleteProtocol, updateProtocol, useProtocol } from '../../../../services/protocolService'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
+import CustomLoading from '../../../../components/Loading/Loading'
+import { ResultFailed } from '../../../../components/ResultPages'
 import { FormActionButtons } from '../../../../components/CommonComponent'
 import ConfirmActionButton from '../../../../components/ConfirmActionButton'
-import { PROTOCOL_ACTIONS, PROTOCOLS_CONFIRM_MSG } from '../../../../config/constants'
-import { Root, Topbar } from './styles'
+import {
+  DIFF_VIEW_STYLES,
+  PROTOCOL_ACTIONS,
+  PROTOCOLS_CONFIRM_MSG,
+} from '../../../../config/constants'
+import { formatLocalizedDate, formatHTMLForDiff } from '../../../../utils'
+import { Root, Topbar, TitleView } from './styles'
 
 const ChangeReview = (props) => {
   const { orgId } = props
@@ -40,6 +48,18 @@ const ChangeReview = (props) => {
       navigate(`/organizations/protocols/list`, { state: { orgId } })
     }
   })
+
+  const { data: parentProtocol, error } = useProtocol(data?.parent_id || null)
+
+  console.log('========', data?.parent_id, parentProtocol)
+
+  if (error) {
+    return <ResultFailed isBackButton={false} />
+  }
+
+  if (parentProtocol?.isLoading) {
+    return <CustomLoading />
+  }
 
   const onSubmit = (isNext) => () => {
     setIsLoading({ isNext, isBack: !isNext })
@@ -95,6 +115,17 @@ const ChangeReview = (props) => {
       })
   }
 
+  const renderTitleBar = (title, subTitle) => (
+    <TitleView>
+      {title}
+      <div className="sub-title">{subTitle}:</div>
+    </TitleView>
+  )
+
+  const parentProtocolData = parentProtocol?.data || null
+  const oldContent = `<div>${data.protocol_number}</div>`
+  const newContent = `<div>${parentProtocolData.protocol_number}</div>`
+
   return (
     <React.Fragment>
       <Topbar>
@@ -110,9 +141,36 @@ const ChangeReview = (props) => {
         </Button>
       </Topbar>
       <Root>
-        <div>
-          <h1>---------Change Review---------</h1>
-        </div>
+        <ReactDiffViewer
+          oldValue={formatHTMLForDiff(parentProtocolData?.protocol_name || '')}
+          newValue={formatHTMLForDiff(title)}
+          splitView={!!parentProtocolData}
+          compareMethod={DiffMethod.WORDS}
+          showDiffOnly={false}
+          styles={DIFF_VIEW_STYLES}
+          leftTitle={
+            parentProtocolData?.modified_date
+              ? renderTitleBar(
+                  `Last published ${formatLocalizedDate(
+                    parentProtocolData.modified_date,
+                    'MM/DD/YYYY'
+                  )}`,
+                  'Title'
+                )
+              : renderTitleBar('Current draft', 'Title')
+          }
+          rightTitle={renderTitleBar('Current draft', 'Title')}
+        />
+        <ReactDiffViewer
+          oldValue={formatHTMLForDiff(oldContent)}
+          newValue={formatHTMLForDiff(newContent)}
+          splitView={!!parentProtocolData}
+          compareMethod={DiffMethod.WORDS}
+          showDiffOnly={false}
+          styles={DIFF_VIEW_STYLES}
+          leftTitle={renderTitleBar('', 'Body')}
+          rightTitle={renderTitleBar('', 'Body')}
+        />
         <FormActionButtons>
           <ConfirmActionButton
             type="link"
