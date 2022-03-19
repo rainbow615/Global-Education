@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import api, { useAPI } from './api'
 
 export function useProtocols(orgId) {
@@ -14,6 +16,10 @@ export function createProtocol(payload) {
 
 export function updateProtocol(id, payload) {
   return api.put(`/protocols/${id}`, payload)
+}
+
+export function updateAllProtocols(requests) {
+  return axios.all(requests)
 }
 
 export function deleteProtocol(id) {

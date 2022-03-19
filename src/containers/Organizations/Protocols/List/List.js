@@ -32,7 +32,7 @@ const OrgProtocolsList = (props) => {
   const { orgId } = props
   const [searchText, setSearchText] = useState('')
 
-  const { data: protocols, error } = useProtocols(orgId)
+  const { data: protocols, error, mutate } = useProtocols(orgId)
 
   if (error) {
     return <ResultFailed isBackButton={false} />
@@ -86,7 +86,7 @@ const OrgProtocolsList = (props) => {
       <CustomBreadcrumb items={breadCrumb} />
       <Container>
         <CustomTableHeader>
-          <ActionButtons orgId={orgId} />
+          <ActionButtons orgId={orgId} data={protocols?.data} mutate={mutate} />
           <CustomSearchText
             placeholder="Search"
             enterButton
