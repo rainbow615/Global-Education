@@ -1,6 +1,6 @@
 import { Root, TitleBar, MobielViewer, BookViewer, ViewerContainer, HTMLViewer } from './styles'
 
-const PreviewPage = (props) => {
+const PreviewMobileAndBook = (props) => {
   const { title, content } = props
 
   return (
@@ -21,4 +21,4 @@ const PreviewPage = (props) => {
   )
 }
 
-export default PreviewPage
+export default PreviewMobileAndBook

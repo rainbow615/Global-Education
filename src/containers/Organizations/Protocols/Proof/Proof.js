@@ -9,7 +9,7 @@ import {
   createProtocol,
 } from '../../../../services/protocolService'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
-import PreviewPage from '../../../../components/PreviewPage/PreviewPage'
+import PreviewMobileAndBook from '../../../../components/PreviewMobileAndBook/PreviewMobileAndBook'
 import { FormActionButtons } from '../../../../components/CommonComponent'
 import ConfirmActionButton from '../../../../components/ConfirmActionButton'
 import { PROTOCOL_ACTIONS, PROTOCOLS_CONFIRM_MSG } from '../../../../config/constants'
@@ -165,7 +165,7 @@ const Proof = (props) => {
           </Button>
         )}
       </Topbar>
-      <PreviewPage title={title} content={content} />
+      <PreviewMobileAndBook title={title} content={content} />
       <FormActionButtons>
         {isPublish && (
           <ConfirmActionButton

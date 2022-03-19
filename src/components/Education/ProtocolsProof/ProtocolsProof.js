@@ -11,7 +11,7 @@ import {
 } from '../../../services/jitService'
 import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
-import PreviewPage from '../../PreviewPage/PreviewPage'
+import PreviewMobileAndBook from '../../PreviewMobileAndBook/PreviewMobileAndBook'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import CustomLoading from '../../../components/Loading/Loading'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
@@ -159,7 +159,7 @@ const ProtocolsProof = (props) => {
           </Button>
         )}
       </Topbar>
-      <PreviewPage title={title} content={content} />
+      <PreviewMobileAndBook title={title} content={content} />
       <FormActionButtons>
         {isPublish && (
           <ConfirmActionButton
