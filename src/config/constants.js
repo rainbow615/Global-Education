@@ -75,73 +75,21 @@ export const PROTOCOL_ACTIONS = {
   DELETE: 'DELETE',
 }
 
-export const PROTOCOLS_TAGS = [
-  {
-    id: 'Adult',
-    name: 'Adult',
-  },
-  {
-    id: 'Cardiac',
-    name: 'Cardiac',
-  },
-  {
-    id: 'Dysrhythmias',
-    name: 'Dysrhythmias',
-  },
-  {
-    id: 'Environmental',
-    name: 'Environmental',
-  },
-  {
-    id: 'General Care',
-    name: 'General Care',
-  },
-  {
-    id: 'Medical',
-    name: 'Medical',
-  },
-  {
-    id: 'Neurological',
-    name: 'Neurological',
-  },
-  {
-    id: 'OB / GYN',
-    name: 'OB / GYN',
-  },
-  {
-    id: 'Operations',
-    name: 'Operations',
-  },
-  {
-    id: 'Pediatric',
-    name: 'Pediatric',
-  },
-  {
-    id: 'Procedures',
-    name: 'Procedures',
-  },
-  {
-    id: 'Respiratory',
-    name: 'Respiratory',
-  },
-  {
-    id: 'Resuscitation',
-    name: 'Resuscitation',
-  },
-  {
-    id: 'Toxins',
-    name: 'Toxins',
-  },
-  {
-    id: 'Trauma',
-    name: 'Trauma',
-  },
-]
-
 export const PROTOCOLS_CONFIRM_MSG = {
   DELETE_DRAFT:
     "You are deleting this draft. This draft will not be recoverable. Type 'DELETE' to confirm.",
   DELETE: "You are deleting this protocol. Type 'DELETE' to confirm.",
   PUBLISHED: "You are publishing this protocol. Type 'PUBLISH' to confirm.",
   UNPUBLISHED: "You are unpublishing this protocol. Type 'UNPUBLISH' to confirm.",
+}
+
+export const DIFF_VIEW_STYLES = {
+  variables: {
+    light: {
+      codeFoldGutterBackground: '#6F767E',
+      codeFoldBackground: '#E2E4E5',
+      diffViewerTitleBackground: '#f0f2f5',
+      diffViewerTitleColor: '#1f2532',
+    },
+  },
 }

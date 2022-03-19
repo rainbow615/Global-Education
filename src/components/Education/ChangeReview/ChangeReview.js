@@ -5,7 +5,7 @@ import { RollbackOutlined } from '@ant-design/icons'
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
 
 import { updateEducation, deleteEducation, useEducation } from '../../../services/jitService'
-import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
+import { DIFF_VIEW_STYLES, JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
 import CustomBreadcrumb from '../../CustomBreadcrumb/CustomBreadcrumb'
 import CustomLoading from '../../Loading/Loading'
 import { FormActionButtons } from '../../CommonComponent'
@@ -14,17 +14,6 @@ import ConfirmActionButton from '../../ConfirmActionButton'
 import { formatLocalizedDate, formatHTMLForDiff } from '../../../utils'
 
 import { Root, Topbar, TitleView } from './styles'
-
-const compareStyles = {
-  variables: {
-    light: {
-      codeFoldGutterBackground: '#6F767E',
-      codeFoldBackground: '#E2E4E5',
-      diffViewerTitleBackground: '#f0f2f5',
-      diffViewerTitleColor: '#1f2532',
-    },
-  },
-}
 
 const ChangeReview = (props) => {
   const { breadCrumb, isGlobal, orgId } = props
@@ -136,10 +125,10 @@ const ChangeReview = (props) => {
         <ReactDiffViewer
           oldValue={formatHTMLForDiff(parentJitData?.jit_name || '')}
           newValue={formatHTMLForDiff(title)}
-          splitView={!!parentJitData?.modified_date}
+          splitView={!!parentJitData}
           compareMethod={DiffMethod.WORDS}
           showDiffOnly={false}
-          styles={compareStyles}
+          styles={DIFF_VIEW_STYLES}
           leftTitle={
             parentJitData?.modified_date
               ? renderTitleBar(
@@ -156,10 +145,10 @@ const ChangeReview = (props) => {
         <ReactDiffViewer
           oldValue={formatHTMLForDiff(parentJitData?.jit_content || '')}
           newValue={formatHTMLForDiff(content)}
-          splitView={!!parentJitData?.modified_date}
+          splitView={!!parentJitData}
           compareMethod={DiffMethod.WORDS}
           showDiffOnly={false}
-          styles={compareStyles}
+          styles={DIFF_VIEW_STYLES}
           leftTitle={renderTitleBar('', 'Body')}
           rightTitle={renderTitleBar('', 'Body')}
         />

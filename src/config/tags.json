@@ -1,0 +1,62 @@
+[
+  {
+    "id": "Adult",
+    "name": "Adult"
+  },
+  {
+    "id": "Cardiac",
+    "name": "Cardiac"
+  },
+  {
+    "id": "Dysrhythmias",
+    "name": "Dysrhythmias"
+  },
+  {
+    "id": "Environmental",
+    "name": "Environmental"
+  },
+  {
+    "id": "General Care",
+    "name": "General Care"
+  },
+  {
+    "id": "Medical",
+    "name": "Medical"
+  },
+  {
+    "id": "Neurological",
+    "name": "Neurological"
+  },
+  {
+    "id": "OB / GYN",
+    "name": "OB / GYN"
+  },
+  {
+    "id": "Operations",
+    "name": "Operations"
+  },
+  {
+    "id": "Pediatric",
+    "name": "Pediatric"
+  },
+  {
+    "id": "Procedures",
+    "name": "Procedures"
+  },
+  {
+    "id": "Respiratory",
+    "name": "Respiratory"
+  },
+  {
+    "id": "Resuscitation",
+    "name": "Resuscitation"
+  },
+  {
+    "id": "Toxins",
+    "name": "Toxins"
+  },
+  {
+    "id": "Trauma",
+    "name": "Trauma"
+  }
+]
