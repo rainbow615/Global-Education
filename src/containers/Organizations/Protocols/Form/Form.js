@@ -80,7 +80,7 @@ const OrgProtocolsForm = (props) => {
       protocol_name: values.protocol_name,
       protocol_number: values.protocol_number,
       category_id: values.category_id,
-      tags: values.tags,
+      tags: values.tags.sort(),
       status: PROTOCOL_ACTIONS.INREVIEW,
     }
 
@@ -110,6 +110,10 @@ const OrgProtocolsForm = (props) => {
   const onChangeValues = () => {
     const { category_id, protocol_name, protocol_number, tags } = form.getFieldsValue(true)
 
+    if (tags && tags.length > 0) {
+      setInitial({ ...form.getFieldsValue(true), tags: tags.sort() })
+    }
+
     if (category_id && protocol_name && protocol_number && tags && tags.length > 0) {
       const payload = {
         organization_id: orgId,
@@ -117,7 +121,7 @@ const OrgProtocolsForm = (props) => {
         protocol_name,
         protocol_number,
         category_id,
-        tags,
+        tags: tags.sort(),
         status: PROTOCOL_ACTIONS.DRAFT,
       }
 
@@ -212,6 +216,9 @@ const OrgProtocolsForm = (props) => {
                 showArrow
                 onChange={() => debouncedChangeHandler()}
                 optionLabelProp="label"
+                filterSort={(optionA, optionB) =>
+                  optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                }
               >
                 {Tags.map((tag, index) => (
                   <Option key={index} value={tag.id} label={tag.name}>
