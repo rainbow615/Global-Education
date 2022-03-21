@@ -7,11 +7,14 @@ import {
   deleteProtocol,
   updateProtocol,
   createProtocol,
+  useProtocol,
 } from '../../../../services/protocolService'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import PreviewMobileAndBook from '../../../../components/PreviewMobileAndBook/PreviewMobileAndBook'
 import { FormActionButtons } from '../../../../components/CommonComponent'
 import ConfirmActionButton from '../../../../components/ConfirmActionButton'
+import CustomLoading from '../../../../components/Loading/Loading'
+import { ResultFailed } from '../../../../components/ResultPages'
 import { PROTOCOL_ACTIONS, PROTOCOLS_CONFIRM_MSG } from '../../../../config/constants'
 import { Topbar } from './styles'
 
@@ -48,6 +51,16 @@ const Proof = (props) => {
       navigate(`/organizations/protocols/list`, { state: { orgId } })
     }
   })
+
+  const { data: parentProtocol, error } = useProtocol(data?.parent_id || null)
+
+  if (error) {
+    return <ResultFailed isBackButton={false} />
+  }
+
+  if (parentProtocol?.isLoading) {
+    return <CustomLoading />
+  }
 
   const onSubmit = (isBack) => () => {
     setIsLoading({ isNext: !isBack, isBack })
@@ -147,6 +160,12 @@ const Proof = (props) => {
   }
 
   const isPublish = protocolStatus === PROTOCOL_ACTIONS.PUBLISHED
+  const parentData = parentProtocol?.data || null
+  const publicConfirmMsg = `${
+    data.parent_id
+      ? `This protocol is a copy of "${parentData.protocol_number}: ${parentData.protocol_name}" and will replace that protocol when published. \n\n`
+      : ''
+  }${PROTOCOLS_CONFIRM_MSG.PUBLISHED}`
   const content = `<div>${data.protocol_number}</div>`
 
   return (
@@ -212,7 +231,7 @@ const Proof = (props) => {
             loading={!isPublish && isLoading.isNext}
             disabled={isPublish}
             actionType={PROTOCOL_ACTIONS.PUBLISHED}
-            message={PROTOCOLS_CONFIRM_MSG.PUBLISHED}
+            message={publicConfirmMsg}
           >
             Publish
           </ConfirmActionButton>

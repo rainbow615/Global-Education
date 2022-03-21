@@ -10,12 +10,12 @@ import {
   useEducation,
 } from '../../../services/jitService'
 import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
-import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
+import CustomBreadcrumb from '../../CustomBreadcrumb/CustomBreadcrumb'
 import PreviewMobileAndBook from '../../PreviewMobileAndBook/PreviewMobileAndBook'
-import { FormActionButtons } from '../../../components/CommonComponent'
-import CustomLoading from '../../../components/Loading/Loading'
-import ConfirmActionButton from '../../../components/ConfirmActionButton'
-import { ResultFailed } from '../../../components/ResultPages'
+import { FormActionButtons } from '../../CommonComponent'
+import CustomLoading from '../../Loading/Loading'
+import ConfirmActionButton from '../../ConfirmActionButton'
+import { ResultFailed } from '../../ResultPages'
 
 import { Topbar } from './styles'
 

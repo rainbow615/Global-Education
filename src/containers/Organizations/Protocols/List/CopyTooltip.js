@@ -25,7 +25,7 @@ const CopyTooltip = ({ value, record }) => {
 
   if (!parentProtocol?.isLoading && parentProtocol?.data) {
     const parentData = parentProtocol.data
-    tipMessage = `This protocol is a copy of "${parentData.protocol_number}: ${parentData.protocol_name}" and will replace that document when published.`
+    tipMessage = `This protocol is a copy of "${parentData.protocol_number}: ${parentData.protocol_name}" and will replace that protocol when published.`
   }
 
   const onVisible = useCallback((isShow) => {
