@@ -6,6 +6,7 @@ import {
   getProtocolStatusColor,
   getProtocolButtonName,
 } from '../../../../utils'
+import CopyTooltip from './CopyTooltip'
 import { DateText } from '../../../../components/CommonComponent'
 import { ActionButton } from './styles'
 
@@ -31,6 +32,7 @@ const PROTOCOLS_COLUMNS = [
     title: 'Name',
     dataIndex: 'protocol_name',
     key: 'protocol_name',
+    render: (value, record) => <CopyTooltip value={value} record={record} />,
   },
   {
     title: 'Tags',

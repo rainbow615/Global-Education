@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Button, Typography } from 'antd'
+import { Typography } from 'antd'
 
 import { DateText } from '../../CommonComponent'
 import CopyTooltip from './CopyTooltip'

@@ -10,7 +10,12 @@ const CustomTooltip = (props) => {
     <Tooltip
       title={title}
       color="white"
-      overlayInnerStyle={{ color: ColorTheme.palette.textColor, minWidth: 234, minHeight: 66 }}
+      overlayInnerStyle={{
+        color: ColorTheme.palette.textColor,
+        minWidth: 234,
+        minHeight: 66,
+        padding: 15,
+      }}
       onVisibleChange={onVisibleChange}
     >
       <CopyLabel color="red">{label}</CopyLabel>
