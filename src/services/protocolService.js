@@ -7,7 +7,7 @@ export function useProtocols(orgId) {
 }
 
 export function useProtocol(id) {
-  return useAPI(id ? `protocol/${id}` : null)
+  return useAPI(id ? `/protocol/${id}` : null)
 }
 
 export function createProtocol(payload) {
