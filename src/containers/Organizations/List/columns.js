@@ -8,11 +8,11 @@ import { ActionsMenu } from './styles'
 
 const { Text } = Typography
 
-const menu = (orgId) => {
+const menu = (orgId, orgName) => {
   return (
     <ActionsMenu>
       <Menu.Item key="1">
-        <Link to="/organizations/protocols/list" state={{ orgId }}>
+        <Link to="/organizations/protocols/list" state={{ orgId, orgName }}>
           Protocols
         </Link>
       </Menu.Item>
@@ -68,7 +68,7 @@ const ORG_COLUMNS = [
     width: 150,
     render: (_, record) => (
       <Dropdown.Button
-        overlay={menu(record.id)}
+        overlay={menu(record.id, record.name)}
         placement="bottomRight"
         icon={<DownOutlined />}
         type="primary"

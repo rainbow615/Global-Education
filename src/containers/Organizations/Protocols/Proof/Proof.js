@@ -19,7 +19,7 @@ import { PROTOCOL_ACTIONS, PROTOCOLS_CONFIRM_MSG } from '../../../../config/cons
 import { Topbar } from './styles'
 
 const Proof = (props) => {
-  const { orgId } = props
+  const { orgId, orgName } = props
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
@@ -31,12 +31,12 @@ const Proof = (props) => {
       link: '/organizations/list',
     },
     {
-      title: 'Protocols',
+      title: `${orgName} Protocols`,
       link: '/organizations/protocols/list',
-      state: { orgId },
+      state: { orgId, orgName },
     },
     {
-      title: `Proof: ${title}`,
+      title: `${title} Proof`,
     },
   ]
 
@@ -48,7 +48,7 @@ const Proof = (props) => {
 
   useEffect(() => {
     if (!data) {
-      navigate(`/organizations/protocols/list`, { state: { orgId } })
+      navigate(`/organizations/protocols/list`, { state: { orgId, orgName } })
     }
   })
 
@@ -100,7 +100,7 @@ const Proof = (props) => {
 
         if (isBack) {
           navigate('/organizations/protocols/review', {
-            state: { orgId, ...resData },
+            state: { orgId, orgName, ...resData },
           })
         }
       })
@@ -133,7 +133,7 @@ const Proof = (props) => {
       setIsUpdating(false)
 
       navigate(`/organizations/protocols/form/edit`, {
-        state: { protocol_id: newId, orgId, ...payload },
+        state: { orgId, orgName, protocol_id: newId, ...payload },
       })
     })
   }
@@ -147,7 +147,7 @@ const Proof = (props) => {
         notification.success({
           message: `Protocol has been deleted successfully!`,
         })
-        navigate('/organizations/protocols/list', { state: { orgId } })
+        navigate('/organizations/protocols/list', { state: { orgId, orgName } })
       })
       .catch((error) => {
         setIsDeleting(false)
@@ -219,7 +219,7 @@ const Proof = (props) => {
             </Button>
           )}
           <Button size="large">
-            <RouterLink to={`/organizations/protocols/list`} state={{ orgId }}>
+            <RouterLink to={`/organizations/protocols/list`} state={{ orgId, orgName }}>
               Close
             </RouterLink>
           </Button>

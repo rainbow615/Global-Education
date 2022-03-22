@@ -21,7 +21,7 @@ import { formatLocalizedDate, formatHTMLForDiff } from '../../../../utils'
 import { Root, Topbar, TitleView } from './styles'
 
 const ChangeReview = (props) => {
-  const { orgId } = props
+  const { orgId, orgName } = props
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
@@ -33,12 +33,12 @@ const ChangeReview = (props) => {
       link: '/organizations/list',
     },
     {
-      title: 'Protocols',
+      title: `${orgName} Protocols`,
       link: '/organizations/protocols/list',
-      state: { orgId },
+      state: { orgId, orgName },
     },
     {
-      title: `In-Review: ${title}`,
+      title: `${title} Review`,
     },
   ]
 
@@ -47,7 +47,7 @@ const ChangeReview = (props) => {
 
   useEffect(() => {
     if (!data) {
-      navigate(`/organizations/protocols/list`, { state: { orgId } })
+      navigate(`/organizations/protocols/list`, { state: { orgId, orgName } })
     }
   })
 
@@ -82,7 +82,7 @@ const ChangeReview = (props) => {
 
         const resData = res?.data || {}
         navigate(isNext ? '/organizations/protocols/proof' : '/organizations/protocols/form/edit', {
-          state: { orgId, ...resData },
+          state: { orgId, orgName, ...resData },
         })
       })
       .catch((error) => {
@@ -104,7 +104,7 @@ const ChangeReview = (props) => {
         notification.success({
           message: `Protocol has been deleted successfully!`,
         })
-        navigate('/organizations/protocols/list', { state: { orgId } })
+        navigate('/organizations/protocols/list', { state: { orgId, orgName } })
       })
       .catch((error) => {
         setIsDeleting(false)
@@ -207,7 +207,7 @@ const ChangeReview = (props) => {
           </ConfirmActionButton>
           <Space>
             <Button size="large">
-              <RouterLink to={`/organizations/protocols/list`} state={{ orgId }}>
+              <RouterLink to={`/organizations/protocols/list`} state={{ orgId, orgName }}>
                 Close
               </RouterLink>
             </Button>

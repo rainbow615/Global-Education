@@ -23,27 +23,29 @@ import { Root, Topbar } from './styles'
 const { Option } = Select
 
 const OrgProtocolsForm = (props) => {
-  const { orgId } = props
+  const { orgId, orgName } = props
+  const navigate = useNavigate()
+  const { type } = useParams()
+  const location = useLocation()
+  const data = location?.state
+  const title = data?.protocol_name || ''
+
   const breadCrumb = [
     {
       title: 'Organizations',
       link: '/organizations/list',
     },
     {
-      title: 'Protocols',
+      title: `${orgName} Protocols`,
       link: '/organizations/protocols/list',
-      state: { orgId },
+      state: { orgId, orgName },
     },
     {
-      title: 'Builder',
+      title: type === 'edit' ? `${title} Draft` : 'Builder',
     },
   ]
 
   const [form] = Form.useForm()
-  const navigate = useNavigate()
-  const { type } = useParams()
-  const location = useLocation()
-  const data = location?.state
 
   const [initial, setInitial] = useState()
   const [id, setId] = useState(data?.protocol_id || '')
@@ -61,7 +63,7 @@ const OrgProtocolsForm = (props) => {
         notification.success({
           message: `Protocol draft has been deleted successfully!`,
         })
-        navigate('/organizations/protocols/list', { state: { orgId } })
+        navigate('/organizations/protocols/list', { state: { orgId, orgName } })
       })
       .catch((error) => {
         setIsDeleting(false)
@@ -93,7 +95,7 @@ const OrgProtocolsForm = (props) => {
         notification.success({ message: 'Protocol has been updated successfully!' })
 
         const resData = res?.data || {}
-        navigate('/organizations/protocols/review', { state: { orgId, ...resData } })
+        navigate('/organizations/protocols/review', { state: { orgId, orgName, ...resData } })
       })
       .catch((error) => {
         setIsLoading(false)
@@ -253,7 +255,7 @@ const OrgProtocolsForm = (props) => {
                 Send to Review
               </Button>
               <Button size="large">
-                <Link to={`/organizations/protocols/list`} state={{ orgId }}>
+                <Link to={`/organizations/protocols/list`} state={{ orgId, orgName }}>
                   Close
                 </Link>
               </Button>

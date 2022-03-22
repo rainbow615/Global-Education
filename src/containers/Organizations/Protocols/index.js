@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import loadable from '@loadable/component'
 import { useLocation } from 'react-router-dom'
@@ -10,6 +11,7 @@ const OrgProtocolsProof = loadable(() => import('./Proof'))
 function OrgProtocols() {
   const { state } = useLocation()
   const orgId = state?.orgId || null
+  const orgName = state?.orgName || ''
 
   if (!orgId) {
     return <Navigate to="/organizations/list" />
@@ -18,10 +20,10 @@ function OrgProtocols() {
   return (
     <Routes>
       <Route path="" element={<Navigate to="list" />} />
-      <Route path="list" element={<OrgProtocolsList orgId={orgId} />} />
-      <Route path="form/:type" element={<OrgProtocolsForm orgId={orgId} />} />
-      <Route path="review" element={<OrgProtocolsChangeReview orgId={orgId} />} />
-      <Route path="proof" element={<OrgProtocolsProof orgId={orgId} />} />
+      <Route path="list" element={<OrgProtocolsList orgId={orgId} orgName={orgName} />} />
+      <Route path="form/:type" element={<OrgProtocolsForm orgId={orgId} orgName={orgName} />} />
+      <Route path="review" element={<OrgProtocolsChangeReview orgId={orgId} orgName={orgName} />} />
+      <Route path="proof" element={<OrgProtocolsProof orgId={orgId} orgName={orgName} />} />
     </Routes>
   )
 }

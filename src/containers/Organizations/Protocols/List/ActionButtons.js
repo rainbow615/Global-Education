@@ -7,7 +7,7 @@ import { PROTOCOL_ACTIONS } from '../../../../config/constants'
 import { updateProtocol, updateAllProtocols } from '../../../../services/protocolService'
 
 const ActionButtons = (props) => {
-  const { orgId, data, mutate } = props
+  const { orgId, orgName, data, mutate } = props
 
   const [isApproving, setIsApproving] = useState(false)
   const [isPublishing, setIsPublishin] = useState(false)
@@ -56,7 +56,7 @@ const ActionButtons = (props) => {
   return (
     <Space>
       <Button type="primary">
-        <Link to="/organizations/protocols/form/new" state={{ orgId }}>
+        <Link to="/organizations/protocols/form/new" state={{ orgId, orgName }}>
           Add new
         </Link>
       </Button>

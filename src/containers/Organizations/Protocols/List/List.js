@@ -15,21 +15,21 @@ import {
   CustomSearchText,
 } from '../../../../components/CommonComponent'
 
-const breadCrumb = [
-  {
-    title: 'Organizations',
-    link: '/organizations/list',
-  },
-  {
-    title: 'Protocols',
-  },
-  {
-    title: 'List',
-  },
-]
-
 const OrgProtocolsList = (props) => {
-  const { orgId } = props
+  const { orgId, orgName } = props
+  const breadCrumb = [
+    {
+      title: 'Organizations',
+      link: '/organizations/list',
+    },
+    {
+      title: `${orgName} Protocols`,
+    },
+    {
+      title: 'List',
+    },
+  ]
+
   const [searchText, setSearchText] = useState('')
 
   const { data: protocols, error, mutate } = useProtocols(orgId)
@@ -50,6 +50,7 @@ const OrgProtocolsList = (props) => {
           key: index + 1,
           ...record,
           orgId,
+          orgName,
           created_date: formatLocalizedDate(record.created_date),
           modified_date: formatLocalizedDate(record.modified_date),
           last_published_date: record.last_published_date
@@ -86,7 +87,7 @@ const OrgProtocolsList = (props) => {
       <CustomBreadcrumb items={breadCrumb} />
       <Container>
         <CustomTableHeader>
-          <ActionButtons orgId={orgId} data={protocols?.data} mutate={mutate} />
+          <ActionButtons orgId={orgId} orgName={orgName} data={protocols?.data} mutate={mutate} />
           <CustomSearchText
             placeholder="Search"
             enterButton
