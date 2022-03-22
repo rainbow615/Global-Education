@@ -40,6 +40,7 @@ const EducationList = (props) => {
           content: record.jit_content,
           created: formatLocalizedDate(record.created_date),
           updated: formatLocalizedDate(record.modified_date),
+          last_published_date: record.last_published_date,
           status: record.status,
           status_name: getJITStatusName(record.status),
         }

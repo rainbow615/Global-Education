@@ -32,6 +32,7 @@ const ProtocolsProof = (props) => {
   const [isUpdating, setIsUpdating] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [jitStatus, setJitStatus] = useState(data?.status)
+  const [lastPublishedDate, setLastPublishedDate] = useState(data?.last_published_date)
 
   useEffect(() => {
     if (!data) {
@@ -70,8 +71,13 @@ const ProtocolsProof = (props) => {
     updateEducation(updateId, payload)
       .then((res) => {
         setIsLoading({ isNext: false, isBack: false })
+
+        const resData = res?.data || {}
+
         if (!isBack) {
           setJitStatus(status)
+          setLastPublishedDate(resData?.last_published_date)
+
           notification.success({
             message: `A JIT Education has been ${
               status === JIT_ACTIONS.PUBLISHED ? 'published' : 'unpublished'
@@ -79,7 +85,6 @@ const ProtocolsProof = (props) => {
           })
         }
 
-        const resData = res?.data || {}
         if (isBack) {
           navigate(`/${prefixLink}education/review`, {
             state: { orgId, ...resData },
@@ -147,7 +152,7 @@ const ProtocolsProof = (props) => {
     <React.Fragment>
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
-        {!isPublish && (
+        {!lastPublishedDate && !isPublish && (
           <Button
             size="large"
             type="link"
