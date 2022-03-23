@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { debounce, map, get } from 'lodash'
-import { Button, Space } from 'antd'
+import { Button, Select, Space } from 'antd'
 
 import { useComponents } from '../../../../services/componentService'
 import { formatLocalizedDate, regExpEscape } from '../../../../utils'
-import { SEARCH_DELAY } from '../../../../config/constants'
+import { SEARCH_DELAY, COMPONENTS_TYPES } from '../../../../config/constants'
 import COMPONENTS_COLUMNS from './columns'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { ResultFailed } from '../../../../components/ResultPages'
@@ -15,6 +15,9 @@ import {
   CustomTableHeader,
   CustomSearchText,
 } from '../../../../components/CommonComponent'
+import { SearchTypeBox } from './styles'
+
+const { Option } = Select
 
 const OrgComponentsList = (props) => {
   const { orgId, orgName } = props
@@ -80,6 +83,13 @@ const OrgComponentsList = (props) => {
             </Link>
           </Button>
           <Space>
+            <SearchTypeBox placeholder="Choose..." allowClear>
+              {COMPONENTS_TYPES.map((type, index) => (
+                <Option key={index} value={type}>
+                  {type}
+                </Option>
+              ))}
+            </SearchTypeBox>
             <CustomSearchText
               placeholder="Search"
               enterButton

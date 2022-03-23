@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
+import { Button } from 'antd'
 
 import { DateText } from '../../../../components/CommonComponent'
-import { ActionButton } from './styles'
 
 const COMPONENTS_COLUMNS = [
   {
@@ -48,11 +48,11 @@ const COMPONENTS_COLUMNS = [
     align: 'right',
     width: 120,
     render: (_, record) => (
-      <ActionButton type="primary">
+      <Button type="primary">
         <Link to="/organizations/components/form/edit" state={record}>
           Edit
         </Link>
-      </ActionButton>
+      </Button>
     ),
   },
 ]
