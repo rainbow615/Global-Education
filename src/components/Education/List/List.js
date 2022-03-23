@@ -32,12 +32,12 @@ const EducationList = (props) => {
     ? map(jits.data, (record, index) => {
         const _record = {
           key: index + 1,
-          id: record.jit_id,
+          jit_id: record.jit_id,
           orgId: record.organization_id,
           document_number: record.document_number || '',
           parent_id: record.parent_id,
-          name: record.jit_name,
-          content: record.jit_content,
+          jit_name: record.jit_name,
+          jit_content: record.jit_content,
           created: formatLocalizedDate(record.created_date),
           updated: formatLocalizedDate(record.modified_date),
           last_published_date: record.last_published_date,
@@ -48,7 +48,7 @@ const EducationList = (props) => {
         if (searchText) {
           const reg = new RegExp(regExpEscape(searchText), 'gi')
           const docNumberMatch = get(_record, 'document_number').match(reg)
-          const nameMatch = get(_record, 'name').match(reg)
+          const nameMatch = get(_record, 'jit_name').match(reg)
           const statusMatch = get(_record, 'status_name').match(reg)
 
           if (!docNumberMatch && !nameMatch && !statusMatch) {

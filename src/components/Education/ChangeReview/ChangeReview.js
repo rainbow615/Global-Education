@@ -21,9 +21,9 @@ const ChangeReview = (props) => {
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
-  const id = data?.id
-  const title = data?.name || ''
-  const content = data?.content || ''
+  const jit_id = data?.jit_id
+  const title = data?.jit_name || ''
+  const content = data?.jit_content || ''
 
   const [isLoading, setIsLoading] = useState({ isNext: false, isBack: false })
   const [isDeleting, setIsDeleting] = useState(false)
@@ -50,12 +50,14 @@ const ChangeReview = (props) => {
     const payload = {
       organization_id: orgId || null,
       parent_id: data.parent_id,
-      name: data.name,
-      content: data.content,
+      jit_name: data.jit_name,
+      jit_content: data.jit_content,
       status: isNext ? JIT_ACTIONS.APPROVED : JIT_ACTIONS.DRAFT,
     }
 
-    updateEducation(id, payload)
+    console.log('======data', data)
+
+    updateEducation(jit_id, payload)
       .then(() => {
         setIsLoading({ isNext: false, isBack: false })
         if (isNext) {
@@ -65,7 +67,7 @@ const ChangeReview = (props) => {
         }
 
         navigate(isNext ? `/${prefixLink}education/proof` : `/${prefixLink}education/form/edit`, {
-          state: { id, orgId, ...payload },
+          state: { jit_id, orgId, ...payload },
         })
       })
       .catch((error) => {
@@ -81,7 +83,7 @@ const ChangeReview = (props) => {
   const onDelete = () => {
     setIsDeleting(true)
 
-    deleteEducation(id)
+    deleteEducation(jit_id)
       .then(() => {
         setIsDeleting(false)
         notification.success({ message: 'A JIT Education has been deleted successfully!' })
@@ -105,6 +107,8 @@ const ChangeReview = (props) => {
   )
 
   const parentJitData = parentJit?.data && parentJit.data.length > 0 ? parentJit.data[0] : null
+
+  console.log('======****=', title, content)
 
   return (
     <React.Fragment>

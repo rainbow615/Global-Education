@@ -28,8 +28,8 @@ const getColumns = (isGlobal) => {
     },
     {
       title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'jit_name',
+      key: 'jit_name',
       render: (value, record) => <CopyTooltip value={value} record={record} />,
     },
     {

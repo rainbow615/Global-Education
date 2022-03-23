@@ -20,8 +20,8 @@ const EducationForm = (props) => {
   const [form] = Form.useForm()
   const { type } = useParams()
 
-  const [jitId, setJitId] = useState(jitData?.id || '')
-  const [editorContent, setEditorContent] = useState(jitData?.content || '')
+  const [jitId, setJitId] = useState(jitData?.jit_id || '')
+  const [editorContent, setEditorContent] = useState(jitData?.jit_content || '')
   const [isLoading, setIsLoading] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [isDisableAutoLoad, setIsDisableAutoLoad] = useState(false)
@@ -34,7 +34,7 @@ const EducationForm = (props) => {
         .then(() => {
           setIsLoading(false)
           notification.success({ message: 'A JIT Education has been updated successfully!' })
-          navigate(`/${prefixLink}education/review`, { state: { id: jitId, orgId, ...payload } })
+          navigate(`/${prefixLink}education/review`, { state: { jit_id: jitId, orgId, ...payload } })
         })
         .catch((error) => {
           setIsLoading(false)
@@ -51,8 +51,8 @@ const EducationForm = (props) => {
   const onFinish = (values) => {
     const payload = {
       organization_id: orgId || null,
-      name: values.name,
-      content: editorContent,
+      jit_name: values.jit_name,
+      jit_content: editorContent,
       parent_id: jitData?.parent_id || null,
       status: JIT_ACTIONS.INREVIEW,
     }
@@ -89,8 +89,8 @@ const EducationForm = (props) => {
 
     const payload = {
       organization_id: orgId || null,
-      name: form.getFieldValue('name') || 'Untitled',
-      content: content,
+      jit_name: form.getFieldValue('jit_name') || 'Untitled',
+      jit_content: content,
       status: JIT_ACTIONS.DRAFT,
     }
 
@@ -148,7 +148,7 @@ const EducationForm = (props) => {
           onFinish={onFinish}
         >
           <Form.Item
-            name="name"
+            name="jit_name"
             hasFeedback
             rules={[{ required: true, message: 'Please input a name' }]}
             validateStatus={errorMsg ? 'error' : undefined}
@@ -158,7 +158,7 @@ const EducationForm = (props) => {
           </Form.Item>
           <Form.Item className="wyswyg-editor">
             <CustomCkEditor
-              data={jitData?.content}
+              data={jitData?.jit_content}
               onChange={(_event, editor) => {
                 debouncedChangeHandler(editor.getData(), 'content')
               }}

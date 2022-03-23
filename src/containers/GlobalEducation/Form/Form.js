@@ -13,7 +13,7 @@ const GlobalEducationForm = () => {
       link: '/global-education',
     },
     {
-      title: type === 'new' ? 'Add' : `Draft: ${jitData?.name}`,
+      title: type === 'new' ? 'Add' : `Draft: ${jitData?.jit_name}`,
     },
   ]
 

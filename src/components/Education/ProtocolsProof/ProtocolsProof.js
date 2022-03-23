@@ -25,8 +25,8 @@ const ProtocolsProof = (props) => {
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
-  const title = data?.name || ''
-  const content = data?.content || ''
+  const title = data?.jit_name || ''
+  const content = data?.jit_content || ''
 
   const [isLoading, setIsLoading] = useState({ isNext: false, isBack: false })
   const [isUpdating, setIsUpdating] = useState(false)
@@ -53,7 +53,7 @@ const ProtocolsProof = (props) => {
   const onSubmit = (isBack) => () => {
     setIsLoading({ isNext: !isBack, isBack })
 
-    let updateId = data.id
+    let updateId = data.jit_id
     let status = JIT_ACTIONS.UNPUBLISHED
 
     if (jitStatus !== JIT_ACTIONS.PUBLISHED) {
@@ -63,8 +63,8 @@ const ProtocolsProof = (props) => {
     const payload = {
       organization_id: orgId || null,
       parent_id: data.parent_id,
-      name: data.name,
-      content: data.content,
+      jit_name: data.jit_name,
+      jit_content: data.jit_content,
       status: isBack ? JIT_ACTIONS.INREVIEW : status,
     }
 
@@ -104,9 +104,9 @@ const ProtocolsProof = (props) => {
   const onUpdate = () => {
     const payload = {
       organization_id: orgId || null,
-      parent_id: data.id,
-      name: data.name,
-      content: data.content,
+      parent_id: data.jit_id,
+      jit_name: data.jit_name,
+      jit_content: data.jit_content,
       status: JIT_ACTIONS.DRAFT,
     }
 
@@ -117,14 +117,14 @@ const ProtocolsProof = (props) => {
 
       setIsUpdating(false)
 
-      navigate(`/${prefixLink}education/form/edit`, { state: { id: newId, orgId, ...payload } })
+      navigate(`/${prefixLink}education/form/edit`, { state: { jit_id: newId, orgId, ...payload } })
     })
   }
 
   const onDelete = () => {
     setIsDeleting(true)
 
-    deleteEducation(data.id)
+    deleteEducation(data.jit_id)
       .then(() => {
         setIsDeleting(false)
         notification.success({ message: 'A JIT Education has been deleted successfully!' })

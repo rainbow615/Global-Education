@@ -6,7 +6,7 @@ import ChangeReview from '../../../components/Education/ChangeReview'
 const GlobalEducationReview = () => {
   const location = useLocation()
   const data = location?.state
-  const title = data?.name || ''
+  const title = data?.jit_name || ''
   const breadCrumb = [
     {
       title: 'Global Education',

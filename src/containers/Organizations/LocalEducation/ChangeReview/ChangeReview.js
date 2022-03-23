@@ -7,7 +7,7 @@ const LocalEducationReview = (props) => {
   const { orgId } = props
   const location = useLocation()
   const data = location?.state
-  const title = data?.name || ''
+  const title = data?.jit_name || ''
   const breadCrumb = [
     {
       title: 'Organizations',
