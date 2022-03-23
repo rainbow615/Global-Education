@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Descriptions, Statistic, Modal, Card } from 'antd'
+import { Descriptions, Statistic, Card } from 'antd'
 
 export const LeftSection = styled.div`
   max-width: 370px;
