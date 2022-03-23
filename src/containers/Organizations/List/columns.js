@@ -16,7 +16,11 @@ const menu = (orgId, orgName) => {
           Protocols
         </Link>
       </Menu.Item>
-      <Menu.Item key="2">Components</Menu.Item>
+      <Menu.Item key="2">
+        <Link to="/organizations/components/list" state={{ orgId, orgName }}>
+          Components
+        </Link>
+      </Menu.Item>
       <Menu.Item key="3">
         <Link to="/organizations/local-education/list" state={{ orgId }}>
           Org Education

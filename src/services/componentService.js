@@ -1,17 +1,17 @@
 import api, { useAPI } from './api'
 
-export function useProtocols(orgId) {
+export function useComponents(orgId) {
   return useAPI(orgId ? `/components/${orgId}` : null)
 }
 
-export function createProtocol(payload) {
+export function createComponent(payload) {
   return api.post(`/components`, payload)
 }
 
-export function updateProtocol(id, payload) {
+export function updateComponent(id, payload) {
   return api.put(`/components/${id}`, payload)
 }
 
-export function deleteProtocol(id) {
+export function deleteComponent(id) {
   return api.delete(`/components/${id}`)
 }
