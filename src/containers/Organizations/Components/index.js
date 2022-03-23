@@ -4,6 +4,7 @@ import loadable from '@loadable/component'
 import { useLocation } from 'react-router-dom'
 
 const OrgComponentsList = loadable(() => import('./List'))
+const ComponentSectionForm = loadable(() => import('./Section'))
 
 function OrgComponents() {
   const { state } = useLocation()
@@ -18,6 +19,10 @@ function OrgComponents() {
     <Routes>
       <Route path="" element={<Navigate to="list" />} />
       <Route path="list" element={<OrgComponentsList orgId={orgId} orgName={orgName} />} />
+      <Route
+        path="form/sections/:type"
+        element={<ComponentSectionForm orgId={orgId} orgName={orgName} />}
+      />
     </Routes>
   )
 }

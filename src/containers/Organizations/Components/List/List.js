@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { debounce, map, get } from 'lodash'
-import { Button, Select, Space } from 'antd'
+import { Button, Select, Space, Dropdown, Menu } from 'antd'
 
 import { useComponents } from '../../../../services/componentService'
 import { formatLocalizedDate, regExpEscape } from '../../../../utils'
@@ -33,6 +33,20 @@ const OrgComponentsList = (props) => {
       title: 'Components',
     },
   ]
+  const menu = (
+    <Menu>
+      {COMPONENTS_TYPES.map((type, index) => (
+        <Menu.Item key={index}>
+          <Link
+            to={`/organizations/components/form/${type.toLowerCase()}/add`}
+            state={{ orgId, orgName }}
+          >
+            {type}
+          </Link>
+        </Menu.Item>
+      ))}
+    </Menu>
+  )
 
   const [searchText, setSearchText] = useState('')
 
@@ -77,13 +91,16 @@ const OrgComponentsList = (props) => {
       <CustomBreadcrumb items={breadCrumb} />
       <Container>
         <CustomTableHeader>
-          <Button type="primary">
-            <Link to="/organizations/components/form/new" state={{ orgId, orgName }}>
-              Add new
-            </Link>
-          </Button>
           <Space>
-            <SearchTypeBox placeholder="Choose..." allowClear>
+            <Dropdown overlay={menu} placement="bottom">
+              <Button type="primary">Add new</Button>
+            </Dropdown>
+          </Space>
+          <Space>
+            <SearchTypeBox defaultValue="All" placeholder="Choose...">
+              <Option key="all" value="All">
+                All
+              </Option>
               {COMPONENTS_TYPES.map((type, index) => (
                 <Option key={index} value={type}>
                   {type}

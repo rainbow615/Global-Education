@@ -94,4 +94,4 @@ export const DIFF_VIEW_STYLES = {
   },
 }
 
-export const COMPONENTS_TYPES = ['All', 'Sections', 'Texts', 'Blocks', 'Medications', 'Links']
+export const COMPONENTS_TYPES = ['Sections', 'Texts', 'Blocks', 'Medications', 'Links']
