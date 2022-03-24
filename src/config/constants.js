@@ -95,3 +95,7 @@ export const DIFF_VIEW_STYLES = {
 }
 
 export const COMPONENTS_TYPES = ['Sections', 'Texts', 'Blocks', 'Medications', 'Links']
+
+export const COMPONENTS_CONFIRM_MSG = {
+  DELETE: "You are deleting this component. Type 'DELETE' to confirm.",
+}
