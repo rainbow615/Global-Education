@@ -16,7 +16,7 @@ const ActionButtons = (props) => {
     const updatingData = data.filter((obj) => obj.status === orginStatus)
 
     if (updatingData.length <= 0) {
-      notification.error({ message: 'No protocols require this action at this time.' })
+      notification.error({ message: 'No protocols require this action currently.' })
       return
     }
 
