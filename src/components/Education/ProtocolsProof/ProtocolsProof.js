@@ -79,7 +79,7 @@ const ProtocolsProof = (props) => {
           setLastPublishedDate(resData?.last_published_date)
 
           notification.success({
-            message: `A JIT Education has been ${
+            message: `Education document has been ${
               status === JIT_ACTIONS.PUBLISHED ? 'published' : 'unpublished'
             } successfully!`,
           })
@@ -127,7 +127,7 @@ const ProtocolsProof = (props) => {
     deleteEducation(data.jit_id)
       .then(() => {
         setIsDeleting(false)
-        notification.success({ message: 'A JIT Education has been deleted successfully!' })
+        notification.success({ message: 'Education document has been deleted successfully!' })
         navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {

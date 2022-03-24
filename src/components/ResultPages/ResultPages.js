@@ -13,7 +13,7 @@ export const ResultFailed = (props) => {
       <Result
         status="error"
         title={title ? title : 'Load Failed'}
-        subTitle={subTitle ? subTitle : 'Sorry, something went wrong. please retry later.'}
+        subTitle={subTitle ? subTitle : 'Sorry, something went wrong. Please retry later.'}
         extra={[
           isBackButton && (
             <LinkButton align="center" key="home">
