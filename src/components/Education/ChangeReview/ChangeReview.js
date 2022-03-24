@@ -62,7 +62,7 @@ const ChangeReview = (props) => {
         setIsLoading({ isNext: false, isBack: false })
         if (isNext) {
           notification.success({
-            message: `This JIT Education is ready to approve now!`,
+            message: `This education document is ready to approve!`,
           })
         }
 
@@ -86,7 +86,7 @@ const ChangeReview = (props) => {
     deleteEducation(jit_id)
       .then(() => {
         setIsDeleting(false)
-        notification.success({ message: 'A JIT Education has been deleted successfully!' })
+        notification.success({ message: 'Education document has been deleted successfully!' })
         navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {
