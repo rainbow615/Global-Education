@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import ComponentForm from '../../../../components/Components/Form'
 
-const ComponentSectionForm = (props) => {
+const ComponentBlockForm = (props) => {
   const { orgId, orgName } = props
   const { type } = useParams()
 
@@ -22,7 +22,7 @@ const ComponentSectionForm = (props) => {
       state: { orgId, orgName },
     },
     {
-      title: type === 'edit' ? 'Edit Section' : 'Add Section',
+      title: type === 'edit' ? 'Edit Block' : 'Add Block',
     },
   ]
 
@@ -30,10 +30,10 @@ const ComponentSectionForm = (props) => {
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
       <ComponentForm>
-        <h1 style={{ fontSize: '2rem' }}>Section form</h1>
+        <h1 style={{ fontSize: '2rem' }}>Block form</h1>
       </ComponentForm>
     </React.Fragment>
   )
 }
 
-export default ComponentSectionForm
+export default ComponentBlockForm
