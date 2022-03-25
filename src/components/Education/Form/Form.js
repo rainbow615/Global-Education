@@ -156,7 +156,7 @@ const EducationForm = (props) => {
           >
             <Input placeholder="Name *" size="large" onChange={(e) => debouncedChangeHandler()} />
           </Form.Item>
-          <Form.Item className="wyswyg-editor">
+          <Form.Item>
             <CustomCkEditor
               data={jitData?.jit_content}
               onChange={(_event, editor) => {
