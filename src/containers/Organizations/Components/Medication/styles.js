@@ -1,11 +1,7 @@
 import styled from 'styled-components'
 import { Space } from 'antd'
 
-export const Root = styled.div`
-  .notes .wyswyg-editor {
-    margin-top: -37px;
-  }
-`
+export const Root = styled.div``
 
 export const DoseSection = styled(Space)`
   width: 100%;
