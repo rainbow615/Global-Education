@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Form, Input, Select, Space, Typography, Row, Col } from 'antd'
 import Switch from 'react-switch'
-import CustomCkEditor from '../../../../components/CustomCkEditor/CustomCkEditor'
 
+import CustomCkEditor from '../../../../components/CustomCkEditor/CustomCkEditor'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import ComponentForm from '../../../../components/Components/Form'
-import { Root, DoseSection } from './styles'
 import { DOSE_UNIT } from '../../../../config/constants'
+import Tags from '../../../../config/tags.json'
+import { Root, DoseSection } from './styles'
 
 const { Option } = Select
 const { Text } = Typography
-const Tags = []
 
 const ComponentMedicationForm = (props) => {
   const { orgId, orgName } = props
@@ -104,7 +104,7 @@ const ComponentMedicationForm = (props) => {
               </Space>
             </DoseSection>
           </Form.Item>
-          <Form.Item label="Additional Notes" name="notes" className='notes'>
+          <Form.Item label="Additional Notes" name="notes" className="notes">
             <CustomCkEditor simpleMode data={''} />
           </Form.Item>
           <Row gutter={24}>
