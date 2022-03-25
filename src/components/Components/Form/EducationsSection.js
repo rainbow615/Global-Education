@@ -33,7 +33,7 @@ const EducationsSection = () => {
     }
   }
 
-  const onRemoveTeams = (id) => () => {
+  const onRemoveEducation = (id) => () => {
     const isSearch = _.findIndex(selectedEducations, { jit_id: id })
     const newTeam = [...selectedEducations]
     newTeam.splice(isSearch, 1)
@@ -68,7 +68,7 @@ const EducationsSection = () => {
           renderItem={(item) => (
             <List.Item
               actions={[
-                <Button type="link" size="small" danger onClick={onRemoveTeams(item.jit_id)}>
+                <Button type="link" size="small" danger onClick={onRemoveEducation(item.jit_id)}>
                   Remove
                 </Button>,
               ]}
