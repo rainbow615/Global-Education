@@ -8,13 +8,13 @@ const PreviewMobileAndBook = (props) => {
       <MobielViewer>
         <ViewerContainer>
           <TitleBar>{title}</TitleBar>
-          <HTMLViewer className="wyswyg-editor" dangerouslySetInnerHTML={{ __html: content }} />
+          <HTMLViewer dangerouslySetInnerHTML={{ __html: content }} />
         </ViewerContainer>
       </MobielViewer>
       <BookViewer>
         <ViewerContainer>
           <TitleBar>{title}</TitleBar>
-          <HTMLViewer className="wyswyg-editor" dangerouslySetInnerHTML={{ __html: content }} />
+          <HTMLViewer dangerouslySetInnerHTML={{ __html: content }} />
         </ViewerContainer>
       </BookViewer>
     </Root>

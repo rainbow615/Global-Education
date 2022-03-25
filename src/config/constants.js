@@ -99,3 +99,5 @@ export const COMPONENTS_TYPES = ['Sections', 'Texts', 'Blocks', 'Medications', '
 export const COMPONENTS_CONFIRM_MSG = {
   DELETE: "You are deleting this component. Type 'DELETE' to confirm.",
 }
+
+export const DOSE_UNIT = ['mcg/kg', 'mcg/ml', 'mcg/min']
