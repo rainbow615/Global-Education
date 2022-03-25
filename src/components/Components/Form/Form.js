@@ -10,7 +10,7 @@ import { Root, BottomSection } from './styles'
 
 const ComponentForm = (props) => {
   const [form] = Form.useForm()
-  const { children, formValues, onFinish } = props
+  const { children, initialValues, onFinish } = props
 
   const onDelete = () => {}
 
@@ -19,7 +19,7 @@ const ComponentForm = (props) => {
       <Form
         form={form}
         autoComplete="nope"
-        initialValues={formValues}
+        initialValues={initialValues}
         layout="vertical"
         name="organizations"
         onFinish={onFinish}
