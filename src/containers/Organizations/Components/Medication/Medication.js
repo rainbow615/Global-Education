@@ -105,7 +105,11 @@ const ComponentMedicationForm = (props) => {
             </DoseSection>
           </Form.Item>
           <Form.Item label="Additional Notes" name="notes" className="notes">
-            <CustomCkEditor simpleMode data={''} />
+            <CustomCkEditor
+              simpleMode
+              data={''}
+              placeholder="Enter any additional notes on administering this medication (e.g., route, ability to repeat, etc.)"
+            />
           </Form.Item>
           <Row gutter={24}>
             <Col span={12}>

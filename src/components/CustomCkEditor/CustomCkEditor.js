@@ -85,15 +85,12 @@ const SIMPLE_CONFIG = {
 }
 
 const CustomCkEditor = (props) => {
-  const { simpleMode, ...restProps } = props
+  const { simpleMode, placeholder, ...restProps } = props
+  const config = !simpleMode ? STANDARD_CONFIG : SIMPLE_CONFIG
 
   return (
     <div className={`wyswyg-editor ${!simpleMode ? 'ck-general-mode' : 'ck-simple-mode'}`}>
-      <CKEditor
-        editor={ClassicEditor}
-        config={!simpleMode ? STANDARD_CONFIG : SIMPLE_CONFIG}
-        {...restProps}
-      />
+      <CKEditor editor={ClassicEditor} config={{ ...config, placeholder }} {...restProps} />
     </div>
   )
 }
