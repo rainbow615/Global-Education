@@ -30,7 +30,7 @@ function uploadPlugin(editor) {
   }
 }
 
-const CONFIG = {
+const STANDARD_CONFIG = {
   toolbar: {
     items: [
       'heading',
@@ -77,11 +77,24 @@ const CONFIG = {
   extraPlugins: [uploadPlugin],
 }
 
+const SIMPLE_CONFIG = {
+  toolbar: {
+    items: ['bold', 'italic'],
+    language: 'en',
+  },
+}
+
 const CustomCkEditor = (props) => {
+  const { simpleMode, ...restProps } = props
+
   return (
-    <React.Fragment>
-      <CKEditor editor={ClassicEditor} config={CONFIG} {...props} />
-    </React.Fragment>
+    <div className={`wyswyg-editor ${!simpleMode ? 'ck-general-mode' : 'ck-simple-mode'}`}>
+      <CKEditor
+        editor={ClassicEditor}
+        config={!simpleMode ? STANDARD_CONFIG : SIMPLE_CONFIG}
+        {...restProps}
+      />
+    </div>
   )
 }
 
