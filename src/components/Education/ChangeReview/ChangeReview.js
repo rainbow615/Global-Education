@@ -62,7 +62,7 @@ const ChangeReview = (props) => {
         setIsLoading({ isNext: false, isBack: false })
         if (isNext) {
           notification.success({
-            message: `This education document is ready to approve!`,
+            message: `Education document is ready to publish!`,
           })
         }
 
