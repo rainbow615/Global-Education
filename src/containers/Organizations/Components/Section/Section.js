@@ -79,7 +79,7 @@ const ComponentSectionForm = (props) => {
           <Space>
             <Switch onChange={onChangeOrder} checked={isOrdered} />
             <i>
-              Selecting this will number to everything contained in this Section based on their
+              Selecting this will number everything added to this section component based on 
               order.
             </i>
           </Space>
