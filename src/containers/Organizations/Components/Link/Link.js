@@ -34,6 +34,10 @@ const ComponentLinkForm = (props) => {
 
   const [linkedProtocol, setLinkedProtocol] = useState(null)
 
+  const onAddProtocol = (protocol) => {
+    setLinkedProtocol(protocol)
+  }
+
   const onRemoveProtocol = () => {
     setLinkedProtocol(null)
   }
@@ -48,17 +52,19 @@ const ComponentLinkForm = (props) => {
         <Form.Item>
           <Space>
             <Text>{`Linked Protocol `}</Text>
-            <AddLinkedProtocol />
+            <AddLinkedProtocol orgId={orgId} onSelect={onAddProtocol} />
           </Space>
-          <ProtocolView size="large">
-            <Space>
-              <Text>S-134</Text>
-              <Text>Allergic Reactions</Text>
-            </Space>
-            <Button type="link" size="small" danger onClick={onRemoveProtocol}>
-              Remove
-            </Button>
-          </ProtocolView>
+          {linkedProtocol && (
+            <ProtocolView size="large">
+              <Space>
+                <Text>{linkedProtocol.protocol_number}</Text>
+                <Text>{linkedProtocol.protocol_name}</Text>
+              </Space>
+              <Button type="link" size="small" danger onClick={onRemoveProtocol}>
+                Remove
+              </Button>
+            </ProtocolView>
+          )}
         </Form.Item>
       </ComponentForm>
     </React.Fragment>
