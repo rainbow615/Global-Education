@@ -7,7 +7,6 @@ import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBrea
 import ComponentForm from '../../../../components/Components/Form'
 
 const { Option } = Select
-
 const Tags = []
 
 const ComponentSectionForm = (props) => {
@@ -50,6 +49,7 @@ const ComponentSectionForm = (props) => {
         >
           <Input placeholder="Enter a section name" size="large" />
         </Form.Item>
+        
         <Form.Item
           label="Tags"
           name="tags"
