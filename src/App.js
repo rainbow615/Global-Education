@@ -13,7 +13,7 @@ const Login = loadable(() => import('./containers/Login'))
 const ResetPassword = loadable(() => import('./containers/ResetPassword'))
 const Profile = loadable(() => import('./containers/Profile'))
 const Organizations = loadable(() => import('./containers/Organizations'))
-const Education = loadable(() => import('./containers/Education'))
+const GlobalEducation = loadable(() => import('./containers/GlobalEducation'))
 const Licenses = loadable(() => import('./containers/Licenses'))
 const Users = loadable(() => import('./containers/Users'))
 
@@ -33,7 +33,7 @@ function App() {
       <Route element={<PortalLayout />}>
         <Route path="profile" element={<Profile />} />
         <Route path="organizations/*" element={<Organizations />} />
-        <Route path="education/*" element={<Education />} />
+        <Route path="global-education/*" element={<GlobalEducation />} />
         <Route path="users/*" element={<Users />} />
         <Route path="licenses" element={<Licenses />} />
       </Route>

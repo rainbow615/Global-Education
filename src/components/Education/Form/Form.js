@@ -11,21 +11,14 @@ import { FormActionButtons } from '../../../components/CommonComponent'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
 import { Root } from './styles'
 
-const EducationForm = () => {
+const EducationForm = (props) => {
+  const { breadCrumb, isGlobal, orgId } = props
+  const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
   const location = useLocation()
   const jitData = location?.state
   const navigate = useNavigate()
   const [form] = Form.useForm()
   const { type } = useParams()
-  const breadCrumb = [
-    {
-      title: 'Global Education',
-      link: '/education',
-    },
-    {
-      title: type === 'new' ? 'Add' : `Draft: ${jitData?.name}`,
-    },
-  ]
 
   const [jitId, setJitId] = useState(jitData?.id || '')
   const [editorContent, setEditorContent] = useState(jitData?.content || '')
@@ -41,7 +34,7 @@ const EducationForm = () => {
         .then(() => {
           setIsLoad(false)
           notification.success({ message: 'A JIT Education has been updated successfully!' })
-          navigate('/education/review', { state: { id: jitId, ...payload } })
+          navigate(`/${prefixLink}education/review`, { state: { id: jitId, orgId, ...payload } })
         })
         .catch((error) => {
           setIsLoad(false)
@@ -52,11 +45,12 @@ const EducationForm = () => {
           })
         })
     },
-    [jitId, navigate]
+    [jitId, navigate, prefixLink, orgId]
   )
 
   const onFinish = (values) => {
     const payload = {
+      organization_id: orgId || null,
       name: values.name,
       content: editorContent,
       parent_id: jitData?.parent_id || null,
@@ -73,7 +67,7 @@ const EducationForm = () => {
       .then(() => {
         setIsDelete(false)
         notification.success({ message: 'The draft has been deleted successfully!' })
-        navigate('/education/list')
+        navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {
         setIsDelete(false)
@@ -94,6 +88,7 @@ const EducationForm = () => {
     }
 
     const payload = {
+      organization_id: orgId || null,
       name: form.getFieldValue('name') || 'Untitled',
       content: content,
       status: JIT_ACTIONS.DRAFT,
@@ -195,7 +190,9 @@ const EducationForm = () => {
                 Send to Review
               </Button>
               <Button size="large">
-                <Link to="/education/list">Close</Link>
+                <Link to={`/${prefixLink}education/list`} state={{ orgId }}>
+                  Close
+                </Link>
               </Button>
             </Space>
           </FormActionButtons>

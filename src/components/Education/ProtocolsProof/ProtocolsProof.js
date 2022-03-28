@@ -26,22 +26,14 @@ import {
   HTMLViewer,
 } from './styles'
 
-const ProtocolsProof = () => {
+const ProtocolsProof = (props) => {
+  const { breadCrumb, isGlobal, orgId } = props
+  const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
   const title = data?.name || ''
   const content = data?.content || ''
-
-  const breadCrumb = [
-    {
-      title: 'Global Education',
-      link: '/education',
-    },
-    {
-      title: `Proof: ${title}`,
-    },
-  ]
 
   const [isLoad, setIsLoad] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
@@ -50,7 +42,7 @@ const ProtocolsProof = () => {
 
   useEffect(() => {
     if (!data) {
-      navigate('/education/list')
+      navigate(`/${prefixLink}education/list`, { state: { orgId } })
     }
   })
 
@@ -73,7 +65,7 @@ const ProtocolsProof = () => {
     }
 
     const payload = {
-      organization_id: null,
+      organization_id: orgId || null,
       parent_id: data.parent_id,
       name: data.name,
       content: data.content,
@@ -103,7 +95,7 @@ const ProtocolsProof = () => {
 
   const onUpdate = () => {
     const payload = {
-      organization_id: null,
+      organization_id: orgId || null,
       parent_id: data.id,
       name: data.name,
       content: data.content,
@@ -117,7 +109,7 @@ const ProtocolsProof = () => {
 
       setIsUpdate(false)
 
-      navigate('/education/form/edit', { state: { id: newId, ...payload } })
+      navigate(`/${prefixLink}education/form/edit`, { state: { id: newId, orgId, ...payload } })
     })
   }
 
@@ -128,7 +120,7 @@ const ProtocolsProof = () => {
       .then(() => {
         setIsDelete(false)
         notification.success({ message: 'A JIT Education has been deleted successfully!' })
-        navigate('/education/list')
+        navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {
         setIsDelete(false)
@@ -154,7 +146,7 @@ const ProtocolsProof = () => {
         <CustomBreadcrumb items={breadCrumb} />
         {!isPublish && (
           <Button type="link" icon={<RollbackOutlined />}>
-            <RouterLink to="/education/review" state={data}>
+            <RouterLink to={`/${prefixLink}education/review`} state={data}>
               &nbsp;Send Back to Review
             </RouterLink>
           </Button>
@@ -208,7 +200,9 @@ const ProtocolsProof = () => {
             </Button>
           )}
           <Button size="large">
-            <RouterLink to="/education/list">Close</RouterLink>
+            <RouterLink to={`/${prefixLink}education/list`} state={{ orgId }}>
+              Close
+            </RouterLink>
           </Button>
           <ConfirmActionButton
             size="large"

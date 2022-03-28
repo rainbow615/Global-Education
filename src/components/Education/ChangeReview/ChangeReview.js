@@ -6,11 +6,11 @@ import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
 
 import { updateEducation, deleteEducation, useEducation } from '../../../services/jitService'
 import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
-import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
-import CustomLoading from '../../../components/Loading/Loading'
-import { FormActionButtons } from '../../../components/CommonComponent'
-import { ResultFailed } from '../../../components/ResultPages'
-import ConfirmActionButton from '../../../components/ConfirmActionButton'
+import CustomBreadcrumb from '../../CustomBreadcrumb/CustomBreadcrumb'
+import CustomLoading from '../../Loading/Loading'
+import { FormActionButtons } from '../../CommonComponent'
+import { ResultFailed } from '../../ResultPages'
+import ConfirmActionButton from '../../ConfirmActionButton'
 import { formatLocalizedDate, formatHTMLForDiff } from '../../../utils'
 
 import { Root, Topbar, TitleView } from './styles'
@@ -26,7 +26,9 @@ const compareStyles = {
   },
 }
 
-const ChangeReview = () => {
+const ChangeReview = (props) => {
+  const { breadCrumb, isGlobal, orgId } = props
+  const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
@@ -34,22 +36,12 @@ const ChangeReview = () => {
   const title = data?.name || ''
   const content = data?.content || ''
 
-  const breadCrumb = [
-    {
-      title: 'Global Education',
-      link: '/education',
-    },
-    {
-      title: `In-Review: ${title}`,
-    },
-  ]
-
   const [isLoad, setIsLoad] = useState(false)
   const [isDelete, setIsDelete] = useState(false)
 
   useEffect(() => {
     if (!data) {
-      navigate('/education/list')
+      navigate(`/${prefixLink}education/list`, { state: { orgId } })
     }
   })
 
@@ -67,7 +59,7 @@ const ChangeReview = () => {
     let status = JIT_ACTIONS.APPROVED
 
     const payload = {
-      organization_id: null,
+      organization_id: orgId || null,
       parent_id: data.parent_id,
       name: data.name,
       content: data.content,
@@ -81,7 +73,7 @@ const ChangeReview = () => {
         notification.success({
           message: `This JIT Education is ready to approve now!`,
         })
-        navigate('/education/proof', { state: { id, ...payload } })
+        navigate(`/${prefixLink}education/proof`, { state: { id, orgId, ...payload } })
       })
       .catch((error) => {
         setIsLoad(false)
@@ -100,7 +92,7 @@ const ChangeReview = () => {
       .then(() => {
         setIsDelete(false)
         notification.success({ message: 'A JIT Education has been deleted successfully!' })
-        navigate('/education/list')
+        navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {
         setIsDelete(false)
@@ -126,7 +118,7 @@ const ChangeReview = () => {
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
         <Button type="link" icon={<RollbackOutlined />}>
-          <RouterLink to="/education/form/edit" state={data}>
+          <RouterLink to={`/${prefixLink}education/form/edit`} state={data}>
             &nbsp;Send Back to Editor
           </RouterLink>
         </Button>
@@ -176,7 +168,9 @@ const ChangeReview = () => {
         </ConfirmActionButton>
         <Space>
           <Button size="large">
-            <RouterLink to="/education/list">Close</RouterLink>
+            <RouterLink to={`/${prefixLink}education/list`} state={{ orgId }}>
+              Close
+            </RouterLink>
           </Button>
           <Button size="large" onClick={onSubmit} loading={isLoad}>
             Accept Changes

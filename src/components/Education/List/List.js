@@ -6,27 +6,16 @@ import { Button } from 'antd'
 import { useEducations } from '../../../services/jitService'
 import { formatLocalizedDate, getStatusName, regExpEscape } from '../../../utils'
 import { SEARCH_DELAY } from '../../../config/constants'
-import EDUCATION_COLUMNS from './columns'
-import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
-import { ResultFailed } from '../../../components/ResultPages'
-import {
-  Container,
-  CustomTable,
-  CustomTableHeader,
-  CustomSearchText,
-} from '../../../components/CommonComponent'
+import getColumns from './columns'
+import CustomBreadcrumb from '../../CustomBreadcrumb/CustomBreadcrumb'
+import { ResultFailed } from '../../ResultPages'
+import { Container, CustomTable, CustomTableHeader, CustomSearchText } from '../../CommonComponent'
 
-const breadCrumb = [
-  {
-    title: 'Global Education',
-  },
-  {
-    title: 'List',
-  },
-]
+const EducationList = (props) => {
+  const { breadCrumb, isGlobal, orgId } = props
+  const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
 
-const EducationList = () => {
-  const { data: jits, error } = useEducations(null)
+  const { data: jits, error } = useEducations(orgId || null)
   const [searchText, setSearchText] = useState('')
 
   if (error) {
@@ -44,6 +33,7 @@ const EducationList = () => {
         const _record = {
           key: index + 1,
           id: record.jit_id,
+          orgId: record.organization_id,
           document_number: record.document_number || '',
           parent_id: record.parent_id,
           name: record.jit_name,
@@ -75,7 +65,9 @@ const EducationList = () => {
       <Container>
         <CustomTableHeader>
           <Button type="primary">
-            <Link to="/education/form/new">Add new</Link>
+            <Link to={`/${prefixLink}education/form/new`} state={{ orgId }}>
+              Add new
+            </Link>
           </Button>
           <CustomSearchText
             placeholder="Search"
@@ -87,7 +79,7 @@ const EducationList = () => {
         </CustomTableHeader>
         <CustomTable
           dataSource={dataSource}
-          columns={EDUCATION_COLUMNS}
+          columns={getColumns(isGlobal)}
           loading={jits?.isLoading}
           pagination={{
             pageSize: 10,
