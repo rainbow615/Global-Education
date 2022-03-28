@@ -72,10 +72,14 @@ const ComponentMedicationForm = (props) => {
                     <Form.Item name="range">
                       <Input size="middle" />
                     </Form.Item>
-                    <Text>{` to `}</Text>
-                    <Form.Item name="range">
-                      <Input size="middle" />
-                    </Form.Item>
+                    {isHaveRange && (
+                      <React.Fragment>
+                        <Text>{` to `}</Text>
+                        <Form.Item name="range">
+                          <Input size="middle" />
+                        </Form.Item>
+                      </React.Fragment>
+                    )}
                   </Space>
 
                   <Form.Item name="unit">
@@ -95,11 +99,11 @@ const ComponentMedicationForm = (props) => {
                   <i>Does this medication have a standard formulary?</i>
                 </Space>
                 <Space>
-                  <Text>{`Conc. `}</Text>
+                  <Text disabled={!isHaveFormulary}>{`Conc. `}</Text>
                   <Form.Item name="range">
-                    <Input size="middle" />
+                    <Input size="middle" disabled={!isHaveFormulary} />
                   </Form.Item>
-                  <Text>{` mcg/ml`}</Text>
+                  <Text disabled={!isHaveFormulary}>{` mcg/ml`}</Text>
                 </Space>
               </Space>
             </DoseSection>
