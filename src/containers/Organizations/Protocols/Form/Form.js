@@ -13,7 +13,7 @@ import {
   PROTOCOL_ACTIONS,
   AUTO_SAVE_DELAY,
 } from '../../../../config/constants'
-import Tags from '../../../../config/tags.json'
+import { PROTOCOL_TAGS } from '../../../../config/tags'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../../components/CommonComponent'
 import ConfirmActionButton from '../../../../components/ConfirmActionButton'
@@ -222,9 +222,9 @@ const OrgProtocolsForm = (props) => {
                   optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
                 }
               >
-                {Tags.map((tag, index) => (
-                  <Option key={index} value={tag.id} label={tag.name}>
-                    {tag.name}
+                {PROTOCOL_TAGS.map((tag, index) => (
+                  <Option key={index} value={tag} label={tag}>
+                    {tag}
                   </Option>
                 ))}
               </Select>

@@ -7,7 +7,7 @@ import CustomCkEditor from '../../../../components/CustomCkEditor/CustomCkEditor
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import ComponentForm from '../../../../components/Components/Form'
 import { DOSE_UNIT } from '../../../../config/constants'
-import Tags from '../../../../config/tags.json'
+import { MEDICATION_TAGS } from '../../../../config/tags'
 import { Root, DoseSection } from './styles'
 
 const { Option } = Select
@@ -130,9 +130,9 @@ const ComponentMedicationForm = (props) => {
                     optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
                   }
                 >
-                  {Tags.map((tag, index) => (
-                    <Option key={index} value={tag.id} label={tag.name}>
-                      {tag.name}
+                  {MEDICATION_TAGS.map((tag, index) => (
+                    <Option key={index} value={tag} label={tag}>
+                      {tag}
                     </Option>
                   ))}
                 </Select>
