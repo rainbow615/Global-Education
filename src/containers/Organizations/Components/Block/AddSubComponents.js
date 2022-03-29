@@ -32,13 +32,13 @@ const SubComponentsModal = (props) => {
         />
         <ScrollView>
           <Menu>
-            <Menu.Item>
+            <Menu.Item key="1">
               <Space>
                 <Tag>T</Tag>
                 <Text>Cool text component</Text>
               </Space>
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item key="2">
               <Space>
                 <Tag>T</Tag>
                 <Text>Etc, Etc....</Text>
