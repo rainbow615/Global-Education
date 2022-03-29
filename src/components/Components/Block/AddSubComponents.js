@@ -3,15 +3,14 @@ import { Button, Popover, Menu, Space, Typography, Tag, Tabs } from 'antd'
 import { debounce, map, get } from 'lodash'
 import { PlusOutlined } from '@ant-design/icons'
 
-import { SEARCH_DELAY } from '../../../../config/constants'
-import { CustomSearchText } from '../../../../components/CommonComponent'
+import { SEARCH_DELAY } from '../../../config/constants'
+import { CustomSearchText } from '../../CommonComponent'
 import { ModalContentView, ScrollView, ModalHeader, ModalFooter } from './styles'
 
 const { Text } = Typography
 const { TabPane } = Tabs
 
 const SubComponentsModal = (props) => {
-  const { orgId } = props
   const [searchText, setSearchText] = useState('')
 
   const onSearch = (e) => {
