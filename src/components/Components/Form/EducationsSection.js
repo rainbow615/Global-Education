@@ -2,15 +2,12 @@ import React, { useState } from 'react'
 import _ from 'lodash'
 import { Button, Space, List, Select } from 'antd'
 
+import { dynamicSortMultiple } from '../../../utils/sort'
 import { EducationsView } from './styles'
 
 const { Option } = Select
 
 const linkedEducations = [
-  {
-    jit_id: 'b85e5e33',
-    jit_name: 'Education 1',
-  },
   {
     jit_id: 'b85e5e34',
     jit_name: 'Education 2',
@@ -18,6 +15,10 @@ const linkedEducations = [
   {
     jit_id: 'b85e5e35',
     jit_name: 'Education 3',
+  },
+  {
+    jit_id: 'b85e5e33',
+    jit_name: 'Education 1',
   },
 ]
 
@@ -56,7 +57,7 @@ const EducationsSection = () => {
           }
           onSelect={onSelectEducation}
         >
-          {linkedEducations.map((state, index) => (
+          {linkedEducations.sort(dynamicSortMultiple(['jit_name'])).map((state, index) => (
             <Option key={index} value={state.jit_id}>
               {state.jit_name}
             </Option>
@@ -64,7 +65,7 @@ const EducationsSection = () => {
         </Select>
         <List
           size="small"
-          dataSource={selectedEducations}
+          dataSource={selectedEducations.sort(dynamicSortMultiple(['jit_name']))}
           renderItem={(item) => (
             <List.Item
               actions={[

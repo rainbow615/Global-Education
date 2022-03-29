@@ -9,6 +9,7 @@ import { CustomSearchText } from '../../../../components/CommonComponent'
 import CustomLoading from '../../../../components/Loading/Loading'
 import { ResultFailed } from '../../../../components/ResultPages'
 import { regExpEscape } from '../../../../utils'
+import { dynamicSortMultiple } from '../../../../utils/sort'
 import { ModalContentView, ScrollView } from './styles'
 
 const { Text } = Typography
@@ -60,14 +61,16 @@ const ProtocolsModal = (props) => {
       <ScrollView>
         {!protocols.isLoading && (
           <Menu>
-            {filteredProtocols.map((obj, index) => (
-              <Menu.Item key={index} onClick={onClickItem(obj)}>
-                <Space>
-                  <Text>{get(obj, 'protocol_number')}</Text>
-                  <Text>{get(obj, 'protocol_name')}</Text>
-                </Space>
-              </Menu.Item>
-            ))}
+            {filteredProtocols
+              .sort(dynamicSortMultiple(['protocol_number', 'protocol_name']))
+              .map((obj, index) => (
+                <Menu.Item key={index} onClick={onClickItem(obj)}>
+                  <Space>
+                    <Text>{get(obj, 'protocol_number')}</Text>
+                    <Text>{get(obj, 'protocol_name')}</Text>
+                  </Space>
+                </Menu.Item>
+              ))}
           </Menu>
         )}
         {protocols.isLoading && <CustomLoading />}
