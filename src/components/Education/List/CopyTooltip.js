@@ -1,12 +1,11 @@
 import { useCallback, useState } from 'react'
-import { Space, Tooltip } from 'antd'
+import { Space } from 'antd'
 
 import { useEducation } from '../../../services/jitService'
 import CustomLoading from '../../Loading/Loading'
 import { ResultFailed } from '../../ResultPages'
-import ColorTheme from '../../../theme/theme'
 import { JIT_ACTIONS } from '../../../config/constants'
-import { CopyLabel } from './styles'
+import CustomTooltip from '../../CustomTooltip'
 
 const CopyTooltip = ({ value, record }) => {
   let tipMessage = <CustomLoading />
@@ -36,16 +35,7 @@ const CopyTooltip = ({ value, record }) => {
   return (
     <Space align="center">
       {value}
-      {isCopied && (
-        <Tooltip
-          title={tipMessage}
-          color="white"
-          overlayInnerStyle={{ color: ColorTheme.palette.textColor, minWidth: 234, minHeight: 66 }}
-          onVisibleChange={onVisible}
-        >
-          <CopyLabel color="red">Copy</CopyLabel>
-        </Tooltip>
-      )}
+      {isCopied && <CustomTooltip label="Copy" title={tipMessage} onVisibleChange={onVisible} />}
     </Space>
   )
 }

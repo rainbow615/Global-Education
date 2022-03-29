@@ -50,7 +50,7 @@ const ConfirmCodeForm = () => {
             navigate('/organizations')
           } else {
             notification.error({
-              message: 'Verification Failure',
+              message: 'Verification failed!',
               description: 'Wrong code. Please try again.',
             })
           }
@@ -62,7 +62,7 @@ const ConfirmCodeForm = () => {
             removeUser()
 
             notification.error({
-              message: 'Verification Failure',
+              message: 'Verification failed!',
               description: 'Sorry, the request failed. Please try again later.',
             })
 

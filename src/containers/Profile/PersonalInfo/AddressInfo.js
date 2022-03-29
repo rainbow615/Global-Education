@@ -47,7 +47,7 @@ const AddressInfo = (props) => {
         setIsLoading(false)
 
         notification.error({
-          message: 'Update Failure',
+          message: 'Update failed!',
           description: error?.data || '',
         })
       })

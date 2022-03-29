@@ -2,7 +2,7 @@ import { parse as urlParse } from 'url'
 import moment from 'moment'
 import { html } from 'js-beautify'
 
-import { JIT_ACTIONS } from '../config/constants'
+import { JIT_ACTIONS, PROTOCOL_ACTIONS } from '../config/constants'
 
 export const getQueryParams = (url = window.location.href.replace(/#/g, '')) => {
   return urlParse(url, true).query
@@ -65,7 +65,7 @@ export const formatHTMLForDiff = (htmlStr, textOnly = true) => {
   return formattedHTML
 }
 
-export const getStatusName = (value) => {
+export const getJITStatusName = (value) => {
   let statusName = ''
 
   if (value === JIT_ACTIONS.PUBLISHED) statusName = 'Published'
@@ -74,6 +74,42 @@ export const getStatusName = (value) => {
   if (value === JIT_ACTIONS.INREVIEW) statusName = 'In-Review'
   if (value === JIT_ACTIONS.APPROVED) statusName = 'Approved'
   if (value === JIT_ACTIONS.DELETED) statusName = 'Deleted'
+
+  return statusName
+}
+
+export const getProtocolStatusName = (value) => {
+  let statusName = ''
+
+  if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'Draft'
+  if (value === PROTOCOL_ACTIONS.PUBLISHED) statusName = 'Published'
+  if (value === PROTOCOL_ACTIONS.UNPUBLISHED) statusName = 'Unpublished'
+  if (value === PROTOCOL_ACTIONS.INREVIEW) statusName = 'In-Review'
+  if (value === PROTOCOL_ACTIONS.APPROVED) statusName = 'Approved'
+
+  return statusName
+}
+
+export const getProtocolStatusColor = (value) => {
+  let statusName = ''
+
+  if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'danger'
+  if (value === PROTOCOL_ACTIONS.PUBLISHED) statusName = 'success'
+  if (value === PROTOCOL_ACTIONS.UNPUBLISHED) statusName = 'danger'
+  if (value === PROTOCOL_ACTIONS.INREVIEW) statusName = 'info'
+  if (value === PROTOCOL_ACTIONS.APPROVED) statusName = 'warning'
+
+  return statusName
+}
+
+export const getProtocolButtonName = (value) => {
+  let statusName = ''
+
+  if (value === PROTOCOL_ACTIONS.DRAFT) statusName = 'Edit'
+  if (value === PROTOCOL_ACTIONS.PUBLISHED) statusName = 'View'
+  if (value === PROTOCOL_ACTIONS.UNPUBLISHED) statusName = 'View'
+  if (value === PROTOCOL_ACTIONS.INREVIEW) statusName = 'View'
+  if (value === PROTOCOL_ACTIONS.APPROVED) statusName = 'View'
 
   return statusName
 }

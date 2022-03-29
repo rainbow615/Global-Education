@@ -20,27 +20,27 @@ const EducationForm = (props) => {
   const [form] = Form.useForm()
   const { type } = useParams()
 
-  const [jitId, setJitId] = useState(jitData?.id || '')
-  const [editorContent, setEditorContent] = useState(jitData?.content || '')
-  const [isLoad, setIsLoad] = useState(false)
-  const [isDelete, setIsDelete] = useState(false)
+  const [jitId, setJitId] = useState(jitData?.jit_id || '')
+  const [editorContent, setEditorContent] = useState(jitData?.jit_content || '')
+  const [isLoading, setIsLoading] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const [isDisableAutoLoad, setIsDisableAutoLoad] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
 
   const onSaveForm = useCallback(
     (payload) => {
-      setIsLoad(true)
+      setIsLoading(true)
       updateEducation(jitId, payload)
         .then(() => {
-          setIsLoad(false)
-          notification.success({ message: 'A JIT Education has been updated successfully!' })
-          navigate(`/${prefixLink}education/review`, { state: { id: jitId, orgId, ...payload } })
+          setIsLoading(false)
+          notification.success({ message: 'Education document has been updated successfully!' })
+          navigate(`/${prefixLink}education/review`, { state: { jit_id: jitId, orgId, ...payload } })
         })
         .catch((error) => {
-          setIsLoad(false)
+          setIsLoading(false)
 
           notification.error({
-            message: 'Upate Failure',
+            message: 'Update failed!',
             description: error?.data || '',
           })
         })
@@ -51,8 +51,8 @@ const EducationForm = (props) => {
   const onFinish = (values) => {
     const payload = {
       organization_id: orgId || null,
-      name: values.name,
-      content: editorContent,
+      jit_name: values.jit_name,
+      jit_content: editorContent,
       parent_id: jitData?.parent_id || null,
       status: JIT_ACTIONS.INREVIEW,
     }
@@ -61,19 +61,19 @@ const EducationForm = (props) => {
   }
 
   const onDelete = () => {
-    setIsDelete(true)
+    setIsDeleting(true)
 
     deleteEducation(jitId)
       .then(() => {
-        setIsDelete(false)
+        setIsDeleting(false)
         notification.success({ message: 'The draft has been deleted successfully!' })
         navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {
-        setIsDelete(false)
+        setIsDeleting(false)
 
         notification.error({
-          message: 'Delete Failure',
+          message: 'Delete failed!',
           description: error?.data || '',
         })
       })
@@ -89,8 +89,8 @@ const EducationForm = (props) => {
 
     const payload = {
       organization_id: orgId || null,
-      name: form.getFieldValue('name') || 'Untitled',
-      content: content,
+      jit_name: form.getFieldValue('jit_name') || 'Untitled',
+      jit_content: content,
       status: JIT_ACTIONS.DRAFT,
     }
 
@@ -148,17 +148,17 @@ const EducationForm = (props) => {
           onFinish={onFinish}
         >
           <Form.Item
-            name="name"
+            name="jit_name"
             hasFeedback
-            rules={[{ required: true, message: 'Please input Name' }]}
+            rules={[{ required: true, message: 'Please input a name' }]}
             validateStatus={errorMsg ? 'error' : undefined}
             help={errorMsg}
           >
             <Input placeholder="Name *" size="large" onChange={(e) => debouncedChangeHandler()} />
           </Form.Item>
-          <Form.Item className="wyswyg-editor">
+          <Form.Item>
             <CustomCkEditor
-              data={jitData?.content}
+              data={jitData?.jit_content}
               onChange={(_event, editor) => {
                 debouncedChangeHandler(editor.getData(), 'content')
               }}
@@ -171,7 +171,7 @@ const EducationForm = (props) => {
                 size="large"
                 danger
                 onClick={onDelete}
-                loading={isDelete}
+                loading={isDeleting}
                 actionType={JIT_ACTIONS.DELETE}
                 message={JIT_CONFIRM_MSG.DELETE_DRAFT}
               >
@@ -184,8 +184,8 @@ const EducationForm = (props) => {
               <Button
                 size="large"
                 htmlType="submit"
-                loading={isLoad}
-                disabled={isLoad || isDisableAutoLoad || !jitId || errorMsg}
+                loading={isLoading}
+                disabled={isLoading || isDisableAutoLoad || !jitId || errorMsg}
               >
                 Send to Review
               </Button>

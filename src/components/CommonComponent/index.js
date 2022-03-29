@@ -56,6 +56,7 @@ export const FormActionButtons = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   margin-top: 50px;
 
   button {
@@ -89,6 +90,10 @@ export const CustomModal = styled(Modal)`
       text-align: right;
       margin-top: 45px;
       margin-bottom: 0;
+
+      button {
+        min-width: 80px;
+      }
     }
   }
 `

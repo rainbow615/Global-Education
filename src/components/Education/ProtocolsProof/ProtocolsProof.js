@@ -10,21 +10,14 @@ import {
   useEducation,
 } from '../../../services/jitService'
 import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
-import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
-import { FormActionButtons } from '../../../components/CommonComponent'
-import CustomLoading from '../../../components/Loading/Loading'
-import ConfirmActionButton from '../../../components/ConfirmActionButton'
-import { ResultFailed } from '../../../components/ResultPages'
+import CustomBreadcrumb from '../../CustomBreadcrumb/CustomBreadcrumb'
+import PreviewMobileAndBook from '../../PreviewMobileAndBook/PreviewMobileAndBook'
+import { FormActionButtons } from '../../CommonComponent'
+import CustomLoading from '../../Loading/Loading'
+import ConfirmActionButton from '../../ConfirmActionButton'
+import { ResultFailed } from '../../ResultPages'
 
-import {
-  Root,
-  Topbar,
-  TitleBar,
-  MobielViewer,
-  BookViewer,
-  ViewerContainer,
-  HTMLViewer,
-} from './styles'
+import { Topbar } from './styles'
 
 const ProtocolsProof = (props) => {
   const { breadCrumb, isGlobal, orgId } = props
@@ -32,13 +25,14 @@ const ProtocolsProof = (props) => {
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
-  const title = data?.name || ''
-  const content = data?.content || ''
+  const title = data?.jit_name || ''
+  const content = data?.jit_content || ''
 
-  const [isLoad, setIsLoad] = useState(false)
-  const [isUpdate, setIsUpdate] = useState(false)
-  const [isDelete, setIsDelete] = useState(false)
+  const [isLoading, setIsLoading] = useState({ isNext: false, isBack: false })
+  const [isUpdating, setIsUpdating] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const [jitStatus, setJitStatus] = useState(data?.status)
+  const [lastPublishedDate, setLastPublishedDate] = useState(data?.last_published_date)
 
   useEffect(() => {
     if (!data) {
@@ -56,8 +50,10 @@ const ProtocolsProof = (props) => {
     return <CustomLoading />
   }
 
-  const onSubmit = () => {
-    let updateId = data.id
+  const onSubmit = (isBack) => () => {
+    setIsLoading({ isNext: !isBack, isBack })
+
+    let updateId = data.jit_id
     let status = JIT_ACTIONS.UNPUBLISHED
 
     if (jitStatus !== JIT_ACTIONS.PUBLISHED) {
@@ -67,27 +63,39 @@ const ProtocolsProof = (props) => {
     const payload = {
       organization_id: orgId || null,
       parent_id: data.parent_id,
-      name: data.name,
-      content: data.content,
-      status,
+      jit_name: data.jit_name,
+      jit_content: data.jit_content,
+      status: isBack ? JIT_ACTIONS.INREVIEW : status,
     }
 
-    setIsLoad(true)
     updateEducation(updateId, payload)
-      .then(() => {
-        setIsLoad(false)
-        setJitStatus(status)
-        notification.success({
-          message: `A JIT Education has been ${
-            status === JIT_ACTIONS.PUBLISHED ? 'published' : 'unpublished'
-          } successfully!`,
-        })
+      .then((res) => {
+        setIsLoading({ isNext: false, isBack: false })
+
+        const resData = res?.data || {}
+
+        if (!isBack) {
+          setJitStatus(status)
+          setLastPublishedDate(resData?.last_published_date)
+
+          notification.success({
+            message: `Education document has been ${
+              status === JIT_ACTIONS.PUBLISHED ? 'published' : 'unpublished'
+            } successfully!`,
+          })
+        }
+
+        if (isBack) {
+          navigate(`/${prefixLink}education/review`, {
+            state: { orgId, ...resData },
+          })
+        }
       })
       .catch((error) => {
-        setIsLoad(false)
+        setIsLoading({ isNext: false, isBack: false })
 
         notification.error({
-          message: 'Upate Failure',
+          message: 'Update failed!',
           description: error?.data || '',
         })
       })
@@ -96,37 +104,37 @@ const ProtocolsProof = (props) => {
   const onUpdate = () => {
     const payload = {
       organization_id: orgId || null,
-      parent_id: data.id,
-      name: data.name,
-      content: data.content,
+      parent_id: data.jit_id,
+      jit_name: data.jit_name,
+      jit_content: data.jit_content,
       status: JIT_ACTIONS.DRAFT,
     }
 
-    setIsUpdate(true)
+    setIsUpdating(true)
 
     createEducation(payload).then((res) => {
       const newId = res.data.jit_id
 
-      setIsUpdate(false)
+      setIsUpdating(false)
 
-      navigate(`/${prefixLink}education/form/edit`, { state: { id: newId, orgId, ...payload } })
+      navigate(`/${prefixLink}education/form/edit`, { state: { jit_id: newId, orgId, ...payload } })
     })
   }
 
   const onDelete = () => {
-    setIsDelete(true)
+    setIsDeleting(true)
 
-    deleteEducation(data.id)
+    deleteEducation(data.jit_id)
       .then(() => {
-        setIsDelete(false)
-        notification.success({ message: 'A JIT Education has been deleted successfully!' })
+        setIsDeleting(false)
+        notification.success({ message: 'Education document has been deleted successfully!' })
         navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {
-        setIsDelete(false)
+        setIsDeleting(false)
 
         notification.error({
-          message: 'Delete Failure',
+          message: 'Delete failed!',
           description: error?.data || '',
         })
       })
@@ -144,36 +152,27 @@ const ProtocolsProof = (props) => {
     <React.Fragment>
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
-        {!isPublish && (
-          <Button type="link" icon={<RollbackOutlined />}>
-            <RouterLink to={`/${prefixLink}education/review`} state={data}>
-              &nbsp;Send Back to Review
-            </RouterLink>
+        {!lastPublishedDate && !isPublish && (
+          <Button
+            size="large"
+            type="link"
+            icon={<RollbackOutlined />}
+            onClick={onSubmit(true)}
+            loading={isLoading.isBack}
+          >
+            &nbsp;Send Back to Review
           </Button>
         )}
       </Topbar>
-      <Root>
-        <MobielViewer>
-          <ViewerContainer>
-            <TitleBar>{title}</TitleBar>
-            <HTMLViewer className="wyswyg-editor" dangerouslySetInnerHTML={{ __html: content }} />
-          </ViewerContainer>
-        </MobielViewer>
-        <BookViewer>
-          <ViewerContainer>
-            <TitleBar>{title}</TitleBar>
-            <HTMLViewer className="wyswyg-editor" dangerouslySetInnerHTML={{ __html: content }} />
-          </ViewerContainer>
-        </BookViewer>
-      </Root>
+      <PreviewMobileAndBook title={title} content={content} />
       <FormActionButtons>
         {isPublish && (
           <ConfirmActionButton
             type="link"
             size="large"
             danger
-            onClick={onSubmit}
-            loading={isPublish && isLoad}
+            onClick={onSubmit(false)}
+            loading={isPublish && isLoading.isNext}
             actionType={JIT_ACTIONS.UNPUBLISHED}
             message={JIT_CONFIRM_MSG.UNPUBLISHED}
           >
@@ -185,7 +184,7 @@ const ProtocolsProof = (props) => {
             type="link"
             size="large"
             danger
-            loading={isDelete}
+            loading={isDeleting}
             onClick={onDelete}
             actionType={JIT_ACTIONS.DELETE}
             message={JIT_CONFIRM_MSG.DELETE}
@@ -195,7 +194,7 @@ const ProtocolsProof = (props) => {
         )}
         <Space>
           {isPublish && (
-            <Button size="large" onClick={onUpdate} loading={isUpdate}>
+            <Button size="large" onClick={onUpdate} loading={isUpdating}>
               Update
             </Button>
           )}
@@ -208,8 +207,8 @@ const ProtocolsProof = (props) => {
             size="large"
             className={isPublish ? 'published' : ''}
             icon={isPublish ? <CheckOutlined /> : null}
-            onClick={onSubmit}
-            loading={!isPublish && isLoad}
+            onClick={onSubmit(false)}
+            loading={!isPublish && isLoading.isNext}
             disabled={isPublish}
             actionType={JIT_ACTIONS.PUBLISHED}
             message={publicConfirmMsg}

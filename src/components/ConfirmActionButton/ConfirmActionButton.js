@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Button, Input, Modal } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
-import { ORG_ACTIONS } from '../../config/constants'
 import { ConfirmModalBody } from './styles'
 
 const ConfirmActionButton = (props) => {
@@ -25,9 +24,9 @@ const ConfirmActionButton = (props) => {
 
   let isPass = false
 
-  if (actionType === ORG_ACTIONS.DELETE && confirmText === 'DELETE') isPass = true
-  if (actionType === ORG_ACTIONS.UNPUBLISHED && confirmText === 'UNPUBLISH') isPass = true
-  if (actionType === ORG_ACTIONS.PUBLISHED && confirmText === 'PUBLISH') isPass = true
+  if (actionType === 'DELETE' && confirmText === 'DELETE') isPass = true
+  if (actionType === 'UNPUBLISHED' && confirmText === 'UNPUBLISH') isPass = true
+  if (actionType === 'PUBLISHED' && confirmText === 'PUBLISH') isPass = true
 
   return (
     <React.Fragment>
@@ -45,9 +44,9 @@ const ConfirmActionButton = (props) => {
         <ConfirmModalBody>
           <div className="title">
             <ExclamationCircleOutlined />
-            {actionType === ORG_ACTIONS.DELETE && `Delete Warning`}
-            {actionType === ORG_ACTIONS.UNPUBLISHED && `Unpublish Warning`}
-            {actionType === ORG_ACTIONS.PUBLISHED && `Publish Warning`}
+            {actionType === 'DELETE' && `Delete Warning`}
+            {actionType === 'UNPUBLISHED' && `Unpublish Warning`}
+            {actionType === 'PUBLISHED' && `Publish Warning`}
           </div>
           <div className="description">{message}</div>
           <div>

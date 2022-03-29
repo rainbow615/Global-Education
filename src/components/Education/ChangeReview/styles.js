@@ -1,7 +1,9 @@
 import styled from 'styled-components'
+import { Space } from 'antd'
+
 import { Container } from '../../CommonComponent'
 
-export const Topbar = styled.div`
+export const Topbar = styled(Space)`
   display: flex;
   justify-content: space-between;
   align-items: center;

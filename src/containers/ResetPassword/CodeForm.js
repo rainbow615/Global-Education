@@ -58,7 +58,7 @@ const CodeForm = () => {
 
   const onShowNotification = () => {
     notification.error({
-      message: 'Verification Failure',
+      message: 'Verification failed!',
       description: 'Sorry, the request failed. Please try again later.',
     })
   }

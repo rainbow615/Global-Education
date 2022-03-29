@@ -6,7 +6,7 @@ import ProtocolsProof from '../../../components/Education/ProtocolsProof'
 const GlobalProtocolsProof = () => {
   const location = useLocation()
   const data = location?.state
-  const title = data?.name || ''
+  const title = data?.jit_name || ''
   const breadCrumb = [
     {
       title: 'Global Education',

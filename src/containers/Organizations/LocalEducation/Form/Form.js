@@ -19,7 +19,7 @@ const LocalEducationForm = (props) => {
       state: { orgId },
     },
     {
-      title: type === 'new' ? 'Add' : `Draft: ${jitData?.name}`,
+      title: type === 'new' ? 'Add' : `Draft: ${jitData?.jit_name}`,
     },
   ]
 

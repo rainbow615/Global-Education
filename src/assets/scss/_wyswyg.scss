@@ -36,11 +36,38 @@
     font-weight: 600;
   }
 
+  img {
+    width: 100%;
+  }
+}
+
+.ck-general-mode {
   .ck-editor__editable {
     min-height: 300px !important;
   }
+}
 
-  img {
-    width: 100%;
+.ck-simple-mode {
+  margin-top: -37px;
+
+  .ck-editor__editable {
+    min-height: 50px !important;
+  }
+
+  .ck.ck-toolbar {
+    background: transparent;
+    border: 0;
+
+    .ck.ck-toolbar__items {
+      justify-content: flex-end;
+
+      button {
+        background-color: antiquewhite;
+
+        &:hover {
+          background-color: gainsboro;
+        }
+      }
+    }
   }
 }

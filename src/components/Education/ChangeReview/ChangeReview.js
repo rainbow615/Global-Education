@@ -5,7 +5,7 @@ import { RollbackOutlined } from '@ant-design/icons'
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
 
 import { updateEducation, deleteEducation, useEducation } from '../../../services/jitService'
-import { JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
+import { DIFF_VIEW_STYLES, JIT_ACTIONS, JIT_CONFIRM_MSG } from '../../../config/constants'
 import CustomBreadcrumb from '../../CustomBreadcrumb/CustomBreadcrumb'
 import CustomLoading from '../../Loading/Loading'
 import { FormActionButtons } from '../../CommonComponent'
@@ -15,29 +15,18 @@ import { formatLocalizedDate, formatHTMLForDiff } from '../../../utils'
 
 import { Root, Topbar, TitleView } from './styles'
 
-const compareStyles = {
-  variables: {
-    light: {
-      codeFoldGutterBackground: '#6F767E',
-      codeFoldBackground: '#E2E4E5',
-      diffViewerTitleBackground: '#f0f2f5',
-      diffViewerTitleColor: '#1f2532',
-    },
-  },
-}
-
 const ChangeReview = (props) => {
   const { breadCrumb, isGlobal, orgId } = props
   const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
   const location = useLocation()
   const navigate = useNavigate()
   const data = location?.state
-  const id = data?.id
-  const title = data?.name || ''
-  const content = data?.content || ''
+  const jit_id = data?.jit_id
+  const title = data?.jit_name || ''
+  const content = data?.jit_content || ''
 
-  const [isLoad, setIsLoad] = useState(false)
-  const [isDelete, setIsDelete] = useState(false)
+  const [isLoading, setIsLoading] = useState({ isNext: false, isBack: false })
+  const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
     if (!data) {
@@ -55,50 +44,56 @@ const ChangeReview = (props) => {
     return <CustomLoading />
   }
 
-  const onSubmit = () => {
-    let status = JIT_ACTIONS.APPROVED
+  const onSubmit = (isNext) => () => {
+    setIsLoading({ isNext, isBack: !isNext })
 
     const payload = {
       organization_id: orgId || null,
       parent_id: data.parent_id,
-      name: data.name,
-      content: data.content,
-      status,
+      jit_name: data.jit_name,
+      jit_content: data.jit_content,
+      status: isNext ? JIT_ACTIONS.APPROVED : JIT_ACTIONS.DRAFT,
     }
 
-    setIsLoad(true)
-    updateEducation(id, payload)
+    console.log('======data', data)
+
+    updateEducation(jit_id, payload)
       .then(() => {
-        setIsLoad(false)
-        notification.success({
-          message: `This JIT Education is ready to approve now!`,
+        setIsLoading({ isNext: false, isBack: false })
+        if (isNext) {
+          notification.success({
+            message: `Education document is ready to publish!`,
+          })
+        }
+
+        navigate(isNext ? `/${prefixLink}education/proof` : `/${prefixLink}education/form/edit`, {
+          state: { jit_id, orgId, ...payload },
         })
-        navigate(`/${prefixLink}education/proof`, { state: { id, orgId, ...payload } })
       })
       .catch((error) => {
-        setIsLoad(false)
+        setIsLoading({ isNext: false, isBack: false })
 
         notification.error({
-          message: 'Upate Failure',
+          message: 'Update failed!',
           description: error?.data || '',
         })
       })
   }
 
   const onDelete = () => {
-    setIsDelete(true)
+    setIsDeleting(true)
 
-    deleteEducation(id)
+    deleteEducation(jit_id)
       .then(() => {
-        setIsDelete(false)
-        notification.success({ message: 'A JIT Education has been deleted successfully!' })
+        setIsDeleting(false)
+        notification.success({ message: 'Education document has been deleted successfully!' })
         navigate(`/${prefixLink}education/list`, { state: { orgId } })
       })
       .catch((error) => {
-        setIsDelete(false)
+        setIsDeleting(false)
 
         notification.error({
-          message: 'Delete Failure',
+          message: 'Delete failed!',
           description: error?.data || '',
         })
       })
@@ -113,14 +108,20 @@ const ChangeReview = (props) => {
 
   const parentJitData = parentJit?.data && parentJit.data.length > 0 ? parentJit.data[0] : null
 
+  console.log('======****=', title, content)
+
   return (
     <React.Fragment>
       <Topbar>
         <CustomBreadcrumb items={breadCrumb} />
-        <Button type="link" icon={<RollbackOutlined />}>
-          <RouterLink to={`/${prefixLink}education/form/edit`} state={data}>
-            &nbsp;Send Back to Editor
-          </RouterLink>
+        <Button
+          size="large"
+          type="link"
+          icon={<RollbackOutlined />}
+          onClick={onSubmit(false)}
+          loading={isLoading.isBack}
+        >
+          &nbsp;Send Back to Editor
         </Button>
       </Topbar>
 
@@ -128,9 +129,10 @@ const ChangeReview = (props) => {
         <ReactDiffViewer
           oldValue={formatHTMLForDiff(parentJitData?.jit_name || '')}
           newValue={formatHTMLForDiff(title)}
-          splitView={!!parentJitData?.modified_date}
+          splitView={!!parentJitData}
           compareMethod={DiffMethod.WORDS}
-          styles={compareStyles}
+          showDiffOnly={false}
+          styles={DIFF_VIEW_STYLES}
           leftTitle={
             parentJitData?.modified_date
               ? renderTitleBar(
@@ -147,9 +149,10 @@ const ChangeReview = (props) => {
         <ReactDiffViewer
           oldValue={formatHTMLForDiff(parentJitData?.jit_content || '')}
           newValue={formatHTMLForDiff(content)}
-          splitView={!!parentJitData?.modified_date}
+          splitView={!!parentJitData}
           compareMethod={DiffMethod.WORDS}
-          styles={compareStyles}
+          showDiffOnly={false}
+          styles={DIFF_VIEW_STYLES}
           leftTitle={renderTitleBar('', 'Body')}
           rightTitle={renderTitleBar('', 'Body')}
         />
@@ -159,7 +162,7 @@ const ChangeReview = (props) => {
           type="link"
           size="large"
           danger
-          loading={isDelete}
+          loading={isDeleting}
           onClick={onDelete}
           actionType={JIT_ACTIONS.DELETE}
           message={JIT_CONFIRM_MSG.DELETE}
@@ -172,7 +175,7 @@ const ChangeReview = (props) => {
               Close
             </RouterLink>
           </Button>
-          <Button size="large" onClick={onSubmit} loading={isLoad}>
+          <Button size="large" onClick={onSubmit(true)} loading={isLoading.isNext}>
             Accept Changes
           </Button>
         </Space>

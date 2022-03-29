@@ -7,7 +7,7 @@ import {
   createOrganization,
   updateOrganization,
   deleteOrganization,
-} from '../../../services/organizations'
+} from '../../../services/orgService'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../components/CommonComponent'
 import ConfirmActionButton from '../../../components/ConfirmActionButton'
@@ -31,12 +31,14 @@ const OrganizationsForm = () => {
       title: type === 'new' ? 'Add' : 'Edit',
     },
   ]
-  const id = location?.state?.id
+  const data = location?.state
+  const id = data?.id
 
   const [isLoading, setIsLoading] = useState(false)
   const [isPublishing, setIsPublishing] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [initial, setInitial] = useState()
+  const [errorMsg, setErrorMsg] = useState('')
 
   useEffect(() => {
     form.setFieldsValue({ region: 'North America' })
@@ -53,6 +55,7 @@ const OrganizationsForm = () => {
     }
 
     setIsLoading(true)
+    setErrorMsg('')
 
     if (type === 'new') {
       createOrganization(payload)
@@ -78,10 +81,14 @@ const OrganizationsForm = () => {
         .catch((error) => {
           setIsLoading(false)
 
-          notification.error({
-            message: 'Add Failure',
-            description: error?.data || '',
-          })
+          if (error?.status === 500) {
+            setErrorMsg(error?.data || '')
+          } else {
+            notification.error({
+              message: 'Add failed!',
+              description: error?.data || '',
+            })
+          }
         })
     } else {
       updateOrganization(id, payload)
@@ -93,10 +100,14 @@ const OrganizationsForm = () => {
         .catch((error) => {
           setIsLoading(false)
 
-          notification.error({
-            message: 'Upate Failure',
-            description: error?.data || '',
-          })
+          if (error?.status === 500) {
+            setErrorMsg(error?.data || '')
+          } else {
+            notification.error({
+              message: 'Update failed!',
+              description: error?.data || '',
+            })
+          }
         })
     }
   }
@@ -104,13 +115,12 @@ const OrganizationsForm = () => {
   const onFinishFailed = () => {}
 
   const onTogglePublish = (isPublish) => () => {
-    const org = location.state
     const payload = {
-      organization_name: org.name,
-      organization_description: org.description,
-      state: org.state,
-      type: org.type,
-      region: org.region,
+      organization_name: data.name,
+      organization_description: data.description,
+      state: data.state,
+      type: data.type,
+      region: data.region,
       status: isPublish ? ORG_ACTIONS.PUBLISHED : ORG_ACTIONS.UNPUBLISHED,
     }
 
@@ -131,7 +141,7 @@ const OrganizationsForm = () => {
         setIsPublishing(false)
 
         notification.error({
-          message: 'Publish Failure',
+          message: 'Publish failed!',
           description: error?.data || '',
         })
       })
@@ -152,14 +162,14 @@ const OrganizationsForm = () => {
         setIsDeleting(false)
 
         notification.error({
-          message: 'Delete Failure',
+          message: 'Delete failed!',
           description: error?.data || '',
         })
       })
   }
 
   const isCheckPublish =
-    (!initial && location?.state?.status === ORG_ACTIONS.PUBLISHED) ||
+    (!initial && data?.status === ORG_ACTIONS.PUBLISHED) ||
     initial?.status === ORG_ACTIONS.PUBLISHED
 
   return (
@@ -169,7 +179,7 @@ const OrganizationsForm = () => {
         <Form
           form={form}
           autoComplete="nope"
-          initialValues={initial || location.state}
+          initialValues={initial || data}
           layout="vertical"
           name="organizations"
           onFinish={onFinish}
@@ -178,7 +188,9 @@ const OrganizationsForm = () => {
           <Form.Item
             name="name"
             hasFeedback
-            rules={[{ required: true, message: 'Please input Name' }]}
+            validateStatus={errorMsg ? 'error' : undefined}
+            help={errorMsg || null}
+            rules={[{ required: true, message: 'Please input a name' }]}
           >
             <Input placeholder="Name *" size="large" />
           </Form.Item>
@@ -268,7 +280,12 @@ const OrganizationsForm = () => {
               <div />
             )}
             <Space>
-              <Button size="large" htmlType="submit" loading={isLoading}>
+              <Button
+                size="large"
+                htmlType="submit"
+                disabled={isLoading}
+                loading={isLoading}
+              >
                 {type === 'new' ? 'Add' : 'Update'}
               </Button>
               <ConfirmActionButton

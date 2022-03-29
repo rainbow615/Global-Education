@@ -65,3 +65,39 @@ export const JIT_CONFIRM_MSG = {
   PUBLISHED: "You are publishing this JIT Education. Type 'PUBLISH' to confirm.",
   UNPUBLISHED: "You are unpublishing this JIT Education. Type 'UNPUBLISH' to confirm.",
 }
+
+export const PROTOCOL_ACTIONS = {
+  DRAFT: 'DRAFT',
+  UNPUBLISHED: 'UNPUBLISHED',
+  INREVIEW: 'INREVIEW',
+  APPROVED: 'APPROVED',
+  PUBLISHED: 'PUBLISHED',
+  DELETE: 'DELETE',
+}
+
+export const PROTOCOLS_CONFIRM_MSG = {
+  DELETE_DRAFT:
+    "You are deleting this draft. This draft will not be recoverable. Type 'DELETE' to confirm.",
+  DELETE: "You are deleting this protocol. Type 'DELETE' to confirm.",
+  PUBLISHED: "You are publishing this protocol. Type 'PUBLISH' to confirm.",
+  UNPUBLISHED: "You are unpublishing this protocol. Type 'UNPUBLISH' to confirm.",
+}
+
+export const DIFF_VIEW_STYLES = {
+  variables: {
+    light: {
+      codeFoldGutterBackground: '#6F767E',
+      codeFoldBackground: '#E2E4E5',
+      diffViewerTitleBackground: '#f0f2f5',
+      diffViewerTitleColor: '#1f2532',
+    },
+  },
+}
+
+export const COMPONENTS_TYPES = ['Sections', 'Texts', 'Blocks', 'Medications', 'Links']
+
+export const COMPONENTS_CONFIRM_MSG = {
+  DELETE: "You are deleting this component. Type 'DELETE' to confirm.",
+}
+
+export const DOSE_UNIT = ['mcg/kg', 'mcg/ml', 'mcg/min']
