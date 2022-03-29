@@ -4,7 +4,7 @@ import { Typography } from 'antd'
 import { DateText } from '../../CommonComponent'
 import CopyTooltip from './CopyTooltip'
 import { JIT_ACTIONS } from '../../../config/constants'
-import { getJITStatusName } from '../../../utils'
+import { getJITStatusName } from '../../../utils/names'
 import { ActionButton } from './styles'
 
 const { Text } = Typography

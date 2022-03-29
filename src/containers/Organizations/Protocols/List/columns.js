@@ -5,7 +5,7 @@ import {
   getProtocolStatusName,
   getProtocolStatusColor,
   getProtocolButtonName,
-} from '../../../../utils'
+} from '../../../../utils/names'
 import CopyTooltip from './CopyTooltip'
 import { DateText } from '../../../../components/CommonComponent'
 import { ActionButton } from './styles'
