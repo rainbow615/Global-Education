@@ -32,8 +32,18 @@ export const ListSection = styled(Space)`
     width: 100%;
   }
 
+  .ant-collapse-item {
+    .ant-collapse-header {
+      align-items: center;
+    }
+  }
+
   .ant-collapse-item-disabled .ant-collapse-header {
     cursor: auto;
     color: revert;
   }
+`
+
+export const PanelHeader = styled.div`
+  padding-right: 30px;
 `

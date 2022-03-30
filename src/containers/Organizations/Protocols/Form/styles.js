@@ -4,8 +4,6 @@ import { Button, Space } from 'antd'
 import { Container } from '../../../../components/CommonComponent'
 
 export const Root = styled(Container)`
-  max-width: 800px;
-
   form {
     width: 100%;
 
