@@ -96,6 +96,29 @@ export const DIFF_VIEW_STYLES = {
 
 export const COMPONENTS_TYPES = ['Sections', 'Texts', 'Blocks', 'Medications', 'Links']
 
+export const NEW_COMPONENTS_MENU = [
+  {
+    name: 'Add Block',
+    shortKeyLabel: 'Cntl-B',
+  },
+  {
+    name: 'Add Medication',
+    shortKeyLabel: 'Cntl-M',
+  },
+  {
+    name: 'Add Protocol Link',
+    shortKeyLabel: 'Cntl-L',
+  },
+  {
+    name: 'Add Text',
+    shortKeyLabel: 'Cntl-T',
+  },
+  {
+    name: 'Add Section',
+    shortKeyLabel: 'Cntl-s',
+  },
+]
+
 export const COMPONENTS_CONFIRM_MSG = {
   DELETE: "You are deleting this component. Type 'DELETE' to confirm.",
 }

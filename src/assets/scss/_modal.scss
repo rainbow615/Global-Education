@@ -1,1 +1,8 @@
 /* Customized Modal */
+.custom-popover {
+  &.no-padding-content {
+    .ant-popover-inner-content {
+      padding: 0;
+    }
+  }
+}

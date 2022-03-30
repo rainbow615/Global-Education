@@ -18,6 +18,7 @@ import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBrea
 import { FormActionButtons } from '../../../../components/CommonComponent'
 import ConfirmActionButton from '../../../../components/ConfirmActionButton'
 import SelectCategory from './SelectCategory'
+import BodyBuilder from './BodyBuilder'
 import { Root, Topbar } from './styles'
 
 const { Option } = Select
@@ -230,6 +231,7 @@ const OrgProtocolsForm = (props) => {
               </Select>
             </Form.Item>
           </Form.Item>
+          <BodyBuilder />
           <FormActionButtons>
             {type === 'edit' && id && (
               <ConfirmActionButton
