@@ -12,6 +12,8 @@ const { Option } = Select
 const { Text } = Typography
 const Tags = []
 
+const getHandleBar = () => <HolderOutlined style={{ fontSize: 22, cursor: 'pointer' }} />
+
 const ComponentBlock = (props) => {
   const { orgId } = props
 
@@ -45,14 +47,14 @@ const ComponentBlock = (props) => {
               <Tag>T</Tag>
               <Text>If 12-Lead EKG shows STEMI, notify BH and transport to STEMI center</Text>
             </Space>
-            <HolderOutlined style={{ fontSize: 22, cursor: 'pointer' }} />
+            {getHandleBar()}
           </SubComponentRow>
           <SubComponentRow>
             <Space>
               <Tag>T</Tag>
               <Text>If 12-Lead EKG shows STEMI, notify BH and transport to STEMI center</Text>
             </Space>
-            <HolderOutlined style={{ fontSize: 22, cursor: 'pointer' }} />
+            {getHandleBar()}
           </SubComponentRow>
         </SubComponentList>
       </Form.Item>

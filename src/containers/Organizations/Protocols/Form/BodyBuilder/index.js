@@ -3,7 +3,8 @@ import { Button, Menu, Space, Typography, Popover } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
 import { NEW_COMPONENTS_MENU } from '../../../../../config/constants'
-import { BodyMenu } from './styles'
+import BodyList from './List'
+import { Root, BodyMenu } from './styles'
 
 const { Text } = Typography
 
@@ -20,7 +21,7 @@ const BodyBuilder = () => {
   )
 
   return (
-    <div>
+    <Root size="middle" direction="vertical">
       <Space>
         <Text>{`Body `}</Text>
         <Popover
@@ -32,7 +33,8 @@ const BodyBuilder = () => {
           <Button icon={<PlusOutlined />} size="small" />
         </Popover>
       </Space>
-    </div>
+      <BodyList />
+    </Root>
   )
 }
 

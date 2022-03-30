@@ -1,5 +1,9 @@
 import styled from 'styled-components'
-import { Menu } from 'antd'
+import { Menu, Space } from 'antd'
+
+export const Root = styled(Space)`
+  width: 100%;
+`
 
 export const BodyMenu = styled(Menu)`
   min-width: 220px;
@@ -18,5 +22,18 @@ export const BodyMenu = styled(Menu)`
         font-size: 0.8rem;
       }
     }
+  }
+`
+
+export const ListSection = styled(Space)`
+  width: 100%;
+
+  .ant-space {
+    width: 100%;
+  }
+
+  .ant-collapse-item-disabled .ant-collapse-header {
+    cursor: auto;
+    color: revert;
   }
 `
