@@ -4,6 +4,10 @@ export function useComponents(orgId) {
   return useAPI(orgId ? `/components/${orgId}` : null)
 }
 
+export function useComponent(id) {
+  return useAPI(id ? `/component/${id}` : null)
+}
+
 export function createComponent(payload) {
   return api.post(`/components`, payload)
 }
