@@ -94,7 +94,13 @@ export const DIFF_VIEW_STYLES = {
   },
 }
 
-export const COMPONENTS_TYPES = ['Sections', 'Texts', 'Blocks', 'Medications', 'Links']
+export const COMPONENTS_TYPES = [
+  { id: 'section', label: 'Sections' },
+  { id: 'text', label: 'Texts' },
+  { id: 'block', label: 'Blocks' },
+  { id: 'medication', label: 'Medications' },
+  { id: 'link', label: 'Links' },
+]
 
 export const NEW_COMPONENTS_MENU = [
   {

@@ -24,6 +24,10 @@ export const BottomSection = styled(Space)`
     padding-left: 0;
     padding-right: 0;
   }
+
+  .one-half {
+    width: 50%;
+  }
 `
 
 export const ProtocolsView = styled(Card)`

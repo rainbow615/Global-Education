@@ -10,7 +10,29 @@ import { Root, BottomSection } from './styles'
 
 const ComponentForm = (props) => {
   const [form] = Form.useForm()
-  const { children, isNew, initialValues, onFinish } = props
+  const { children, isNew, isLoading, initialValues, onCreate, onEdit } = props
+
+  const handleNewFormSubmit = () => {
+    form
+      .validateFields()
+      .then((values) => {
+        onCreate(values)
+      })
+      .catch((errorInfo) => {
+        console.log(errorInfo)
+      })
+  }
+
+  const handleEditFormSubmit = () => {
+    form
+      .validateFields()
+      .then((values) => {
+        onEdit(values)
+      })
+      .catch((errorInfo) => {
+        console.log(errorInfo)
+      })
+  }
 
   const onDelete = () => {}
 
@@ -22,11 +44,10 @@ const ComponentForm = (props) => {
         initialValues={initialValues}
         layout="vertical"
         name="organizations"
-        onFinish={onFinish}
       >
         <div>{children}</div>
         <BottomSection size="large">
-          <ProtocolsSection />
+          {!isNew && <ProtocolsSection />}
           <EducationsSection />
         </BottomSection>
         <FormActionButtons>
@@ -35,7 +56,7 @@ const ComponentForm = (props) => {
               type="link"
               size="large"
               danger
-              loading={false}
+              loading={isLoading.delete}
               onClick={onDelete}
               actionType="DELETE"
               message={COMPONENTS_CONFIRM_MSG.DELETE}
@@ -47,15 +68,20 @@ const ComponentForm = (props) => {
           )}
           <Space>
             <Button
-              htmlType="submit"
               size="large"
-              loading={false}
+              loading={isLoading.create}
               type={isNew ? 'primary' : 'default'}
+              onClick={handleNewFormSubmit}
             >
               Save as New
             </Button>
             {!isNew && (
-              <Button htmlType="submit" size="large" loading={false} type="primary">
+              <Button
+                size="large"
+                loading={isLoading.edit}
+                type="primary"
+                onClick={handleEditFormSubmit}
+              >
                 Modify Everywhere
               </Button>
             )}

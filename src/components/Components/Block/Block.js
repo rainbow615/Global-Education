@@ -28,14 +28,14 @@ const ComponentBlock = (props) => {
       <Form.Item label="Content" name="content">
         <CustomCkEditor simpleMode data={''} placeholder="Enter block text" />
       </Form.Item>
-      <Form.Item label="Ordered?" name="name">
-        <Space>
+      <Space>
+        <Form.Item label="Ordered?" name="is-ordered">
           <Switch onChange={onChangeOrder} checked={isOrdered} />
-          <i>
-            Selecting this will number to everything contained in this Block based on their order.
-          </i>
-        </Space>
-      </Form.Item>
+        </Form.Item>
+        <i>
+          Selecting this will number to everything contained in this Block based on their order.
+        </i>
+      </Space>
       <Form.Item>
         <Space>
           <Text>{`Block Subcomponents `}</Text>

@@ -42,7 +42,7 @@ const EducationsSection = () => {
   }
 
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" className='one-half'>
       <label>Linked Education</label>
       <EducationsView>
         <Select

@@ -1,30 +1,61 @@
 import React, { useState } from 'react'
-import { Form, Input, Select, Space } from 'antd'
+import { Form, Input, Select, Space, notification } from 'antd'
 import Switch from 'react-switch'
 
-import ComponentForm from '../../Components/Form'
+import { createComponent } from '../../../services/componentService'
+import ComponentForm from '../Form'
+import { COMPONENTS_TYPES } from '../../../config/constants'
 
 const { Option } = Select
 const Tags = []
 
 const ComponentSection = (props) => {
-  const { isNew } = props
+  const { orgId, isNew } = props
 
   const [isOrdered, setIsOrdered] = useState(false)
+  const [isLoading, setIsLoading] = useState({
+    delete: false,
+    create: false,
+    edit: false,
+  })
 
-  const onChangeOrder = (checked) => {
-    setIsOrdered(checked)
+  const onCreate = (values) => {
+    const payload = {
+      organization_id: orgId,
+      parent_id: null,
+      component_type: COMPONENTS_TYPES[0].id,
+      tags: values.tags || [],
+      component_content: values.content,
+      is_ordered: values['is-ordered'] || false,
+      component_order: 1,
+      linked_protocol: [],
+      linked_education: [],
+    }
+
+    setIsLoading({ ...isLoading, create: true })
+
+    createComponent(payload)
+      .then(() => {
+        setIsLoading({ ...isLoading, create: false })
+        notification.success({ message: 'A new section component has been created successfully!' })
+      })
+      .catch((error) => {
+        setIsLoading(false)
+
+        notification.error({
+          message: 'Save failed!',
+          description: error?.data || '',
+        })
+      })
   }
 
-  const onFinish = (values) => {
-    console.log('===============', values)
-  }
+  const onEdit = () => {}
 
   return (
-    <ComponentForm isNew={isNew} onFinish={onFinish}>
+    <ComponentForm isNew={isNew} isLoading={isLoading} onCreate={onCreate} onEdit={onEdit}>
       <Form.Item
         label="Content"
-        name="name"
+        name="content"
         hasFeedback
         rules={[{ required: true, message: 'Please input a section name' }]}
       >
@@ -50,14 +81,12 @@ const ComponentSection = (props) => {
           ))}
         </Select>
       </Form.Item>
-      <Form.Item label="Ordered?" name="name">
-        <Space>
-          <Switch onChange={onChangeOrder} checked={isOrdered} />
-          <i>
-            Selecting this will number everything added to this section component based on order.
-          </i>
-        </Space>
-      </Form.Item>
+      <Space>
+        <Form.Item label="Ordered?" name="is-ordered">
+          <Switch onChange={(checked) => setIsOrdered(checked)} checked={isOrdered} />
+        </Form.Item>
+        <i>Selecting this will number everything added to this section component based on order.</i>
+      </Space>
     </ComponentForm>
   )
 }

@@ -38,10 +38,10 @@ const OrgComponentsList = (props) => {
       {COMPONENTS_TYPES.map((type, index) => (
         <Menu.Item key={index}>
           <Link
-            to={`/organizations/components/form/${type.toLowerCase()}/add`}
+            to={`/organizations/components/form/${type.label.toLowerCase()}/add`}
             state={{ orgId, orgName }}
           >
-            {type}
+            {type.label}
           </Link>
         </Menu.Item>
       ))}
@@ -102,8 +102,8 @@ const OrgComponentsList = (props) => {
                 All
               </Option>
               {COMPONENTS_TYPES.map((type, index) => (
-                <Option key={index} value={type}>
-                  {type}
+                <Option key={index} value={type.id}>
+                  {type.label}
                 </Option>
               ))}
             </SearchTypeBox>
