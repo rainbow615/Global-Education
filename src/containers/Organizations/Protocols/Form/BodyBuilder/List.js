@@ -1,59 +1,129 @@
-import React from 'react'
-import { Collapse, Space } from 'antd'
+import React, { useState } from 'react'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { Collapse, Space, Tag } from 'antd'
 import { HolderOutlined } from '@ant-design/icons'
 
+import { getFirstLetter } from '../../../../../utils'
 import { ListSection, PanelHeader } from './styles'
 
 const { Panel } = Collapse
 
+const bodyData = [
+  {
+    component_id: '1',
+    component_type: 'text',
+    component_content: 'BLS',
+  },
+  {
+    component_id: '2',
+    component_type: 'section',
+    component_content: 'ALS',
+  },
+  {
+    component_id: '3',
+    component_type: 'block',
+    component_content: 'IV SO',
+  },
+]
+
 const getHandleBar = () => <HolderOutlined style={{ fontSize: 22, cursor: 'pointer' }} />
 
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
+
+  return result
+}
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+  userSelect: 'none',
+
+  // change background colour if dragging
+  background: isDragging ? 'lightgray' : 'white',
+  margin: `0 0 10px 0`,
+
+  // styles we need to apply on draggables
+  ...draggableStyle,
+})
+
 const BodyList = () => {
+  const [list, setList] = useState(bodyData)
+
+  const onDragEnd = (result) => {
+    // dropped outside the list
+    if (!result.destination) {
+      return
+    }
+
+    const items = reorder(list, result.source.index, result.destination.index)
+
+    setList(items)
+  }
+
   return (
-    <ListSection direction="vertical" className="custom-collapse">
-      <Collapse expandIconPosition="right">
-        <Panel
-          header={<PanelHeader>BLS</PanelHeader>}
-          key="1"
-          extra={getHandleBar()}
-          showArrow={false}
-          collapsible="disabled"
-        />
-      </Collapse>
-      <Collapse expandIconPosition="right">
-        <Panel
-          header={
-            <PanelHeader>
-              Ant Design, a design language for background applications, is refined by Ant UED Team.
-              Ant Design, a design language for background applications
-            </PanelHeader>
-          }
-          key="2"
-          extra={getHandleBar()}
-        >
-          <Space direction="vertical">
-            <Collapse expandIconPosition="right">
-              <Panel
-                header={<PanelHeader>Monitor / EKG</PanelHeader>}
-                key="3"
-                extra={getHandleBar()}
-                showArrow={false}
-                collapsible="disabled"
-              />
-            </Collapse>
-            <Collapse defaultActiveKey={['1']} expandIconPosition="right">
-              <Panel
-                header={<PanelHeader>IV SO</PanelHeader>}
-                key="4"
-                extra={getHandleBar()}
-                showArrow={false}
-                collapsible="disabled"
-              />
-            </Collapse>
-          </Space>
-        </Panel>
-      </Collapse>
-    </ListSection>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="droppable">
+        {(provided, snapshot) => (
+          <ListSection
+            className="custom-collapse"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {list.map((item, index) => (
+              <Draggable key={item.component_id} draggableId={item.component_id} index={index}>
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                  >
+                    <Collapse expandIconPosition="right">
+                      <Panel
+                        header={
+                          <PanelHeader>
+                            <Tag>{getFirstLetter(item.component_type)}</Tag>
+                            {item.component_content}
+                          </PanelHeader>
+                        }
+                        key="1"
+                        extra={getHandleBar()}
+                      >
+                        <Collapse expandIconPosition="right">
+                          <Panel
+                            header={<PanelHeader>Monitor / EKG</PanelHeader>}
+                            key="3"
+                            extra={getHandleBar()}
+                            showArrow={false}
+                            collapsible="disabled"
+                          />
+                        </Collapse>
+                        <Collapse expandIconPosition="right">
+                          <Panel
+                            header={
+                              <PanelHeader>
+                                Ant Design, a design language for background applications, is
+                                refined by Ant UED Team.
+                              </PanelHeader>
+                            }
+                            key="3"
+                            extra={getHandleBar()}
+                            showArrow={false}
+                            collapsible="disabled"
+                          />
+                        </Collapse>
+                      </Panel>
+                    </Collapse>
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </ListSection>
+        )}
+      </Droppable>
+    </DragDropContext>
   )
 }
 

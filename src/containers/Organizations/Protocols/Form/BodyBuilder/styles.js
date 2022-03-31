@@ -25,7 +25,7 @@ export const BodyMenu = styled(Menu)`
   }
 `
 
-export const ListSection = styled(Space)`
+export const ListSection = styled.div`
   width: 100%;
 
   .ant-space {

@@ -62,3 +62,7 @@ export const formatHTMLForDiff = (htmlStr, textOnly = true) => {
 
   return formattedHTML
 }
+
+export const getFirstLetter = (string) => {
+  return string.slice(0, 1).toUpperCase()
+}
