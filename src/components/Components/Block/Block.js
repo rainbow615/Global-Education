@@ -15,7 +15,7 @@ const Tags = []
 const getHandleBar = () => <HolderOutlined style={{ fontSize: 22, cursor: 'pointer' }} />
 
 const ComponentBlock = (props) => {
-  const { orgId } = props
+  const { orgId, isNew } = props
 
   const [isOrdered, setIsOrdered] = useState(false)
 
@@ -24,7 +24,7 @@ const ComponentBlock = (props) => {
   }
 
   return (
-    <ComponentForm initialValues={{}}>
+    <ComponentForm isNew={isNew} initialValues={{}}>
       <Form.Item label="Content" name="content">
         <CustomCkEditor simpleMode data={''} placeholder="Enter block text" />
       </Form.Item>

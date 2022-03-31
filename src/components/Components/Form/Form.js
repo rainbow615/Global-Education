@@ -10,7 +10,7 @@ import { Root, BottomSection } from './styles'
 
 const ComponentForm = (props) => {
   const [form] = Form.useForm()
-  const { children, initialValues, onFinish } = props
+  const { children, isNew, initialValues, onFinish } = props
 
   const onDelete = () => {}
 
@@ -30,24 +30,35 @@ const ComponentForm = (props) => {
           <EducationsSection />
         </BottomSection>
         <FormActionButtons>
-          <ConfirmActionButton
-            type="link"
-            size="large"
-            danger
-            loading={false}
-            onClick={onDelete}
-            actionType="DELETE"
-            message={COMPONENTS_CONFIRM_MSG.DELETE}
-          >
-            Delete
-          </ConfirmActionButton>
+          {!isNew ? (
+            <ConfirmActionButton
+              type="link"
+              size="large"
+              danger
+              loading={false}
+              onClick={onDelete}
+              actionType="DELETE"
+              message={COMPONENTS_CONFIRM_MSG.DELETE}
+            >
+              Delete
+            </ConfirmActionButton>
+          ) : (
+            <div />
+          )}
           <Space>
-            <Button size="large" loading={false}>
+            <Button
+              htmlType="submit"
+              size="large"
+              loading={false}
+              type={isNew ? 'primary' : 'default'}
+            >
               Save as New
             </Button>
-            <Button size="large" loading={false} type="primary">
-              Modify Everywhere
-            </Button>
+            {!isNew && (
+              <Button htmlType="submit" size="large" loading={false} type="primary">
+                Modify Everywhere
+              </Button>
+            )}
           </Space>
         </FormActionButtons>
       </Form>

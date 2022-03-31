@@ -7,15 +7,21 @@ import ComponentForm from '../../Components/Form'
 const { Option } = Select
 const Tags = []
 
-const ComponentSection = () => {
+const ComponentSection = (props) => {
+  const { isNew } = props
+
   const [isOrdered, setIsOrdered] = useState(false)
 
   const onChangeOrder = (checked) => {
     setIsOrdered(checked)
   }
 
+  const onFinish = (values) => {
+    console.log('===============', values)
+  }
+
   return (
-    <ComponentForm>
+    <ComponentForm isNew={isNew} onFinish={onFinish}>
       <Form.Item
         label="Content"
         name="name"
@@ -25,13 +31,7 @@ const ComponentSection = () => {
         <Input placeholder="Enter a section name" size="large" />
       </Form.Item>
 
-      <Form.Item
-        label="Tags"
-        name="tags"
-        className="tags"
-        hasFeedback
-        rules={[{ required: true, message: 'Please select 1 or more tag.' }]}
-      >
+      <Form.Item label="Tags" name="tags">
         <Select
           mode="multiple"
           size="large"

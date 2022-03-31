@@ -9,7 +9,7 @@ import { ProtocolView } from './styles'
 const { Text } = Typography
 
 const ComponentLink = (props) => {
-  const { orgId } = props
+  const { orgId, isNew } = props
 
   const [linkedProtocol, setLinkedProtocol] = useState(null)
 
@@ -22,7 +22,7 @@ const ComponentLink = (props) => {
   }
 
   return (
-    <ComponentForm initialValues={{}}>
+    <ComponentForm isNew={isNew} initialValues={{}}>
       <Form.Item label="Content" name="content">
         <CustomCkEditor simpleMode data={''} placeholder="Enter text" />
       </Form.Item>

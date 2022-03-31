@@ -7,11 +7,13 @@ import ComponentForm from '../../Components/Form'
 const { Option } = Select
 const Tags = []
 
-const ComponentText = () => {
+const ComponentText = (props) => {
+  const { isNew } = props
+
   const [initial] = useState({})
 
   return (
-    <ComponentForm initialValues={initial}>
+    <ComponentForm isNew={isNew} initialValues={initial}>
       <Form.Item label="Content" name="content">
         <CustomCkEditor simpleMode data={''} placeholder="Enter text" />
       </Form.Item>

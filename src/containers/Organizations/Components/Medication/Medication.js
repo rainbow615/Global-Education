@@ -31,7 +31,7 @@ const ComponentMedicationForm = (props) => {
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
       <Root>
-        <ComponentMedication />
+        <ComponentMedication isNew={type === 'add'} />
       </Root>
     </React.Fragment>
   )

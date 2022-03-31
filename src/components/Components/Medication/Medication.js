@@ -11,7 +11,9 @@ import { DoseSection } from './styles'
 const { Option } = Select
 const { Text } = Typography
 
-const ComponentMedication = () => {
+const ComponentMedication = (props) => {
+  const { isNew } = props
+
   const [initial] = useState({ unit: DOSE_UNIT[0] })
   const [isHaveRange, setIsHaveRange] = useState(false)
   const [isHaveFormulary, setIsHaveFormulary] = useState(false)
@@ -25,7 +27,7 @@ const ComponentMedication = () => {
   }
 
   return (
-    <ComponentForm initialValues={initial}>
+    <ComponentForm isNew={isNew} initialValues={initial}>
       <Form.Item
         label="Content"
         name="name"
