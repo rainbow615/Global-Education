@@ -29,7 +29,7 @@ const ComponentLinkForm = (props) => {
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
-      <ComponentLink isNew={type === 'add'} orgId={orgId} />
+      <ComponentLink orgId={orgId} isNew={type === 'add'} />
     </React.Fragment>
   )
 }

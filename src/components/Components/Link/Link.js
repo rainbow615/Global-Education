@@ -12,6 +12,11 @@ const ComponentLink = (props) => {
   const { orgId, isNew } = props
 
   const [linkedProtocol, setLinkedProtocol] = useState(null)
+  const [isLoading, setIsLoading] = useState({
+    delete: false,
+    create: false,
+    edit: false,
+  })
 
   const onAddProtocol = (protocol) => {
     setLinkedProtocol(protocol)
@@ -21,8 +26,18 @@ const ComponentLink = (props) => {
     setLinkedProtocol(null)
   }
 
+  const onCreate = () => {}
+
+  const onEdit = () => {}
+
   return (
-    <ComponentForm isNew={isNew} initialValues={{}}>
+    <ComponentForm
+      isNew={isNew}
+      isLoading={isLoading}
+      orgId={orgId}
+      onCreate={onCreate}
+      onEdit={onEdit}
+    >
       <Form.Item label="Content" name="content">
         <CustomCkEditor simpleMode data={''} placeholder="Enter text" />
       </Form.Item>

@@ -12,11 +12,16 @@ const { Option } = Select
 const { Text } = Typography
 
 const ComponentMedication = (props) => {
-  const { isNew } = props
+  const { isNew, orgId } = props
 
   const [initial] = useState({ unit: DOSE_UNIT[0] })
   const [isHaveRange, setIsHaveRange] = useState(false)
   const [isHaveFormulary, setIsHaveFormulary] = useState(false)
+  const [isLoading, setIsLoading] = useState({
+    delete: false,
+    create: false,
+    edit: false,
+  })
 
   const onChangeDoseRange = (checked) => {
     setIsHaveRange(checked)
@@ -26,8 +31,19 @@ const ComponentMedication = (props) => {
     setIsHaveFormulary(checked)
   }
 
+  const onCreate = () => {}
+
+  const onEdit = () => {}
+
   return (
-    <ComponentForm isNew={isNew} initialValues={initial}>
+    <ComponentForm
+      isNew={isNew}
+      initialValues={initial}
+      isLoading={isLoading}
+      orgId={orgId}
+      onCreate={onCreate}
+      onEdit={onEdit}
+    >
       <Form.Item
         label="Content"
         name="name"

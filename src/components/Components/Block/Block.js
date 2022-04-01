@@ -18,13 +18,28 @@ const ComponentBlock = (props) => {
   const { orgId, isNew } = props
 
   const [isOrdered, setIsOrdered] = useState(false)
+  const [isLoading, setIsLoading] = useState({
+    delete: false,
+    create: false,
+    edit: false,
+  })
 
   const onChangeOrder = (checked) => {
     setIsOrdered(checked)
   }
 
+  const onCreate = () => {}
+
+  const onEdit = () => {}
+
   return (
-    <ComponentForm isNew={isNew} initialValues={{}}>
+    <ComponentForm
+      isNew={isNew}
+      isLoading={isLoading}
+      orgId={orgId}
+      onCreate={onCreate}
+      onEdit={onEdit}
+    >
       <Form.Item label="Content" name="content">
         <CustomCkEditor simpleMode data={''} placeholder="Enter block text" />
       </Form.Item>

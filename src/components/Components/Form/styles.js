@@ -5,7 +5,7 @@ import { Container } from '../../CommonComponent'
 
 export const Root = styled(Container)`
   form {
-    width: 100%;
+    width: calc(100% - 5px);
   }
 `
 
