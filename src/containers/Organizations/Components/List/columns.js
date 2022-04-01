@@ -17,14 +17,14 @@ const COMPONENTS_COLUMNS = [
   },
   {
     title: 'Usage Amount',
-    dataIndex: 'linked_education',
-    key: 'linked_education',
+    dataIndex: 'linked_protocol',
+    key: 'linked_protocol',
     render: (value) => <DateText>{value ? value.length : 0}</DateText>,
   },
   {
     title: 'Linked Education',
-    dataIndex: 'linked_protocol',
-    key: 'linked_protocol',
+    dataIndex: 'linked_education',
+    key: 'linked_education',
     render: (value) => <DateText>{value ? value.length : 0}</DateText>,
   },
   {
