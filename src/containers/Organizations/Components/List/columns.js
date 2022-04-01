@@ -17,8 +17,8 @@ const COMPONENTS_COLUMNS = [
   },
   {
     title: 'Usage Amount',
-    dataIndex: 'linked_protocol',
-    key: 'linked_protocol',
+    dataIndex: 'backref',
+    key: 'backref',
     render: (value) => <DateText>{value ? value.length : 0}</DateText>,
   },
   {
