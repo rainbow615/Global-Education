@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import _, { map } from 'lodash'
 import { Button, Space, List, Select } from 'antd'
 
@@ -11,9 +11,13 @@ import { JIT_ACTIONS } from '../../../config/constants'
 const { Option } = Select
 
 const EducationsSection = (props) => {
-  const { orgId } = props
+  const { orgId, onChangeList } = props
 
   const [selectedEducations, setSelectedEducations] = useState([])
+
+  useEffect(() => {
+    onChangeList(selectedEducations)
+  }, [onChangeList, selectedEducations])
 
   const { data: educations, error } = useEducations(orgId || null)
 

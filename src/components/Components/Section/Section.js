@@ -29,7 +29,7 @@ const ComponentSection = (props) => {
       is_ordered: values['is-ordered'] || false,
       component_order: 1,
       linked_protocol: [],
-      linked_education: [],
+      linked_education: values.linked_education,
     }
 
     setIsLoading({ ...isLoading, create: true })

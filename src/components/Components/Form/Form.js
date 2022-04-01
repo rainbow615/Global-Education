@@ -12,11 +12,18 @@ const ComponentForm = (props) => {
   const [form] = Form.useForm()
   const { children, orgId, isNew, isLoading, initialValues, onCreate, onEdit } = props
 
+  const [selectedEducations, setSelectedEducations] = useState([])
+
+  const onChangeEducationsList = (values) => {
+    setSelectedEducations(values)
+  }
+
   const handleNewFormSubmit = () => {
     form
       .validateFields()
       .then((values) => {
-        onCreate(values)
+        const ids = selectedEducations.map((val) => val.jit_id)
+        onCreate({ ...values, linked_education: ids })
       })
       .catch((errorInfo) => {
         console.log(errorInfo)
@@ -27,7 +34,8 @@ const ComponentForm = (props) => {
     form
       .validateFields()
       .then((values) => {
-        onEdit(values)
+        const ids = selectedEducations.map((val) => val.jit_id)
+        onEdit({ ...values, linked_education: ids })
       })
       .catch((errorInfo) => {
         console.log(errorInfo)
@@ -48,7 +56,7 @@ const ComponentForm = (props) => {
         <div>{children}</div>
         <BottomSection size="large">
           {!isNew && <ProtocolsSection />}
-          <EducationsSection orgId={orgId} />
+          <EducationsSection orgId={orgId} onChangeList={onChangeEducationsList} />
         </BottomSection>
         <FormActionButtons>
           {!isNew ? (
