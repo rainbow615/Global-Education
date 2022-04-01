@@ -10,7 +10,7 @@ import { Root, BottomSection } from './styles'
 
 const ComponentForm = (props) => {
   const [form] = Form.useForm()
-  const { children, isNew, isLoading, initialValues, onCreate, onEdit } = props
+  const { children, orgId, isNew, isLoading, initialValues, onCreate, onEdit } = props
 
   const handleNewFormSubmit = () => {
     form
@@ -48,7 +48,7 @@ const ComponentForm = (props) => {
         <div>{children}</div>
         <BottomSection size="large">
           {!isNew && <ProtocolsSection />}
-          <EducationsSection />
+          <EducationsSection orgId={orgId} />
         </BottomSection>
         <FormActionButtons>
           {!isNew ? (

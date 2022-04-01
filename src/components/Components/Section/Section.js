@@ -52,7 +52,13 @@ const ComponentSection = (props) => {
   const onEdit = () => {}
 
   return (
-    <ComponentForm isNew={isNew} isLoading={isLoading} onCreate={onCreate} onEdit={onEdit}>
+    <ComponentForm
+      isNew={isNew}
+      isLoading={isLoading}
+      orgId={orgId}
+      onCreate={onCreate}
+      onEdit={onEdit}
+    >
       <Form.Item
         label="Content"
         name="content"

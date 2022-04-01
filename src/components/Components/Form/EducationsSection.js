@@ -1,29 +1,25 @@
 import React, { useState } from 'react'
-import _ from 'lodash'
+import _, { map } from 'lodash'
 import { Button, Space, List, Select } from 'antd'
 
+import { useEducations } from '../../../services/jitService'
 import { dynamicSortMultiple } from '../../../utils/sort'
+import { ResultFailed } from '../../ResultPages'
 import { EducationsView } from './styles'
+import { JIT_ACTIONS } from '../../../config/constants'
 
 const { Option } = Select
 
-const linkedEducations = [
-  {
-    jit_id: 'b85e5e34',
-    jit_name: 'Education 2',
-  },
-  {
-    jit_id: 'b85e5e35',
-    jit_name: 'Education 3',
-  },
-  {
-    jit_id: 'b85e5e33',
-    jit_name: 'Education 1',
-  },
-]
+const EducationsSection = (props) => {
+  const { orgId } = props
 
-const EducationsSection = () => {
   const [selectedEducations, setSelectedEducations] = useState([])
+
+  const { data: educations, error } = useEducations(orgId || null)
+
+  if (error) {
+    return <ResultFailed isBackButton={false} />
+  }
 
   const onSelectEducation = (value) => {
     const isCheck = _.findIndex(selectedEducations, { jit_id: value })
@@ -41,13 +37,21 @@ const EducationsSection = () => {
     setSelectedEducations(newTeam)
   }
 
+  const linkedEducations = educations?.data
+    ? map(educations.data, (record, index) => {
+        if (record.status !== JIT_ACTIONS.PUBLISHED) return null
+        return record
+      }).filter((record) => !!record)
+    : []
+
   return (
-    <Space direction="vertical" className='one-half'>
+    <Space direction="vertical" className="one-half">
       <label>Linked Education</label>
       <EducationsView>
         <Select
           className="search-educations"
-          placeholder="Search teams"
+          placeholder={educations.isLoading ? 'Loading...' : 'Search teams'}
+          disabled={educations.isLoading || error}
           size="large"
           allowClear
           showSearch
