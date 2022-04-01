@@ -16,7 +16,7 @@ const EducationList = (props) => {
   const { breadCrumb, isGlobal, orgId } = props
   const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
 
-  const { data: jits, error } = useEducations(orgId || null)
+  const { data: educations, error } = useEducations(orgId || null)
   const [searchText, setSearchText] = useState('')
 
   if (error) {
@@ -29,8 +29,8 @@ const EducationList = (props) => {
 
   const debouncedSearchHandler = debounce(onSearch, SEARCH_DELAY)
 
-  const dataSource = jits?.data
-    ? map(jits.data, (record, index) => {
+  const dataSource = educations?.data
+    ? map(educations.data, (record, index) => {
         const _record = {
           key: index + 1,
           jit_id: record.jit_id,
@@ -82,7 +82,7 @@ const EducationList = (props) => {
         <CustomTable
           dataSource={dataSource}
           columns={getColumns(isGlobal)}
-          loading={jits?.isLoading}
+          loading={educations?.isLoading}
           pagination={{
             pageSize: 10,
           }}
