@@ -14,19 +14,18 @@ export const BottomSection = styled(Space)`
   margin-top: 20px;
   align-items: flex-start;
 
-  .ant-space,
   .ant-space-item {
-    width: 100%;
+    width: 50%;
+
+    .ant-space, .ant-space-item {
+      width: 100%;
+    }
   }
 
   .ant-list-item {
     border: 0;
     padding-left: 0;
     padding-right: 0;
-  }
-
-  .one-half {
-    width: 50%;
   }
 `
 

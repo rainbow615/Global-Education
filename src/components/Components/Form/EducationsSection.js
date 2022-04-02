@@ -49,7 +49,7 @@ const EducationsSection = (props) => {
     : []
 
   return (
-    <Space direction="vertical" className="one-half">
+    <Space direction="vertical">
       <label>Linked Education</label>
       <EducationsView>
         <Select

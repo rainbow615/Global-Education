@@ -65,7 +65,6 @@ const OrganizationsForm = () => {
 
           if (res && res.data && res.data[0]) {
             const record = {
-              key: 0,
               id: res.data[0].organization_id,
               name: res.data[0].organization_name,
               description: res.data[0].organization_description,
