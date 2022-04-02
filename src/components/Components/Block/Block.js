@@ -44,7 +44,7 @@ const ComponentBlock = (props) => {
         <CustomCkEditor simpleMode data={''} placeholder="Enter block text" />
       </Form.Item>
       <Space>
-        <Form.Item label="Ordered?" name="is-ordered">
+        <Form.Item label="Ordered?" name="is_ordered">
           <Switch onChange={onChangeOrder} checked={isOrdered} />
         </Form.Item>
         <i>

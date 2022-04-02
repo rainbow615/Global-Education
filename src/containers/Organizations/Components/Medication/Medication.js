@@ -6,7 +6,7 @@ import ComponentMedication from '../../../../components/Components/Medication'
 import { Root } from './styles'
 
 const ComponentMedicationForm = (props) => {
-  const { orgId, orgName } = props
+  const { orgId, orgName, data } = props
   const { type } = useParams()
 
   const breadCrumb = [
@@ -31,7 +31,7 @@ const ComponentMedicationForm = (props) => {
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
       <Root>
-        <ComponentMedication isNew={type === 'add'} />
+        <ComponentMedication isNew={type === 'add'} data={data} />
       </Root>
     </React.Fragment>
   )

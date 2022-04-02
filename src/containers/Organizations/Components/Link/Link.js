@@ -5,7 +5,7 @@ import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBrea
 import ComponentLink from '../../../../components/Components/Link'
 
 const ComponentLinkForm = (props) => {
-  const { orgId, orgName } = props
+  const { orgId, orgName, data } = props
   const { type } = useParams()
 
   const breadCrumb = [
@@ -29,7 +29,7 @@ const ComponentLinkForm = (props) => {
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
-      <ComponentLink orgId={orgId} isNew={type === 'add'} />
+      <ComponentLink orgId={orgId} isNew={type === 'add'} data={data} />
     </React.Fragment>
   )
 }

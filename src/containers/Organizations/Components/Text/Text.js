@@ -6,7 +6,7 @@ import ComponentText from '../../../../components/Components/Text'
 import { Root } from './styles'
 
 const ComponentTextForm = (props) => {
-  const { orgId, orgName } = props
+  const { orgId, orgName, data } = props
   const { type } = useParams()
 
   const breadCrumb = [
@@ -31,7 +31,7 @@ const ComponentTextForm = (props) => {
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
       <Root>
-        <ComponentText orgId={orgId} isNew={type === 'add'} />
+        <ComponentText orgId={orgId} isNew={type === 'add'} data={data} />
       </Root>
     </React.Fragment>
   )

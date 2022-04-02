@@ -25,23 +25,23 @@ function OrgComponents() {
       <Route path="list" element={<OrgComponentsList orgId={orgId} orgName={orgName} />} />
       <Route
         path="form/section/:type"
-        element={<ComponentSectionForm orgId={orgId} orgName={orgName} />}
+        element={<ComponentSectionForm orgId={orgId} orgName={orgName} data={state} />}
       />
       <Route
         path="form/block/:type"
-        element={<ComponentBlockForm orgId={orgId} orgName={orgName} />}
+        element={<ComponentBlockForm orgId={orgId} orgName={orgName} data={state} />}
       />
       <Route
         path="form/link/:type"
-        element={<ComponentLinkForm orgId={orgId} orgName={orgName} />}
+        element={<ComponentLinkForm orgId={orgId} orgName={orgName} data={state} />}
       />
       <Route
         path="form/text/:type"
-        element={<ComponentTextForm orgId={orgId} orgName={orgName} />}
+        element={<ComponentTextForm orgId={orgId} orgName={orgName} data={state} />}
       />
       <Route
         path="form/medication/:type"
-        element={<ComponentMedicationForm orgId={orgId} orgName={orgName} />}
+        element={<ComponentMedicationForm orgId={orgId} orgName={orgName} data={state} />}
       />
     </Routes>
   )

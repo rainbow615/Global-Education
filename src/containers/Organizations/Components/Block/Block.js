@@ -5,7 +5,7 @@ import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBrea
 import ComponentBlock from '../../../../components/Components/Block'
 
 const ComponentBlockForm = (props) => {
-  const { orgId, orgName } = props
+  const { orgId, orgName, data } = props
   const { type } = useParams()
 
   const breadCrumb = [
@@ -29,7 +29,7 @@ const ComponentBlockForm = (props) => {
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
-      <ComponentBlock orgId={orgId} isNew={type === 'add'} />
+      <ComponentBlock orgId={orgId} isNew={type === 'add'} data={data} />
     </React.Fragment>
   )
 }

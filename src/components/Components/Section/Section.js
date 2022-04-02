@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { useParams, useLocation, useNavigate } from 'react-router-dom'
-import _ from 'lodash'
+import { useNavigate } from 'react-router-dom'
 import { Form, Input, Select, Space, notification } from 'antd'
 import Switch from 'react-switch'
 
@@ -12,10 +11,10 @@ const { Option } = Select
 const Tags = []
 
 const ComponentSection = (props) => {
-  const { orgId, isNew } = props
+  const { orgId, isNew, data } = props
   const navigate = useNavigate()
 
-  const [isOrdered, setIsOrdered] = useState(false)
+  const [isOrdered, setIsOrdered] = useState(!!data?.is_ordered)
   const [isLoading, setIsLoading] = useState({
     delete: false,
     create: false,
@@ -28,8 +27,8 @@ const ComponentSection = (props) => {
       parent_id: null,
       component_type: COMPONENTS_TYPES[0].id,
       tags: values.tags || [],
-      component_content: values.content,
-      is_ordered: values['is-ordered'] || false,
+      component_content: values.component_content,
+      is_ordered: values.is_ordered || false,
       component_order: 1,
       linked_protocol: [],
       linked_education: values.linked_education,
@@ -60,6 +59,7 @@ const ComponentSection = (props) => {
 
   return (
     <ComponentForm
+      initialValues={data}
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
@@ -68,7 +68,7 @@ const ComponentSection = (props) => {
     >
       <Form.Item
         label="Content"
-        name="content"
+        name="component_content"
         hasFeedback
         rules={[{ required: true, message: 'Please input a section name' }]}
       >
@@ -95,7 +95,7 @@ const ComponentSection = (props) => {
         </Select>
       </Form.Item>
       <Space>
-        <Form.Item label="Ordered?" name="is-ordered">
+        <Form.Item label="Ordered?" name="is_ordered">
           <Switch onChange={(checked) => setIsOrdered(checked)} checked={isOrdered} />
         </Form.Item>
         <i>Selecting this will number everything added to this section component based on order.</i>

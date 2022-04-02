@@ -5,7 +5,7 @@ import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBrea
 import ComponentSection from '../../../../components/Components/Section'
 
 const ComponentSectionForm = (props) => {
-  const { orgId, orgName } = props
+  const { orgId, orgName, data } = props
   const { type } = useParams()
 
   const breadCrumb = [
@@ -29,7 +29,7 @@ const ComponentSectionForm = (props) => {
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
-      <ComponentSection orgId={orgId} isNew={type === 'add'} />
+      <ComponentSection orgId={orgId} isNew={type === 'add'} data={data} />
     </React.Fragment>
   )
 }
