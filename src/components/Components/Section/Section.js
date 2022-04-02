@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useParams, useLocation, useNavigate } from 'react-router-dom'
+import _ from 'lodash'
 import { Form, Input, Select, Space, notification } from 'antd'
 import Switch from 'react-switch'
 
@@ -11,6 +13,7 @@ const Tags = []
 
 const ComponentSection = (props) => {
   const { orgId, isNew } = props
+  const navigate = useNavigate()
 
   const [isOrdered, setIsOrdered] = useState(false)
   const [isLoading, setIsLoading] = useState({
@@ -35,9 +38,13 @@ const ComponentSection = (props) => {
     setIsLoading({ ...isLoading, create: true })
 
     createComponent(payload)
-      .then(() => {
+      .then((res) => {
         setIsLoading({ ...isLoading, create: false })
         notification.success({ message: 'A new section component has been created successfully!' })
+
+        if (res && res.data && res.data[0]) {
+          navigate('/organizations/components/form/sections/edit', { state: res.data[0] })
+        }
       })
       .catch((error) => {
         setIsLoading(false)

@@ -51,7 +51,7 @@ const COMPONENTS_COLUMNS = [
     width: 120,
     render: (_, record) => (
       <Button type="primary">
-        <Link to="/organizations/components/form/edit" state={record}>
+        <Link to={`/organizations/components/form/${record.component_type}/edit`} state={record}>
           Edit
         </Link>
       </Button>

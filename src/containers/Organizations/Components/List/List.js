@@ -37,10 +37,7 @@ const OrgComponentsList = (props) => {
     <Menu>
       {COMPONENTS_TYPES.map((type, index) => (
         <Menu.Item key={index}>
-          <Link
-            to={`/organizations/components/form/${type.label.toLowerCase()}/add`}
-            state={{ orgId, orgName }}
-          >
+          <Link to={`/organizations/components/form/${type.id}/add`} state={{ orgId, orgName }}>
             {type.label}
           </Link>
         </Menu.Item>
