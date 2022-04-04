@@ -4,7 +4,7 @@ import { debounce, map, get } from 'lodash'
 import { PlusOutlined } from '@ant-design/icons'
 
 import { useProtocols } from '../../../services/protocolService'
-import { SEARCH_DELAY } from '../../../config/constants'
+import { PROTOCOL_ACTIONS, SEARCH_DELAY } from '../../../config/constants'
 import { CustomSearchText } from '../../CommonComponent'
 import CustomLoading from '../../Loading/Loading'
 import { ResultFailed } from '../../ResultPages'
@@ -36,6 +36,10 @@ const ProtocolsModal = (props) => {
 
   const filteredProtocols = protocols?.data
     ? map(protocols.data, (record, index) => {
+        if (get(record, 'status') !== PROTOCOL_ACTIONS.PUBLISHED) {
+          return null
+        }
+
         if (searchText) {
           const reg = new RegExp(regExpEscape(searchText), 'gi')
           const nameMatch = get(record, 'protocol_name').match(reg)
