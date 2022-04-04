@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Form, Space, Typography, notification } from 'antd'
 
 import { createComponent, updateComponent } from '../../../services/componentService'
+import { useProtocol } from '../../../services/protocolService'
 import { COMPONENTS_TYPES } from '../../../config/constants'
 import ComponentForm from '../Form'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import AddLinkedProtocol from './AddLinkedProtocol'
+import CustomLoading from '../../Loading/Loading'
+import { ResultFailed } from '../../ResultPages'
 import { ProtocolView } from './styles'
 
 const { Text } = Typography
@@ -23,6 +26,19 @@ const ComponentLink = (props) => {
     create: false,
     edit: false,
   })
+
+  const protocolId = data.linked_protocol.length > 0 ? data.linked_protocol[0] : null
+  const { data: linkedProtocolData, error } = useProtocol(protocolId)
+
+  useEffect(() => {
+    if (linkedProtocolData?.data) {
+      setLinkedProtocol(linkedProtocolData?.data)
+    }
+  }, [linkedProtocolData?.data])
+
+  if (error) {
+    return <ResultFailed isBackButton={false} />
+  }
 
   const onAddProtocol = (protocol) => {
     setLinkedProtocol(protocol)
@@ -140,6 +156,11 @@ const ComponentLink = (props) => {
             <Button type="link" size="small" danger onClick={onRemoveProtocol}>
               Remove
             </Button>
+          </ProtocolView>
+        )}
+        {linkedProtocolData.isLoading && (
+          <ProtocolView size="large">
+            <CustomLoading size="small" />
           </ProtocolView>
         )}
       </Form.Item>

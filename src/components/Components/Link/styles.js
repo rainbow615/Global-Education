@@ -5,6 +5,7 @@ export const ProtocolView = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  min-height: 64px;
   padding: 20px;
   margin-top: 16px;
 `

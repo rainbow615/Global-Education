@@ -3,20 +3,7 @@ import { Space, List } from 'antd'
 import { dynamicSortMultiple } from '../../../utils/sort'
 import { ProtocolsView } from './styles'
 
-const data = [
-  {
-    protocol_number: 's-100',
-    protocol_name: 'Allergic Reactions / Anaphylaxis',
-  },
-  {
-    protocol_number: 's-101',
-    protocol_name: 'Envenomation injuries',
-  },
-  {
-    protocol_number: 's-102',
-    protocol_name: 'Always Obstruction',
-  },
-]
+const data = []
 
 const ProtocolsSection = () => {
   return (
