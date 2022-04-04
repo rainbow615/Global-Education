@@ -12,18 +12,21 @@ const ComponentForm = (props) => {
   const [form] = Form.useForm()
   const { children, orgId, isNew, isLoading, initialValues, onCreate, onEdit } = props
 
-  const [selectedEducations, setSelectedEducations] = useState([])
+  const [selectedEducationsIds, setSelectedEducationsIds] = useState(
+    initialValues?.linked_education || []
+  )
 
   const onChangeEducationsList = (values) => {
-    setSelectedEducations(values)
+    const cloneValues = [...values]
+    const ids = cloneValues.map((val) => val.jit_id)
+    setSelectedEducationsIds(ids)
   }
 
   const handleNewFormSubmit = () => {
     form
       .validateFields()
       .then((values) => {
-        const ids = selectedEducations.map((val) => val.jit_id)
-        onCreate({ ...values, linked_education: ids })
+        onCreate({ ...values, linked_education: selectedEducationsIds })
       })
       .catch((errorInfo) => {
         console.log(errorInfo)
@@ -34,8 +37,7 @@ const ComponentForm = (props) => {
     form
       .validateFields()
       .then((values) => {
-        const ids = selectedEducations.map((val) => val.jit_id)
-        onEdit({ ...initialValues, ...values, linked_education: ids })
+        onEdit({ ...initialValues, ...values, linked_education: selectedEducationsIds })
       })
       .catch((errorInfo) => {
         console.log(errorInfo)
@@ -58,7 +60,7 @@ const ComponentForm = (props) => {
           {!isNew && <ProtocolsSection />}
           <EducationsSection
             orgId={orgId}
-            data={initialValues?.linked_education || []}
+            data={selectedEducationsIds}
             onChangeList={onChangeEducationsList}
           />
         </BottomSection>

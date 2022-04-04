@@ -19,7 +19,7 @@ const ComponentLink = (props) => {
   const navigate = useNavigate()
 
   const [content, setContent] = useState(data?.component_content || '')
-  const [linkedProtocol, setLinkedProtocol] = useState(null)
+  const [linkedProtocol, setLinkedProtocol] = useState()
   const [errorMsg, setErrorMsg] = useState('')
   const [isLoading, setIsLoading] = useState({
     delete: false,
@@ -102,7 +102,7 @@ const ComponentLink = (props) => {
       component_content: content,
       is_ordered: values.is_ordered || false,
       component_order: values.component_order,
-      linked_protocol: values.linked_protocol,
+      linked_protocol: linkedProtocol?.protocol_id ? [linkedProtocol.protocol_id] : [],
       linked_education: values.linked_education,
       component_children: values.component_children || [],
     }
