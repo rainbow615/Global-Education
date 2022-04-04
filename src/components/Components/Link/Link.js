@@ -98,7 +98,7 @@ const ComponentLink = (props) => {
       parent_id: values.parent_id,
       component_type: COMPONENTS_TYPES[4].id,
       tags: values.tags || [],
-      component_content: values.component_content,
+      component_content: content,
       is_ordered: values.is_ordered || false,
       component_order: values.component_order,
       linked_protocol: values.linked_protocol,
@@ -135,7 +135,7 @@ const ComponentLink = (props) => {
       <Form.Item label="Content" validateStatus={errorMsg ? 'error' : undefined} help={errorMsg}>
         <CustomCkEditor
           simpleMode
-          data={data.component_content || ''}
+          data={data?.component_content || ''}
           placeholder="Enter text"
           onChange={(_event, editor) => {
             setContent(editor.getData())
