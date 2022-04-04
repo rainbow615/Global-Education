@@ -27,7 +27,8 @@ const ComponentLink = (props) => {
     edit: false,
   })
 
-  const protocolId = data.linked_protocol.length > 0 ? data.linked_protocol[0] : null
+  const protocolId =
+    data?.linked_protocol && data.linked_protocol.length > 0 ? data.linked_protocol[0] : null
   const { data: linkedProtocolData, error } = useProtocol(protocolId)
 
   useEffect(() => {
