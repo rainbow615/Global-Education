@@ -35,7 +35,7 @@ const ComponentForm = (props) => {
       .validateFields()
       .then((values) => {
         const ids = selectedEducations.map((val) => val.jit_id)
-        onEdit({ ...values, linked_education: ids })
+        onEdit({ ...initialValues, ...values, linked_education: ids })
       })
       .catch((errorInfo) => {
         console.log(errorInfo)
@@ -56,7 +56,11 @@ const ComponentForm = (props) => {
         <div>{children}</div>
         <BottomSection size="large">
           {!isNew && <ProtocolsSection />}
-          <EducationsSection orgId={orgId} onChangeList={onChangeEducationsList} />
+          <EducationsSection
+            orgId={orgId}
+            data={initialValues?.linked_education || []}
+            onChangeList={onChangeEducationsList}
+          />
         </BottomSection>
         <FormActionButtons>
           {!isNew ? (

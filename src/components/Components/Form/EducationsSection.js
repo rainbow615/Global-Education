@@ -11,15 +11,21 @@ import { JIT_ACTIONS } from '../../../config/constants'
 const { Option } = Select
 
 const EducationsSection = (props) => {
-  const { orgId, onChangeList } = props
+  const { orgId, data, onChangeList } = props
 
   const [selectedEducations, setSelectedEducations] = useState([])
 
-  useEffect(() => {
-    onChangeList(selectedEducations)
-  }, [onChangeList, selectedEducations])
-
   const { data: educations, error } = useEducations(orgId || null)
+
+  useEffect(() => {
+    if (data.length > 0 && educations?.data && educations?.data.length > 0) {
+      const defaultEducations = map(educations.data, (record) => {
+        if (data.indexOf(record.jit_id) < 0) return null
+        return record
+      }).filter((record) => !!record)
+      setSelectedEducations(defaultEducations)
+    }
+  }, [data, educations])
 
   if (error) {
     return <ResultFailed isBackButton={false} />
@@ -29,19 +35,22 @@ const EducationsSection = (props) => {
     const isCheck = _.findIndex(selectedEducations, { jit_id: value })
 
     if (isCheck === -1) {
-      const newState = _.findIndex(linkedEducations, { jit_id: value })
-      setSelectedEducations([...selectedEducations, linkedEducations[newState]])
+      const newState = _.findIndex(orgEducations, { jit_id: value })
+      const newList = [...selectedEducations, orgEducations[newState]]
+      setSelectedEducations(newList)
+      onChangeList(newList)
     }
   }
 
   const onRemoveEducation = (id) => () => {
     const isSearch = _.findIndex(selectedEducations, { jit_id: id })
-    const newTeam = [...selectedEducations]
-    newTeam.splice(isSearch, 1)
-    setSelectedEducations(newTeam)
+    const newList = [...selectedEducations]
+    newList.splice(isSearch, 1)
+    setSelectedEducations(newList)
+    onChangeList(newList)
   }
 
-  const linkedEducations = educations?.data
+  const orgEducations = educations?.data
     ? map(educations.data, (record, index) => {
         if (record.status !== JIT_ACTIONS.PUBLISHED) return null
         return record
@@ -65,7 +74,7 @@ const EducationsSection = (props) => {
           }
           onSelect={onSelectEducation}
         >
-          {linkedEducations.sort(dynamicSortMultiple(['jit_name'])).map((state, index) => (
+          {orgEducations.sort(dynamicSortMultiple(['jit_name'])).map((state, index) => (
             <Option key={index} value={state.jit_id}>
               {state.jit_name}
             </Option>

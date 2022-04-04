@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Form, Input, Select, Space, notification } from 'antd'
 import Switch from 'react-switch'
 
-import { createComponent } from '../../../services/componentService'
+import { createComponent, updateComponent } from '../../../services/componentService'
 import ComponentForm from '../Form'
 import { COMPONENTS_TYPES } from '../../../config/constants'
 
@@ -55,7 +55,37 @@ const ComponentSection = (props) => {
       })
   }
 
-  const onEdit = () => {}
+  const onEdit = (values) => {
+    const id = values.component_id
+    const payload = {
+      organization_id: orgId,
+      parent_id: values.parent_id,
+      component_type: COMPONENTS_TYPES[0].id,
+      tags: values.tags || [],
+      component_content: values.component_content,
+      is_ordered: values.is_ordered || false,
+      component_order: values.component_order,
+      linked_protocol: values.linked_protocol,
+      linked_education: values.linked_education,
+      component_children: values.component_children,
+    }
+
+    setIsLoading({ ...isLoading, edit: true })
+
+    updateComponent(id, payload)
+      .then(() => {
+        setIsLoading({ ...isLoading, edit: false })
+        notification.success({ message: 'A new section component has been updated successfully!' })
+      })
+      .catch((error) => {
+        setIsLoading(false)
+
+        notification.error({
+          message: 'Modify failed!',
+          description: error?.data || '',
+        })
+      })
+  }
 
   return (
     <ComponentForm
