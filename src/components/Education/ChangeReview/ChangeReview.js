@@ -55,8 +55,6 @@ const ChangeReview = (props) => {
       status: isNext ? JIT_ACTIONS.APPROVED : JIT_ACTIONS.DRAFT,
     }
 
-    console.log('======data', data)
-
     updateEducation(jit_id, payload)
       .then(() => {
         setIsLoading({ isNext: false, isBack: false })
@@ -107,8 +105,6 @@ const ChangeReview = (props) => {
   )
 
   const parentJitData = parentJit?.data && parentJit.data.length > 0 ? parentJit.data[0] : null
-
-  console.log('======****=', title, content)
 
   return (
     <React.Fragment>

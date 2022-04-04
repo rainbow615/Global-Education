@@ -41,8 +41,10 @@ const ComponentSection = (props) => {
         setIsLoading({ ...isLoading, create: false })
         notification.success({ message: 'A new section component has been created successfully!' })
 
-        if (res && res.data && res.data[0]) {
-          navigate('/organizations/components/form/sections/edit', { state: res.data[0] })
+        if (res && res.data) {
+          navigate(`/organizations/components/form/${COMPONENTS_TYPES[0].id}/edit`, {
+            state: { ...res.data, orgId, orgName: data.orgName },
+          })
         }
       })
       .catch((error) => {
@@ -67,7 +69,7 @@ const ComponentSection = (props) => {
       component_order: values.component_order,
       linked_protocol: values.linked_protocol,
       linked_education: values.linked_education,
-      component_children: values.component_children,
+      component_children: values.component_children || [],
     }
 
     setIsLoading({ ...isLoading, edit: true })
