@@ -18,7 +18,7 @@ const ComponentLink = (props) => {
   const { orgId, isNew, data } = props
   const navigate = useNavigate()
 
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState(data?.component_content || '')
   const [linkedProtocol, setLinkedProtocol] = useState(null)
   const [errorMsg, setErrorMsg] = useState('')
   const [isLoading, setIsLoading] = useState({
@@ -135,7 +135,7 @@ const ComponentLink = (props) => {
       <Form.Item label="Content" validateStatus={errorMsg ? 'error' : undefined} help={errorMsg}>
         <CustomCkEditor
           simpleMode
-          data={data?.component_content || ''}
+          data={content}
           placeholder="Enter text"
           onChange={(_event, editor) => {
             setContent(editor.getData())
