@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button, Form, Space, Typography, notification } from 'antd'
 
-import { createComponent } from '../../../services/componentService'
+import { createComponent, updateComponent } from '../../../services/componentService'
 import { COMPONENTS_TYPES } from '../../../config/constants'
 import ComponentForm from '../Form'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
@@ -11,7 +12,8 @@ import { ProtocolView } from './styles'
 const { Text } = Typography
 
 const ComponentLink = (props) => {
-  const { orgId, isNew } = props
+  const { orgId, isNew, data } = props
+  const navigate = useNavigate()
 
   const [content, setContent] = useState('')
   const [linkedProtocol, setLinkedProtocol] = useState(null)
@@ -53,9 +55,15 @@ const ComponentLink = (props) => {
     setIsLoading({ ...isLoading, create: true })
 
     createComponent(payload)
-      .then(() => {
+      .then((res) => {
         setIsLoading({ ...isLoading, create: false })
         notification.success({ message: 'A new Link component has been created successfully!' })
+
+        if (res && res.data) {
+          navigate(`/organizations/components/form/${COMPONENTS_TYPES[4].id}/edit`, {
+            state: { ...res.data, orgId, orgName: data.orgName },
+          })
+        }
       })
       .catch((error) => {
         setIsLoading(false)
@@ -67,10 +75,41 @@ const ComponentLink = (props) => {
       })
   }
 
-  const onEdit = () => {}
+  const onEdit = (values) => {
+    const id = values.component_id
+    const payload = {
+      organization_id: orgId,
+      parent_id: values.parent_id,
+      component_type: COMPONENTS_TYPES[4].id,
+      tags: values.tags || [],
+      component_content: values.component_content,
+      is_ordered: values.is_ordered || false,
+      component_order: values.component_order,
+      linked_protocol: values.linked_protocol,
+      linked_education: values.linked_education,
+      component_children: values.component_children || [],
+    }
+
+    setIsLoading({ ...isLoading, edit: true })
+
+    updateComponent(id, payload)
+      .then(() => {
+        setIsLoading({ ...isLoading, edit: false })
+        notification.success({ message: 'A new Link component has been updated successfully!' })
+      })
+      .catch((error) => {
+        setIsLoading(false)
+
+        notification.error({
+          message: 'Modify failed!',
+          description: error?.data || '',
+        })
+      })
+  }
 
   return (
     <ComponentForm
+      initialValues={data}
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
@@ -80,7 +119,7 @@ const ComponentLink = (props) => {
       <Form.Item label="Content" validateStatus={errorMsg ? 'error' : undefined} help={errorMsg}>
         <CustomCkEditor
           simpleMode
-          data={''}
+          data={data.component_content || ''}
           placeholder="Enter text"
           onChange={(_event, editor) => {
             setContent(editor.getData())
