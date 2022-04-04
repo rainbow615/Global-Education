@@ -3,10 +3,11 @@ import { Spin } from 'antd'
 
 import { Root } from './styles'
 
-const CustomLoading = () => {
+const CustomLoading = (props) => {
+  const { size } = props
   return (
     <Root direction="vertical">
-      <Spin size="large" />
+      <Spin size={size || 'large'} />
     </Root>
   )
 }
