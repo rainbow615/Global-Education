@@ -14,6 +14,7 @@ const COMPONENTS_COLUMNS = [
     title: 'Content',
     dataIndex: 'component_content',
     key: 'component_content',
+    render: (value) => <div dangerouslySetInnerHTML={{ __html: value }} />,
   },
   {
     title: 'Usage Amount',
