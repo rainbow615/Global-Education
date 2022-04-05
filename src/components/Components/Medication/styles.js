@@ -9,7 +9,7 @@ export const DoseSection = styled(Space)`
   }
 
   .ant-select {
-    min-width: 100px;
+    min-width: 135px;
   }
 
   .ant-form-item {
