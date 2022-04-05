@@ -83,6 +83,8 @@ const OrgComponentsList = (props) => {
       }).filter((record) => !!record)
     : []
 
+  console.log('==========datasource', dataSource)
+
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />

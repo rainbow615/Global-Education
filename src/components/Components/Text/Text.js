@@ -17,7 +17,6 @@ const ComponentText = (props) => {
   const [content, setContent] = useState(data?.component_content || '')
   const [errorMsg, setErrorMsg] = useState('')
   const [isLoading, setIsLoading] = useState({
-    delete: false,
     create: false,
     edit: false,
   })

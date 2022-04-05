@@ -22,7 +22,6 @@ const ComponentLink = (props) => {
   const [linkedProtocol, setLinkedProtocol] = useState()
   const [errorMsg, setErrorMsg] = useState('')
   const [isLoading, setIsLoading] = useState({
-    delete: false,
     create: false,
     edit: false,
   })

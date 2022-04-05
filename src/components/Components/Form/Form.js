@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { Form, Button, Space } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import { Form, Button, Space, notification } from 'antd'
 
+import { deleteComponent } from '../../../services/componentService'
 import { COMPONENTS_CONFIRM_MSG } from '../../../config/constants'
 import { FormActionButtons } from '../../CommonComponent'
 import ConfirmActionButton from '../../ConfirmActionButton'
@@ -9,12 +11,14 @@ import EducationsSection from './EducationsSection'
 import { Root, BottomSection } from './styles'
 
 const ComponentForm = (props) => {
+  const navigate = useNavigate()
   const [form] = Form.useForm()
   const { children, orgId, isNew, isLoading, initialValues, onCreate, onEdit } = props
 
   const [selectedEducationsIds, setSelectedEducationsIds] = useState(
     initialValues?.linked_education || []
   )
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const onChangeEducationsList = (values) => {
     const cloneValues = [...values]
@@ -44,7 +48,39 @@ const ComponentForm = (props) => {
       })
   }
 
-  const onDelete = () => {}
+  const onDelete = () => {
+    const backref = initialValues.backref
+
+    if (backref && backref.length > 0) {
+      notification.error({
+        message: 'Delete failed!',
+        description: 'Cannot delete when in use by one or more protocols.',
+      })
+    } else {
+      const id = initialValues.component_id
+
+      setIsDeleting(true)
+
+      deleteComponent(id)
+        .then(() => {
+          setIsDeleting(false)
+          notification.success({
+            message: `A component has been deleted successfully!`,
+          })
+          navigate('/organizations/components/list', {
+            state: { orgId, orgName: initialValues.orgName },
+          })
+        })
+        .catch((error) => {
+          setIsDeleting(false)
+
+          notification.error({
+            message: 'Delete failed!',
+            description: error?.data || '',
+          })
+        })
+    }
+  }
 
   return (
     <Root>
@@ -70,7 +106,7 @@ const ComponentForm = (props) => {
               type="link"
               size="large"
               danger
-              loading={isLoading.delete}
+              loading={isDeleting}
               onClick={onDelete}
               actionType="DELETE"
               message={COMPONENTS_CONFIRM_MSG.DELETE}

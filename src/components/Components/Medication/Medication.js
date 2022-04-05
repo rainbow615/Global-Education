@@ -18,7 +18,6 @@ const ComponentMedication = (props) => {
   const [isHaveRange, setIsHaveRange] = useState(false)
   const [isHaveFormulary, setIsHaveFormulary] = useState(false)
   const [isLoading, setIsLoading] = useState({
-    delete: false,
     create: false,
     edit: false,
   })

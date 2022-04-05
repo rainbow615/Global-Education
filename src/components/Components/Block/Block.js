@@ -19,7 +19,6 @@ const ComponentBlock = (props) => {
 
   const [isOrdered, setIsOrdered] = useState(false)
   const [isLoading, setIsLoading] = useState({
-    delete: false,
     create: false,
     edit: false,
   })

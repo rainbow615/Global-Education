@@ -16,7 +16,6 @@ const ComponentSection = (props) => {
 
   const [isOrdered, setIsOrdered] = useState(!!data?.is_ordered)
   const [isLoading, setIsLoading] = useState({
-    delete: false,
     create: false,
     edit: false,
   })
