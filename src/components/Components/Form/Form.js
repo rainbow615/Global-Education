@@ -14,6 +14,7 @@ const ComponentForm = (props) => {
   const navigate = useNavigate()
   const [form] = Form.useForm()
   const { children, orgId, isNew, isLoading, initialValues, onCreate, onEdit } = props
+  const backref = initialValues?.backref
 
   const [selectedEducationsIds, setSelectedEducationsIds] = useState(
     initialValues?.linked_education || []
@@ -49,8 +50,6 @@ const ComponentForm = (props) => {
   }
 
   const onDelete = () => {
-    const backref = initialValues.backref
-
     if (backref && backref.length > 0) {
       notification.error({
         message: 'Delete failed!',
@@ -120,16 +119,16 @@ const ComponentForm = (props) => {
             <Button
               size="large"
               loading={isLoading.create}
-              type={isNew ? 'primary' : 'default'}
+              type={isNew ? 'primary' : 'secondary'}
               onClick={handleNewFormSubmit}
             >
               Save as New
             </Button>
-            {!isNew && (
+            {!isNew && !!backref && backref.length > 0 && (
               <Button
                 size="large"
                 loading={isLoading.edit}
-                type="primary"
+                type="secondary"
                 onClick={handleEditFormSubmit}
               >
                 Modify Everywhere
