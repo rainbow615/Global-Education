@@ -167,3 +167,5 @@ export const DOSE_UNIT = [
   'units/kg/min',
   'units/kg/hr',
 ]
+
+export const FORMULARY_UNIT = ['g/ml', 'mcg/ml', 'mEq/ml', 'mg/ml', 'units/ml']

@@ -54,12 +54,7 @@ const ComponentBlock = (props) => {
         </Space>
         <SubComponentList />
       </Form.Item>
-      <Form.Item
-        label="Tags"
-        name="tags"
-        hasFeedback
-        rules={[{ required: true, message: 'Please select 1 or more tag.' }]}
-      >
+      <Form.Item label="Tags" name="tags">
         <Select
           mode="multiple"
           size="large"

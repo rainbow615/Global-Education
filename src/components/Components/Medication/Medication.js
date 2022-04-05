@@ -4,7 +4,7 @@ import Switch from 'react-switch'
 
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../../Components/Form'
-import { DOSE_UNIT } from '../../../config/constants'
+import { DOSE_UNIT, FORMULARY_UNIT } from '../../../config/constants'
 import { MEDICATION_TAGS } from '../../../config/tags'
 import { DoseSection } from './styles'
 
@@ -14,7 +14,7 @@ const { Text } = Typography
 const ComponentMedication = (props) => {
   const { isNew, orgId } = props
 
-  const [initial] = useState({ unit: DOSE_UNIT[0] })
+  const [initial] = useState({ dose_unit: DOSE_UNIT[0], formulary_unit: FORMULARY_UNIT[0] })
   const [isHaveRange, setIsHaveRange] = useState(false)
   const [isHaveFormulary, setIsHaveFormulary] = useState(false)
   const [isLoading, setIsLoading] = useState({
@@ -73,7 +73,7 @@ const ComponentMedication = (props) => {
                 )}
               </Space>
 
-              <Form.Item name="unit">
+              <Form.Item name="dose_unit">
                 <Select size="middle" showArrow>
                   {DOSE_UNIT.map((unit, index) => (
                     <Option key={index} value={unit} label={unit}>
@@ -94,7 +94,15 @@ const ComponentMedication = (props) => {
               <Form.Item name="range">
                 <Input size="middle" disabled={!isHaveFormulary} />
               </Form.Item>
-              <Text disabled={!isHaveFormulary}>{` mcg/ml`}</Text>
+              <Form.Item name="formulary_unit">
+                <Select size="middle" showArrow disabled={!isHaveFormulary}>
+                  {FORMULARY_UNIT.map((unit, index) => (
+                    <Option key={index} value={unit} label={unit}>
+                      {unit}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
             </Space>
           </Space>
         </DoseSection>
