@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { Collapse, Space, Tag } from 'antd'
+import { Collapse, Tag } from 'antd'
 import { HolderOutlined } from '@ant-design/icons'
 
 import { getFirstLetter } from '../../../../../utils'
