@@ -91,14 +91,14 @@ const SubComponentList = () => {
                     style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                   >
                     <SubComponentRow>
+                      <Space className="remove-button-wrap">
+                        {getRemoveBar(item.component_id)}
+                      </Space>
                       <Space>
                         <Tag>{getFirstLetter(item.component_type)}</Tag>
                         <HTMLViewer dangerouslySetInnerHTML={{ __html: item.component_content }} />
                       </Space>
-                      <Space align="center">
-                        {getRemoveBar(item.component_id)}
-                        {getHandleBar()}
-                      </Space>
+                      <Space align="center">{getHandleBar()}</Space>
                     </SubComponentRow>
                   </div>
                 )}

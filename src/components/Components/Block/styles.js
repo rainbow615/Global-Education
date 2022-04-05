@@ -5,29 +5,39 @@ export const ComponentsListView = styled.div`
 `
 
 export const SubComponentRow = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 10px 20px;
+  padding: 10px 20px 10px 45px;
   margin-bottom: 3px;
   border: 1px solid ${(props) => props.theme.palette.borderColor};
   cursor: pointer;
 
-  .remove-button {
-    display: none;
-    border: 0;
+  .remove-button-wrap {
+    position: absolute;
+    left: 0;
+    width: 20%;
+    min-width: 100px;
+
+    .remove-button {
+      position: absolute;
+      left: 10px;
+      border: 0;
+      visibility: hidden;
+    }
+
+    &:hover {
+      .remove-button {
+        visibility: visible;
+      }
+    }
   }
 
   .ant-space-item {
     min-height: 32px;
     display: flex;
     align-items: center;
-  }
-
-  &:hover {
-    .remove-button {
-      display: block;
-    }
   }
 `
 
