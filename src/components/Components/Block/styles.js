@@ -5,7 +5,6 @@ export const ComponentsListView = styled.div`
 `
 
 export const SubComponentRow = styled.div`
-  background: white;
   display: flex;
   justify-content: space-between;
   width: 100%;
