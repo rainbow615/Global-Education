@@ -45,12 +45,17 @@ const OrgComponentsList = (props) => {
     </Menu>
   )
 
+  const [searchType, setSearchType] = useState('all')
   const [searchText, setSearchText] = useState('')
 
   const { data: components, error } = useComponents(orgId)
 
   if (error) {
     return <ResultFailed isBackButton={false} />
+  }
+
+  const onSelectType = (value) => {
+    setSearchType(value)
   }
 
   const onSearch = (e) => {
@@ -61,6 +66,12 @@ const OrgComponentsList = (props) => {
 
   const dataSource = components?.data
     ? map(components.data, (record, index) => {
+        const componentType = get(record, 'component_type')
+
+        if (searchType !== 'all' && componentType !== searchType) {
+          return null
+        }
+
         const _record = {
           key: index + 1,
           ...record,
@@ -72,9 +83,10 @@ const OrgComponentsList = (props) => {
 
         if (searchText) {
           const reg = new RegExp(regExpEscape(searchText), 'gi')
-          const typeMatch = get(_record, 'component_type').match(reg)
+          const typeMatch = componentType.match(reg)
+          const contentMatch = get(_record, 'component_content').match(reg)
 
-          if (!typeMatch) {
+          if (!typeMatch && !contentMatch) {
             return null
           }
         }
@@ -96,8 +108,8 @@ const OrgComponentsList = (props) => {
             </Dropdown>
           </Space>
           <Space>
-            <SearchTypeBox defaultValue="All" placeholder="Choose...">
-              <Option key="all" value="All">
+            <SearchTypeBox defaultValue="All" placeholder="Choose..." onSelect={onSelectType}>
+              <Option key="all" value="all">
                 All
               </Option>
               {COMPONENTS_TYPES.map((type, index) => (
