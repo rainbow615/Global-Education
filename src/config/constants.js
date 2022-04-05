@@ -95,11 +95,11 @@ export const DIFF_VIEW_STYLES = {
 }
 
 export const COMPONENTS_TYPES = [
-  { id: 'section', label: 'Sections' },
-  { id: 'text', label: 'Texts' },
-  { id: 'block', label: 'Blocks' },
-  { id: 'medication', label: 'Medications' },
-  { id: 'link', label: 'Links' },
+  { id: 'section', label: 'Section' },
+  { id: 'text', label: 'Text' },
+  { id: 'block', label: 'Block' },
+  { id: 'medication', label: 'Medication' },
+  { id: 'link', label: 'Link' },
 ]
 
 export const NEW_COMPONENTS_MENU = [
