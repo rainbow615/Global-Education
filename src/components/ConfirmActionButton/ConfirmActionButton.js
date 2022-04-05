@@ -27,6 +27,7 @@ const ConfirmActionButton = (props) => {
   if (actionType === 'DELETE' && confirmText === 'DELETE') isPass = true
   if (actionType === 'UNPUBLISHED' && confirmText === 'UNPUBLISH') isPass = true
   if (actionType === 'PUBLISHED' && confirmText === 'PUBLISH') isPass = true
+  if (actionType === 'UPDATE' && confirmText === 'UPDATE') isPass = true
 
   return (
     <React.Fragment>
@@ -47,6 +48,7 @@ const ConfirmActionButton = (props) => {
             {actionType === 'DELETE' && `Delete Warning`}
             {actionType === 'UNPUBLISHED' && `Unpublish Warning`}
             {actionType === 'PUBLISHED' && `Publish Warning`}
+            {actionType === 'UPDATE' && `Update Warning`}
           </div>
           <div className="description">{message}</div>
           <div>

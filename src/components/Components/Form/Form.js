@@ -125,14 +125,16 @@ const ComponentForm = (props) => {
               Save as New
             </Button>
             {!isNew && !!backref && backref.length > 0 && (
-              <Button
+              <ConfirmActionButton
                 size="large"
                 loading={isLoading.edit}
                 type="secondary"
+                actionType="UPDATE"
+                message={`This component is being used in ${backref.length} protocols. Updating this component will create a draft of every protocol. You will need to go to the protocol list for your organization and publish those drafts for the updated protocol to be available to users. \n\n Please type 'UPDATE' to confirm.`}
                 onClick={handleEditFormSubmit}
               >
                 Modify Everywhere
-              </Button>
+              </ConfirmActionButton>
             )}
           </Space>
         </FormActionButtons>
