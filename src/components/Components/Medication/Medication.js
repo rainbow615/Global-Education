@@ -60,17 +60,17 @@ const ComponentMedication = (props) => {
             </Space>
             <Space>
               <Space>
-                <Form.Item name="range">
-                  <Input size="middle" />
-                </Form.Item>
                 {isHaveRange && (
                   <React.Fragment>
-                    <Text>{` to `}</Text>
-                    <Form.Item name="range">
+                    <Form.Item name="dose_range_min">
                       <Input size="middle" />
                     </Form.Item>
+                    <Text>{` to `}</Text>
                   </React.Fragment>
                 )}
+                <Form.Item name="dose_range_max">
+                  <Input size="middle" />
+                </Form.Item>
               </Space>
 
               <Form.Item name="dose_unit">
@@ -91,7 +91,7 @@ const ComponentMedication = (props) => {
             </Space>
             <Space>
               <Text disabled={!isHaveFormulary}>{`Conc. `}</Text>
-              <Form.Item name="range">
+              <Form.Item name="conc">
                 <Input size="middle" disabled={!isHaveFormulary} />
               </Form.Item>
               <Form.Item name="formulary_unit">
@@ -116,12 +116,7 @@ const ComponentMedication = (props) => {
       </Form.Item>
       <Row gutter={24}>
         <Col span={12}>
-          <Form.Item
-            label="Tags"
-            name="tags"
-            hasFeedback
-            rules={[{ required: true, message: 'Please select 1 or more tag.' }]}
-          >
+          <Form.Item label="Tags" name="tags">
             <Select
               mode="multiple"
               size="large"
