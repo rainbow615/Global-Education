@@ -7,6 +7,7 @@ import { useComponents } from '../../../services/componentService'
 import { regExpEscape, getFirstLetter } from '../../../utils'
 import { COMPONENTS_TYPES, SEARCH_DELAY } from '../../../config/constants'
 import { CustomSearchText } from '../../CommonComponent'
+import CustomLoading from '../../Loading/Loading'
 import { ResultFailed } from '../../ResultPages'
 import {
   ModalContentView,
@@ -70,24 +71,27 @@ const SubComponentsModal = (props) => {
           onPressEnter={debouncedSearchHandler}
         />
         <ScrollView>
-          <Menu>
-            {dataSource.map((item, index) => (
-              <Menu.Item key={index}>
-                <Space>
-                  <Tag>{getFirstLetter(item.component_type)}</Tag>
-                  <HTMLViewer
-                    dangerouslySetInnerHTML={{ __html: item.component_content }}
-                    className="popup-item"
-                  />
-                </Space>
-              </Menu.Item>
-            ))}
-            {dataSource.length === 0 && (
-              <Menu.Item key="empty">
-                <EmptyText>No Data</EmptyText>
-              </Menu.Item>
-            )}
-          </Menu>
+          {!components.isLoading && (
+            <Menu>
+              {dataSource.map((item, index) => (
+                <Menu.Item key={index}>
+                  <Space>
+                    <Tag>{getFirstLetter(item.component_type)}</Tag>
+                    <HTMLViewer
+                      dangerouslySetInnerHTML={{ __html: item.component_content }}
+                      className="popup-item"
+                    />
+                  </Space>
+                </Menu.Item>
+              ))}
+              {dataSource.length === 0 && (
+                <Menu.Item key="empty">
+                  <EmptyText>No Data</EmptyText>
+                </Menu.Item>
+              )}
+            </Menu>
+          )}
+          {components.isLoading && <CustomLoading />}
         </ScrollView>
       </React.Fragment>
     )
