@@ -20,15 +20,9 @@ import {
 
 const { TabPane } = Tabs
 
-const SubComponentsModal = (props) => {
-  const { orgId } = props
+const TabContent = (props) => {
+  const { type, components } = props
   const [searchText, setSearchText] = useState('')
-
-  const { data: components, error } = useComponents(orgId)
-
-  if (error) {
-    return <ResultFailed isBackButton={false} />
-  }
 
   const onSearch = (e) => {
     setSearchText(e.target.value)
@@ -36,65 +30,72 @@ const SubComponentsModal = (props) => {
 
   const debouncedSearchHandler = debounce(onSearch, SEARCH_DELAY)
 
-  const getTabContent = (type) => {
-    const dataSource = components?.data
-      ? map(components.data, (record, index) => {
-          const componentType = get(record, 'component_type')
+  const dataSource = components?.data
+    ? map(components.data, (record) => {
+        const componentType = get(record, 'component_type')
 
-          if (type !== componentType) {
+        if (type !== componentType) {
+          return null
+        }
+
+        if (searchText) {
+          const reg = new RegExp(regExpEscape(searchText), 'gi')
+          const typeMatch = componentType.match(reg)
+          const contentMatch = get(record, 'component_content').match(reg)
+
+          if (!typeMatch && !contentMatch) {
             return null
           }
+        }
 
-          if (searchText) {
-            const reg = new RegExp(regExpEscape(searchText), 'gi')
-            const typeMatch = componentType.match(reg)
-            const contentMatch = get(record, 'component_content').match(reg)
+        return record
+      }).filter((record) => !!record)
+    : []
 
-            if (!typeMatch && !contentMatch) {
-              return null
-            }
-          }
+  return (
+    <React.Fragment>
+      <CustomSearchText
+        defaultValue={searchText}
+        placeholder="Search"
+        enterButton
+        allowClear
+        onChange={debouncedSearchHandler}
+        onPressEnter={debouncedSearchHandler}
+      />
+      <ScrollView>
+        {!components.isLoading && (
+          <Menu>
+            {dataSource.map((item, index) => (
+              <Menu.Item key={index}>
+                <Space>
+                  <Tag>{getFirstLetter(item.component_type)}</Tag>
+                  <HTMLViewer
+                    dangerouslySetInnerHTML={{ __html: item.component_content }}
+                    className="popup-item"
+                  />
+                </Space>
+              </Menu.Item>
+            ))}
+            {dataSource.length === 0 && (
+              <Menu.Item key="empty">
+                <EmptyText>No Data</EmptyText>
+              </Menu.Item>
+            )}
+          </Menu>
+        )}
+        {components.isLoading && <CustomLoading />}
+      </ScrollView>
+    </React.Fragment>
+  )
+}
 
-          return record
-        }).filter((record) => !!record)
-      : []
+const SubComponentsModal = (props) => {
+  const { orgId } = props
 
-    console.log('========', dataSource)
+  const { data: components, error } = useComponents(orgId)
 
-    return (
-      <React.Fragment>
-        <CustomSearchText
-          placeholder="Search"
-          enterButton
-          allowClear
-          onChange={debouncedSearchHandler}
-          onPressEnter={debouncedSearchHandler}
-        />
-        <ScrollView>
-          {!components.isLoading && (
-            <Menu>
-              {dataSource.map((item, index) => (
-                <Menu.Item key={index}>
-                  <Space>
-                    <Tag>{getFirstLetter(item.component_type)}</Tag>
-                    <HTMLViewer
-                      dangerouslySetInnerHTML={{ __html: item.component_content }}
-                      className="popup-item"
-                    />
-                  </Space>
-                </Menu.Item>
-              ))}
-              {dataSource.length === 0 && (
-                <Menu.Item key="empty">
-                  <EmptyText>No Data</EmptyText>
-                </Menu.Item>
-              )}
-            </Menu>
-          )}
-          {components.isLoading && <CustomLoading />}
-        </ScrollView>
-      </React.Fragment>
-    )
+  if (error) {
+    return <ResultFailed isBackButton={false} />
   }
 
   return (
@@ -104,13 +105,13 @@ const SubComponentsModal = (props) => {
       </ModalHeader>
       <Tabs defaultActiveKey="1" type="card" size="small">
         <TabPane tab="Text" key="1">
-          {getTabContent(COMPONENTS_TYPES[1].id)}
+          <TabContent type={COMPONENTS_TYPES[1].id} components={components} />
         </TabPane>
         <TabPane tab="Medication" key="2">
-          {getTabContent(COMPONENTS_TYPES[3].id)}
+          <TabContent type={COMPONENTS_TYPES[3].id} components={components} />
         </TabPane>
         <TabPane tab="Protocol Link" key="3">
-          {getTabContent(COMPONENTS_TYPES[4].id)}
+          <TabContent type={COMPONENTS_TYPES[4].id} components={components} />
         </TabPane>
       </Tabs>
 
