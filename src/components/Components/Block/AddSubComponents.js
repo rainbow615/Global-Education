@@ -1,17 +1,33 @@
 import React, { useState } from 'react'
-import { Button, Popover, Menu, Space, Typography, Tag, Tabs } from 'antd'
+import { Button, Popover, Menu, Space, Tag, Tabs, Typography } from 'antd'
 import { debounce, map, get } from 'lodash'
 import { PlusOutlined } from '@ant-design/icons'
 
-import { SEARCH_DELAY } from '../../../config/constants'
+import { useComponents } from '../../../services/componentService'
+import { regExpEscape, getFirstLetter } from '../../../utils'
+import { COMPONENTS_TYPES, SEARCH_DELAY } from '../../../config/constants'
 import { CustomSearchText } from '../../CommonComponent'
-import { ModalContentView, ScrollView, ModalHeader, ModalFooter } from './styles'
+import { ResultFailed } from '../../ResultPages'
+import {
+  ModalContentView,
+  ScrollView,
+  ModalHeader,
+  ModalFooter,
+  HTMLViewer,
+  EmptyText,
+} from './styles'
 
-const { Text } = Typography
 const { TabPane } = Tabs
 
 const SubComponentsModal = (props) => {
+  const { orgId } = props
   const [searchText, setSearchText] = useState('')
+
+  const { data: components, error } = useComponents(orgId)
+
+  if (error) {
+    return <ResultFailed isBackButton={false} />
+  }
 
   const onSearch = (e) => {
     setSearchText(e.target.value)
@@ -19,7 +35,31 @@ const SubComponentsModal = (props) => {
 
   const debouncedSearchHandler = debounce(onSearch, SEARCH_DELAY)
 
-  const getTabContent = () => {
+  const getTabContent = (type) => {
+    const dataSource = components?.data
+      ? map(components.data, (record, index) => {
+          const componentType = get(record, 'component_type')
+
+          if (type !== componentType) {
+            return null
+          }
+
+          if (searchText) {
+            const reg = new RegExp(regExpEscape(searchText), 'gi')
+            const typeMatch = componentType.match(reg)
+            const contentMatch = get(record, 'component_content').match(reg)
+
+            if (!typeMatch && !contentMatch) {
+              return null
+            }
+          }
+
+          return record
+        }).filter((record) => !!record)
+      : []
+
+    console.log('========', dataSource)
+
     return (
       <React.Fragment>
         <CustomSearchText
@@ -31,18 +71,22 @@ const SubComponentsModal = (props) => {
         />
         <ScrollView>
           <Menu>
-            <Menu.Item key="1">
-              <Space>
-                <Tag>T</Tag>
-                <Text>Cool text component</Text>
-              </Space>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Space>
-                <Tag>T</Tag>
-                <Text>Etc, Etc....</Text>
-              </Space>
-            </Menu.Item>
+            {dataSource.map((item, index) => (
+              <Menu.Item key={index}>
+                <Space>
+                  <Tag>{getFirstLetter(item.component_type)}</Tag>
+                  <HTMLViewer
+                    dangerouslySetInnerHTML={{ __html: item.component_content }}
+                    className="popup-item"
+                  />
+                </Space>
+              </Menu.Item>
+            ))}
+            {dataSource.length === 0 && (
+              <Menu.Item key="empty">
+                <EmptyText>No Data</EmptyText>
+              </Menu.Item>
+            )}
           </Menu>
         </ScrollView>
       </React.Fragment>
@@ -56,13 +100,13 @@ const SubComponentsModal = (props) => {
       </ModalHeader>
       <Tabs defaultActiveKey="1" type="card" size="small">
         <TabPane tab="Text" key="1">
-          {getTabContent()}
+          {getTabContent(COMPONENTS_TYPES[1].id)}
         </TabPane>
         <TabPane tab="Medication" key="2">
-          {getTabContent()}
+          {getTabContent(COMPONENTS_TYPES[3].id)}
         </TabPane>
         <TabPane tab="Protocol Link" key="3">
-          {getTabContent()}
+          {getTabContent(COMPONENTS_TYPES[4].id)}
         </TabPane>
       </Tabs>
 

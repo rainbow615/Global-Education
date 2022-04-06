@@ -20,6 +20,10 @@ const ComponentSection = (props) => {
     edit: false,
   })
 
+  const onChangeOrder = (checked) => {
+    setIsOrdered(checked)
+  }
+
   const onCreate = (values) => {
     const payload = {
       organization_id: orgId,
@@ -127,7 +131,7 @@ const ComponentSection = (props) => {
       </Form.Item>
       <Space>
         <Form.Item label="Ordered?" name="is_ordered">
-          <Switch onChange={(checked) => setIsOrdered(checked)} checked={isOrdered} />
+          <Switch onChange={onChangeOrder} checked={isOrdered} />
         </Form.Item>
         <i>Selecting this will number everything added to this section component based on order.</i>
       </Space>

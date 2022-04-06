@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, Space, Select, Typography } from 'antd'
 import Switch from 'react-switch'
 
+import { createComponent, updateComponent } from '../../../services/componentService'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../Form'
 import AddSubComponents from './AddSubComponents'
@@ -12,9 +13,11 @@ const { Text } = Typography
 const Tags = []
 
 const ComponentBlock = (props) => {
-  const { orgId, isNew } = props
+  const { orgId, isNew, data } = props
 
-  const [isOrdered, setIsOrdered] = useState(false)
+  const [content, setContent] = useState(data?.component_content || '')
+  const [isOrdered, setIsOrdered] = useState(!!data?.is_ordered)
+  const [errorMsg, setErrorMsg] = useState('')
   const [isLoading, setIsLoading] = useState({
     create: false,
     edit: false,
@@ -30,14 +33,22 @@ const ComponentBlock = (props) => {
 
   return (
     <ComponentForm
+      initialValues={data}
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
       onCreate={onCreate}
       onEdit={onEdit}
     >
-      <Form.Item label="Content" name="content">
-        <CustomCkEditor simpleMode data={''} placeholder="Enter block text" />
+      <Form.Item label="Content" validateStatus={errorMsg ? 'error' : undefined} help={errorMsg}>
+        <CustomCkEditor
+          simpleMode
+          data={content}
+          placeholder="Enter block text"
+          onChange={(_event, editor) => {
+            setContent(editor.getData())
+          }}
+        />
       </Form.Item>
       <Space>
         <Form.Item label="Ordered?" name="is_ordered">

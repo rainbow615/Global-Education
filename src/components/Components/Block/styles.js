@@ -46,6 +46,11 @@ export const HTMLViewer = styled.div`
     margin: 0;
     padding: 0;
   }
+
+  &.popup-item {
+    max-width: 245px;
+    overflow: hidden;
+  }
 `
 
 export const ModalContentView = styled.div`
@@ -70,7 +75,7 @@ export const ScrollView = styled.div`
   width: 100%;
   height: 250px;
   overflow-y: auto;
-  padding: 10px 0;
+  padding: 10px 10px 10px 0;
   margin-top: 20px;
   border: 1px solid #d9d9d9;
 `
@@ -87,4 +92,11 @@ export const ModalFooter = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+`
+
+export const EmptyText = styled.div`
+  width: 100%;
+  text-align: center;
+  color: ${(props) => props.theme.palette.disabledText};
+  font-style: italic;
 `
