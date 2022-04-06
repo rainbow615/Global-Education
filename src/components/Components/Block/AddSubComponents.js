@@ -21,11 +21,16 @@ import {
 const { TabPane } = Tabs
 
 const TabContent = (props) => {
-  const { type, components } = props
+  const { type, components, currentKey, onSelect } = props
+
   const [searchText, setSearchText] = useState('')
 
   const onSearch = (e) => {
     setSearchText(e.target.value)
+  }
+
+  const onSelectItem = (e) => {
+    onSelect(e.key, dataSource[e.key])
   }
 
   const debouncedSearchHandler = debounce(onSearch, SEARCH_DELAY)
@@ -64,7 +69,7 @@ const TabContent = (props) => {
       />
       <ScrollView>
         {!components.isLoading && (
-          <Menu>
+          <Menu onSelect={onSelectItem} selectedKeys={[currentKey]}>
             {dataSource.map((item, index) => (
               <Menu.Item key={index}>
                 <Space>
@@ -90,7 +95,10 @@ const TabContent = (props) => {
 }
 
 const SubComponentsModal = (props) => {
-  const { orgId } = props
+  const { orgId, onSelect } = props
+
+  const [selectedComponent, setSelectedComponent] = useState(null)
+  const [currentKey, setCurrentKey] = useState(-1)
 
   const { data: components, error } = useComponents(orgId)
 
@@ -98,25 +106,60 @@ const SubComponentsModal = (props) => {
     return <ResultFailed isBackButton={false} />
   }
 
+  const onTabChange = () => {
+    setSelectedComponent(null)
+    setCurrentKey(-1)
+  }
+
+  const onSelectItem = (key, component) => {
+    setCurrentKey(key)
+    setSelectedComponent(component)
+  }
+
+  const onAddComponent = () => {
+    if (selectedComponent) {
+      onSelect(selectedComponent)
+      setSelectedComponent(null)
+      setCurrentKey(-1)
+    }
+  }
+
   return (
     <ModalContentView>
       <ModalHeader>
         <Button type="primary">New</Button>
       </ModalHeader>
-      <Tabs defaultActiveKey="1" type="card" size="small">
+      <Tabs defaultActiveKey="1" type="card" size="small" onChange={onTabChange}>
         <TabPane tab="Text" key="1">
-          <TabContent type={COMPONENTS_TYPES[1].id} components={components} />
+          <TabContent
+            type={COMPONENTS_TYPES[1].id}
+            components={components}
+            onSelect={onSelectItem}
+            currentKey={currentKey}
+          />
         </TabPane>
         <TabPane tab="Medication" key="2">
-          <TabContent type={COMPONENTS_TYPES[3].id} components={components} />
+          <TabContent
+            type={COMPONENTS_TYPES[3].id}
+            components={components}
+            onSelect={onSelectItem}
+            currentKey={currentKey}
+          />
         </TabPane>
         <TabPane tab="Protocol Link" key="3">
-          <TabContent type={COMPONENTS_TYPES[4].id} components={components} />
+          <TabContent
+            type={COMPONENTS_TYPES[4].id}
+            components={components}
+            onSelect={onSelectItem}
+            currentKey={currentKey}
+          />
         </TabPane>
       </Tabs>
 
       <ModalFooter>
-        <Button type="primary">Add</Button>
+        <Button type="primary" disabled={!selectedComponent} onClick={onAddComponent}>
+          Add
+        </Button>
       </ModalFooter>
     </ModalContentView>
   )
@@ -125,11 +168,24 @@ const SubComponentsModal = (props) => {
 const AddSubComponents = (props) => {
   const { orgId, onSelect } = props
 
+  const [isVisible, setIsVisible] = useState(false)
+
+  const onVisibleChange = (visible) => {
+    setIsVisible(visible)
+  }
+
+  const onSelectItem = (component) => {
+    setIsVisible(false)
+    onSelect(component)
+  }
+
   return (
     <Popover
-      content={<SubComponentsModal orgId={orgId} onSelect={onSelect} />}
+      content={<SubComponentsModal orgId={orgId} onSelect={onSelectItem} />}
       placement="bottomLeft"
       trigger="click"
+      visible={isVisible}
+      onVisibleChange={onVisibleChange}
     >
       <Button icon={<PlusOutlined />} size="small" />
     </Popover>
