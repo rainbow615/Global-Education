@@ -7,6 +7,7 @@ import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../Form'
 import AddSubComponents from './AddSubComponents'
 import SubComponentList from './SubComponentsList'
+import { random } from 'lodash'
 
 const { Option } = Select
 const { Text } = Typography
@@ -17,11 +18,21 @@ const ComponentBlock = (props) => {
 
   const [content, setContent] = useState(data?.component_content || '')
   const [isOrdered, setIsOrdered] = useState(!!data?.is_ordered)
+  const [selectedComponents, setSelectedComponents] = useState([])
   const [errorMsg, setErrorMsg] = useState('')
   const [isLoading, setIsLoading] = useState({
     create: false,
     edit: false,
   })
+
+  const onAddComponent = (component) => {
+    const newList = [...selectedComponents, component]
+    setSelectedComponents(newList)
+  }
+
+  const onChangeComponents = (list) => {
+    setSelectedComponents(list)
+  }
 
   const onChangeOrder = (checked) => {
     setIsOrdered(checked)
@@ -61,9 +72,13 @@ const ComponentBlock = (props) => {
       <Form.Item>
         <Space>
           <Text>{`Block Subcomponents `}</Text>
-          <AddSubComponents orgId={orgId} />
+          <AddSubComponents orgId={orgId} onSelect={onAddComponent} />
         </Space>
-        <SubComponentList />
+        <SubComponentList
+          list={selectedComponents}
+          key={selectedComponents.length}
+          onChange={onChangeComponents}
+        />
       </Form.Item>
       <Form.Item label="Tags" name="tags">
         <Select

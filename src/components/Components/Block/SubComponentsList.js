@@ -9,24 +9,6 @@ import { ComponentsListView, SubComponentRow, HTMLViewer } from './styles'
 
 const getHandleBar = () => <HolderOutlined style={{ fontSize: 22, cursor: 'pointer' }} />
 
-const data = [
-  {
-    component_id: '10',
-    component_type: 'text',
-    component_content: '<p>If 10-Lead EKG shows STEMI, notify BH and transport to STEMI center</p>',
-  },
-  {
-    component_id: '11',
-    component_type: 'text',
-    component_content: '<p>If 11-Lead EKG shows STEMI, notify BH and transport to STEMI center</p>',
-  },
-  {
-    component_id: '12',
-    component_type: 'text',
-    component_content: '<p>If 12-Lead EKG shows STEMI, notify BH and transport to STEMI center</p>',
-  },
-]
-
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
   const [removed] = result.splice(startIndex, 1)
@@ -46,8 +28,8 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
 })
 
-const SubComponentList = () => {
-  const [list, setList] = useState(data)
+const SubComponentList = (props) => {
+  const { list, onChange } = props
 
   const onDragEnd = (result) => {
     // dropped outside the list
@@ -57,7 +39,7 @@ const SubComponentList = () => {
 
     const items = reorder(list, result.source.index, result.destination.index)
 
-    setList(items)
+    onChange(items)
   }
 
   const onRemove = (id) => () => {
@@ -65,7 +47,7 @@ const SubComponentList = () => {
     const items = [...list]
     items.splice(index, 1)
 
-    setList(items)
+    onChange(items)
   }
 
   const getRemoveBar = (id) => (
