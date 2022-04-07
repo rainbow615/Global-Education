@@ -20,7 +20,7 @@ const ComponentBlock = (props) => {
 
   const [content, setContent] = useState(data?.component_content || '')
   const [isOrdered, setIsOrdered] = useState(!!data?.is_ordered)
-  const [selectedComponents, setSelectedComponents] = useState([])
+  const [selectedComponents, setSelectedComponents] = useState(data?.component_children || [])
   const [errorMsg, setErrorMsg] = useState('')
   const [isLoading, setIsLoading] = useState({
     create: false,
@@ -82,7 +82,41 @@ const ComponentBlock = (props) => {
       })
   }
 
-  const onEdit = () => {}
+  const onEdit = (values) => {
+    const id = values.component_id
+    const component_children = selectedComponents.map((obj, index) => ({
+      child_component_id: obj.component_id,
+      child_component_order: index + 1,
+    }))
+    const payload = {
+      organization_id: orgId,
+      parent_id: values.parent_id,
+      component_type: COMPONENTS_TYPES[2].id,
+      tags: values.tags || [],
+      component_content: content,
+      is_ordered: values.is_ordered || false,
+      component_order: values.component_order,
+      linked_protocol: values.linked_protocol,
+      linked_education: values.linked_education,
+      component_children,
+    }
+
+    setIsLoading({ ...isLoading, edit: true })
+
+    updateComponent(id, payload)
+      .then(() => {
+        setIsLoading({ ...isLoading, edit: false })
+        notification.success({ message: 'A new block component has been updated successfully!' })
+      })
+      .catch((error) => {
+        setIsLoading(false)
+
+        notification.error({
+          message: 'Modify failed!',
+          description: error?.data || '',
+        })
+      })
+  }
 
   return (
     <ComponentForm
