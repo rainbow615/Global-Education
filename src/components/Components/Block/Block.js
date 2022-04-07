@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Form, Space, Select, Typography } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import { Form, Space, Select, Typography, notification } from 'antd'
 import Switch from 'react-switch'
 
 import { createComponent, updateComponent } from '../../../services/componentService'
@@ -7,7 +8,7 @@ import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../Form'
 import AddSubComponents from './AddSubComponents'
 import SubComponentList from './SubComponentsList'
-import { random } from 'lodash'
+import { COMPONENTS_TYPES } from '../../../config/constants'
 
 const { Option } = Select
 const { Text } = Typography
@@ -15,6 +16,7 @@ const Tags = []
 
 const ComponentBlock = (props) => {
   const { orgId, isNew, data } = props
+  const navigate = useNavigate()
 
   const [content, setContent] = useState(data?.component_content || '')
   const [isOrdered, setIsOrdered] = useState(!!data?.is_ordered)
@@ -38,7 +40,47 @@ const ComponentBlock = (props) => {
     setIsOrdered(checked)
   }
 
-  const onCreate = () => {}
+  const onCreate = (values) => {
+    const component_children = selectedComponents.map((obj, index) => ({
+      child_component_id: obj.component_id,
+      child_component_order: index + 1,
+    }))
+
+    const payload = {
+      organization_id: orgId,
+      parent_id: null,
+      component_type: COMPONENTS_TYPES[2].id,
+      tags: values.tags || [],
+      component_content: content,
+      is_ordered: values.is_ordered || false,
+      component_order: 1,
+      linked_protocol: [],
+      linked_education: values.linked_education,
+      component_children,
+    }
+
+    setIsLoading({ ...isLoading, create: true })
+
+    createComponent(payload)
+      .then((res) => {
+        setIsLoading({ ...isLoading, create: false })
+        notification.success({ message: 'A new block component has been created successfully!' })
+
+        if (res && res.data) {
+          navigate(`/organizations/components/form/${COMPONENTS_TYPES[2].id}/edit`, {
+            state: { ...res.data, orgId, orgName: data.orgName },
+          })
+        }
+      })
+      .catch((error) => {
+        setIsLoading(false)
+
+        notification.error({
+          message: 'Save failed!',
+          description: error?.data || '',
+        })
+      })
+  }
 
   const onEdit = () => {}
 
