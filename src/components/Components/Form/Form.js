@@ -124,8 +124,7 @@ const ComponentForm = (props) => {
             >
               Save as New
             </Button>
-            {/* {!isNew && !!backref && backref.length > 0 && ( */}
-            {!isNew && (
+            {!isNew && !!backref && backref.length > 0 && (
               <ConfirmActionButton
                 size="large"
                 loading={isLoading.edit}
