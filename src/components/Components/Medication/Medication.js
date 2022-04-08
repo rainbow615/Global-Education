@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Form, Input, Select, Space, Typography, Row, Col, notification } from 'antd'
 import Switch from 'react-switch'
 
-import { createComponent } from '../../../services/componentService'
+import { createComponent, updateComponent } from '../../../services/componentService'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../../Components/Form'
 import { DOSE_UNITS, FORMULARY_UNIT } from '../../../config/constants'
@@ -22,10 +22,11 @@ const ComponentMedication = (props) => {
     dose_units: DOSE_UNITS[0],
     formulary_units: FORMULARY_UNIT[0],
     ...data,
+    ...data?.medication,
   })
   const [notes, setNotes] = useState(data?.notes || '')
-  const [isHaveRange, setIsHaveRange] = useState(false)
-  const [isHaveFormulary, setIsHaveFormulary] = useState(false)
+  const [isHaveRange, setIsHaveRange] = useState(initial?.dose_range || false)
+  const [isHaveFormulary, setIsHaveFormulary] = useState(initial?.formulary || false)
   const [isLoading, setIsLoading] = useState({
     create: false,
     edit: false,
@@ -87,7 +88,48 @@ const ComponentMedication = (props) => {
       })
   }
 
-  const onEdit = () => {}
+  const onEdit = (values) => {
+    const id = values.component_id
+    const payload = {
+      organization_id: orgId,
+      parent_id: values.parent_id,
+      component_type: COMPONENTS_TYPES[3].id,
+      tags: values.tags,
+      component_content: values.component_content,
+      is_ordered: false,
+      component_order: values.component_order,
+      linked_protocol: values.linked_protocol,
+      linked_education: values.linked_education,
+      medication: {
+        dose_range: isHaveRange,
+        dose_min: +values.dose_min,
+        dose_max: +values.dose_max,
+        dose_units: values.dose_units,
+        formulary: isHaveFormulary,
+        formulary_conc: +values.formulary_conc,
+        formulary_units: values.formulary_units,
+      },
+      component_children: [],
+    }
+
+    setIsLoading({ ...isLoading, edit: true })
+
+    updateComponent(id, payload)
+      .then(() => {
+        setIsLoading({ ...isLoading, edit: false })
+        notification.success({
+          message: 'A new medication component has been updated successfully!',
+        })
+      })
+      .catch((error) => {
+        setIsLoading(false)
+
+        notification.error({
+          message: 'Modify failed!',
+          description: error?.data || '',
+        })
+      })
+  }
 
   return (
     <ComponentForm
