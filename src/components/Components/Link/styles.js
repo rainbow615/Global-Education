@@ -8,6 +8,16 @@ export const ProtocolView = styled.div`
   min-height: 64px;
   padding: 20px;
   margin-top: 16px;
+
+  button {
+    display: none;
+  }
+
+  &:hover {
+    button {
+      display: block;
+    }
+  }
 `
 
 export const ModalContentView = styled.div`
@@ -32,7 +42,7 @@ export const ScrollView = styled.div`
   width: 100%;
   height: 250px;
   overflow-y: auto;
-	padding: 10px 0;
+  padding: 10px 0;
   margin-top: 20px;
   border: 1px solid #d9d9d9;
 `
