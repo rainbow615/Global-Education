@@ -25,4 +25,8 @@ input {
 
 .ant-btn.ant-btn-secondary {
   background: lightgrey;
+
+  &[disabled] {
+    background: inherit;
+  }
 }
