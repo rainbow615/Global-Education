@@ -1,20 +1,29 @@
 import React, { useState } from 'react'
-import { Form, Input, Select, Space, Typography, Row, Col } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import { Form, Input, Select, Space, Typography, Row, Col, notification } from 'antd'
 import Switch from 'react-switch'
 
+import { createComponent } from '../../../services/componentService'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../../Components/Form'
-import { DOSE_UNIT, FORMULARY_UNIT } from '../../../config/constants'
+import { DOSE_UNITS, FORMULARY_UNIT } from '../../../config/constants'
 import { MEDICATION_TAGS } from '../../../config/tags'
+import { COMPONENTS_TYPES } from '../../../config/constants'
 import { DoseSection } from './styles'
 
 const { Option } = Select
 const { Text } = Typography
 
 const ComponentMedication = (props) => {
-  const { isNew, orgId } = props
+  const { isNew, orgId, data } = props
+  const navigate = useNavigate()
 
-  const [initial] = useState({ dose_unit: DOSE_UNIT[0], formulary_unit: FORMULARY_UNIT[0] })
+  const [initial] = useState({
+    dose_units: DOSE_UNITS[0],
+    formulary_units: FORMULARY_UNIT[0],
+    ...data,
+  })
+  const [notes, setNotes] = useState(data?.notes || '')
   const [isHaveRange, setIsHaveRange] = useState(false)
   const [isHaveFormulary, setIsHaveFormulary] = useState(false)
   const [isLoading, setIsLoading] = useState({
@@ -30,7 +39,53 @@ const ComponentMedication = (props) => {
     setIsHaveFormulary(checked)
   }
 
-  const onCreate = () => {}
+  const onCreate = (values) => {
+    const payload = {
+      organization_id: orgId,
+      parent_id: null,
+      component_type: COMPONENTS_TYPES[3].id,
+      tags: values.tags || [],
+      component_content: values.component_content,
+      is_ordered: false,
+      component_order: 1,
+      linked_protocol: [],
+      linked_education: values.linked_education,
+      medication: {
+        dose_range: isHaveRange,
+        dose_min: +values.dose_min,
+        dose_max: +values.dose_max,
+        dose_units: values.dose_units,
+        formulary: isHaveFormulary,
+        formulary_conc: +values.formulary_conc,
+        formulary_units: values.formulary_units,
+      },
+      component_children: [],
+    }
+
+    setIsLoading({ ...isLoading, create: true })
+
+    createComponent(payload)
+      .then((res) => {
+        setIsLoading({ ...isLoading, create: false })
+        notification.success({
+          message: 'A new medication component has been created successfully!',
+        })
+
+        if (res && res.data) {
+          navigate(`/organizations/components/form/${COMPONENTS_TYPES[3].id}/edit`, {
+            state: { ...res.data, orgId, orgName: data.orgName },
+          })
+        }
+      })
+      .catch((error) => {
+        setIsLoading(false)
+
+        notification.error({
+          message: 'Save failed!',
+          description: error?.data || '',
+        })
+      })
+  }
 
   const onEdit = () => {}
 
@@ -45,37 +100,45 @@ const ComponentMedication = (props) => {
     >
       <Form.Item
         label="Content"
-        name="name"
+        name="component_content"
         hasFeedback
         rules={[{ required: true, message: 'Please input a medication name' }]}
       >
         <Input placeholder="Enter a section name" size="large" />
       </Form.Item>
       <Form.Item label="Dose">
-        <DoseSection size="large">
+        <DoseSection size="large" align="start">
           <Space direction="vertical">
             <Space>
               <Switch onChange={onChangeDoseRange} checked={isHaveRange} />
               <i>Does this dose have a range?</i>
             </Space>
-            <Space>
-              <Space>
+            <Space align="start">
+              <Space align="start">
                 {isHaveRange && (
                   <React.Fragment>
-                    <Form.Item name="dose_range_min">
+                    <Form.Item
+                      name="dose_min"
+                      hasFeedback
+                      rules={[{ required: true, message: 'Please input a min value' }]}
+                    >
                       <Input size="middle" />
                     </Form.Item>
                     <Text>{` to `}</Text>
                   </React.Fragment>
                 )}
-                <Form.Item name="dose_range_max">
+                <Form.Item
+                  name="dose_max"
+                  hasFeedback
+                  rules={[{ required: true, message: 'Please input a max value' }]}
+                >
                   <Input size="middle" />
                 </Form.Item>
               </Space>
 
-              <Form.Item name="dose_unit">
+              <Form.Item name="dose_units" hasFeedback>
                 <Select size="middle" showArrow>
-                  {DOSE_UNIT.map((unit, index) => (
+                  {DOSE_UNITS.map((unit, index) => (
                     <Option key={index} value={unit} label={unit}>
                       {unit}
                     </Option>
@@ -91,10 +154,10 @@ const ComponentMedication = (props) => {
             </Space>
             <Space>
               <Text disabled={!isHaveFormulary}>{`Conc. `}</Text>
-              <Form.Item name="conc">
+              <Form.Item name="formulary_conc" hasFeedback>
                 <Input size="middle" disabled={!isHaveFormulary} />
               </Form.Item>
-              <Form.Item name="formulary_unit">
+              <Form.Item name="formulary_units" hasFeedback>
                 <Select size="middle" showArrow disabled={!isHaveFormulary}>
                   {FORMULARY_UNIT.map((unit, index) => (
                     <Option key={index} value={unit} label={unit}>
@@ -110,8 +173,11 @@ const ComponentMedication = (props) => {
       <Form.Item label="Additional Notes" name="notes" className="notes">
         <CustomCkEditor
           simpleMode
-          data={''}
+          data={notes}
           placeholder="Enter any additional notes on administering this medication (e.g., route, ability to repeat, etc.)"
+          onChange={(_event, editor) => {
+            setNotes(editor.getData())
+          }}
         />
       </Form.Item>
       <Row gutter={24}>

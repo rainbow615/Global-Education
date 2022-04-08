@@ -129,7 +129,7 @@ export const COMPONENTS_CONFIRM_MSG = {
   DELETE: "You are deleting this component. Type 'DELETE' to confirm.",
 }
 
-export const DOSE_UNIT = [
+export const DOSE_UNITS = [
   'g',
   'g/kg',
   'inch(es)',
