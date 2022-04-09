@@ -43,7 +43,14 @@ const TopHeader = (props) => {
   return (
     <React.Fragment>
       <CustomHeader>
-        <img alt="Mission Critical Protocols" src={Logo} />
+        <img
+          alt="Mission Critical Protocols"
+          src={Logo}
+          style={{
+            position: 'relative',
+            left: '-.5rem',
+          }}
+        />
         {!isShowHamburger && menu}
       </CustomHeader>
       {isShowHamburger && (

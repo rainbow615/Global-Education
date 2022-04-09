@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Col, Row } from 'antd'
+import { Col, Row } from 'antd'
 import { Link, scroller } from 'react-scroll'
 
 import AsyncImage from '../../components/AsyncImage'
@@ -10,14 +10,16 @@ import {
   LeftSection,
   RightSection,
   Title,
-  SubTitle,
   DetailedText,
   Description,
   Buttons,
   LinkButton,
+  CheckList,
+  CheckListItem,
 } from './styles'
 import GoogleStorePng from '../../assets/img/google-store.png'
 import AppStorePng from '../../assets/img/app-store.png'
+import CheckListItemIcon from './CheckListItemIcon'
 
 const HomeMainContent = (props) => {
   const onGotoContact = (index) => () => {
@@ -32,46 +34,37 @@ const HomeMainContent = (props) => {
 
   return (
     <React.Fragment>
-      <TopBanner>
+      <TopBanner name="app">
         <LeftSection>
-          <Title>Empowering first responders with accessible, mission-critical information.</Title>
+          <Title>A mobile app built by paramedics for paramedics</Title>
           <DetailedText>
-            EMTs, paramedics, firefighters, and police officers deliver essential community
-            services. Mission Critical Protocols puts high-quality information at their finger tips.
+            EMS protocols in a highly accessible format with powerful tools and just-in-time
+            education to elevate your practice.
           </DetailedText>
-          <Button type="primary" size="large">
-            <Link to="app" spy={true} smooth={true} duration={500}>
-              Learn more
-            </Link>
-          </Button>
-        </LeftSection>
-        <RightSection>
-          <AsyncImage alt="MCP" src="/img/home/landing-1.png" />
-        </RightSection>
-      </TopBanner>
-      <Section name="app">
-        <LeftSection>
-          <Title>Our Mobile Applications</Title>
-          <SubTitle>For front-line providers</SubTitle>
-          <Description>
-            First responder policies in highly-accessible mobile applications. Integrated tools and
-            education. Clear updates when policies change.
-          </Description>
-          <DetailedText>
-            Mission Critical Protocols delivers first-in-class quality applications that display
-            first responders operation policies in a high-quality, mobile-friendly styling. We
-            integrate calculators, references, and education directly into those policies in a
-            non-disruptive, helpful way. We also keep first responders updated on any policy changes
-            down to a letter.
-          </DetailedText>
-          <br />
-          <Row gutter={24}>
-            <Col span={12} align="center">
+          <Row
+            gutter={10}
+            style={{
+              marginTop: '2rem',
+            }}
+          >
+            <Col
+              span={12}
+              align="flex-start"
+              style={{
+                maxWidth: '12rem',
+              }}
+            >
               <a href="https://www.apple.com/store">
                 <img src={AppStorePng} alt="App Store" className="store-icon" />
               </a>
             </Col>
-            <Col span={12} align="center">
+            <Col
+              span={12}
+              align="flex-start"
+              style={{
+                maxWidth: '12rem',
+              }}
+            >
               <a href="https://play.google.com/store/apps;">
                 <img src={GoogleStorePng} alt="Play Store" className="store-icon" />
               </a>
@@ -79,23 +72,40 @@ const HomeMainContent = (props) => {
           </Row>
         </LeftSection>
         <RightSection>
-          <AsyncImage alt="Our Mobile Applications" src="/img/home/landing-2.png" />
+          <AsyncImage
+            alt="MCP"
+            src="/img/home/protocol-mockup.png"
+            style={{
+              maxWidth: '15rem',
+              alignSelf: 'center',
+            }}
+          />
         </RightSection>
-      </Section>
+      </TopBanner>
       <Section name="book">
         <LeftSection>
-          <Title>Our Printed Books</Title>
-          <SubTitle>For front-line providers</SubTitle>
-          <Description>
-            First responder policies in expertly-crafted, printed books. Updates from our mobile
-            application keep them up to date.
-          </Description>
-          <DetailedText>
-            Mission Critical Protocols offers printed reference books that mirror the policy sets of
-            our mobile application—integrated tools and eduation included. After a book is printed,
-            the respective mobile application will keep providers updated on any changes to the
-            book.
-          </DetailedText>
+          {/* <SubTitle>For front-line providers</SubTitle> */}
+          <Title as="h2">Expertly-Crafted Protocol Books</Title>
+          <Description>All of the protocols and education from the app in print.</Description>
+          <CheckList>
+            {/* @prettier-ignore */}
+            <CheckListItem>
+              <CheckListItemIcon />
+              Easier on the eyes
+            </CheckListItem>
+            <CheckListItem>
+              <CheckListItemIcon />
+              Notes in the margins
+            </CheckListItem>
+            <CheckListItem>
+              <CheckListItemIcon />
+              No batteries required{' '}
+            </CheckListItem>
+            <CheckListItem>
+              <CheckListItemIcon />
+              Muscle memory to find things quickly
+            </CheckListItem>
+          </CheckList>
           <Buttons>
             <LinkButton>
               <Link to="app" spy={true} smooth={true} duration={500}>
@@ -106,9 +116,14 @@ const HomeMainContent = (props) => {
           </Buttons>
         </LeftSection>
         <RightSection>
-          <AsyncImage alt="Our Printed Books" src="/img/home/landing-3.png" />
+          <AsyncImage
+            alt="Our Printed Books"
+            src="/img/home/book-mockup.png"
+            style={{ alignSelf: 'flex-end' }}
+          />
         </RightSection>
       </Section>
+
       {/* <Section name="cms">
         <LeftSection>
           <Title>Our CMS</Title>

@@ -18,13 +18,13 @@ const Login = () => {
   return (
     <Root>
       <ImageSection>
-        <AsyncImage src="/img/home/landing-1.png" alt="Mission Critical" />
+        <AsyncImage src="/img/home/paramedics.jpg" alt="Mission Critical" />
       </ImageSection>
       <RightSection>
         <Title>Login</Title>
 
         {step === 'password' && <PasswordForm />}
-        {step === 'confirm-code' && <ConfirmCodeForm />}        
+        {step === 'confirm-code' && <ConfirmCodeForm />}
 
         <AppStoreContainer direction="vertical">
           <Text type="secondary">
