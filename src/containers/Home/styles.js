@@ -159,7 +159,7 @@ export const CheckList = styled.ul({
   display: 'flex',
   justifyContent: 'flex-start',
   flexDirection: 'column',
-  gap: '0.5rem',
+  gap: '0.75rem',
 })
 
 export const CheckListItem = styled.li(({ theme }) => ({
@@ -167,14 +167,10 @@ export const CheckListItem = styled.li(({ theme }) => ({
   display: 'flex',
   fontFamily: 'InterMedium',
   color: theme.palette.blueGrey[700],
-  fontSize: '1rem',
+  fontSize: '1.25rem',
   gap: '0.5rem',
   alignItems: 'flex-start',
   lineHeight: 1.125,
-  svg: {
-    position: 'relative',
-    top: -3,
-  },
 }))
 
 export const ContactSection = styled.div({
