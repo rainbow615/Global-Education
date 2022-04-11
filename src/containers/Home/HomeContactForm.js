@@ -3,20 +3,9 @@ import { Button, Form, Input, Select, notification, Space } from 'antd'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 import { CONTACTS_TOPIC } from '../../config/constants'
-import {
-  Section,
-  ContactSection,
-  ContactSectionArea,
-  Title,
-  Description,
-  Buttons,
-  ContactSuccessMessage,
-  DetailedText,
-  Img,
-} from './styles'
+import { ContactSection, Title, Buttons, ContactSuccessMessage, DetailedText } from './styles'
 import { requestRegistration } from '../../services/authService'
 import CheckListItemIcon from './CheckListItemIcon'
-import AsyncImage from '../../components/AsyncImage'
 
 const { Option } = Select
 const siteKey = process.env.REACT_APP_RECAPTCHA_SITE_KEY
@@ -44,8 +33,10 @@ const HomeContactForm = (props) => {
   const [isVerified, setIsVerified] = useState(false)
 
   useEffect(() => {
+    const topic = formRef.current.getFieldValue('topic')
+
     formRef.current.setFieldsValue({
-      topic: props.topic,
+      topic: topic || props.topic,
     })
   }, [formRef, props.topic])
 
