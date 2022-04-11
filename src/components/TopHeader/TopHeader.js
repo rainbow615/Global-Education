@@ -3,8 +3,8 @@ import { Menu, Dropdown } from 'antd'
 import { Link as RouterLink } from 'react-router-dom'
 
 import { MOBILE_SIZE, TOP_HEADER_HEIGHT } from '../../config/constants'
-import Logo from '../../assets/img/logo-dark.svg'
-import { CustomHeader, CustomMenu, HamburgerButton, HamburgerIcon } from './styles'
+import LogoSrc from '../../assets/img/logo-dark.svg'
+import { Logo, CustomHeader, CustomMenu, HamburgerButton, HamburgerIcon } from './styles'
 
 const TopHeader = (props) => {
   const [isShowHamburger, setIsShowHamburger] = useState(false)
@@ -43,14 +43,7 @@ const TopHeader = (props) => {
   return (
     <React.Fragment>
       <CustomHeader>
-        <img
-          alt="Mission Critical Protocols"
-          src={Logo}
-          style={{
-            position: 'relative',
-            left: '-.5rem',
-          }}
-        />
+        <Logo alt="Mission Critical Protocols" src={LogoSrc} />
         {!isShowHamburger && menu}
       </CustomHeader>
       {isShowHamburger && (

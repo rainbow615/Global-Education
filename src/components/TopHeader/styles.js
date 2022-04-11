@@ -5,6 +5,11 @@ import { CenteredContent } from '../../containers/Home/styles'
 
 const { Header } = Layout
 
+export const Logo = styled.img({
+  position: 'relative',
+  left: '-.5rem',
+})
+
 export const CustomHeader = styled(Header)`
   position: relative;
   background: ${(props) => props.theme.palette.white};
