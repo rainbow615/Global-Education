@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Button, Layout, Menu } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
+import { CenteredContent } from '../../containers/Home/styles'
 
 const { Header } = Layout
 
@@ -10,6 +11,7 @@ export const CustomHeader = styled(Header)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${CenteredContent}
 
   img {
     height: 100%;
@@ -38,8 +40,8 @@ export const CustomMenu = styled(Menu)`
 
 export const HamburgerButton = styled(Button)`
   position: fixed;
-  top: 12px;
-  right: 50px;
+  top: 1.25rem;
+  right: 5%;
 `
 
 export const HamburgerIcon = styled(MenuOutlined)`

@@ -5,14 +5,18 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { CONTACTS_TOPIC } from '../../config/constants'
 import {
   Section,
-  ContackSection,
+  ContactSection,
   ContactSectionArea,
   Title,
   Description,
   Buttons,
   ContactSuccessMessage,
+  DetailedText,
+  Img,
 } from './styles'
 import { requestRegistration } from '../../services/authService'
+import CheckListItemIcon from './CheckListItemIcon'
+import AsyncImage from '../../components/AsyncImage'
 
 const { Option } = Select
 const siteKey = process.env.REACT_APP_RECAPTCHA_SITE_KEY
@@ -79,91 +83,88 @@ const HomeContactForm = (props) => {
   }
 
   return (
-    <Section name="contacts">
-      <Space direction="vertical" style={{ display: isSubmit ? 'none' : 'block' }}>
-        <Title style={{ paddingLeft: 20 }}>Contact Us</Title>
-        <ContackSection>
-          <ContactSectionArea>
-            <img alt="MCP" src="/img/home/contact-form.png" />
-            <Description>
-              Looking for partnership, licenses, bulk orders, support? Use our form to submit an
-              inquiry.
-            </Description>
-          </ContactSectionArea>
-          <ContactSectionArea>
-            <Form
-              ref={formRef}
-              autoComplete="off"
-              initialValues={{}}
-              layout="vertical"
-              name="contacts"
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              requiredMark={false}
-            >
-              <Form.Item name="name" hasFeedback rules={nameRules}>
-                <Input placeholder="Name" size="large" />
-              </Form.Item>
+    <ContactSection name="contacts">
+      <Title as="h2">Contact Us</Title>
+      <DetailedText>
+        Looking for partnership, licenses, bulk orders, support? Use our form to submit an inquiry.
+      </DetailedText>
+      <Form
+        style={{ display: isSubmit ? 'none' : 'block' }}
+        ref={formRef}
+        autoComplete="off"
+        initialValues={{}}
+        layout="vertical"
+        name="contacts"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        requiredMark={false}
+      >
+        <Form.Item name="name" hasFeedback rules={nameRules}>
+          <Input placeholder="Name" size="large" />
+        </Form.Item>
 
-              <Form.Item name="email" hasFeedback rules={emailRules}>
-                <Input placeholder="Email" size="large" />
-              </Form.Item>
+        <Form.Item name="email" hasFeedback rules={emailRules}>
+          <Input placeholder="Email" size="large" />
+        </Form.Item>
 
-              <Form.Item name="topic" hasFeedback rules={topicRules}>
-                <Select placeholder="Topic" size="large" allowClear>
-                  {CONTACTS_TOPIC.map((topic) => (
-                    <Option key={topic.id} value={topic.id}>
-                      {topic.name}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
+        <Form.Item name="topic" hasFeedback rules={topicRules}>
+          <Select placeholder="Topic" size="large" allowClear>
+            {CONTACTS_TOPIC.map((topic) => (
+              <Option key={topic.id} value={topic.id}>
+                {topic.name}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
 
-              <Form.Item>
-                <Form.Item
-                  name="organization"
-                  hasFeedback
-                  rules={organizationRules}
-                  className="organization"
-                >
-                  <Input placeholder="Organization" size="large" />
-                </Form.Item>
-                <Form.Item name="role" hasFeedback rules={roleRules} className="role">
-                  <Input placeholder="Role" size="large" />
-                </Form.Item>
-              </Form.Item>
-
-              <Form.Item name="message" hasFeedback rules={messageRules}>
-                <Input.TextArea
-                  showCount
-                  maxLength={1000}
-                  rows="5"
-                  size="large"
-                  placeholder="Message..."
-                />
-              </Form.Item>
-              <Form.Item>
-                <Buttons justifyContent="space-between">
-                  <ReCAPTCHA sitekey={siteKey} onChange={onVerify} />
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    disabled={!isVerified}
-                    loading={isLoading}
-                  >
-                    Submit
-                  </Button>
-                </Buttons>
-              </Form.Item>
-            </Form>
-          </ContactSectionArea>
-        </ContackSection>
-      </Space>
+        <Form.Item>
+          <Form.Item
+            name="organization"
+            hasFeedback
+            rules={organizationRules}
+            className="organization"
+          >
+            <Input placeholder="Organization" size="large" />
+          </Form.Item>
+          <Form.Item name="role" hasFeedback rules={roleRules} className="role">
+            <Input placeholder="Role" size="large" />
+          </Form.Item>
+        </Form.Item>
+        <Form.Item name="message" hasFeedback rules={messageRules}>
+          <Input.TextArea
+            showCount
+            maxLength={1000}
+            rows="5"
+            size="large"
+            placeholder="Message..."
+          />
+        </Form.Item>
+        <Form.Item>
+          <Buttons justifyContent="space-between">
+            <ReCAPTCHA sitekey={siteKey} onChange={onVerify} />
+            <Button type="primary" htmlType="submit" disabled={!isVerified} loading={isLoading}>
+              Submit
+            </Button>
+          </Buttons>
+        </Form.Item>
+      </Form>
       {isSubmit && (
         <ContactSuccessMessage>
-          <Space direction="vertical">
-            <Title>Thank you for your message!</Title>
-            <Description>We'll be in contact soon!</Description>
+          <Space
+            direction="vertical"
+            style={{
+              marginTop: '2rem',
+              minHeight: '35rem',
+            }}
+          >
+            <CheckListItemIcon
+              props={{
+                width: '5rem',
+                height: '5rem',
+                color: '#00eeb3',
+              }}
+            />
+            <DetailedText>Thank you for your message! We'll be in contact soon.</DetailedText>
             <Buttons justifyContent="center">
               <Button type="primary" onClick={onDone}>
                 Done
@@ -172,7 +173,7 @@ const HomeContactForm = (props) => {
           </Space>
         </ContactSuccessMessage>
       )}
-    </Section>
+    </ContactSection>
   )
 }
 
