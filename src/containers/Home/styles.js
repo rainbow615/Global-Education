@@ -1,9 +1,18 @@
 import styled from 'styled-components'
-import { Layout } from 'antd'
+import { Col, Layout, Row } from 'antd'
 import { Element } from 'react-scroll'
 import { css } from 'styled-components'
 
 const { Content, Footer } = Layout
+
+export const CustomRow = styled(Row)({
+  marginTop: '2rem',
+})
+
+export const CustomCol = styled(Col)({
+  maxWidth: '12rem',
+  alignItems: 'flex-start',
+})
 
 export const CenteredContent = css`
   padding: 0 5%;

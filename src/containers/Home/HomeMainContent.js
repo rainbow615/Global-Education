@@ -1,5 +1,4 @@
 import React from 'react'
-import { Col, Row } from 'antd'
 import { Link, scroller } from 'react-scroll'
 
 import AsyncImage from '../../components/AsyncImage'
@@ -16,6 +15,8 @@ import {
   LinkButton,
   CheckList,
   CheckListItem,
+  CustomRow,
+  CustomCol,
 } from './styles'
 import GoogleStorePng from '../../assets/img/google-store.png'
 import AppStorePng from '../../assets/img/app-store.png'
@@ -41,35 +42,18 @@ const HomeMainContent = (props) => {
             EMS protocols in a highly accessible format with powerful tools and just-in-time
             education to elevate your practice.
           </DetailedText>
-          <Row
-            gutter={10}
-            style={{
-              marginTop: '2rem',
-            }}
-          >
-            <Col
-              span={12}
-              align="flex-start"
-              style={{
-                maxWidth: '12rem',
-              }}
-            >
+          <CustomRow gutter={10}>
+            <CustomCol span={12}>
               <a href="https://www.apple.com/store">
                 <img src={AppStorePng} alt="App Store" className="store-icon" />
               </a>
-            </Col>
-            <Col
-              span={12}
-              align="flex-start"
-              style={{
-                maxWidth: '12rem',
-              }}
-            >
+            </CustomCol>
+            <CustomCol span={12}>
               <a href="https://play.google.com/store/apps;">
                 <img src={GoogleStorePng} alt="Play Store" className="store-icon" />
               </a>
-            </Col>
-          </Row>
+            </CustomCol>
+          </CustomRow>
         </LeftSection>
         <RightSection>
           <AsyncImage
