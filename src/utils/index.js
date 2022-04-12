@@ -69,7 +69,6 @@ export const getFirstLetter = (string) => {
 }
 
 export const isChangedComponentForm = (oldObj, newObj, ignoreList) => {
-  console.log('======oldObj, newObj=', oldObj, newObj)
   if (
     (!ignoreList?.component_content && oldObj.component_content !== newObj.component_content) ||
     (!ignoreList?.is_ordered && !!oldObj.is_ordered !== !!newObj.is_ordered)
