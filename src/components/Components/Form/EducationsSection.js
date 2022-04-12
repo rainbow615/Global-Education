@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import _, { map } from 'lodash'
 import { Button, Space, List, Select } from 'antd'
 
@@ -15,7 +15,16 @@ const EducationsSection = (props) => {
 
   const [selectedEducations, setSelectedEducations] = useState([])
 
-  const { data: educations, error } = useEducations(orgId || null)
+  const { data: global, error: globalError } = useEducations(null)
+  const { data: local, error: localError } = useEducations(orgId)
+
+  const educations = useMemo(
+    () => ({
+      data: [...global?.data, ...local?.data],
+      isLoading: global?.isLoading || local?.isLoading,
+    }),
+    [global, local]
+  )
 
   useEffect(() => {
     if (data.length > 0 && educations?.data && educations?.data.length > 0) {
@@ -27,7 +36,7 @@ const EducationsSection = (props) => {
     }
   }, [data, educations])
 
-  if (error) {
+  if (globalError || localError) {
     return <ResultFailed isBackButton={false} />
   }
 
@@ -64,7 +73,7 @@ const EducationsSection = (props) => {
         <Select
           className="search-educations"
           placeholder={educations.isLoading ? 'Loading...' : 'Search teams'}
-          disabled={educations.isLoading || error}
+          disabled={educations.isLoading}
           size="large"
           allowClear
           showSearch
