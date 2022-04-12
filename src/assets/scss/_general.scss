@@ -30,3 +30,9 @@ input {
     background: inherit;
   }
 }
+
+.ant-form-item-has-error {
+  .ck-content {
+    border-color: #ff4d4f !important;
+  }
+}

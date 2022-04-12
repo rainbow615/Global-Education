@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form, Button, Space, notification } from 'antd'
+import _ from 'lodash'
 
 import { deleteComponent } from '../../../services/componentService'
 import { COMPONENTS_CONFIRM_MSG } from '../../../config/constants'
@@ -13,7 +14,17 @@ import { Root, BottomSection } from './styles'
 const ComponentForm = (props) => {
   const navigate = useNavigate()
   const [form] = Form.useForm()
-  const { children, orgId, isNew, isLoading, initialValues, onCreate, onEdit } = props
+  const {
+    children,
+    orgId,
+    isNew,
+    isLoading,
+    isChanged = true,
+    initialValues,
+    onCreate,
+    onEdit,
+    onChangeValue,
+  } = props
   const backref = initialValues?.backref
 
   const [selectedEducationsIds, setSelectedEducationsIds] = useState(
@@ -21,10 +32,32 @@ const ComponentForm = (props) => {
   )
   const [isDeleting, setIsDeleting] = useState(false)
 
+  const onChangeFieldValue = (changedField) => {
+    if (onChangeValue) {
+      const educations =
+        changedField.name === 'linked_education' ? changedField.value : selectedEducationsIds
+      onChangeValue({ ...form.getFieldsValue(true), linked_education: educations }, changedField)
+    }
+  }
+
+  const onCheckValueChange = (e) => {
+    if (e.length > 0) {
+      onChangeFieldValue({
+        name: _.get(e, '[0].name[0]'),
+        value: _.get(e, '[0].value'),
+      })
+    }
+  }
+
   const onChangeEducationsList = (values) => {
     const cloneValues = [...values]
     const ids = cloneValues.map((val) => val.jit_id)
     setSelectedEducationsIds(ids)
+
+    onChangeFieldValue({
+      name: 'linked_education',
+      value: ids,
+    })
   }
 
   const handleNewFormSubmit = () => {
@@ -89,6 +122,7 @@ const ComponentForm = (props) => {
         initialValues={initialValues}
         layout="vertical"
         name="organizations"
+        onFieldsChange={onCheckValueChange}
       >
         <div>{children}</div>
         <BottomSection size="large">
@@ -120,6 +154,7 @@ const ComponentForm = (props) => {
               size="large"
               loading={isLoading.create}
               type={isNew ? 'primary' : 'secondary'}
+              disabled={!isChanged}
               onClick={handleNewFormSubmit}
             >
               Save as New
@@ -128,6 +163,7 @@ const ComponentForm = (props) => {
               <ConfirmActionButton
                 size="large"
                 loading={isLoading.edit}
+                disabled={!isChanged}
                 type="secondary"
                 actionType="UPDATE"
                 message={`This component is being used in ${backref?.length} protocols. Updating this component will create a draft of every protocol. You will need to go to the protocol list for your organization and publish those drafts for the updated protocol to be available to users. \n\n Please type 'UPDATE' to confirm.`}
