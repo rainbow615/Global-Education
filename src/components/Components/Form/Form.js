@@ -149,30 +149,30 @@ const ComponentForm = (props) => {
           ) : (
             <div />
           )}
-          <Space>
-            <Button
-              size="large"
-              loading={isLoading.create}
-              type={isNew ? 'primary' : 'secondary'}
-              disabled={!isChanged}
-              onClick={handleNewFormSubmit}
-            >
-              Save as New
-            </Button>
-            {!isNew && !!backref && backref.length > 0 && (
-              <ConfirmActionButton
+          {isChanged && (
+            <Space>
+              <Button
                 size="large"
-                loading={isLoading.edit}
-                disabled={!isChanged}
-                type="secondary"
-                actionType="UPDATE"
-                message={`This component is being used in ${backref?.length} protocols. Updating this component will create a draft of every protocol. You will need to go to the protocol list for your organization and publish those drafts for the updated protocol to be available to users. \n\n Please type 'UPDATE' to confirm.`}
-                onClick={handleEditFormSubmit}
+                loading={isLoading.create}
+                type={isNew ? 'primary' : 'secondary'}
+                onClick={handleNewFormSubmit}
               >
-                Modify Everywhere
-              </ConfirmActionButton>
-            )}
-          </Space>
+                Save as New
+              </Button>
+              {!isNew && !!backref && backref.length > 0 && (
+                <ConfirmActionButton
+                  size="large"
+                  loading={isLoading.edit}
+                  type="secondary"
+                  actionType="UPDATE"
+                  message={`This component is being used in ${backref?.length} protocols. Updating this component will create a draft of every protocol. You will need to go to the protocol list for your organization and publish those drafts for the updated protocol to be available to users. \n\n Please type 'UPDATE' to confirm.`}
+                  onClick={handleEditFormSubmit}
+                >
+                  Modify Everywhere
+                </ConfirmActionButton>
+              )}
+            </Space>
+          )}
         </FormActionButtons>
       </Form>
     </Root>
