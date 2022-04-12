@@ -153,7 +153,7 @@ const ComponentForm = (props) => {
           <Space>
             <Button size="large">
               <Link to={`/organizations/components/list`} state={{ orgId, orgName }}>
-                Cancel
+                Close
               </Link>
             </Button>
             {isChanged && (
