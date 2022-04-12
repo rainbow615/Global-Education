@@ -6,6 +6,7 @@ import { createComponent, updateComponent } from '../../../services/componentSer
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../Form'
 import { COMPONENTS_TYPES } from '../../../config/constants'
+import { isChangedComponentForm } from '../../../utils'
 
 const { Option } = Select
 const Tags = []
@@ -14,12 +15,29 @@ const ComponentText = (props) => {
   const { isNew, orgId, data } = props
   const navigate = useNavigate()
 
+  const [isFormChange, setIsFormChange] = useState(false)
   const [content, setContent] = useState(data?.component_content || '')
   const [errorMsg, setErrorMsg] = useState('')
   const [isLoading, setIsLoading] = useState({
     create: false,
     edit: false,
   })
+
+  const onChangeContent = (_event, editor) => {
+    setErrorMsg('')
+
+    const newValue = editor.getData()
+
+    if (newValue === '') {
+      setErrorMsg('Please input Content')
+    }
+
+    setContent(newValue)
+    
+    if (newValue !== data.component_content) {
+      setIsFormChange(true)
+    }
+  }
 
   const onCreate = (values) => {
     setErrorMsg('')
@@ -46,6 +64,7 @@ const ComponentText = (props) => {
     createComponent(payload)
       .then((res) => {
         setIsLoading({ ...isLoading, create: false })
+        setIsFormChange(false)
         notification.success({ message: 'A new Text component has been created successfully!' })
 
         if (res && res.data) {
@@ -65,6 +84,13 @@ const ComponentText = (props) => {
   }
 
   const onEdit = (values) => {
+    setErrorMsg('')
+
+    if (content === '') {
+      setErrorMsg('Please input Content')
+      return
+    }
+
     const id = values.component_id
     const payload = {
       organization_id: orgId,
@@ -84,6 +110,7 @@ const ComponentText = (props) => {
     updateComponent(id, payload)
       .then(() => {
         setIsLoading({ ...isLoading, edit: false })
+        setIsFormChange(false)
         notification.success({ message: 'A new Text component has been updated successfully!' })
       })
       .catch((error) => {
@@ -96,23 +123,34 @@ const ComponentText = (props) => {
       })
   }
 
+  const onChangeValue = (values) => {
+    const isCheck = isChangedComponentForm(isNew ? {} : data, values)
+
+    setIsFormChange(isCheck)
+  }
+
   return (
     <ComponentForm
       initialValues={data}
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
+      isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}
+      onChangeValue={onChangeValue}
     >
-      <Form.Item label="Content" validateStatus={errorMsg ? 'error' : undefined} help={errorMsg}>
+      <Form.Item
+        required
+        label="Content"
+        validateStatus={errorMsg ? 'error' : undefined}
+        help={errorMsg}
+      >
         <CustomCkEditor
           simpleMode
           data={content}
           placeholder="Enter text"
-          onChange={(_event, editor) => {
-            setContent(editor.getData())
-          }}
+          onChange={onChangeContent}
         />
       </Form.Item>
       <Row gutter={24}>
