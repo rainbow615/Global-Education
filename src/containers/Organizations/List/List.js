@@ -46,7 +46,7 @@ const OrganizationsList = () => {
           id: record.organization_id,
           name: record.organization_name,
           description: record.organization_description,
-          created: formatLocalizedDate(record.created_date),
+          created: formatLocalizedDate(record.created_date, 'L'),
           type: record.type,
           region: record.region,
           state: record.state,
