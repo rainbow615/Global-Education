@@ -180,6 +180,14 @@ export const CheckListItem = styled.li(({ theme }) => ({
   gap: '0.5rem',
   alignItems: 'flex-start',
   lineHeight: 1.125,
+  svg: {
+    width: 24,
+    height: 24,
+    minWidth: 24,
+    minHeight: 24,
+    maxWidth: 24,
+    maxHeight: 24,
+  },
 }))
 
 export const ContactSection = styled.div({
