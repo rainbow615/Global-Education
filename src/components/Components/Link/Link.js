@@ -5,6 +5,7 @@ import { Button, Form, Space, Typography, notification } from 'antd'
 import { createComponent, updateComponent } from '../../../services/componentService'
 import { useProtocol } from '../../../services/protocolService'
 import { COMPONENTS_TYPES } from '../../../config/constants'
+import { isChangedComponentForm } from '../../../utils'
 import ComponentForm from '../Form'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import AddLinkedProtocol from './AddLinkedProtocol'
@@ -18,6 +19,7 @@ const ComponentLink = (props) => {
   const { orgId, isNew, data } = props
   const navigate = useNavigate()
 
+  const [isFormChange, setIsFormChange] = useState(false)
   const [content, setContent] = useState(data?.component_content || '')
   const [linkedProtocol, setLinkedProtocol] = useState()
   const [errorMsg, setErrorMsg] = useState('')
@@ -40,12 +42,40 @@ const ComponentLink = (props) => {
     return <ResultFailed isBackButton={false} />
   }
 
+  const onChangeContent = (_event, editor) => {
+    setErrorMsg('')
+
+    const newValue = editor.getData()
+
+    if (newValue === '') {
+      setErrorMsg('Please input Content')
+    }
+
+    setContent(newValue)
+
+    if (newValue !== data.component_content) {
+      setIsFormChange(true)
+    }
+  }
+
   const onAddProtocol = (protocol) => {
     setLinkedProtocol(protocol)
+
+    if (protocol?.protocol_id !== linkedProtocolData?.data?.protocol_id) {
+      setIsFormChange(true)
+    } else {
+      setIsFormChange(false)
+    }
   }
 
   const onRemoveProtocol = () => {
     setLinkedProtocol(null)
+
+    if (linkedProtocolData?.data?.protocol_id) {
+      setIsFormChange(true)
+    } else {
+      setIsFormChange(false)
+    }
   }
 
   const onCreate = (values) => {
@@ -73,6 +103,7 @@ const ComponentLink = (props) => {
     createComponent(payload)
       .then((res) => {
         setIsLoading({ ...isLoading, create: false })
+        setIsFormChange(false)
         notification.success({ message: 'A new Link component has been created successfully!' })
 
         if (res && res.data) {
@@ -92,6 +123,13 @@ const ComponentLink = (props) => {
   }
 
   const onEdit = (values) => {
+    setErrorMsg('')
+
+    if (content === '') {
+      setErrorMsg('Please input Content')
+      return
+    }
+
     const id = values.component_id
     const payload = {
       organization_id: orgId,
@@ -111,6 +149,7 @@ const ComponentLink = (props) => {
     updateComponent(id, payload)
       .then(() => {
         setIsLoading({ ...isLoading, edit: false })
+        setIsFormChange(false)
         notification.success({ message: 'A new Link component has been updated successfully!' })
       })
       .catch((error) => {
@@ -123,23 +162,29 @@ const ComponentLink = (props) => {
       })
   }
 
+  const onChangeValue = (values) => {
+    const isCheck = isChangedComponentForm(isNew ? {} : data, values, { component_content: true })
+
+    setIsFormChange(isCheck)
+  }
+
   return (
     <ComponentForm
       initialValues={data}
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
+      isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}
+      onChangeValue={onChangeValue}
     >
       <Form.Item label="Content" validateStatus={errorMsg ? 'error' : undefined} help={errorMsg}>
         <CustomCkEditor
           simpleMode
           data={content}
           placeholder="Enter text"
-          onChange={(_event, editor) => {
-            setContent(editor.getData())
-          }}
+          onChange={onChangeContent}
         />
       </Form.Item>
       <Form.Item>
