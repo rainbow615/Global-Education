@@ -6,6 +6,7 @@ import Switch from 'react-switch'
 import { createComponent, updateComponent } from '../../../services/componentService'
 import ComponentForm from '../Form'
 import { COMPONENTS_TYPES } from '../../../config/constants'
+import { isChangedComponentForm } from '../../../utils'
 
 const { Option } = Select
 const Tags = []
@@ -14,6 +15,7 @@ const ComponentSection = (props) => {
   const { orgId, isNew, data } = props
   const navigate = useNavigate()
 
+  const [isFormChange, setIsFormChange] = useState(false)
   const [isOrdered, setIsOrdered] = useState(!!data?.is_ordered)
   const [isLoading, setIsLoading] = useState({
     create: false,
@@ -42,6 +44,7 @@ const ComponentSection = (props) => {
     createComponent(payload)
       .then((res) => {
         setIsLoading({ ...isLoading, create: false })
+        setIsFormChange(false)
         notification.success({ message: 'A new section component has been created successfully!' })
 
         if (res && res.data) {
@@ -80,6 +83,7 @@ const ComponentSection = (props) => {
     updateComponent(id, payload)
       .then(() => {
         setIsLoading({ ...isLoading, edit: false })
+        setIsFormChange(false)
         notification.success({ message: 'A new section component has been updated successfully!' })
       })
       .catch((error) => {
@@ -92,14 +96,22 @@ const ComponentSection = (props) => {
       })
   }
 
+  const onChangeValue = (values) => {
+    const isCheck = isChangedComponentForm(isNew ? {} : data, values)
+
+    setIsFormChange(isCheck)
+  }
+
   return (
     <ComponentForm
       initialValues={data}
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
+      isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}
+      onChangeValue={onChangeValue}
     >
       <Form.Item
         label="Content"
