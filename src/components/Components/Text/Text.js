@@ -33,7 +33,7 @@ const ComponentText = (props) => {
     }
 
     setContent(newValue)
-    
+
     if (newValue !== data.component_content) {
       setIsFormChange(true)
     }
@@ -124,7 +124,7 @@ const ComponentText = (props) => {
   }
 
   const onChangeValue = (values) => {
-    const isCheck = isChangedComponentForm(isNew ? {} : data, values)
+    const isCheck = isChangedComponentForm(isNew ? {} : data, values, { component_content: true })
 
     setIsFormChange(isCheck)
   }
