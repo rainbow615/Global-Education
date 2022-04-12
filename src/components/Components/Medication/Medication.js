@@ -9,6 +9,7 @@ import ComponentForm from '../../Components/Form'
 import { DOSE_UNITS, FORMULARY_UNIT } from '../../../config/constants'
 import { MEDICATION_TAGS } from '../../../config/tags'
 import { COMPONENTS_TYPES } from '../../../config/constants'
+import { isChangedComponentForm } from '../../../utils'
 import { DoseSection } from './styles'
 
 const { Option } = Select
@@ -24,6 +25,7 @@ const ComponentMedication = (props) => {
     ...data,
     ...data?.medication,
   })
+  const [isFormChange, setIsFormChange] = useState(false)
   const [notes, setNotes] = useState(data?.notes || '')
   const [isHaveRange, setIsHaveRange] = useState(initial?.dose_range || false)
   const [isHaveFormulary, setIsHaveFormulary] = useState(initial?.formulary || false)
@@ -68,6 +70,7 @@ const ComponentMedication = (props) => {
     createComponent(payload)
       .then((res) => {
         setIsLoading({ ...isLoading, create: false })
+        setIsFormChange(false)
         notification.success({
           message: 'A new medication component has been created successfully!',
         })
@@ -117,6 +120,7 @@ const ComponentMedication = (props) => {
     updateComponent(id, payload)
       .then(() => {
         setIsLoading({ ...isLoading, edit: false })
+        setIsFormChange(false)
         notification.success({
           message: 'A new medication component has been updated successfully!',
         })
@@ -131,14 +135,26 @@ const ComponentMedication = (props) => {
       })
   }
 
+  const onChangeValue = (values) => {
+    const defaultValue = { dose_units: 'g', formulary_units: 'g/ml' }
+    const isCheck = isChangedComponentForm(
+      isNew ? { ...defaultValue } : { ...data, ...(data?.medication || { ...defaultValue }) },
+      values
+    )
+
+    setIsFormChange(isCheck)
+  }
+
   return (
     <ComponentForm
       isNew={isNew}
       initialValues={initial}
       isLoading={isLoading}
       orgId={orgId}
+      isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}
+      onChangeValue={onChangeValue}
     >
       <Form.Item
         label="Content"
@@ -152,7 +168,9 @@ const ComponentMedication = (props) => {
         <DoseSection size="large" align="start">
           <Space direction="vertical">
             <Space>
-              <Switch onChange={onChangeDoseRange} checked={isHaveRange} />
+              <Form.Item name="dose_range">
+                <Switch onChange={onChangeDoseRange} checked={isHaveRange} />
+              </Form.Item>
               <i>Does this dose have a range?</i>
             </Space>
             <Space align="start">
@@ -191,7 +209,9 @@ const ComponentMedication = (props) => {
           </Space>
           <Space direction="vertical">
             <Space>
-              <Switch onChange={onChangeDoseFormulary} checked={isHaveFormulary} />
+              <Form.Item name="formulary">
+                <Switch onChange={onChangeDoseFormulary} checked={isHaveFormulary} />
+              </Form.Item>
               <i>Does this medication have a standard formulary?</i>
             </Space>
             <Space>
