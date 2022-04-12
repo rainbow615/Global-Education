@@ -1,6 +1,7 @@
 import { parse as urlParse } from 'url'
 import moment from 'moment'
 import { html } from 'js-beautify'
+import _ from 'lodash'
 
 export const getQueryParams = (url = window.location.href.replace(/#/g, '')) => {
   return urlParse(url, true).query
@@ -65,4 +66,20 @@ export const formatHTMLForDiff = (htmlStr, textOnly = true) => {
 
 export const getFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase()
+}
+
+export const isChangedComponentForm = (oldObj, newObj) => {
+  console.log('======oldObj, newObj=', oldObj, newObj)
+  if (
+    oldObj.component_content !== newObj.component_content ||
+    !!oldObj.is_ordered !== !!newObj.is_ordered
+  )
+    return true
+
+  if (!_.isEqual((oldObj.tags || []).sort(), (newObj.tags || []).sort())) return true
+
+  if (!_.isEqual((oldObj.linked_education || []).sort(), (newObj.linked_education || []).sort()))
+    return true
+
+  return false
 }
