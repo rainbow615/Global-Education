@@ -22,7 +22,7 @@ const ComponentBlock = (props) => {
     component_id: obj.child_component_id,
     component_order: obj.child_component_order,
     component_content: '',
-    component_type: ''
+    component_type: '',
   }))
   const navigate = useNavigate()
 
@@ -109,25 +109,43 @@ const ComponentBlock = (props) => {
       component_order: 1,
       linked_protocol: [],
       linked_education: values.linked_education,
-      component_children,
     }
 
     setIsLoading({ ...isLoading, create: true })
 
     createComponent(payload)
       .then((res) => {
-        setIsLoading({ ...isLoading, create: false })
-        setIsFormChange(false)
-        notification.success({ message: 'A new block component has been created successfully!' })
+        const id = res?.data?.component_id
 
-        if (res && res.data) {
-          navigate(`/organizations/components/form/${COMPONENTS_TYPES[2].id}/edit`, {
-            state: { ...res.data, orgId, orgName: data.orgName },
-          })
+        if (id) {
+          updateComponent(id, { ...payload, component_children })
+            .then((res) => {
+              setIsLoading({ ...isLoading, create: false })
+              setIsFormChange(false)
+              notification.success({
+                message: 'A new block component has been created successfully!',
+              })
+
+              if (res && res.data) {
+                navigate(`/organizations/components/form/${COMPONENTS_TYPES[2].id}/edit`, {
+                  state: { ...res.data, orgId, orgName: data.orgName },
+                })
+              }
+            })
+            .catch((error) => {
+              setIsLoading({ ...isLoading, create: false })
+
+              notification.error({
+                message: 'Save failed!',
+                description: error?.data || '',
+              })
+            })
+        } else {
+          setIsLoading({ ...isLoading, create: false })
         }
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, create: false })
 
         notification.error({
           message: 'Save failed!',
@@ -171,7 +189,7 @@ const ComponentBlock = (props) => {
         notification.success({ message: 'A new block component has been updated successfully!' })
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, edit: false })
 
         notification.error({
           message: 'Modify failed!',

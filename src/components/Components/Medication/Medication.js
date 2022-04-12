@@ -82,7 +82,7 @@ const ComponentMedication = (props) => {
         }
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, create: false })
 
         notification.error({
           message: 'Save failed!',
@@ -126,7 +126,7 @@ const ComponentMedication = (props) => {
         })
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, edit: false })
 
         notification.error({
           message: 'Modify failed!',

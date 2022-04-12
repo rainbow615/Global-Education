@@ -113,7 +113,7 @@ const ComponentLink = (props) => {
         }
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, create: false })
 
         notification.error({
           message: 'Save failed!',
@@ -153,7 +153,7 @@ const ComponentLink = (props) => {
         notification.success({ message: 'A new Link component has been updated successfully!' })
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, edit: false })
 
         notification.error({
           message: 'Modify failed!',

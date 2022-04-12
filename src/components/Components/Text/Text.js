@@ -74,7 +74,7 @@ const ComponentText = (props) => {
         }
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, create: false })
 
         notification.error({
           message: 'Save failed!',
@@ -114,7 +114,7 @@ const ComponentText = (props) => {
         notification.success({ message: 'A new Text component has been updated successfully!' })
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, edit: false })
 
         notification.error({
           message: 'Modify failed!',
