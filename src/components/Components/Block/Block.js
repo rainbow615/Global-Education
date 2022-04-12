@@ -18,12 +18,18 @@ const Tags = []
 
 const ComponentBlock = (props) => {
   const { orgId, orgName, isNew, data } = props
+  const componentChildren = (data?.component_children || []).map((obj) => ({
+    component_id: obj.child_component_id,
+    component_order: obj.child_component_order,
+    component_content: '',
+    component_type: ''
+  }))
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)
   const [content, setContent] = useState(data?.component_content || '')
   const [isOrdered, setIsOrdered] = useState(!!data?.is_ordered)
-  const [selectedComponents, setSelectedComponents] = useState(data?.component_children || [])
+  const [selectedComponents, setSelectedComponents] = useState(componentChildren)
   const [errorMsg, setErrorMsg] = useState('')
   const [isLoading, setIsLoading] = useState({
     create: false,
@@ -47,7 +53,7 @@ const ComponentBlock = (props) => {
   }
 
   const compareComponents = (origin, other) => {
-    const originIds = origin ? origin.map((obj) => obj.child_component_id) : []
+    const originIds = origin ? origin.map((obj) => obj.component_id) : []
     const otherIds = other ? other.map((obj) => obj.component_id) : []
 
     if (_.isEqual(originIds, otherIds)) return true
@@ -59,7 +65,7 @@ const ComponentBlock = (props) => {
     const newList = [...selectedComponents, component]
     setSelectedComponents(newList)
 
-    if (compareComponents(newList, data?.component_children)) {
+    if (compareComponents(newList, componentChildren)) {
       setIsFormChange(false)
     } else {
       setIsFormChange(true)
@@ -69,7 +75,7 @@ const ComponentBlock = (props) => {
   const onChangeComponents = (list) => {
     setSelectedComponents(list)
 
-    if (compareComponents(list, data?.component_children)) {
+    if (compareComponents(list, componentChildren)) {
       setIsFormChange(false)
     } else {
       setIsFormChange(true)
