@@ -68,11 +68,11 @@ export const getFirstLetter = (string) => {
   return string.slice(0, 1).toUpperCase()
 }
 
-export const isChangedComponentForm = (oldObj, newObj) => {
+export const isChangedComponentForm = (oldObj, newObj, ignoreList) => {
   console.log('======oldObj, newObj=', oldObj, newObj)
   if (
-    oldObj.component_content !== newObj.component_content ||
-    !!oldObj.is_ordered !== !!newObj.is_ordered
+    (!ignoreList?.component_content && oldObj.component_content !== newObj.component_content) ||
+    (!ignoreList?.is_ordered && !!oldObj.is_ordered !== !!newObj.is_ordered)
   )
     return true
 
