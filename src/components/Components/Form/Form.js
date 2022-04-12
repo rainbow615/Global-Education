@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Form, Button, Space, notification } from 'antd'
 import _ from 'lodash'
 
@@ -17,6 +17,7 @@ const ComponentForm = (props) => {
   const {
     children,
     orgId,
+    orgName,
     isNew,
     isLoading,
     isChanged = true,
@@ -149,30 +150,37 @@ const ComponentForm = (props) => {
           ) : (
             <div />
           )}
-          {isChanged && (
-            <Space>
-              <Button
-                size="large"
-                loading={isLoading.create}
-                type={isNew ? 'primary' : 'secondary'}
-                onClick={handleNewFormSubmit}
-              >
-                Save as New
-              </Button>
-              {!isNew && !!backref && backref.length > 0 && (
-                <ConfirmActionButton
+          <Space>
+            <Button size="large">
+              <Link to={`/organizations/components/list`} state={{ orgId, orgName }}>
+                Cancel
+              </Link>
+            </Button>
+            {isChanged && (
+              <React.Fragment>
+                <Button
                   size="large"
-                  loading={isLoading.edit}
-                  type="secondary"
-                  actionType="UPDATE"
-                  message={`This component is being used in ${backref?.length} protocols. Updating this component will create a draft of every protocol. You will need to go to the protocol list for your organization and publish those drafts for the updated protocol to be available to users. \n\n Please type 'UPDATE' to confirm.`}
-                  onClick={handleEditFormSubmit}
+                  loading={isLoading.create}
+                  type={isNew ? 'primary' : 'secondary'}
+                  onClick={handleNewFormSubmit}
                 >
-                  Modify Everywhere
-                </ConfirmActionButton>
-              )}
-            </Space>
-          )}
+                  Save as New
+                </Button>
+                {!isNew && !!backref && backref.length > 0 && (
+                  <ConfirmActionButton
+                    size="large"
+                    loading={isLoading.edit}
+                    type="secondary"
+                    actionType="UPDATE"
+                    message={`This component is being used in ${backref?.length} protocols. Updating this component will create a draft of every protocol. You will need to go to the protocol list for your organization and publish those drafts for the updated protocol to be available to users. \n\n Please type 'UPDATE' to confirm.`}
+                    onClick={handleEditFormSubmit}
+                  >
+                    Modify Everywhere
+                  </ConfirmActionButton>
+                )}
+              </React.Fragment>
+            )}
+          </Space>
         </FormActionButtons>
       </Form>
     </Root>

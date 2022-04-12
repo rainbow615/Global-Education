@@ -16,7 +16,7 @@ import { ProtocolView } from './styles'
 const { Text } = Typography
 
 const ComponentLink = (props) => {
-  const { orgId, isNew, data } = props
+  const { orgId, orgName, isNew, data } = props
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)
@@ -174,6 +174,7 @@ const ComponentLink = (props) => {
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
+      orgName={orgName}
       isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}

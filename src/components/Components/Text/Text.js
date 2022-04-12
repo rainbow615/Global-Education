@@ -12,7 +12,7 @@ const { Option } = Select
 const Tags = []
 
 const ComponentText = (props) => {
-  const { isNew, orgId, data } = props
+  const { isNew, orgId, orgName, data } = props
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)
@@ -135,6 +135,7 @@ const ComponentText = (props) => {
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
+      orgName={orgName}
       isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}

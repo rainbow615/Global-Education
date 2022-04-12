@@ -16,7 +16,7 @@ const { Option } = Select
 const { Text } = Typography
 
 const ComponentMedication = (props) => {
-  const { isNew, orgId, data } = props
+  const { isNew, orgId, orgName, data } = props
   const navigate = useNavigate()
 
   const [initial] = useState({
@@ -151,6 +151,7 @@ const ComponentMedication = (props) => {
       initialValues={initial}
       isLoading={isLoading}
       orgId={orgId}
+      orgName={orgName}
       isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}

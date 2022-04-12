@@ -12,7 +12,7 @@ const { Option } = Select
 const Tags = []
 
 const ComponentSection = (props) => {
-  const { orgId, isNew, data } = props
+  const { orgId, orgName, isNew, data } = props
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)
@@ -108,6 +108,7 @@ const ComponentSection = (props) => {
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
+      orgName={orgName}
       isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}
