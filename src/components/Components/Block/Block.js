@@ -168,11 +168,6 @@ const ComponentBlock = (props) => {
       return
     }
 
-    if (content === data.component_content) {
-      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[2].id))
-      return
-    }
-
     const id = values.component_id
     const component_children = selectedComponents.map((obj, index) => ({
       child_component_id: obj.component_id,

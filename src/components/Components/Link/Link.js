@@ -136,11 +136,6 @@ const ComponentLink = (props) => {
       return
     }
 
-    if (content === data.component_content) {
-      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[4].id))
-      return
-    }
-
     const id = values.component_id
     const payload = {
       organization_id: orgId,

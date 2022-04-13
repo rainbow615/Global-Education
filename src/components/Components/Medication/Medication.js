@@ -117,13 +117,6 @@ const ComponentMedication = (props) => {
   }
 
   const onEdit = (values) => {
-    setErrorMsg('')
-
-    if (values.component_content === data.component_content) {
-      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[3].id))
-      return
-    }
-
     const id = values.component_id
     const payload = {
       organization_id: orgId,
