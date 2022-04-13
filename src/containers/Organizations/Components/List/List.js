@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { debounce, map, get } from 'lodash'
-import { Button, Select, Space, Dropdown, Menu } from 'antd'
+import { Select, Space } from 'antd'
 
 import { useComponents } from '../../../../services/componentService'
 import { formatLocalizedDate, regExpEscape } from '../../../../utils'
@@ -16,6 +15,7 @@ import {
   CustomSearchText,
 } from '../../../../components/CommonComponent'
 import { SearchTypeBox } from './styles'
+import AddComponentButton from '../../../../components/Components/AddComponentButton'
 
 const { Option } = Select
 
@@ -33,17 +33,6 @@ const OrgComponentsList = (props) => {
       title: 'Components',
     },
   ]
-  const menu = (
-    <Menu>
-      {COMPONENTS_TYPES.map((type, index) => (
-        <Menu.Item key={index}>
-          <Link to={`/organizations/components/form/${type.id}/add`} state={{ orgId, orgName }}>
-            {type.label}
-          </Link>
-        </Menu.Item>
-      ))}
-    </Menu>
-  )
 
   const [searchType, setSearchType] = useState('all')
   const [searchText, setSearchText] = useState('')
@@ -101,9 +90,7 @@ const OrgComponentsList = (props) => {
       <Container>
         <CustomTableHeader>
           <Space>
-            <Dropdown overlay={menu} placement="bottom">
-              <Button type="primary">Add new</Button>
-            </Dropdown>
+            <AddComponentButton {...props} />
           </Space>
           <Space>
             <SearchTypeBox defaultValue="All" placeholder="Choose..." onSelect={onSelectType}>
