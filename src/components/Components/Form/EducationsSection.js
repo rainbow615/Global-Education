@@ -20,7 +20,7 @@ const EducationsSection = (props) => {
 
   const educations = useMemo(
     () => ({
-      data: [...global?.data, ...local?.data],
+      data: [...(global?.data || []), ...(local?.data || [])],
       isLoading: global?.isLoading || local?.isLoading,
     }),
     [global, local]
