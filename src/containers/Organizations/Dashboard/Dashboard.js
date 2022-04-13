@@ -3,7 +3,7 @@ import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcr
 import { Container } from '../../../components/CommonComponent'
 import { CardBottom, ComponentType, CustomCard, CustomTable, DashboardContainer } from './styles'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Button, Card, Dropdown, Typography } from 'antd'
+import { Button, Card, Typography } from 'antd'
 import { ArrowsAltOutlined } from '@ant-design/icons'
 import { useProtocols } from '../../../services/protocolService'
 import { ResultFailed } from '../../../components/ResultPages'
@@ -74,6 +74,7 @@ const Dashboard = () => {
               pagination={false}
               showHeader={false}
               scroll={true}
+              rowKey="protocol_id"
               loading={protocols.isLoading}
               dataSource={protocolsDataSource}
               onRow={(record) => ({
@@ -134,6 +135,7 @@ const Dashboard = () => {
               pagination={false}
               showHeader={false}
               scroll={true}
+              rowKey="jit_id"
               onRow={(record) => ({
                 onClick: () =>
                   navigate(getEducationReturnLinks(false)[record.status], {
@@ -186,12 +188,12 @@ const Dashboard = () => {
           >
             <CustomTable
               pagination={false}
+              rowKey="component_id"
               scroll={true}
               showHeader={false}
               loading={components.isLoading}
               onRow={(record) => ({
                 onClick: () => {
-                  console.log(record)
                   navigate(`/organizations/components/form/${record.component_type}/edit`, {
                     state: { ...record, orgId: state.id, orgName: state.name },
                   })
