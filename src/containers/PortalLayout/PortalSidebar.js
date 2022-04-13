@@ -36,7 +36,7 @@ const PortalSidebar = () => {
   }
 
   return (
-    <CustomSide width={200} theme="light" collapsible>
+    <CustomSide width={200} theme="light" collapsible collapsedWidth={50} breakpoint="md">
       <Menu theme="light" selectedKeys={[mainPath]}>
         {navLinks.map((navLink) => {
           const { path, pathName } = navLink
