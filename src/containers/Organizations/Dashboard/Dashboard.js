@@ -4,7 +4,7 @@ import { Container } from '../../../components/CommonComponent'
 import { CardBottom, ComponentType, CustomCard, CustomTable, DashboardContainer } from './styles'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Card, Typography } from 'antd'
-import { ArrowsAltOutlined, FundOutlined, StockOutlined } from '@ant-design/icons'
+import { ArrowsAltOutlined } from '@ant-design/icons'
 import { useProtocols } from '../../../services/protocolService'
 import { ResultFailed } from '../../../components/ResultPages'
 import {

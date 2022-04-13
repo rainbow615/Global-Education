@@ -39,7 +39,12 @@ const AddNewRoleModal = (props) => {
 
   return (
     <React.Fragment>
-      <AddNewRoleModalView layout="vertical" visible={visible} footer={null} onCancel={() => onClose()}>
+      <AddNewRoleModalView
+        layout="vertical"
+        visible={visible}
+        footer={null}
+        onCancel={() => onClose()}
+      >
         <Form name="new-role-form" initialValues={{}} onFinish={onFinish}>
           <Form.Item>
             <Form.Item

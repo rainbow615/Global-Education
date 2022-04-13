@@ -17,7 +17,8 @@ export const BottomSection = styled(Space)`
   .ant-space-item {
     width: 50%;
 
-    .ant-space, .ant-space-item {
+    .ant-space,
+    .ant-space-item {
       width: 100%;
     }
   }

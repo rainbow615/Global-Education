@@ -8,13 +8,13 @@ const columns = [
     title: 'Role',
     dataIndex: 'role',
     key: 'role',
-    width: 100
+    width: 100,
   },
   {
     title: 'Organizations',
     dataIndex: 'organizations',
     key: 'organizations',
-    width: 200
+    width: 200,
   },
 ]
 

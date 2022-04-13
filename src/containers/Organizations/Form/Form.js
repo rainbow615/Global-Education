@@ -279,12 +279,7 @@ const OrganizationsForm = () => {
               <div />
             )}
             <Space>
-              <Button
-                size="large"
-                htmlType="submit"
-                disabled={isLoading}
-                loading={isLoading}
-              >
+              <Button size="large" htmlType="submit" disabled={isLoading} loading={isLoading}>
                 {type === 'new' ? 'Add' : 'Update'}
               </Button>
               <ConfirmActionButton

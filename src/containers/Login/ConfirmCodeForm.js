@@ -26,7 +26,7 @@ const ConfirmCodeForm = () => {
 
   const onResendCode = () => {
     setIsReSendingCode(true)
-    
+
     send2FACode().then(() => {
       setIsReSendingCode(false)
       notification.success({
