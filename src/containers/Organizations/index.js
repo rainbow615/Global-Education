@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import loadable from '@loadable/component'
+import Dashboard from './Dashboard'
 
 const OrganizationsList = loadable(() => import('./List'))
 const OrganizationsForm = loadable(() => import('./Form'))
@@ -16,6 +17,7 @@ function Organizations() {
       <Route path="local-education/*" element={<LocalEducation />} />
       <Route path="protocols/*" element={<OrgProtocols />} />
       <Route path="components/*" element={<OrgComponents />} />
+      <Route path=":organization" element={<Dashboard />} />
     </Routes>
   )
 }

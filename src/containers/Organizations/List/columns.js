@@ -3,8 +3,8 @@ import { Dropdown, Menu, Tag, Typography } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
 import { ORG_ACTIONS } from '../../../config/constants'
-import { DateText } from '../../../components/CommonComponent'
 import { ActionsMenu } from './styles'
+import { DateText } from '../../../components/CommonComponent'
 
 const { Text } = Typography
 
@@ -77,7 +77,7 @@ const ORG_COLUMNS = [
         icon={<DownOutlined />}
         type="primary"
       >
-        <Link to="/organizations/form/edit" state={record}>
+        <Link to={`/organizations/dashboard`} state={record}>
           Enter
         </Link>
       </Dropdown.Button>

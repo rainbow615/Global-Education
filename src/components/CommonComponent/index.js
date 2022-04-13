@@ -62,7 +62,8 @@ export const FormActionButtons = styled.div`
   button {
     min-width: 100px;
 
-    &.published, &.published[disabled]:hover {
+    &.published,
+    &.published[disabled]:hover {
       background: #389e0d22;
       border: 0;
       color: #389e0d55;
@@ -74,6 +75,7 @@ export const FormActionButtons = styled.div`
 export const DateText = styled.div`
   text-align: center;
   font-size: 0.7rem;
+  font-family: InterMedium;
   opacity: 0.8;
 `
 

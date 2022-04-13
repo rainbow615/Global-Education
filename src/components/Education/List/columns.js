@@ -9,9 +9,9 @@ import { ActionButton } from './styles'
 
 const { Text } = Typography
 
-const getColumns = (isGlobal) => {
+export const getEducationReturnLinks = (isGlobal) => {
   const prefixLink = isGlobal ? 'global-' : 'organizations/local-'
-  const returnLinks = {
+  return {
     PUBLISHED: `/${prefixLink}education/proof`,
     UNPUBLISHED: `/${prefixLink}education/proof`,
     DRAFT: `/${prefixLink}education/form/edit`,
@@ -19,6 +19,10 @@ const getColumns = (isGlobal) => {
     APPROVED: `/${prefixLink}education/proof`,
     DELETED: '',
   }
+}
+
+const getColumns = (isGlobal) => {
+  const returnLinks = getEducationReturnLinks(isGlobal)
 
   return [
     {

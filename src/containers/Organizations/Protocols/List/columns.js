@@ -12,7 +12,7 @@ import { ActionButton } from './styles'
 
 const { Text } = Typography
 
-const returnLinks = {
+export const returnLinks = {
   PUBLISHED: '/organizations/protocols/proof',
   UNPUBLISHED: '/organizations/protocols/proof',
   DRAFT: '/organizations/protocols/form/edit',

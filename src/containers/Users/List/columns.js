@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Button, Tag } from 'antd'
+import { DateText } from '../../../components/CommonComponent'
 
 const USERS_COLUMNS = [
   {
@@ -16,6 +17,7 @@ const USERS_COLUMNS = [
     title: 'Registered',
     dataIndex: 'registered',
     key: 'registered',
+    render: (value) => <DateText>{value}</DateText>,
   },
   {
     title: 'Roles',

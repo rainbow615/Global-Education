@@ -34,7 +34,9 @@ const EducationForm = (props) => {
         .then(() => {
           setIsLoading(false)
           notification.success({ message: 'Education document has been updated successfully!' })
-          navigate(`/${prefixLink}education/review`, { state: { jit_id: jitId, orgId, ...payload } })
+          navigate(`/${prefixLink}education/review`, {
+            state: { jit_id: jitId, orgId, ...payload },
+          })
         })
         .catch((error) => {
           setIsLoading(false)

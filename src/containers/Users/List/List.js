@@ -45,7 +45,7 @@ const UsersList = () => {
           key: index + 1,
           id: record.user_id,
           name: record.full_name,
-          registered: formatLocalizedDate(record.created_date),
+          registered: formatLocalizedDate(record.created_date, 'L'),
           role: record.role_name,
           ...record,
         }
