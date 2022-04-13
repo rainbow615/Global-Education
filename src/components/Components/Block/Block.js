@@ -11,6 +11,7 @@ import AddSubComponents from './AddSubComponents'
 import SubComponentList from './SubComponentsList'
 import { COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
+import { getDuplicationMsg } from '../../../utils/names'
 
 const { Option } = Select
 const { Text } = Typography
@@ -94,6 +95,11 @@ const ComponentBlock = (props) => {
       return
     }
 
+    if (content === data.component_content) {
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[1].id))
+      return
+    }
+
     const component_children = selectedComponents.map((obj, index) => ({
       child_component_id: obj.component_id,
       child_component_order: index + 1,
@@ -159,6 +165,11 @@ const ComponentBlock = (props) => {
 
     if (content === '') {
       setErrorMsg('Please input Content')
+      return
+    }
+
+    if (content === data.component_content) {
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[1].id))
       return
     }
 
