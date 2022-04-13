@@ -48,3 +48,6 @@ export const getProtocolButtonName = (value) => {
 
   return statusName
 }
+
+export const getDuplicationMsg = (type) =>
+  `A ${type} component with this name already exists. Please change the name.`
