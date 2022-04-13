@@ -77,7 +77,7 @@ const ORG_COLUMNS = [
         icon={<DownOutlined />}
         type="primary"
       >
-        <Link to={`/organizations/${record.id}`} state={record}>
+        <Link to={`/organizations/dashboard`} state={record}>
           Enter
         </Link>
       </Dropdown.Button>
