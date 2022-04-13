@@ -4,7 +4,7 @@ import { Container } from '../../../components/CommonComponent'
 import { CardBottom, ComponentType, CustomCard, CustomTable, DashboardContainer } from './styles'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Card, Typography } from 'antd'
-import { ArrowsAltOutlined } from '@ant-design/icons'
+import { ArrowsAltOutlined, FundOutlined, StockOutlined } from '@ant-design/icons'
 import { useProtocols } from '../../../services/protocolService'
 import { ResultFailed } from '../../../components/ResultPages'
 import {
@@ -178,7 +178,7 @@ const Dashboard = () => {
               </Button>
             </CardBottom>
           </CustomCard>
-          <Card
+          <CustomCard
             title="Components"
             extra={
               <Link {...generateLinkProps('/organizations/components/list')}>
@@ -235,7 +235,7 @@ const Dashboard = () => {
             <CardBottom>
               <AddComponentButton orgId={state.id} orgName={state.name} />
             </CardBottom>
-          </Card>
+          </CustomCard>
           <Card title="Activity"></Card>
         </DashboardContainer>
       </Container>
