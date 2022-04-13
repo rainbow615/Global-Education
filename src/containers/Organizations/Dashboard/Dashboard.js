@@ -124,6 +124,65 @@ const Dashboard = () => {
             </CardBottom>
           </CustomCard>
           <CustomCard
+            title="Components"
+            extra={
+              <Link {...generateLinkProps('/organizations/components/list')}>
+                <ArrowsAltOutlined />
+              </Link>
+            }
+          >
+            <CustomTable
+              pagination={false}
+              rowKey="component_id"
+              scroll={true}
+              showHeader={false}
+              loading={components.isLoading}
+              onRow={(record) => ({
+                onClick: () => {
+                  console.log(record)
+                  navigate(`/organizations/components/form/${record.component_type}/edit`, {
+                    state: { ...record, orgId: state.id, orgName: state.name },
+                  })
+                },
+              })}
+              dataSource={componentsDataSource}
+              columns={[
+                {
+                  title: 'Type',
+                  dataIndex: 'component_type',
+                  key: 'component_type',
+                  width: 10,
+                  render: (value) => <ComponentType>{value[0].toUpperCase()}</ComponentType>,
+                },
+                {
+                  title: 'Content',
+                  dataIndex: 'component_content',
+                  key: 'component_content',
+                  render: (value) => <div dangerouslySetInnerHTML={{ __html: value }} />,
+                },
+                {
+                  title: 'Usage Amount',
+                  dataIndex: 'backref',
+                  key: 'backref',
+                  render: (value) => (
+                    <Typography.Text type="success">{value ? value.length : 0}</Typography.Text>
+                  ),
+                },
+                {
+                  title: 'Linked Education',
+                  dataIndex: 'linked_education',
+                  key: 'linked_education',
+                  render: (value) => (
+                    <Typography.Text type="secondary">{value ? value.length : 0}</Typography.Text>
+                  ),
+                },
+              ]}
+            />
+            <CardBottom>
+              <AddComponentButton orgId={state.id} orgName={state.name} />
+            </CardBottom>
+          </CustomCard>
+          <CustomCard
             title="Education"
             extra={
               <Link {...generateLinkProps('/organizations/local-education/list')}>
@@ -178,64 +237,7 @@ const Dashboard = () => {
               </Button>
             </CardBottom>
           </CustomCard>
-          <CustomCard
-            title="Components"
-            extra={
-              <Link {...generateLinkProps('/organizations/components/list')}>
-                <ArrowsAltOutlined />
-              </Link>
-            }
-          >
-            <CustomTable
-              pagination={false}
-              rowKey="component_id"
-              scroll={true}
-              showHeader={false}
-              loading={components.isLoading}
-              onRow={(record) => ({
-                onClick: () => {
-                  navigate(`/organizations/components/form/${record.component_type}/edit`, {
-                    state: { ...record, orgId: state.id, orgName: state.name },
-                  })
-                },
-              })}
-              dataSource={componentsDataSource}
-              columns={[
-                {
-                  title: 'Type',
-                  dataIndex: 'component_type',
-                  key: 'component_type',
-                  width: 10,
-                  render: (value) => <ComponentType>{value[0].toUpperCase()}</ComponentType>,
-                },
-                {
-                  title: 'Content',
-                  dataIndex: 'component_content',
-                  key: 'component_content',
-                  render: (value) => <div dangerouslySetInnerHTML={{ __html: value }} />,
-                },
-                {
-                  title: 'Usage Amount',
-                  dataIndex: 'backref',
-                  key: 'backref',
-                  render: (value) => (
-                    <Typography.Text type="success">{value ? value.length : 0}</Typography.Text>
-                  ),
-                },
-                {
-                  title: 'Linked Education',
-                  dataIndex: 'linked_education',
-                  key: 'linked_education',
-                  render: (value) => (
-                    <Typography.Text type="secondary">{value ? value.length : 0}</Typography.Text>
-                  ),
-                },
-              ]}
-            />
-            <CardBottom>
-              <AddComponentButton orgId={state.id} orgName={state.name} />
-            </CardBottom>
-          </CustomCard>
+
           <Card title="Activity"></Card>
         </DashboardContainer>
       </Container>
