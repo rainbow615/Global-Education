@@ -10,6 +10,7 @@ import { DOSE_UNITS, FORMULARY_UNIT } from '../../../config/constants'
 import { MEDICATION_TAGS } from '../../../config/tags'
 import { COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
+import { getDuplicationMsg } from '../../../utils/names'
 import { DoseSection } from './styles'
 
 const { Option } = Select
@@ -36,6 +37,7 @@ const ComponentMedication = (props) => {
     create: false,
     edit: false,
   })
+  const [errorMsg, setErrorMsg] = useState('')
 
   const onChangeDoseRange = (checked) => {
     setIsHaveRange(checked)
@@ -58,6 +60,13 @@ const ComponentMedication = (props) => {
   }
 
   const onCreate = (values) => {
+    setErrorMsg('')
+
+    if (values.component_content === data.component_content) {
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[3].id))
+      return
+    }
+
     const payload = {
       organization_id: orgId,
       parent_id: null,
@@ -108,6 +117,13 @@ const ComponentMedication = (props) => {
   }
 
   const onEdit = (values) => {
+    setErrorMsg('')
+
+    if (values.component_content === data.component_content) {
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[3].id))
+      return
+    }
+
     const id = values.component_id
     const payload = {
       organization_id: orgId,
@@ -152,7 +168,9 @@ const ComponentMedication = (props) => {
       })
   }
 
-  const onChangeValue = (values) => {
+  const onChangeValue = (values, changedField) => {
+    if (changedField?.name === 'component_content') setErrorMsg('')
+
     const defaultValue = { dose_units: 'g', formulary_units: 'g/ml' }
     const isCheck = isChangedComponentForm(
       isNew ? { ...defaultValue } : { ...data, ...(data?.medication || { ...defaultValue }) },
@@ -179,6 +197,8 @@ const ComponentMedication = (props) => {
         name="component_content"
         hasFeedback
         rules={[{ required: true, message: 'Please input a medication name' }]}
+        validateStatus={errorMsg ? 'error' : undefined}
+        help={errorMsg}
       >
         <Input placeholder="Enter a section name" size="large" />
       </Form.Item>
