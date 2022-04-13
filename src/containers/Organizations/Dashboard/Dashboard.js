@@ -218,13 +218,17 @@ const Dashboard = () => {
                   title: 'Usage Amount',
                   dataIndex: 'backref',
                   key: 'backref',
-                  render: (value) => <Typography.Text>{value ? value.length : 0}</Typography.Text>,
+                  render: (value) => (
+                    <Typography.Text type="success">{value ? value.length : 0}</Typography.Text>
+                  ),
                 },
                 {
                   title: 'Linked Education',
                   dataIndex: 'linked_education',
                   key: 'linked_education',
-                  render: (value) => <Typography.Text>{value ? value.length : 0}</Typography.Text>,
+                  render: (value) => (
+                    <Typography.Text type="secondary">{value ? value.length : 0}</Typography.Text>
+                  ),
                 },
               ]}
             />
