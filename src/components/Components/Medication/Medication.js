@@ -25,8 +25,11 @@ const ComponentMedication = (props) => {
     ...data,
     ...data?.medication,
   })
-  const [isFormChange, setIsFormChange] = useState(false)
-  const [notes, setNotes] = useState(data?.notes || '')
+  const [isFormChange, setIsFormChange] = useState({
+    main: false,
+    notes: false,
+  })
+  const [notes, setNotes] = useState(data?.medication?.additional_notes || '')
   const [isHaveRange, setIsHaveRange] = useState(initial?.dose_range || false)
   const [isHaveFormulary, setIsHaveFormulary] = useState(initial?.formulary || false)
   const [isLoading, setIsLoading] = useState({
@@ -40,6 +43,18 @@ const ComponentMedication = (props) => {
 
   const onChangeDoseFormulary = (checked) => {
     setIsHaveFormulary(checked)
+  }
+
+  const onChangeNotes = (_event, editor) => {
+    const newValue = editor.getData()
+
+    setNotes(newValue)
+
+    if ((newValue || '') !== (data?.medication?.additional_notes || '')) {
+      setIsFormChange({ ...isFormChange, notes: true })
+    } else {
+      setIsFormChange({ ...isFormChange, notes: false })
+    }
   }
 
   const onCreate = (values) => {
@@ -61,6 +76,7 @@ const ComponentMedication = (props) => {
         formulary: isHaveFormulary,
         formulary_conc: +values.formulary_conc,
         formulary_units: values.formulary_units,
+        additional_notes: notes,
       },
       component_children: [],
     }
@@ -70,7 +86,7 @@ const ComponentMedication = (props) => {
     createComponent(payload)
       .then((res) => {
         setIsLoading({ ...isLoading, create: false })
-        setIsFormChange(false)
+        setIsFormChange({ main: false, notes: false })
         notification.success({
           message: 'A new medication component has been created successfully!',
         })
@@ -111,6 +127,7 @@ const ComponentMedication = (props) => {
         formulary: isHaveFormulary,
         formulary_conc: +values.formulary_conc,
         formulary_units: values.formulary_units,
+        additional_notes: notes,
       },
       component_children: [],
     }
@@ -120,7 +137,7 @@ const ComponentMedication = (props) => {
     updateComponent(id, payload)
       .then(() => {
         setIsLoading({ ...isLoading, edit: false })
-        setIsFormChange(false)
+        setIsFormChange({ main: false, notes: false })
         notification.success({
           message: 'A new medication component has been updated successfully!',
         })
@@ -142,7 +159,7 @@ const ComponentMedication = (props) => {
       values
     )
 
-    setIsFormChange(isCheck)
+    setIsFormChange({ ...isFormChange, main: isCheck })
   }
 
   return (
@@ -152,7 +169,7 @@ const ComponentMedication = (props) => {
       isLoading={isLoading}
       orgId={orgId}
       orgName={orgName}
-      isChanged={isFormChange}
+      isChanged={isFormChange.main || isFormChange.notes}
       onCreate={onCreate}
       onEdit={onEdit}
       onChangeValue={onChangeValue}
@@ -238,9 +255,7 @@ const ComponentMedication = (props) => {
           simpleMode
           data={notes}
           placeholder="Enter any additional notes on administering this medication (e.g., route, ability to repeat, etc.)"
-          onChange={(_event, editor) => {
-            setNotes(editor.getData())
-          }}
+          onChange={onChangeNotes}
         />
       </Form.Item>
       <Row gutter={24}>
