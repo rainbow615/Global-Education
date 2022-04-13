@@ -19,6 +19,13 @@ const Dashboard = () => {
     },
   ]
 
+  function generateLinkProps(to) {
+    return {
+      to,
+      state: { orgId: state.id, orgName: state.name },
+    }
+  }
+
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
@@ -27,10 +34,7 @@ const Dashboard = () => {
           <Card
             title="Protocols"
             extra={
-              <Link
-                to="/organizations/protocols/list"
-                state={{ orgId: state.id, orgName: state.name }}
-              >
+              <Link {...generateLinkProps('/organizations/protocols/list')}>
                 <ArrowsAltOutlined />
               </Link>
             }
@@ -38,10 +42,7 @@ const Dashboard = () => {
           <Card
             title="Education"
             extra={
-              <Link
-                to="/organizations/local-education/list"
-                state={{ orgId: state.id, orgName: state.name }}
-              >
+              <Link {...generateLinkProps('/organizations/local-education/list')}>
                 <ArrowsAltOutlined />
               </Link>
             }
@@ -49,10 +50,7 @@ const Dashboard = () => {
           <Card
             title="Components"
             extra={
-              <Link
-                to="/organizations/components/list"
-                state={{ orgId: state.id, orgName: state.name }}
-              >
+              <Link {...generateLinkProps('/organizations/components/list')}>
                 <ArrowsAltOutlined />
               </Link>
             }
