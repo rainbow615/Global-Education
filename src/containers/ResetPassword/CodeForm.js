@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, notification, Typography, Space, Spin } from 'antd'
+import { Form, Button, notification, Typography, Space } from 'antd'
 import { useSearchParams } from 'react-router-dom'
 import ReactCodeInput from 'react-verification-code-input'
 import { Link } from 'react-router-dom'
