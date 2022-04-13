@@ -96,7 +96,7 @@ const ComponentBlock = (props) => {
     }
 
     if (content === data.component_content) {
-      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[1].id))
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[2].id))
       return
     }
 
@@ -169,7 +169,7 @@ const ComponentBlock = (props) => {
     }
 
     if (content === data.component_content) {
-      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[1].id))
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[2].id))
       return
     }
 
