@@ -7,6 +7,7 @@ import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../Form'
 import { COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
+import { getDuplicationMsg } from '../../../utils/names'
 
 const { Option } = Select
 const Tags = []
@@ -44,6 +45,11 @@ const ComponentText = (props) => {
 
     if (content === '') {
       setErrorMsg('Please input Content')
+      return
+    }
+
+    if (content === data.component_content) {
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[1].id))
       return
     }
 
@@ -88,6 +94,11 @@ const ComponentText = (props) => {
 
     if (content === '') {
       setErrorMsg('Please input Content')
+      return
+    }
+
+    if (content === data.component_content) {
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[1].id))
       return
     }
 
