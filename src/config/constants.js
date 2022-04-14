@@ -104,22 +104,27 @@ export const COMPONENTS_TYPES = [
 
 export const NEW_COMPONENTS_MENU = [
   {
+    id: 'block',
     name: 'Add Block',
     shortKeyLabel: 'Cntl-B',
   },
   {
+    id: 'medication',
     name: 'Add Medication',
     shortKeyLabel: 'Cntl-M',
   },
   {
+    id: 'link',
     name: 'Add Protocol Link',
     shortKeyLabel: 'Cntl-L',
   },
   {
+    id: 'text',
     name: 'Add Text',
     shortKeyLabel: 'Cntl-T',
   },
   {
+    id: 'section',
     name: 'Add Section',
     shortKeyLabel: 'Cntl-s',
   },
