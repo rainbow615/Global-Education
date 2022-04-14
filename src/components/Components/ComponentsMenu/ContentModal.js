@@ -67,7 +67,7 @@ const ContentModal = (props) => {
       />
       <ScrollView>
         {!components.isLoading && (
-          <Menu onSelect={onSelectItem}>
+          <Menu onSelect={onSelectItem} selectedKeys="-1">
             {dataSource.map((item, index) => (
               <Menu.Item key={index}>
                 <Space>
