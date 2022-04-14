@@ -3,21 +3,22 @@ import { Button, Menu, Space, Typography, Popover } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
 import { NEW_COMPONENTS_MENU } from '../../../../../config/constants'
+import { AddMenu } from '../../../../../components/Components/ComponentsMenu/styles'
 import BodyList from './List'
-import { Root, BodyMenu } from './styles'
+import { Root } from './styles'
 
 const { Text } = Typography
 
 const BodyBuilder = () => {
   const menu = (
-    <BodyMenu>
+    <AddMenu>
       {NEW_COMPONENTS_MENU.map((type, index) => (
         <Menu.Item key={index}>
           <Text>{type.name}</Text>
           <Text className="short-key">{type.shortKeyLabel}</Text>
         </Menu.Item>
       ))}
-    </BodyMenu>
+    </AddMenu>
   )
 
   return (

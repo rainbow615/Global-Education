@@ -7,7 +7,7 @@ import _ from 'lodash'
 import { createComponent, updateComponent } from '../../../services/componentService'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../Form'
-import AddSubComponents from './AddSubComponents'
+import ComponentsMenu from '../ComponentsMenu'
 import SubComponentList from './SubComponentsList'
 import { COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
@@ -241,7 +241,11 @@ const ComponentBlock = (props) => {
       <Form.Item>
         <Space>
           <Text>{`Block Subcomponents `}</Text>
-          <AddSubComponents orgId={orgId} onSelect={onAddComponent} />
+          <ComponentsMenu
+            orgId={orgId}
+            onSelect={onAddComponent}
+            disabledComponents={selectedComponents}
+          />
         </Space>
         <SubComponentList
           list={selectedComponents}
