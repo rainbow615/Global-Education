@@ -50,4 +50,4 @@ export const getProtocolButtonName = (value) => {
 }
 
 export const getDuplicationMsg = (type) =>
-  `A ${type} component with this name already exists. Please change the name.`
+  `A ${type} component with this content already exists.`
