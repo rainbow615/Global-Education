@@ -47,7 +47,10 @@ const OrgProtocolsForm = (props) => {
       state: { orgId, orgName },
     },
     {
-      title: type === 'edit' ? `${title} Draft` : 'Builder',
+      title,
+    },
+    {
+      title: type === 'edit' ? `Draft` : 'Builder',
     },
   ]
 
