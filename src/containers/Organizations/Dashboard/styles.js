@@ -15,6 +15,9 @@ export const CustomTable = styled(Table)({
   overflowY: 'scroll',
   tr: {
     cursor: 'pointer',
+    p: {
+      margin: 0,
+    },
   },
   'tr:last-of-type td': {
     borderBottom: 'none',
