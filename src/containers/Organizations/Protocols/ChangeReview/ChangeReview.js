@@ -36,7 +36,7 @@ const ChangeReview = (props) => {
     {
       title: orgName,
       link: '/organizations/dashboard',
-      state: { orgId, orgName },
+      state: { id: orgId, name: orgName },
     },
     {
       title: `Protocols`,
