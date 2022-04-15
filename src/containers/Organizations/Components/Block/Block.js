@@ -31,7 +31,7 @@ const ComponentBlockForm = (props) => {
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
-      <ComponentBlock orgId={orgId} isNew={type === 'add'} data={data} />
+      <ComponentBlock orgId={orgId} orgName={orgName} isNew={type === 'add'} data={data} />
     </React.Fragment>
   )
 }

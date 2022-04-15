@@ -69,7 +69,6 @@ export const getFirstLetter = (string) => {
 }
 
 export const isChangedComponentForm = (oldObj, newObj, ignoreList) => {
-  console.log('======oldObj, newObj=', oldObj, newObj)
   if (
     (!ignoreList?.component_content && oldObj.component_content !== newObj.component_content) ||
     (!ignoreList?.is_ordered && !!oldObj.is_ordered !== !!newObj.is_ordered)
@@ -79,6 +78,18 @@ export const isChangedComponentForm = (oldObj, newObj, ignoreList) => {
   if (!_.isEqual((oldObj.tags || []).sort(), (newObj.tags || []).sort())) return true
 
   if (!_.isEqual((oldObj.linked_education || []).sort(), (newObj.linked_education || []).sort()))
+    return true
+
+  // medication
+  if (
+    !!oldObj.dose_range !== !!newObj.dose_range ||
+    +(oldObj.dose_max || 0) !== +(newObj.dose_max || 0) ||
+    +(oldObj.dose_min || 0) !== +(newObj.dose_min || 0) ||
+    (oldObj.dose_units || '') !== (newObj.dose_units || '') ||
+    !!oldObj.formulary !== !!newObj.formulary ||
+    +(oldObj.formulary_conc || 0) !== +(newObj.formulary_conc || 0) ||
+    (oldObj.formulary_units || '') !== (newObj.formulary_units || '')
+  )
     return true
 
   return false

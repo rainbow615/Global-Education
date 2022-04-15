@@ -72,7 +72,6 @@ const HomeMainContent = (props) => {
           <Title as="h2">Expertly-Crafted Protocol Books</Title>
           <Description>All of the protocols and education from the app in print.</Description>
           <CheckList>
-            {/* @prettier-ignore */}
             <CheckListItem>
               <CheckListItemIcon />
               Easier on the eyes
@@ -83,7 +82,7 @@ const HomeMainContent = (props) => {
             </CheckListItem>
             <CheckListItem>
               <CheckListItemIcon />
-              No batteries required{' '}
+              No batteries required
             </CheckListItem>
             <CheckListItem>
               <CheckListItemIcon />

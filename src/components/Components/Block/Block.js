@@ -2,38 +2,85 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form, Space, Select, Typography, notification } from 'antd'
 import Switch from 'react-switch'
+import _ from 'lodash'
 
 import { createComponent, updateComponent } from '../../../services/componentService'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../Form'
-import AddSubComponents from './AddSubComponents'
+import ComponentsMenu from '../ComponentsMenu'
 import SubComponentList from './SubComponentsList'
 import { COMPONENTS_TYPES } from '../../../config/constants'
+import { isChangedComponentForm } from '../../../utils'
+import { getDuplicationMsg } from '../../../utils/names'
 
 const { Option } = Select
 const { Text } = Typography
 const Tags = []
 
 const ComponentBlock = (props) => {
-  const { orgId, isNew, data } = props
+  const { orgId, orgName, isNew, data } = props
+  const componentChildren = (data?.component_children || []).map((obj) => ({
+    component_id: obj.child_component_id,
+    component_order: obj.child_component_order,
+    component_content: '',
+    component_type: '',
+  }))
   const navigate = useNavigate()
 
+  const [isFormChange, setIsFormChange] = useState(false)
   const [content, setContent] = useState(data?.component_content || '')
   const [isOrdered, setIsOrdered] = useState(!!data?.is_ordered)
-  const [selectedComponents, setSelectedComponents] = useState(data?.component_children || [])
+  const [selectedComponents, setSelectedComponents] = useState(componentChildren)
   const [errorMsg, setErrorMsg] = useState('')
   const [isLoading, setIsLoading] = useState({
     create: false,
     edit: false,
   })
 
+  const onChangeContent = (_event, editor) => {
+    setErrorMsg('')
+
+    const newValue = editor.getData()
+
+    if (newValue === '') {
+      setErrorMsg('Please input Content')
+    }
+
+    setContent(newValue)
+
+    if (newValue !== data.component_content) {
+      setIsFormChange(true)
+    }
+  }
+
+  const compareComponents = (origin, other) => {
+    const originIds = origin ? origin.map((obj) => obj.component_id) : []
+    const otherIds = other ? other.map((obj) => obj.component_id) : []
+
+    if (_.isEqual(originIds, otherIds)) return true
+
+    return false
+  }
+
   const onAddComponent = (component) => {
     const newList = [...selectedComponents, component]
     setSelectedComponents(newList)
+
+    if (compareComponents(newList, componentChildren)) {
+      setIsFormChange(false)
+    } else {
+      setIsFormChange(true)
+    }
   }
 
   const onChangeComponents = (list) => {
     setSelectedComponents(list)
+
+    if (compareComponents(list, componentChildren)) {
+      setIsFormChange(false)
+    } else {
+      setIsFormChange(true)
+    }
   }
 
   const onChangeOrder = (checked) => {
@@ -41,6 +88,18 @@ const ComponentBlock = (props) => {
   }
 
   const onCreate = (values) => {
+    setErrorMsg('')
+
+    if (content === '') {
+      setErrorMsg('Please input Content')
+      return
+    }
+
+    if (content === data.component_content) {
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[2].id))
+      return
+    }
+
     const component_children = selectedComponents.map((obj, index) => ({
       child_component_id: obj.component_id,
       child_component_order: index + 1,
@@ -56,24 +115,43 @@ const ComponentBlock = (props) => {
       component_order: 1,
       linked_protocol: [],
       linked_education: values.linked_education,
-      component_children,
     }
 
     setIsLoading({ ...isLoading, create: true })
 
     createComponent(payload)
       .then((res) => {
-        setIsLoading({ ...isLoading, create: false })
-        notification.success({ message: 'A new block component has been created successfully!' })
+        const id = res?.data?.component_id
 
-        if (res && res.data) {
-          navigate(`/organizations/components/form/${COMPONENTS_TYPES[2].id}/edit`, {
-            state: { ...res.data, orgId, orgName: data.orgName },
-          })
+        if (id) {
+          updateComponent(id, { ...payload, component_children })
+            .then((res) => {
+              setIsLoading({ ...isLoading, create: false })
+              setIsFormChange(false)
+              notification.success({
+                message: 'A new block component has been created successfully!',
+              })
+
+              if (res && res.data) {
+                navigate(`/organizations/components/form/${COMPONENTS_TYPES[2].id}/edit`, {
+                  state: { ...res.data, orgId, orgName: data.orgName },
+                })
+              }
+            })
+            .catch((error) => {
+              setIsLoading({ ...isLoading, create: false })
+
+              notification.error({
+                message: 'Save failed!',
+                description: error?.data || '',
+              })
+            })
+        } else {
+          setIsLoading({ ...isLoading, create: false })
         }
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, create: false })
 
         notification.error({
           message: 'Save failed!',
@@ -83,6 +161,13 @@ const ComponentBlock = (props) => {
   }
 
   const onEdit = (values) => {
+    setErrorMsg('')
+
+    if (content === '') {
+      setErrorMsg('Please input Content')
+      return
+    }
+
     const id = values.component_id
     const component_children = selectedComponents.map((obj, index) => ({
       child_component_id: obj.component_id,
@@ -106,10 +191,11 @@ const ComponentBlock = (props) => {
     updateComponent(id, payload)
       .then(() => {
         setIsLoading({ ...isLoading, edit: false })
+        setIsFormChange(false)
         notification.success({ message: 'A new block component has been updated successfully!' })
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, edit: false })
 
         notification.error({
           message: 'Modify failed!',
@@ -118,23 +204,30 @@ const ComponentBlock = (props) => {
       })
   }
 
+  const onChangeValue = (values) => {
+    const isCheck = isChangedComponentForm(isNew ? {} : data, values, { component_content: true })
+
+    setIsFormChange(isCheck)
+  }
+
   return (
     <ComponentForm
       initialValues={data}
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
+      orgName={orgName}
+      isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}
+      onChangeValue={onChangeValue}
     >
       <Form.Item label="Content" validateStatus={errorMsg ? 'error' : undefined} help={errorMsg}>
         <CustomCkEditor
           simpleMode
           data={content}
           placeholder="Enter block text"
-          onChange={(_event, editor) => {
-            setContent(editor.getData())
-          }}
+          onChange={onChangeContent}
         />
       </Form.Item>
       <Space>
@@ -148,7 +241,11 @@ const ComponentBlock = (props) => {
       <Form.Item>
         <Space>
           <Text>{`Block Subcomponents `}</Text>
-          <AddSubComponents orgId={orgId} onSelect={onAddComponent} />
+          <ComponentsMenu
+            orgId={orgId}
+            onSelect={onAddComponent}
+            disabledComponents={selectedComponents}
+          />
         </Space>
         <SubComponentList
           list={selectedComponents}

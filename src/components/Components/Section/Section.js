@@ -7,12 +7,13 @@ import { createComponent, updateComponent } from '../../../services/componentSer
 import ComponentForm from '../Form'
 import { COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
+import { getDuplicationMsg } from '../../../utils/names'
 
 const { Option } = Select
 const Tags = []
 
 const ComponentSection = (props) => {
-  const { orgId, isNew, data } = props
+  const { orgId, orgName, isNew, data } = props
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)
@@ -21,12 +22,20 @@ const ComponentSection = (props) => {
     create: false,
     edit: false,
   })
+  const [errorMsg, setErrorMsg] = useState('')
 
   const onChangeOrder = (checked) => {
     setIsOrdered(checked)
   }
 
   const onCreate = (values) => {
+    setErrorMsg('')
+
+    if (values.component_content === data.component_content) {
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[0].id))
+      return
+    }
+
     const payload = {
       organization_id: orgId,
       parent_id: null,
@@ -54,7 +63,7 @@ const ComponentSection = (props) => {
         }
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, create: false })
 
         notification.error({
           message: 'Save failed!',
@@ -87,7 +96,7 @@ const ComponentSection = (props) => {
         notification.success({ message: 'A new section component has been updated successfully!' })
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, edit: false })
 
         notification.error({
           message: 'Modify failed!',
@@ -96,7 +105,9 @@ const ComponentSection = (props) => {
       })
   }
 
-  const onChangeValue = (values) => {
+  const onChangeValue = (values, changedField) => {
+    if (changedField?.name === 'component_content') setErrorMsg('')
+
     const isCheck = isChangedComponentForm(isNew ? {} : data, values)
 
     setIsFormChange(isCheck)
@@ -108,6 +119,7 @@ const ComponentSection = (props) => {
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
+      orgName={orgName}
       isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}
@@ -118,6 +130,8 @@ const ComponentSection = (props) => {
         name="component_content"
         hasFeedback
         rules={[{ required: true, message: 'Please input a section name' }]}
+        validateStatus={errorMsg ? 'error' : undefined}
+        help={errorMsg}
       >
         <Input placeholder="Enter a section name" size="large" />
       </Form.Item>

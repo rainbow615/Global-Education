@@ -254,6 +254,7 @@ const Dashboard = () => {
             </Button>
           </CardBottom>
         </CustomCard>
+
         <Card title="Activity"></Card>
       </DashboardContainer>
     </React.Fragment>

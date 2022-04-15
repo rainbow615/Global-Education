@@ -6,6 +6,7 @@ import { createComponent, updateComponent } from '../../../services/componentSer
 import { useProtocol } from '../../../services/protocolService'
 import { COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
+import { getDuplicationMsg } from '../../../utils/names'
 import ComponentForm from '../Form'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import AddLinkedProtocol from './AddLinkedProtocol'
@@ -16,7 +17,7 @@ import { ProtocolView } from './styles'
 const { Text } = Typography
 
 const ComponentLink = (props) => {
-  const { orgId, isNew, data } = props
+  const { orgId, orgName, isNew, data } = props
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)
@@ -86,6 +87,11 @@ const ComponentLink = (props) => {
       return
     }
 
+    if (content === data.component_content) {
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[4].id))
+      return
+    }
+
     const payload = {
       organization_id: orgId,
       parent_id: null,
@@ -113,7 +119,7 @@ const ComponentLink = (props) => {
         }
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, create: false })
 
         notification.error({
           message: 'Save failed!',
@@ -153,7 +159,7 @@ const ComponentLink = (props) => {
         notification.success({ message: 'A new Link component has been updated successfully!' })
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, edit: false })
 
         notification.error({
           message: 'Modify failed!',
@@ -174,6 +180,7 @@ const ComponentLink = (props) => {
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
+      orgName={orgName}
       isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}

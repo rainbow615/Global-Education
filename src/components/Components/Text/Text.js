@@ -7,12 +7,13 @@ import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../Form'
 import { COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
+import { getDuplicationMsg } from '../../../utils/names'
 
 const { Option } = Select
 const Tags = []
 
 const ComponentText = (props) => {
-  const { isNew, orgId, data } = props
+  const { isNew, orgId, orgName, data } = props
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)
@@ -47,6 +48,11 @@ const ComponentText = (props) => {
       return
     }
 
+    if (content === data.component_content) {
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[1].id))
+      return
+    }
+
     const payload = {
       organization_id: orgId,
       parent_id: null,
@@ -74,7 +80,7 @@ const ComponentText = (props) => {
         }
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, create: false })
 
         notification.error({
           message: 'Save failed!',
@@ -114,7 +120,7 @@ const ComponentText = (props) => {
         notification.success({ message: 'A new Text component has been updated successfully!' })
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, edit: false })
 
         notification.error({
           message: 'Modify failed!',
@@ -135,6 +141,7 @@ const ComponentText = (props) => {
       isNew={isNew}
       isLoading={isLoading}
       orgId={orgId}
+      orgName={orgName}
       isChanged={isFormChange}
       onCreate={onCreate}
       onEdit={onEdit}

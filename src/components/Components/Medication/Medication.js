@@ -9,13 +9,15 @@ import ComponentForm from '../../Components/Form'
 import { DOSE_UNITS, FORMULARY_UNIT } from '../../../config/constants'
 import { MEDICATION_TAGS } from '../../../config/tags'
 import { COMPONENTS_TYPES } from '../../../config/constants'
+import { isChangedComponentForm } from '../../../utils'
+import { getDuplicationMsg } from '../../../utils/names'
 import { DoseSection } from './styles'
 
 const { Option } = Select
 const { Text } = Typography
 
 const ComponentMedication = (props) => {
-  const { isNew, orgId, data } = props
+  const { isNew, orgId, orgName, data } = props
   const navigate = useNavigate()
 
   const [initial] = useState({
@@ -24,13 +26,18 @@ const ComponentMedication = (props) => {
     ...data,
     ...data?.medication,
   })
-  const [notes, setNotes] = useState(data?.notes || '')
+  const [isFormChange, setIsFormChange] = useState({
+    main: false,
+    notes: false,
+  })
+  const [notes, setNotes] = useState(data?.medication?.additional_notes || '')
   const [isHaveRange, setIsHaveRange] = useState(initial?.dose_range || false)
   const [isHaveFormulary, setIsHaveFormulary] = useState(initial?.formulary || false)
   const [isLoading, setIsLoading] = useState({
     create: false,
     edit: false,
   })
+  const [errorMsg, setErrorMsg] = useState('')
 
   const onChangeDoseRange = (checked) => {
     setIsHaveRange(checked)
@@ -40,7 +47,26 @@ const ComponentMedication = (props) => {
     setIsHaveFormulary(checked)
   }
 
+  const onChangeNotes = (_event, editor) => {
+    const newValue = editor.getData()
+
+    setNotes(newValue)
+
+    if ((newValue || '') !== (data?.medication?.additional_notes || '')) {
+      setIsFormChange({ ...isFormChange, notes: true })
+    } else {
+      setIsFormChange({ ...isFormChange, notes: false })
+    }
+  }
+
   const onCreate = (values) => {
+    setErrorMsg('')
+
+    if (values.component_content === data.component_content) {
+      setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[3].id))
+      return
+    }
+
     const payload = {
       organization_id: orgId,
       parent_id: null,
@@ -59,6 +85,7 @@ const ComponentMedication = (props) => {
         formulary: isHaveFormulary,
         formulary_conc: +values.formulary_conc,
         formulary_units: values.formulary_units,
+        additional_notes: notes,
       },
       component_children: [],
     }
@@ -68,6 +95,7 @@ const ComponentMedication = (props) => {
     createComponent(payload)
       .then((res) => {
         setIsLoading({ ...isLoading, create: false })
+        setIsFormChange({ main: false, notes: false })
         notification.success({
           message: 'A new medication component has been created successfully!',
         })
@@ -79,7 +107,7 @@ const ComponentMedication = (props) => {
         }
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, create: false })
 
         notification.error({
           message: 'Save failed!',
@@ -108,6 +136,7 @@ const ComponentMedication = (props) => {
         formulary: isHaveFormulary,
         formulary_conc: +values.formulary_conc,
         formulary_units: values.formulary_units,
+        additional_notes: notes,
       },
       component_children: [],
     }
@@ -117,12 +146,13 @@ const ComponentMedication = (props) => {
     updateComponent(id, payload)
       .then(() => {
         setIsLoading({ ...isLoading, edit: false })
+        setIsFormChange({ main: false, notes: false })
         notification.success({
           message: 'A new medication component has been updated successfully!',
         })
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading({ ...isLoading, edit: false })
 
         notification.error({
           message: 'Modify failed!',
@@ -131,20 +161,37 @@ const ComponentMedication = (props) => {
       })
   }
 
+  const onChangeValue = (values, changedField) => {
+    if (changedField?.name === 'component_content') setErrorMsg('')
+
+    const defaultValue = { dose_units: 'g', formulary_units: 'g/ml' }
+    const isCheck = isChangedComponentForm(
+      isNew ? { ...defaultValue } : { ...data, ...(data?.medication || { ...defaultValue }) },
+      values
+    )
+
+    setIsFormChange({ ...isFormChange, main: isCheck })
+  }
+
   return (
     <ComponentForm
       isNew={isNew}
       initialValues={initial}
       isLoading={isLoading}
       orgId={orgId}
+      orgName={orgName}
+      isChanged={isFormChange.main || isFormChange.notes}
       onCreate={onCreate}
       onEdit={onEdit}
+      onChangeValue={onChangeValue}
     >
       <Form.Item
         label="Content"
         name="component_content"
         hasFeedback
         rules={[{ required: true, message: 'Please input a medication name' }]}
+        validateStatus={errorMsg ? 'error' : undefined}
+        help={errorMsg}
       >
         <Input placeholder="Enter a section name" size="large" />
       </Form.Item>
@@ -152,7 +199,9 @@ const ComponentMedication = (props) => {
         <DoseSection size="large" align="start">
           <Space direction="vertical">
             <Space>
-              <Switch onChange={onChangeDoseRange} checked={isHaveRange} />
+              <Form.Item name="dose_range">
+                <Switch onChange={onChangeDoseRange} checked={isHaveRange} />
+              </Form.Item>
               <i>Does this dose have a range?</i>
             </Space>
             <Space align="start">
@@ -191,7 +240,9 @@ const ComponentMedication = (props) => {
           </Space>
           <Space direction="vertical">
             <Space>
-              <Switch onChange={onChangeDoseFormulary} checked={isHaveFormulary} />
+              <Form.Item name="formulary">
+                <Switch onChange={onChangeDoseFormulary} checked={isHaveFormulary} />
+              </Form.Item>
               <i>Does this medication have a standard formulary?</i>
             </Space>
             <Space>
@@ -217,9 +268,7 @@ const ComponentMedication = (props) => {
           simpleMode
           data={notes}
           placeholder="Enter any additional notes on administering this medication (e.g., route, ability to repeat, etc.)"
-          onChange={(_event, editor) => {
-            setNotes(editor.getData())
-          }}
+          onChange={onChangeNotes}
         />
       </Form.Item>
       <Row gutter={24}>

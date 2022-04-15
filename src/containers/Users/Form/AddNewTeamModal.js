@@ -8,7 +8,7 @@ const { Title } = Typography
 const AddNewTeamModal = (props) => {
   const { visible, onClose } = props
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading] = useState(false)
 
   const onFinish = (values) => {
     console.log(values)
