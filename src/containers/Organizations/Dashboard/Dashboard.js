@@ -1,6 +1,22 @@
+import { ArrowsAltOutlined } from '@ant-design/icons'
+import { Button, Card, Typography } from 'antd'
 import React from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+
+import AddComponentButton from '../../../components/Components/AddComponentButton'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/CustomBreadcrumb'
-import { Container } from '../../../components/CommonComponent'
+import { getEducationReturnLinks } from '../../../components/Education/List/columns'
+import { ResultFailed } from '../../../components/ResultPages'
+import { useComponents } from '../../../services/componentService'
+import { useEducations } from '../../../services/jitService'
+import { useProtocols } from '../../../services/protocolService'
+import {
+  getJITStatusName,
+  getProtocolStatusColor,
+  getProtocolStatusName,
+} from '../../../utils/names'
+import { returnLinks } from '../Protocols/List/columns'
+import CopyTooltip from '../Protocols/List/CopyTooltip'
 import {
   CardBottom,
   ComponentType,
@@ -10,22 +26,6 @@ import {
   DashboardHeader,
   EditIcon,
 } from './styles'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Button, Card, Space, Typography } from 'antd'
-import { ArrowsAltOutlined, EditOutlined, EditTwoTone } from '@ant-design/icons'
-import { useProtocols } from '../../../services/protocolService'
-import { ResultFailed } from '../../../components/ResultPages'
-import {
-  getJITStatusName,
-  getProtocolStatusColor,
-  getProtocolStatusName,
-} from '../../../utils/names'
-import CopyTooltip from '../Protocols/List/CopyTooltip'
-import { useEducations } from '../../../services/jitService'
-import { useComponents } from '../../../services/componentService'
-import AddComponentButton from '../../../components/Components/AddComponentButton'
-import { returnLinks } from '../Protocols/List/columns'
-import { getEducationReturnLinks } from '../../../components/Education/List/columns'
 
 const Dashboard = () => {
   const { state } = useLocation()
@@ -71,7 +71,7 @@ const Dashboard = () => {
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
-      <DashboardHeader wrap={true} size="middle" align="center">
+      <DashboardHeader size="middle" align="center">
         <h1>{state.name}</h1>
         <Link to="/organizations/form/edit" state={{ id: state.id, name: state.name }}>
           <EditIcon />

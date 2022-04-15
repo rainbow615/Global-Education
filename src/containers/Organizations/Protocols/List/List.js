@@ -23,7 +23,15 @@ const OrgProtocolsList = (props) => {
       link: '/organizations/list',
     },
     {
-      title: `${orgName} Protocols`,
+      title: orgName,
+      link: '/organizations/dashboard',
+      state: {
+        id: orgId,
+        name: orgName,
+      },
+    },
+    {
+      title: 'Protocols',
     },
     {
       title: 'List',

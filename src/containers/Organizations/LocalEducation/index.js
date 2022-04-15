@@ -10,6 +10,7 @@ const LocalProtocolsProof = loadable(() => import('./ProtocolsProof'))
 function LocalEducation() {
   const { state } = useLocation()
   const orgId = state?.orgId || null
+  const orgName = state?.orgName || null
 
   if (!orgId) {
     return <Navigate to="/organizations/list" />
@@ -18,7 +19,7 @@ function LocalEducation() {
   return (
     <Routes>
       <Route path="" element={<Navigate to="list" />} />
-      <Route path="list" element={<LocalEducationList orgId={orgId} />} />
+      <Route path="list" element={<LocalEducationList orgId={orgId} orgName={orgName} />} />
       <Route path="form/:type" element={<LocalEducationForm orgId={orgId} />} />
       <Route path="review" element={<LocalEducationReview orgId={orgId} />} />
       <Route path="proof" element={<LocalProtocolsProof orgId={orgId} />} />
