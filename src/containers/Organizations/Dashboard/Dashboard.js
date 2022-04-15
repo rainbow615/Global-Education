@@ -97,6 +97,7 @@ const Dashboard = () => {
               onClick: () =>
                 navigate(returnLinks[record.status], {
                   state: {
+                    ...record,
                     orgId: state.id,
                     orgName: state.name,
                   },
@@ -156,6 +157,7 @@ const Dashboard = () => {
               onClick: () =>
                 navigate(getEducationReturnLinks(false)[record.status], {
                   state: {
+                    ...record,
                     orgId: state.id,
                     orgName: state.name,
                   },
