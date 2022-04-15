@@ -27,18 +27,27 @@ const ChangeReview = (props) => {
   const data = location?.state
   const title = data?.protocol_name || ''
   const id = data?.protocol_id
+
   const breadCrumb = [
     {
       title: 'Organizations',
       link: '/organizations/list',
     },
     {
-      title: `${orgName} Protocols`,
+      title: orgName,
+      link: '/organizations/dashboard',
+      state: { orgId, orgName },
+    },
+    {
+      title: `Protocols`,
       link: '/organizations/protocols/list',
       state: { orgId, orgName },
     },
     {
-      title: `${title} Review`,
+      title,
+    },
+    {
+      title: 'Review',
     },
   ]
 

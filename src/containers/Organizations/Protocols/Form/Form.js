@@ -37,7 +37,12 @@ const OrgProtocolsForm = (props) => {
       link: '/organizations/list',
     },
     {
-      title: `${orgName} Protocols`,
+      title: orgName,
+      link: '/organizations/dashboard',
+      state: { orgId, orgName },
+    },
+    {
+      title: `Protocols`,
       link: '/organizations/protocols/list',
       state: { orgId, orgName },
     },
