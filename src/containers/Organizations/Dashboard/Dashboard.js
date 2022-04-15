@@ -141,62 +141,6 @@ const Dashboard = () => {
           </CardBottom>
         </CustomCard>
         <CustomCard
-          title="Education"
-          extra={
-            <Link {...generateLinkProps('/organizations/local-education/list')}>
-              <ArrowsAltOutlined />
-            </Link>
-          }
-        >
-          <CustomTable
-            pagination={false}
-            showHeader={false}
-            scroll={true}
-            rowKey="jit_id"
-            onRow={(record) => ({
-              onClick: () =>
-                navigate(getEducationReturnLinks(false)[record.status], {
-                  state: {
-                    ...record,
-                    orgId: state.id,
-                    orgName: state.name,
-                  },
-                }),
-            })}
-            loading={education.isLoading}
-            dataSource={educationDataSource}
-            columns={[
-              {
-                title: 'Name',
-                dataIndex: 'jit_name',
-                key: 'jit_name',
-                render: (value, record) => <CopyTooltip value={value} record={record} />,
-              },
-              {
-                title: 'Status',
-                dataIndex: 'status',
-                key: 'status',
-                width: 100,
-                render: (value) => (
-                  <Typography.Text type={getProtocolStatusColor(value)}>
-                    {getJITStatusName(value)}
-                  </Typography.Text>
-                ),
-              },
-            ]}
-          />
-          <CardBottom>
-            <Button type="primary">
-              <Link
-                to="/organizations/local-education/form/new"
-                state={{ orgId: state.id, orgName: state.name }}
-              >
-                Add new
-              </Link>
-            </Button>
-          </CardBottom>
-        </CustomCard>
-        <CustomCard
           title="Components"
           extra={
             <Link {...generateLinkProps('/organizations/components/list')}>
@@ -252,6 +196,62 @@ const Dashboard = () => {
           />
           <CardBottom>
             <AddComponentButton orgId={state.id} orgName={state.name} />
+          </CardBottom>
+        </CustomCard>
+        <CustomCard
+          title="Education"
+          extra={
+            <Link {...generateLinkProps('/organizations/local-education/list')}>
+              <ArrowsAltOutlined />
+            </Link>
+          }
+        >
+          <CustomTable
+            pagination={false}
+            showHeader={false}
+            scroll={true}
+            rowKey="jit_id"
+            onRow={(record) => ({
+              onClick: () =>
+                navigate(getEducationReturnLinks(false)[record.status], {
+                  state: {
+                    ...record,
+                    orgId: state.id,
+                    orgName: state.name,
+                  },
+                }),
+            })}
+            loading={education.isLoading}
+            dataSource={educationDataSource}
+            columns={[
+              {
+                title: 'Name',
+                dataIndex: 'jit_name',
+                key: 'jit_name',
+                render: (value, record) => <CopyTooltip value={value} record={record} />,
+              },
+              {
+                title: 'Status',
+                dataIndex: 'status',
+                key: 'status',
+                width: 100,
+                render: (value) => (
+                  <Typography.Text type={getProtocolStatusColor(value)}>
+                    {getJITStatusName(value)}
+                  </Typography.Text>
+                ),
+              },
+            ]}
+          />
+          <CardBottom>
+            <Button type="primary">
+              <Link
+                to="/organizations/local-education/form/new"
+                state={{ orgId: state.id, orgName: state.name }}
+              >
+                Add new
+              </Link>
+            </Button>
           </CardBottom>
         </CustomCard>
         <Card title="Activity"></Card>
