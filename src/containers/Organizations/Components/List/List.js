@@ -29,10 +29,12 @@ const OrgComponentsList = (props) => {
     {
       title: orgName,
       link: '/organizations/dashboard',
-      state: {
-        id: orgId,
-        name: orgName,
-      },
+      state: { id: orgId, name: orgName },
+    },
+    {
+      title: `Components`,
+      link: '/organizations/components/list',
+      state: { orgId, orgName },
     },
     {
       title: 'Components',

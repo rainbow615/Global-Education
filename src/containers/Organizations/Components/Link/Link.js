@@ -14,7 +14,9 @@ const ComponentLinkForm = (props) => {
       link: '/organizations/list',
     },
     {
-      title: `${orgName}`,
+      title: orgName,
+      link: '/organizations/dashboard',
+      state: { id: orgId, name: orgName },
     },
     {
       title: `Components`,
