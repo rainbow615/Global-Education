@@ -20,9 +20,9 @@ function LocalEducation() {
     <Routes>
       <Route path="" element={<Navigate to="list" />} />
       <Route path="list" element={<LocalEducationList orgId={orgId} orgName={orgName} />} />
-      <Route path="form/:type" element={<LocalEducationForm orgId={orgId} />} />
-      <Route path="review" element={<LocalEducationReview orgId={orgId} />} />
-      <Route path="proof" element={<LocalProtocolsProof orgId={orgId} />} />
+      <Route path="form/:type" element={<LocalEducationForm orgId={orgId} orgName={orgName} />} />
+      <Route path="review" element={<LocalEducationReview orgId={orgId} orgName={orgName} />} />
+      <Route path="proof" element={<LocalProtocolsProof orgId={orgId} orgName={orgName} />} />
     </Routes>
   )
 }

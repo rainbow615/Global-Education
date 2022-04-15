@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import ChangeReview from '../../../../components/Education/ChangeReview'
 
 const LocalEducationReview = (props) => {
-  const { orgId } = props
+  const { orgId, orgName } = props
   const location = useLocation()
   const data = location?.state
   const title = data?.jit_name || ''
@@ -14,12 +14,23 @@ const LocalEducationReview = (props) => {
       link: '/organizations/list',
     },
     {
+      title: orgName,
+      link: '/organizations/dashboard',
+      state: {
+        id: orgId,
+        name: orgName,
+      },
+    },
+    {
       title: 'Local Education',
       link: '/organizations/local-education/list',
       state: { orgId },
     },
     {
-      title: `In-Review: ${title}`,
+      title,
+    },
+    {
+      title: `In-Review`,
     },
   ]
 
