@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Form, Button, Space, notification } from 'antd'
 import _ from 'lodash'
 
@@ -25,6 +25,7 @@ const ComponentForm = (props) => {
     onCreate,
     onEdit,
     onChangeValue,
+    onClose,
   } = props
   const backref = initialValues?.backref
 
@@ -101,7 +102,7 @@ const ComponentForm = (props) => {
             message: `A component has been deleted successfully!`,
           })
           navigate('/organizations/components/list', {
-            state: { orgId, orgName: initialValues.orgName },
+            state: { orgId, orgName: orgName },
           })
         })
         .catch((error) => {
@@ -151,10 +152,8 @@ const ComponentForm = (props) => {
             <div />
           )}
           <Space>
-            <Button size="large">
-              <Link to={`/organizations/components/list`} state={{ orgId, orgName }}>
-                Close
-              </Link>
+            <Button size="large" onClick={onClose}>
+              Close
             </Button>
             {isChanged && (
               <React.Fragment>

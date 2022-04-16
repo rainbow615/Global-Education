@@ -174,6 +174,12 @@ const ComponentLink = (props) => {
     setIsFormChange(isCheck)
   }
 
+  const onClose = () => {
+    navigate(`/organizations/components/list`, {
+      state: { orgId, orgName },
+    })
+  }
+
   return (
     <ComponentForm
       initialValues={data}
@@ -185,6 +191,7 @@ const ComponentLink = (props) => {
       onCreate={onCreate}
       onEdit={onEdit}
       onChangeValue={onChangeValue}
+      onClose={onClose}
     >
       <Form.Item label="Content" validateStatus={errorMsg ? 'error' : undefined} help={errorMsg}>
         <CustomCkEditor

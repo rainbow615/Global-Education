@@ -173,6 +173,12 @@ const ComponentMedication = (props) => {
     setIsFormChange({ ...isFormChange, main: isCheck })
   }
 
+  const onClose = () => {
+    navigate(`/organizations/components/list`, {
+      state: { orgId, orgName },
+    })
+  }
+
   return (
     <ComponentForm
       isNew={isNew}
@@ -184,6 +190,7 @@ const ComponentMedication = (props) => {
       onCreate={onCreate}
       onEdit={onEdit}
       onChangeValue={onChangeValue}
+      onClose={onClose}
     >
       <Form.Item
         label="Content"

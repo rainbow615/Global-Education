@@ -113,6 +113,12 @@ const ComponentSection = (props) => {
     setIsFormChange(isCheck)
   }
 
+  const onClose = () => {
+    navigate(`/organizations/components/list`, {
+      state: { orgId, orgName },
+    })
+  }
+
   return (
     <ComponentForm
       initialValues={data}
@@ -124,6 +130,7 @@ const ComponentSection = (props) => {
       onCreate={onCreate}
       onEdit={onEdit}
       onChangeValue={onChangeValue}
+      onClose={onClose}
     >
       <Form.Item
         label="Content"
