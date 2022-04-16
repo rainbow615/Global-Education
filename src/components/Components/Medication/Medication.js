@@ -6,7 +6,7 @@ import Switch from 'react-switch'
 import { createComponent, updateComponent } from '../../../services/componentService'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../../Components/Form'
-import { DOSE_UNITS, FORMULARY_UNIT } from '../../../config/constants'
+import { COMPONENT_FORM_ROLE, DOSE_UNITS, FORMULARY_UNIT } from '../../../config/constants'
 import { MEDICATION_TAGS } from '../../../config/tags'
 import { COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
@@ -17,7 +17,7 @@ const { Option } = Select
 const { Text } = Typography
 
 const ComponentMedication = (props) => {
-  const { isNew, orgId, orgName, data } = props
+  const { isNew, orgId, orgName, data, role, onSuccessSubmit } = props
   const navigate = useNavigate()
 
   const [initial] = useState({
@@ -62,7 +62,7 @@ const ComponentMedication = (props) => {
   const onCreate = (values) => {
     setErrorMsg('')
 
-    if (values.component_content === data.component_content) {
+    if (values.component_content === data?.component_content) {
       setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[3].id))
       return
     }
@@ -100,10 +100,14 @@ const ComponentMedication = (props) => {
           message: 'A new medication component has been created successfully!',
         })
 
-        if (res && res.data) {
-          navigate(`/organizations/components/form/${COMPONENTS_TYPES[3].id}/edit`, {
-            state: { ...res.data, orgId, orgName: data.orgName },
-          })
+        if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
+          onSuccessSubmit()
+        } else {
+          if (res && res.data) {
+            navigate(`/organizations/components/form/${COMPONENTS_TYPES[3].id}/edit`, {
+              state: { ...res.data, orgId, orgName: data?.orgName },
+            })
+          }
         }
       })
       .catch((error) => {
@@ -174,9 +178,13 @@ const ComponentMedication = (props) => {
   }
 
   const onClose = () => {
-    navigate(`/organizations/components/list`, {
-      state: { orgId, orgName },
-    })
+    if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
+      onSuccessSubmit()
+    } else {
+      navigate(`/organizations/components/list`, {
+        state: { orgId, orgName },
+      })
+    }
   }
 
   return (

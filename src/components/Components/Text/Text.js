@@ -5,7 +5,7 @@ import { Form, Select, Row, Col, notification } from 'antd'
 import { createComponent, updateComponent } from '../../../services/componentService'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../Form'
-import { COMPONENTS_TYPES } from '../../../config/constants'
+import { COMPONENT_FORM_ROLE, COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
 import { getDuplicationMsg } from '../../../utils/names'
 
@@ -13,7 +13,7 @@ const { Option } = Select
 const Tags = []
 
 const ComponentText = (props) => {
-  const { isNew, orgId, orgName, data } = props
+  const { isNew, orgId, orgName, data, role, onSuccessSubmit } = props
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)
@@ -35,7 +35,7 @@ const ComponentText = (props) => {
 
     setContent(newValue)
 
-    if (newValue !== data.component_content) {
+    if (newValue !== data?.component_content) {
       setIsFormChange(true)
     }
   }
@@ -48,7 +48,7 @@ const ComponentText = (props) => {
       return
     }
 
-    if (content === data.component_content) {
+    if (content === data?.component_content) {
       setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[1].id))
       return
     }
@@ -73,10 +73,14 @@ const ComponentText = (props) => {
         setIsFormChange(false)
         notification.success({ message: 'A new Text component has been created successfully!' })
 
-        if (res && res.data) {
-          navigate(`/organizations/components/form/${COMPONENTS_TYPES[1].id}/edit`, {
-            state: { ...res.data, orgId, orgName: data.orgName },
-          })
+        if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
+          onSuccessSubmit()
+        } else {
+          if (res && res.data) {
+            navigate(`/organizations/components/form/${COMPONENTS_TYPES[1].id}/edit`, {
+              state: { ...res.data, orgId, orgName: orgName },
+            })
+          }
         }
       })
       .catch((error) => {
@@ -136,9 +140,13 @@ const ComponentText = (props) => {
   }
 
   const onClose = () => {
-    navigate(`/organizations/components/list`, {
-      state: { orgId, orgName },
-    })
+    if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
+      onSuccessSubmit()
+    } else {
+      navigate(`/organizations/components/list`, {
+        state: { orgId, orgName },
+      })
+    }
   }
 
   return (

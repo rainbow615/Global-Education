@@ -4,7 +4,7 @@ import { Button, Form, Space, Typography, notification } from 'antd'
 
 import { createComponent, updateComponent } from '../../../services/componentService'
 import { useProtocol } from '../../../services/protocolService'
-import { COMPONENTS_TYPES } from '../../../config/constants'
+import { COMPONENT_FORM_ROLE, COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
 import { getDuplicationMsg } from '../../../utils/names'
 import ComponentForm from '../Form'
@@ -17,7 +17,7 @@ import { ProtocolView } from './styles'
 const { Text } = Typography
 
 const ComponentLink = (props) => {
-  const { orgId, orgName, isNew, data } = props
+  const { orgId, orgName, isNew, data, role, onSuccessSubmit } = props
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)
@@ -54,7 +54,7 @@ const ComponentLink = (props) => {
 
     setContent(newValue)
 
-    if (newValue !== data.component_content) {
+    if (newValue !== data?.component_content) {
       setIsFormChange(true)
     }
   }
@@ -87,7 +87,7 @@ const ComponentLink = (props) => {
       return
     }
 
-    if (content === data.component_content) {
+    if (content === data?.component_content) {
       setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[4].id))
       return
     }
@@ -112,10 +112,14 @@ const ComponentLink = (props) => {
         setIsFormChange(false)
         notification.success({ message: 'A new Link component has been created successfully!' })
 
-        if (res && res.data) {
-          navigate(`/organizations/components/form/${COMPONENTS_TYPES[4].id}/edit`, {
-            state: { ...res.data, orgId, orgName: data.orgName },
-          })
+        if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
+          onSuccessSubmit()
+        } else {
+          if (res && res.data) {
+            navigate(`/organizations/components/form/${COMPONENTS_TYPES[4].id}/edit`, {
+              state: { ...res.data, orgId, orgName: orgName },
+            })
+          }
         }
       })
       .catch((error) => {
@@ -175,9 +179,13 @@ const ComponentLink = (props) => {
   }
 
   const onClose = () => {
-    navigate(`/organizations/components/list`, {
-      state: { orgId, orgName },
-    })
+    if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
+      onSuccessSubmit()
+    } else {
+      navigate(`/organizations/components/list`, {
+        state: { orgId, orgName },
+      })
+    }
   }
 
   return (
