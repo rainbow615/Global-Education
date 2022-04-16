@@ -8,6 +8,7 @@ export const ProtocolView = styled.div`
   min-height: 64px;
   padding: 20px;
   margin-top: 16px;
+  border: 1px solid ${(props) => props.theme.palette.borderColor};
 
   button {
     display: none;
