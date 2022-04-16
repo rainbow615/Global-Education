@@ -174,3 +174,7 @@ export const DOSE_UNITS = [
 ]
 
 export const FORMULARY_UNIT = ['g/ml', 'mcg/ml', 'mEq/ml', 'mg/ml', 'units/ml']
+
+export const COMPONENT_FORM_ROLE = {
+  ONLY_CREATE: 'only_create'
+}

@@ -59,8 +59,6 @@ const ComponentsMenu = (props) => {
     </AddMenu>
   )
 
-  console.log('=========disabledComponents', disabledComponents)
-
   return (
     <div>
       <Popover
