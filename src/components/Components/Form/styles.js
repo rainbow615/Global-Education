@@ -46,7 +46,8 @@ export const EducationsView = styled(Space)`
 
   .ant-list {
     background-color: white;
-    height: 215px;
+    border: 1px solid ${(props) => props.theme.palette.borderColor};
+    height: 217px;
     overflow-y: auto;
     padding: 24px;
   }

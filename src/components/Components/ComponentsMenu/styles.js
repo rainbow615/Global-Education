@@ -41,7 +41,7 @@ export const ScrollView = styled.div`
   overflow-y: auto;
   padding: 10px 10px 10px 0;
   margin-top: 20px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${(props) => props.theme.palette.borderColor};
 
   .ant-menu {
     border: 0;
