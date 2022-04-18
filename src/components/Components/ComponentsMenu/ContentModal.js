@@ -46,6 +46,12 @@ const ContentModal = (props) => {
     mutate()
   }
 
+  const onCancelModal = () => {
+    setSearchText('')
+    setIsShowNewForm(false)
+    onCancel()
+  }
+
   const dataSource = components?.data
     ? map(components.data, (record) => {
         const type = get(record, 'component_type')
@@ -69,7 +75,7 @@ const ContentModal = (props) => {
     : []
 
   return (
-    <ModalContainer width="70%" visible={visible} footer={null} onCancel={onCancel}>
+    <ModalContainer width="70%" visible={visible} footer={null} onCancel={onCancelModal}>
       {!isShowNewForm && (
         <div>
           <ModalHeader>
