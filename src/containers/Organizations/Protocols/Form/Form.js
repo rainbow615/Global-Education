@@ -231,7 +231,7 @@ const OrgProtocolsForm = (props) => {
               </Select>
             </Form.Item>
           </Form.Item>
-          <BodyBuilder />
+          <BodyBuilder orgId={orgId} />
           <FormActionButtons>
             {type === 'edit' && id && (
               <ConfirmActionButton

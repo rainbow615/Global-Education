@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Menu, Space } from 'antd'
+import { Space } from 'antd'
 
 export const Root = styled(Space)`
   width: 100%;

@@ -10,6 +10,8 @@ import { ResultFailed } from '../../ResultPages'
 import ComponentMedication from '../Medication'
 import ComponentLink from '../Link'
 import ComponentText from '../Text'
+import ComponentBlock from '../Block'
+import ComponentSection from '../Section'
 import { ModalContainer, ModalHeader, ScrollView, HTMLViewer, EmptyText } from './styles'
 
 const { Search } = Input
@@ -128,6 +130,22 @@ const ContentModal = (props) => {
           )}
           {componentType === 'text' && (
             <ComponentText
+              orgId={orgId}
+              isNew
+              role={COMPONENT_FORM_ROLE.ONLY_CREATE}
+              onSuccessSubmit={onSuccessSubmit}
+            />
+          )}
+          {componentType === 'section' && (
+            <ComponentSection
+              orgId={orgId}
+              isNew
+              role={COMPONENT_FORM_ROLE.ONLY_CREATE}
+              onSuccessSubmit={onSuccessSubmit}
+            />
+          )}
+          {componentType === 'block' && (
+            <ComponentBlock
               orgId={orgId}
               isNew
               role={COMPONENT_FORM_ROLE.ONLY_CREATE}

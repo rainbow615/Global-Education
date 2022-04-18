@@ -1,38 +1,33 @@
-import React from 'react'
-import { Button, Menu, Space, Typography, Popover } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import React, { useState } from 'react'
+import { Space, Typography } from 'antd'
 
 import { NEW_COMPONENTS_MENU } from '../../../../../config/constants'
-import { AddMenu } from '../../../../../components/Components/ComponentsMenu/styles'
+import ComponentsMenu from '../../../../../components/Components/ComponentsMenu'
 import BodyList from './List'
 import { Root } from './styles'
 
 const { Text } = Typography
 
-const BodyBuilder = () => {
-  const menu = (
-    <AddMenu>
-      {NEW_COMPONENTS_MENU.map((type, index) => (
-        <Menu.Item key={index}>
-          <Text>{type.name}</Text>
-          <Text className="short-key">{type.shortKeyLabel}</Text>
-        </Menu.Item>
-      ))}
-    </AddMenu>
-  )
+const BodyBuilder = (props) => {
+  const { orgId } = props
+
+  const [selectedComponents, setSelectedComponents] = useState([])
+
+  const onAddComponent = (component) => {
+    const newList = [...selectedComponents, component]
+    setSelectedComponents(newList)
+  }
 
   return (
     <Root size="middle" direction="vertical">
       <Space>
         <Text>{`Body `}</Text>
-        <Popover
-          content={menu}
-          placement="bottomLeft"
-          trigger="click"
-          overlayClassName="custom-popover no-padding-content"
-        >
-          <Button icon={<PlusOutlined />} size="small" />
-        </Popover>
+        <ComponentsMenu
+          orgId={orgId}
+          list={NEW_COMPONENTS_MENU}
+          onSelect={onAddComponent}
+          disabledComponents={selectedComponents}
+        />
       </Space>
       <BodyList />
     </Root>

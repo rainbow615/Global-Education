@@ -9,13 +9,20 @@ import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../Form'
 import ComponentsMenu from '../ComponentsMenu'
 import SubComponentList from './SubComponentsList'
-import { COMPONENT_FORM_ROLE, COMPONENTS_TYPES } from '../../../config/constants'
+import {
+  COMPONENT_FORM_ROLE,
+  COMPONENTS_TYPES,
+  NEW_COMPONENTS_MENU,
+} from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
 import { getDuplicationMsg } from '../../../utils/names'
 
 const { Option } = Select
 const { Text } = Typography
 const Tags = []
+const subComponentsMenu = NEW_COMPONENTS_MENU.filter(
+  (obj) => obj.id !== 'block' && obj.id !== 'section'
+)
 
 const ComponentBlock = (props) => {
   const { orgId, orgName, isNew, data, role, onSuccessSubmit } = props
@@ -258,6 +265,7 @@ const ComponentBlock = (props) => {
           <Text>{`Block Subcomponents `}</Text>
           <ComponentsMenu
             orgId={orgId}
+            list={subComponentsMenu}
             onSelect={onAddComponent}
             disabledComponents={selectedComponents}
           />
