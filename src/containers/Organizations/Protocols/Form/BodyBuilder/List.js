@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import _ from 'lodash'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { Collapse, Tag } from 'antd'
-import { HolderOutlined } from '@ant-design/icons'
+import { Button, Collapse, Space, Tag } from 'antd'
+import { HolderOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import { getFirstLetter } from '../../../../../utils'
 import { ListSection, PanelHeader } from './styles'
@@ -22,7 +23,7 @@ const bodyData = [
   {
     component_id: '3',
     component_type: 'block',
-    component_content: 'IV SO',
+    component_content: 'IV SOIV SOIV SOIV SOIV SOIV SO',
   },
 ]
 
@@ -61,6 +62,25 @@ const BodyList = () => {
     setList(items)
   }
 
+  const onRemove = (id) => (e) => {
+    e.stopPropagation()
+
+    const index = _.findIndex(list, { component_id: id })
+    console.log('======list', list, index)
+    const items = [...list]
+    items.splice(index, 1)
+
+    setList(items)
+  }
+
+  const getRemoveBar = (id) => (
+    <Button
+      icon={<DeleteOutlined style={{ fontSize: 20, cursor: 'pointer' }} />}
+      className="remove-button"
+      onClick={onRemove(id)}
+    />
+  )
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -83,6 +103,9 @@ const BodyList = () => {
                       <Panel
                         header={
                           <PanelHeader>
+                            <Space className="remove-button-wrap">
+                              {getRemoveBar(item.component_id)}
+                            </Space>
                             <Tag>{getFirstLetter(item.component_type)}</Tag>
                             {item.component_content}
                           </PanelHeader>

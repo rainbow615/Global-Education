@@ -25,5 +25,26 @@ export const ListSection = styled.div`
 `
 
 export const PanelHeader = styled.div`
-  padding-right: 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0px 30px 0px 45px;
+
+  .remove-button-wrap {
+    position: absolute;
+    left: 0;
+    width: 20%;
+    min-width: 100px;
+    height: 100%;
+
+    .remove-button {
+      visibility: hidden;
+    }
+
+    &:hover {
+      .remove-button {
+        visibility: visible;
+      }
+    }
+  }
 `
