@@ -129,6 +129,10 @@ const ComponentLink = (props) => {
           message: 'Save failed!',
           description: error?.data || '',
         })
+
+        if (error?.status === 409) {
+          setErrorMsg(error?.data || '')
+        }
       })
   }
 
@@ -169,6 +173,10 @@ const ComponentLink = (props) => {
           message: 'Modify failed!',
           description: error?.data || '',
         })
+
+        if (error?.status === 409) {
+          setErrorMsg(error?.data || '')
+        }
       })
   }
 

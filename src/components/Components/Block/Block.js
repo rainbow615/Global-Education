@@ -168,6 +168,10 @@ const ComponentBlock = (props) => {
           message: 'Save failed!',
           description: error?.data || '',
         })
+
+        if (error?.status === 409) {
+          setErrorMsg(error?.data || '')
+        }
       })
   }
 
@@ -212,6 +216,10 @@ const ComponentBlock = (props) => {
           message: 'Modify failed!',
           description: error?.data || '',
         })
+
+        if (error?.status === 409) {
+          setErrorMsg(error?.data || '')
+        }
       })
   }
 
