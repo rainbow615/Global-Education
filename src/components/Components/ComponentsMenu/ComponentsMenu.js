@@ -37,7 +37,7 @@ const ComponentsMenu = (props) => {
     const isExist = _.findIndex(disabledComponents, { component_id: id })
 
     if (isExist >= 0) {
-        notification.error({ message: 'You already added this component.' })
+      notification.error({ message: 'You already added this component.' })
     } else {
       onSelect && onSelect(component)
       notification.info({ message: 'A component has been added.' })

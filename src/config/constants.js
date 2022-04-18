@@ -61,7 +61,8 @@ export const JIT_ACTIONS = {
 export const JIT_CONFIRM_MSG = {
   DELETE_DRAFT:
     "You are about to delete this draft. It will not be recoverable after this action. Type 'DELETE' to confirm.",
-  DELETE: "You are about to delete this Education Document. It will not be recoverable after this action. Type 'DELETE' to confirm.",
+  DELETE:
+    "You are about to delete this Education Document. It will not be recoverable after this action. Type 'DELETE' to confirm.",
   PUBLISHED: "You are about to publish this Education Document. Type 'PUBLISH' to confirm.",
   UNPUBLISHED: "You are about to unpublish this Education Document. Type 'UNPUBLISH' to confirm.",
 }
@@ -78,7 +79,8 @@ export const PROTOCOL_ACTIONS = {
 export const PROTOCOLS_CONFIRM_MSG = {
   DELETE_DRAFT:
     "You are about to delete this draft. It will not be recoverable after this action. Type 'DELETE' to confirm.",
-  DELETE: "You are about to delete this Protocol. It will not be recoverable after this action. Type 'DELETE' to confirm.",
+  DELETE:
+    "You are about to delete this Protocol. It will not be recoverable after this action. Type 'DELETE' to confirm.",
   PUBLISHED: "You are about to publish this Protocol. Type 'PUBLISH' to confirm.",
   UNPUBLISHED: "You are about to unpublish this protocol. Type 'UNPUBLISH' to confirm.",
 }
@@ -131,7 +133,8 @@ export const NEW_COMPONENTS_MENU = [
 ]
 
 export const COMPONENTS_CONFIRM_MSG = {
-  DELETE: "You are about to delete this component. It will not be recoverable after this action. Type 'DELETE' to confirm.",
+  DELETE:
+    "You are about to delete this component. It will not be recoverable after this action. Type 'DELETE' to confirm.",
 }
 
 export const DOSE_UNITS = [
