@@ -5,7 +5,7 @@ import Switch from 'react-switch'
 
 import { createComponent, updateComponent } from '../../../services/componentService'
 import ComponentForm from '../Form'
-import { COMPONENTS_TYPES } from '../../../config/constants'
+import { COMPONENT_FORM_ROLE, COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
 import { getDuplicationMsg } from '../../../utils/names'
 
@@ -13,7 +13,7 @@ const { Option } = Select
 const Tags = []
 
 const ComponentSection = (props) => {
-  const { orgId, orgName, isNew, data } = props
+  const { orgId, orgName, isNew, data, role, onSuccessSubmit } = props
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)
@@ -56,10 +56,14 @@ const ComponentSection = (props) => {
         setIsFormChange(false)
         notification.success({ message: 'A new section component has been created successfully!' })
 
-        if (res && res.data) {
-          navigate(`/organizations/components/form/${COMPONENTS_TYPES[0].id}/edit`, {
-            state: { ...res.data, orgId, orgName: data.orgName },
-          })
+        if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
+          onSuccessSubmit()
+        } else {
+          if (res && res.data) {
+            navigate(`/organizations/components/form/${COMPONENTS_TYPES[0].id}/edit`, {
+              state: { ...res.data, orgId, orgName: data.orgName },
+            })
+          }
         }
       })
       .catch((error) => {
@@ -114,9 +118,13 @@ const ComponentSection = (props) => {
   }
 
   const onClose = () => {
-    navigate(`/organizations/components/list`, {
-      state: { orgId, orgName },
-    })
+    if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
+      onSuccessSubmit()
+    } else {
+      navigate(`/organizations/components/list`, {
+        state: { orgId, orgName },
+      })
+    }
   }
 
   return (

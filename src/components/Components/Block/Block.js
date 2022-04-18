@@ -9,7 +9,7 @@ import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
 import ComponentForm from '../Form'
 import ComponentsMenu from '../ComponentsMenu'
 import SubComponentList from './SubComponentsList'
-import { COMPONENTS_TYPES } from '../../../config/constants'
+import { COMPONENT_FORM_ROLE, COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
 import { getDuplicationMsg } from '../../../utils/names'
 
@@ -18,7 +18,7 @@ const { Text } = Typography
 const Tags = []
 
 const ComponentBlock = (props) => {
-  const { orgId, orgName, isNew, data } = props
+  const { orgId, orgName, isNew, data, role, onSuccessSubmit } = props
   const componentChildren = (data?.component_children || []).map((obj) => ({
     component_id: obj.child_component_id,
     component_order: obj.child_component_order,
@@ -132,10 +132,14 @@ const ComponentBlock = (props) => {
                 message: 'A new block component has been created successfully!',
               })
 
-              if (res && res.data) {
-                navigate(`/organizations/components/form/${COMPONENTS_TYPES[2].id}/edit`, {
-                  state: { ...res.data, orgId, orgName: data.orgName },
-                })
+              if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
+                onSuccessSubmit()
+              } else {
+                if (res && res.data) {
+                  navigate(`/organizations/components/form/${COMPONENTS_TYPES[2].id}/edit`, {
+                    state: { ...res.data, orgId, orgName: data.orgName },
+                  })
+                }
               }
             })
             .catch((error) => {
@@ -211,9 +215,13 @@ const ComponentBlock = (props) => {
   }
 
   const onClose = () => {
-    navigate(`/organizations/components/list`, {
-      state: { orgId, orgName },
-    })
+    if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
+      onSuccessSubmit()
+    } else {
+      navigate(`/organizations/components/list`, {
+        state: { orgId, orgName },
+      })
+    }
   }
 
   return (

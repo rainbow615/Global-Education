@@ -66,7 +66,6 @@ const BodyList = () => {
     e.stopPropagation()
 
     const index = _.findIndex(list, { component_id: id })
-    console.log('======list', list, index)
     const items = [...list]
     items.splice(index, 1)
 
