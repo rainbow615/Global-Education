@@ -55,7 +55,7 @@ const ComponentBlock = (props) => {
 
     setContent(newValue)
 
-    if (newValue !== data.component_content) {
+    if (newValue !== data?.component_content) {
       setIsFormChange(true)
     }
   }
@@ -102,7 +102,7 @@ const ComponentBlock = (props) => {
       return
     }
 
-    if (content === data.component_content) {
+    if (content === data?.component_content) {
       setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[2].id))
       return
     }
@@ -144,7 +144,7 @@ const ComponentBlock = (props) => {
               } else {
                 if (res && res.data) {
                   navigate(`/organizations/components/form/${COMPONENTS_TYPES[2].id}/edit`, {
-                    state: { ...res.data, orgId, orgName: data.orgName },
+                    state: { ...res.data, orgId, orgName: orgName },
                   })
                 }
               }

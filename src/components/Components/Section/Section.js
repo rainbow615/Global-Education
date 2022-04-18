@@ -31,7 +31,7 @@ const ComponentSection = (props) => {
   const onCreate = (values) => {
     setErrorMsg('')
 
-    if (values.component_content === data.component_content) {
+    if (values.component_content === data?.component_content) {
       setErrorMsg(getDuplicationMsg(COMPONENTS_TYPES[0].id))
       return
     }
@@ -61,7 +61,7 @@ const ComponentSection = (props) => {
         } else {
           if (res && res.data) {
             navigate(`/organizations/components/form/${COMPONENTS_TYPES[0].id}/edit`, {
-              state: { ...res.data, orgId, orgName: data.orgName },
+              state: { ...res.data, orgId, orgName: orgName },
             })
           }
         }
