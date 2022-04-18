@@ -27,7 +27,14 @@ const OrgComponentsList = (props) => {
       link: '/organizations/list',
     },
     {
-      title: `${orgName}`,
+      title: orgName,
+      link: '/organizations/dashboard',
+      state: { id: orgId, name: orgName },
+    },
+    {
+      title: `Components`,
+      link: '/organizations/components/list',
+      state: { orgId, orgName },
     },
     {
       title: 'Components',

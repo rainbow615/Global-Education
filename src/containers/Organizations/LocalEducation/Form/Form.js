@@ -4,11 +4,28 @@ import { useLocation, useParams } from 'react-router-dom'
 import EducationForm from '../../../../components/Education/Form'
 
 const LocalEducationForm = (props) => {
-  const { orgId } = props
+  const { orgId, orgName } = props
   const { type } = useParams()
   const location = useLocation()
   const jitData = location?.state
   const breadCrumb = [
+    {
+      title: 'Organizations',
+      link: '/organizations/list',
+    },
+    {
+      title: orgName,
+      link: '/organizations/dashboard',
+      state: {
+        id: orgId,
+        name: orgName,
+      },
+    },
+    {
+      title: 'Local Education',
+      link: '/organizations/local-education/list',
+      state: { orgId },
+    },
     {
       title: 'Organizations',
       link: '/organizations/list',

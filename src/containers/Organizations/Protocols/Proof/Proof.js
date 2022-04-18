@@ -31,12 +31,20 @@ const Proof = (props) => {
       link: '/organizations/list',
     },
     {
-      title: `${orgName} Protocols`,
+      title: orgName,
+      link: '/organizations/dashboard',
+      state: { id: orgId, name: orgName },
+    },
+    {
+      title: `Protocols`,
       link: '/organizations/protocols/list',
       state: { orgId, orgName },
     },
     {
-      title: `${title} Proof`,
+      title,
+    },
+    {
+      title: 'Proof',
     },
   ]
 

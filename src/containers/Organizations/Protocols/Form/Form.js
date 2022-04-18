@@ -37,12 +37,20 @@ const OrgProtocolsForm = (props) => {
       link: '/organizations/list',
     },
     {
-      title: `${orgName} Protocols`,
+      title: orgName,
+      link: '/organizations/dashboard',
+      state: { id: orgId, name: orgName },
+    },
+    {
+      title: `Protocols`,
       link: '/organizations/protocols/list',
       state: { orgId, orgName },
     },
     {
-      title: type === 'edit' ? `${title} Draft` : 'Builder',
+      title,
+    },
+    {
+      title: type === 'edit' ? `Draft` : 'Builder',
     },
   ]
 
