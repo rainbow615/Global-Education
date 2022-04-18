@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Menu, Space, Tag, Input } from 'antd'
-import { map, get } from 'lodash'
+import _, { map, get } from 'lodash'
 
 import { useComponents } from '../../../services/componentService'
 import { regExpEscape, getFirstLetter } from '../../../utils'
@@ -12,14 +12,23 @@ import ComponentLink from '../Link'
 import ComponentText from '../Text'
 import ComponentBlock from '../Block'
 import ComponentSection from '../Section'
-import { ModalContainer, ModalHeader, ScrollView, HTMLViewer, EmptyText } from './styles'
+import {
+  ModalContainer,
+  ModalHeader,
+  ScrollView,
+  HTMLViewer,
+  EmptyText,
+  ModalFooter,
+} from './styles'
 
 const { Search } = Input
 
 const ContentModal = (props) => {
-  const { orgId, visible, componentType, onCancel, onSelect } = props
+  const { orgId, visible, componentType, disabledComponents, onCancel, onSelect } = props
 
   const [searchText, setSearchText] = useState('')
+  const [selectedKey, setSelectedKey] = useState(-1)
+  const [selectedComponent, setSelectedComponent] = useState(null)
   const [isShowNewForm, setIsShowNewForm] = useState(false)
 
   const { data: components, error, mutate } = useComponents(orgId)
@@ -33,8 +42,14 @@ const ContentModal = (props) => {
   }
 
   const onSelectItem = (e) => {
-    setSearchText('')
-    onSelect(dataSource[e.key])
+    setSelectedComponent(dataSource[e.key])
+    setSelectedKey(e.key)
+  }
+
+  const onAddComponent = () => {
+    onSelect(selectedComponent)
+    setSelectedComponent(null)
+    setSelectedKey(-1)
   }
 
   const onOpenNewForm = () => {
@@ -60,6 +75,13 @@ const ContentModal = (props) => {
           return null
         }
 
+        const id = get(record, 'component_id')
+        const isExist = _.findIndex(disabledComponents, { component_id: id })
+
+        if (isExist >= 0) {
+          return null
+        }
+
         if (searchText) {
           const reg = new RegExp(regExpEscape(searchText), 'gi')
           const typeMatch = type.match(reg)
@@ -79,7 +101,7 @@ const ContentModal = (props) => {
       {!isShowNewForm && (
         <div>
           <ModalHeader>
-            <Button type="primary" onClick={onOpenNewForm}>
+            <Button danger onClick={onOpenNewForm}>
               Add New
             </Button>
           </ModalHeader>
@@ -93,7 +115,7 @@ const ContentModal = (props) => {
           />
           <ScrollView>
             {!components.isLoading && (
-              <Menu onSelect={onSelectItem} selectedKeys="-1">
+              <Menu onSelect={onSelectItem} selectedKeys={[selectedKey]}>
                 {dataSource.map((item, index) => (
                   <Menu.Item key={index}>
                     <Space>
@@ -114,6 +136,11 @@ const ContentModal = (props) => {
             )}
             {components.isLoading && <CustomLoading />}
           </ScrollView>
+          <ModalFooter>
+            <Button type="primary" onClick={onAddComponent}>
+              Add
+            </Button>
+          </ModalFooter>
         </div>
       )}
       {isShowNewForm && (

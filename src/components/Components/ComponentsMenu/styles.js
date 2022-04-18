@@ -39,7 +39,7 @@ export const ScrollView = styled.div`
   width: 100%;
   height: 250px;
   overflow-y: auto;
-  padding: 10px 10px 10px 0;
+  padding: 10px;
   margin-top: 20px;
   border: 1px solid ${(props) => props.theme.palette.borderColor};
 
@@ -47,7 +47,7 @@ export const ScrollView = styled.div`
     border: 0;
 
     .ant-menu-item {
-      height: 25px;
+      height: 28px;
       line-height: 25px;
     }
   }
@@ -69,4 +69,11 @@ export const EmptyText = styled.div`
   text-align: center;
   color: ${(props) => props.theme.palette.disabledText};
   font-style: italic;
+`
+
+export const ModalFooter = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
 `

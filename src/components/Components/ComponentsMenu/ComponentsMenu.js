@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Button, Popover, Menu, Typography, notification } from 'antd'
-import _ from 'lodash'
 import { PlusOutlined } from '@ant-design/icons'
 
 import ContentModal from './ContentModal'
@@ -32,15 +31,8 @@ const ComponentsMenu = (props) => {
   }
 
   const onSelectComponent = (component) => {
-    const id = component?.component_id
-    const isExist = _.findIndex(disabledComponents, { component_id: id })
-
-    if (isExist >= 0) {
-      notification.error({ message: 'You already added this component.' })
-    } else {
-      onSelect && onSelect(component)
-      notification.info({ message: 'A component has been added.' })
-    }
+    onSelect && onSelect(component)
+    notification.info({ message: 'A component has been added.' })
   }
 
   const menu = (
@@ -72,6 +64,7 @@ const ComponentsMenu = (props) => {
         orgId={orgId}
         componentType={selectedType}
         visible={visibleModal}
+        disabledComponents={disabledComponents}
         onSelect={onSelectComponent}
         onCancel={() => onChangeVisibleModal(false)}
       />
