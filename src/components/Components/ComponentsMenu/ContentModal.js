@@ -27,7 +27,6 @@ const matchedList = {
   link: ComponentLink,
   text: ComponentText,
   section: ComponentSection,
-  block: ComponentBlock,
 }
 
 const ContentModal = (props) => {
@@ -75,7 +74,10 @@ const ContentModal = (props) => {
   }
 
   const getNewForm = (id) => {
-    const TagName = matchedList[id]
+    let TagName = matchedList[id]
+
+    if (id === 'block') TagName = ComponentBlock
+
     return (
       <TagName
         orgId={orgId}
