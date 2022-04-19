@@ -18,6 +18,10 @@ const BodyBuilder = (props) => {
     setSelectedComponents(newList)
   }
 
+  const onChangeComponents = (components) => {
+    setSelectedComponents(components)
+  }
+
   return (
     <Root size="middle" direction="vertical">
       <Space>
@@ -29,7 +33,7 @@ const BodyBuilder = (props) => {
           disabledComponents={selectedComponents}
         />
       </Space>
-      <BodyList bodyData={selectedComponents} />
+      <BodyList bodyData={selectedComponents} onChange={onChangeComponents} />
     </Root>
   )
 }

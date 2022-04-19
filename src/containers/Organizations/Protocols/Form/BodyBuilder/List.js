@@ -18,19 +18,17 @@ const reorder = (list, startIndex, endIndex) => {
   return result
 }
 
-const getItemStyle = (isDragging, draggableStyle) => ({
+const getItemStyle = (draggableStyle, isDragging) => ({
   userSelect: 'none',
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgray' : 'white',
   margin: `0 0 10px 0`,
+  boxShadow: isDragging ? 'black 0px 0px 1px' : 'none',
 
   // styles we need to apply on draggables
   ...draggableStyle,
 })
 
 const BodyList = (props) => {
-  const { bodyData } = props
+  const { bodyData, onChange } = props
 
   const [list, setList] = useState([])
 
@@ -47,6 +45,7 @@ const BodyList = (props) => {
     const items = reorder(list, result.source.index, result.destination.index)
 
     setList(items)
+    onChange(items)
   }
 
   const onRemove = (id) => (e) => {
@@ -57,6 +56,7 @@ const BodyList = (props) => {
     items.splice(index, 1)
 
     setList(items)
+    onChange(items)
   }
 
   const getRemoveBar = (id) => (
@@ -66,8 +66,6 @@ const BodyList = (props) => {
       onClick={onRemove(id)}
     />
   )
-
-  console.log('======bodyData=', list, bodyData)
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -85,7 +83,7 @@ const BodyList = (props) => {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                    style={getItemStyle(provided.draggableProps.style, snapshot.isDragging)}
                   >
                     <Collapse expandIconPosition="right">
                       <Panel
@@ -103,7 +101,7 @@ const BodyList = (props) => {
                         key="1"
                         extra={getHandleBar()}
                       >
-                        <Collapse expandIconPosition="right">
+                        {/* <Collapse expandIconPosition="right">
                           <Panel
                             header={<PanelHeader>Monitor / EKG</PanelHeader>}
                             key="3"
@@ -111,21 +109,7 @@ const BodyList = (props) => {
                             showArrow={false}
                             collapsible="disabled"
                           />
-                        </Collapse>
-                        <Collapse expandIconPosition="right">
-                          <Panel
-                            header={
-                              <PanelHeader>
-                                Ant Design, a design language for background applications, is
-                                refined by Ant UED Team.
-                              </PanelHeader>
-                            }
-                            key="3"
-                            extra={getHandleBar()}
-                            showArrow={false}
-                            collapsible="disabled"
-                          />
-                        </Collapse>
+                        </Collapse> */}
                       </Panel>
                     </Collapse>
                   </div>
