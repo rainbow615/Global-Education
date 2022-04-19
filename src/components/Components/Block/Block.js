@@ -122,43 +122,28 @@ const ComponentBlock = (props) => {
       component_order: 1,
       linked_protocol: [],
       linked_education: values.linked_education,
+      component_children,
     }
 
     setIsLoading({ ...isLoading, create: true })
 
     createComponent(payload)
       .then((res) => {
-        const id = res?.data?.component_id
+        setIsLoading({ ...isLoading, create: false })
+        setIsFormChange(false)
 
-        if (id) {
-          updateComponent(id, { ...payload, component_children })
-            .then((res) => {
-              setIsLoading({ ...isLoading, create: false })
-              setIsFormChange(false)
-              notification.success({
-                message: 'A new block component has been created successfully!',
-              })
+        notification.success({
+          message: 'A new block component has been created successfully!',
+        })
 
-              if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
-                onSuccessSubmit()
-              } else {
-                if (res && res.data) {
-                  navigate(`/organizations/components/form/${COMPONENTS_TYPES[2].id}/edit`, {
-                    state: { ...res.data, orgId, orgName: orgName },
-                  })
-                }
-              }
-            })
-            .catch((error) => {
-              setIsLoading({ ...isLoading, create: false })
-
-              notification.error({
-                message: 'Save failed!',
-                description: error?.data || '',
-              })
-            })
+        if (role === COMPONENT_FORM_ROLE.ONLY_CREATE) {
+          onSuccessSubmit()
         } else {
-          setIsLoading({ ...isLoading, create: false })
+          if (res && res.data) {
+            navigate(`/organizations/components/form/${COMPONENTS_TYPES[2].id}/edit`, {
+              state: { ...res.data, orgId, orgName: orgName },
+            })
+          }
         }
       })
       .catch((error) => {
