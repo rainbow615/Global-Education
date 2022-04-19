@@ -53,8 +53,11 @@ const ContentModal = (props) => {
   }
 
   const onAddComponent = () => {
-    onSelect(selectedComponent)
-    setSelectedComponent(null)
+    if (selectedComponent) {
+      onSelect(selectedComponent)
+      setSelectedComponent(null)
+    }
+
     setSelectedKey(-1)
   }
 
@@ -158,7 +161,7 @@ const ContentModal = (props) => {
             {components.isLoading && <CustomLoading />}
           </ScrollView>
           <ModalFooter>
-            <Button type="primary" onClick={onAddComponent}>
+            <Button type="primary" onClick={onAddComponent} disabled={!selectedComponent}>
               Add
             </Button>
           </ModalFooter>
