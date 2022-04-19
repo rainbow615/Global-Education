@@ -22,6 +22,13 @@ import {
 } from './styles'
 
 const { Search } = Input
+const matchedList = {
+  medication: ComponentMedication,
+  link: ComponentLink,
+  text: ComponentText,
+  section: ComponentSection,
+  block: ComponentBlock,
+}
 
 const ContentModal = (props) => {
   const { orgId, visible, componentType, disabledComponents, onCancel, onSelect } = props
@@ -65,6 +72,18 @@ const ContentModal = (props) => {
     setSearchText('')
     setIsShowNewForm(false)
     onCancel()
+  }
+
+  const getNewForm = (id) => {
+    const TagName = matchedList[id]
+    return (
+      <TagName
+        orgId={orgId}
+        isNew
+        role={COMPONENT_FORM_ROLE.ONLY_CREATE}
+        onSuccessSubmit={onSuccessSubmit}
+      />
+    )
   }
 
   const dataSource = components?.data
@@ -143,50 +162,7 @@ const ContentModal = (props) => {
           </ModalFooter>
         </div>
       )}
-      {isShowNewForm && (
-        <React.Fragment>
-          {componentType === 'medication' && (
-            <ComponentMedication
-              orgId={orgId}
-              isNew
-              role={COMPONENT_FORM_ROLE.ONLY_CREATE}
-              onSuccessSubmit={onSuccessSubmit}
-            />
-          )}
-          {componentType === 'link' && (
-            <ComponentLink
-              orgId={orgId}
-              isNew
-              role={COMPONENT_FORM_ROLE.ONLY_CREATE}
-              onSuccessSubmit={onSuccessSubmit}
-            />
-          )}
-          {componentType === 'text' && (
-            <ComponentText
-              orgId={orgId}
-              isNew
-              role={COMPONENT_FORM_ROLE.ONLY_CREATE}
-              onSuccessSubmit={onSuccessSubmit}
-            />
-          )}
-          {componentType === 'section' && (
-            <ComponentSection
-              orgId={orgId}
-              isNew
-              role={COMPONENT_FORM_ROLE.ONLY_CREATE}
-              onSuccessSubmit={onSuccessSubmit}
-            />
-          )}
-          {componentType === 'block' && (
-            <ComponentBlock
-              orgId={orgId}
-              isNew
-              role={COMPONENT_FORM_ROLE.ONLY_CREATE}
-              onSuccessSubmit={onSuccessSubmit}
-            />
-          )}
-        </React.Fragment>
-      )}
+      {isShowNewForm && componentType && getNewForm(componentType)}
     </ModalContainer>
   )
 }

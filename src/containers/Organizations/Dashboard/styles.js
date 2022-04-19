@@ -1,5 +1,5 @@
 import { EditOutlined } from '@ant-design/icons'
-import { Card, Space, Table } from 'antd'
+import { Card, Table } from 'antd'
 import styled from 'styled-components'
 
 export const DashboardContainer = styled.div({
