@@ -47,7 +47,6 @@ export const HTMLViewer = styled.div`
   }
 
   &.popup-item {
-    max-width: 245px;
     overflow: hidden;
   }
 `

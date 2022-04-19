@@ -48,3 +48,14 @@ export const PanelHeader = styled.div`
     }
   }
 `
+
+export const HTMLViewer = styled.div`
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  &.popup-item {
+    overflow: hidden;
+  }
+`

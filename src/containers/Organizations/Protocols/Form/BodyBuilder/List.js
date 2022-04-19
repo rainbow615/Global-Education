@@ -1,32 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import _ from 'lodash'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { Button, Collapse, Space, Tag } from 'antd'
 import { HolderOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import { getFirstLetter } from '../../../../../utils'
-import { ListSection, PanelHeader } from './styles'
+import { ListSection, PanelHeader, HTMLViewer } from './styles'
 
 const { Panel } = Collapse
-
-const bodyData = [
-  {
-    component_id: '1',
-    component_type: 'text',
-    component_content: 'BLS',
-  },
-  {
-    component_id: '2',
-    component_type: 'section',
-    component_content: 'ALS',
-  },
-  {
-    component_id: '3',
-    component_type: 'block',
-    component_content: 'IV SOIV SOIV SOIV SOIV SOIV SO',
-  },
-]
-
 const getHandleBar = () => <HolderOutlined style={{ fontSize: 22, cursor: 'pointer' }} />
 
 const reorder = (list, startIndex, endIndex) => {
@@ -48,8 +29,14 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
 })
 
-const BodyList = () => {
-  const [list, setList] = useState(bodyData)
+const BodyList = (props) => {
+  const { bodyData } = props
+
+  const [list, setList] = useState([])
+
+  useEffect(() => {
+    setList(bodyData)
+  }, [bodyData])
 
   const onDragEnd = (result) => {
     // dropped outside the list
@@ -80,6 +67,8 @@ const BodyList = () => {
     />
   )
 
+  console.log('======bodyData=', list, bodyData)
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -106,7 +95,9 @@ const BodyList = () => {
                               {getRemoveBar(item.component_id)}
                             </Space>
                             <Tag>{getFirstLetter(item.component_type)}</Tag>
-                            {item.component_content}
+                            <HTMLViewer
+                              dangerouslySetInnerHTML={{ __html: item.component_content }}
+                            />
                           </PanelHeader>
                         }
                         key="1"

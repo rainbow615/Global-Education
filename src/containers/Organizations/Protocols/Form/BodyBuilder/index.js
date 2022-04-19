@@ -29,7 +29,7 @@ const BodyBuilder = (props) => {
           disabledComponents={selectedComponents}
         />
       </Space>
-      <BodyList />
+      <BodyList bodyData={selectedComponents} />
     </Root>
   )
 }
