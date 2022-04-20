@@ -1,62 +1,61 @@
 import React, { useEffect, useState } from 'react'
-import _ from 'lodash'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { Button, Collapse, Space, Tag } from 'antd'
-import { HolderOutlined, DeleteOutlined } from '@ant-design/icons'
+import Nestable from 'react-nestable'
+import { Button, Space, Tag } from 'antd'
+import { HolderOutlined, DownOutlined, UpOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import { getFirstLetter } from '../../../../../utils'
-import { ListSection, PanelHeader, HTMLViewer } from './styles'
+import { ListSection, ListItem, HTMLViewer } from './styles'
 
-const { Panel } = Collapse
 const getHandleBar = () => <HolderOutlined style={{ fontSize: 22, cursor: 'pointer' }} />
-
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list)
-  const [removed] = result.splice(startIndex, 1)
-  result.splice(endIndex, 0, removed)
-
-  return result
+const getCollapseIcon = ({ isCollapsed }) => {
+  if (isCollapsed) return <DownOutlined style={{ fontSize: 16, cursor: 'pointer' }} />
+  else return <UpOutlined style={{ fontSize: 16, cursor: 'pointer' }} />
 }
 
-const getItemStyle = (draggableStyle, isDragging) => ({
-  userSelect: 'none',
-  margin: `0 0 10px 0`,
-  boxShadow: isDragging ? 'black 0px 0px 1px' : 'none',
-
-  // styles we need to apply on draggables
-  ...draggableStyle,
-})
+const items = [
+  {
+    id: 0,
+    component_id: '0',
+    component_content: 'Text component',
+    component_type: 'text',
+  },
+  {
+    id: 1,
+    component_id: '1',
+    component_content: 'Block component',
+    component_type: 'block',
+    accepts: ['medication', 'text', 'link'],
+    children: [
+      {
+        id: 2,
+        component_id: '2',
+        component_content: 'Link component',
+        component_type: 'link',
+      },
+    ],
+  },
+  {
+    id: 3,
+    component_id: '3',
+    component_content: 'Section component',
+    component_type: 'section',
+    accepts: ['block', 'medication', 'text', 'link'],
+    children: [
+      {
+        id: 4,
+        component_id: '4',
+        component_content: 'Medication component',
+        component_type: 'medication',
+      },
+    ],
+  },
+]
 
 const BodyList = (props) => {
   const { bodyData, onChange } = props
 
-  const [list, setList] = useState([])
-
-  useEffect(() => {
-    setList(bodyData)
-  }, [bodyData])
-
-  const onDragEnd = (result) => {
-    // dropped outside the list
-    if (!result.destination) {
-      return
-    }
-
-    const items = reorder(list, result.source.index, result.destination.index)
-
-    setList(items)
-    onChange(items)
-  }
-
   const onRemove = (id) => (e) => {
     e.stopPropagation()
-
-    const index = _.findIndex(list, { component_id: id })
-    const items = [...list]
-    items.splice(index, 1)
-
-    setList(items)
-    onChange(items)
   }
 
   const getRemoveBar = (id) => (
@@ -67,60 +66,39 @@ const BodyList = (props) => {
     />
   )
 
+  const renderItem = ({ item, collapseIcon, handler }) => {
+    return (
+      <ListItem>
+        <Space>
+          <Space className="remove-button-wrap">{getRemoveBar(item.component_id)}</Space>
+          <Tag>{getFirstLetter(item.component_type)}</Tag>
+          <HTMLViewer dangerouslySetInnerHTML={{ __html: item.component_content }} />
+        </Space>
+        <Space>
+          {collapseIcon}
+          {handler}
+        </Space>
+      </ListItem>
+    )
+  }
+
+  const confirmChange = ({ dragItem, destinationParent }) => {
+    // move to root level
+    if (!destinationParent) return true
+
+    return (destinationParent.accepts || []).indexOf(dragItem.component_type) > -1
+  }
+
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable">
-        {(provided, snapshot) => (
-          <ListSection
-            className="custom-collapse"
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
-            {list.map((item, index) => (
-              <Draggable key={item.component_id} draggableId={item.component_id} index={index}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(provided.draggableProps.style, snapshot.isDragging)}
-                  >
-                    <Collapse expandIconPosition="right">
-                      <Panel
-                        header={
-                          <PanelHeader>
-                            <Space className="remove-button-wrap">
-                              {getRemoveBar(item.component_id)}
-                            </Space>
-                            <Tag>{getFirstLetter(item.component_type)}</Tag>
-                            <HTMLViewer
-                              dangerouslySetInnerHTML={{ __html: item.component_content }}
-                            />
-                          </PanelHeader>
-                        }
-                        key="1"
-                        extra={getHandleBar()}
-                      >
-                        {/* <Collapse expandIconPosition="right">
-                          <Panel
-                            header={<PanelHeader>Monitor / EKG</PanelHeader>}
-                            key="3"
-                            extra={getHandleBar()}
-                            showArrow={false}
-                            collapsible="disabled"
-                          />
-                        </Collapse> */}
-                      </Panel>
-                    </Collapse>
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </ListSection>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <ListSection>
+      <Nestable
+        items={items}
+        renderItem={renderItem}
+        confirmChange={confirmChange}
+        handler={getHandleBar()}
+        renderCollapseIcon={getCollapseIcon}
+      />
+    </ListSection>
   )
 }
 

@@ -9,7 +9,7 @@ export const SubComponentRow = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 10px 20px 10px 55px;
+  padding: 10px 20px 10px 40px;
   margin-bottom: 3px;
   border: 1px solid ${(props) => props.theme.palette.borderColor};
   cursor: pointer;
@@ -22,7 +22,8 @@ export const SubComponentRow = styled.div`
 
     .remove-button {
       position: absolute;
-      left: 10px;
+      left: 5px;
+      border: 0;
       visibility: hidden;
     }
 
