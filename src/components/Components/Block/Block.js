@@ -29,9 +29,10 @@ const ComponentBlock = (props) => {
   const componentChildren = (data?.component_children || []).map((obj) => ({
     component_id: obj.child_component_id,
     component_order: obj.child_component_order,
-    component_content: '',
-    component_type: '',
+    component_content: obj.component_content,
+    component_type: obj.component_type,
   }))
+  
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)
