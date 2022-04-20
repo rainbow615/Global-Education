@@ -21,7 +21,7 @@ const { Option } = Select
 const { Text } = Typography
 const Tags = []
 const subComponentsMenu = NEW_COMPONENTS_MENU.filter(
-  (obj) => obj.id !== 'block' && obj.id !== 'section'
+  (obj) => obj.id !== COMPONENTS_TYPES[2].id && obj.id !== COMPONENTS_TYPES[0].id
 )
 
 const ComponentBlock = (props) => {
@@ -32,7 +32,7 @@ const ComponentBlock = (props) => {
     component_content: obj.child_component_content,
     component_type: obj.child_component_type,
   }))
-  
+
   const navigate = useNavigate()
 
   const [isFormChange, setIsFormChange] = useState(false)

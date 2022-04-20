@@ -4,7 +4,7 @@ import _, { map, get } from 'lodash'
 
 import { useComponents } from '../../../services/componentService'
 import { regExpEscape, getFirstLetter } from '../../../utils'
-import { COMPONENT_FORM_ROLE } from '../../../config/constants'
+import { COMPONENT_FORM_ROLE, COMPONENTS_TYPES } from '../../../config/constants'
 import CustomLoading from '../../Loading/Loading'
 import { ResultFailed } from '../../ResultPages'
 import ComponentMedication from '../Medication'
@@ -79,7 +79,7 @@ const ContentModal = (props) => {
   const getNewForm = (id) => {
     let TagName = matchedList[id]
 
-    if (id === 'block') TagName = ComponentBlock
+    if (id === COMPONENTS_TYPES[2].id) TagName = ComponentBlock
 
     return (
       <TagName
