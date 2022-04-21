@@ -12,47 +12,14 @@ const getCollapseIcon = ({ isCollapsed }) => {
   else return <UpOutlined style={{ fontSize: 16, cursor: 'pointer' }} />
 }
 
-const items = [
-  {
-    id: 0,
-    component_id: '0',
-    component_content: 'Text component',
-    component_type: 'text',
-  },
-  {
-    id: 1,
-    component_id: '1',
-    component_content: 'Block component',
-    component_type: 'block',
-    accepts: ['medication', 'text', 'link'],
-    children: [
-      {
-        id: 2,
-        component_id: '2',
-        component_content: 'Link component',
-        component_type: 'link',
-      },
-    ],
-  },
-  {
-    id: 3,
-    component_id: '3',
-    component_content: 'Section component',
-    component_type: 'section',
-    accepts: ['block', 'medication', 'text', 'link'],
-    children: [
-      {
-        id: 4,
-        component_id: '4',
-        component_content: 'Medication component',
-        component_type: 'medication',
-      },
-    ],
-  },
-]
-
 const BodyList = (props) => {
   const { bodyData, onChange } = props
+
+  const [list, setList] = useState([])
+
+  useEffect(() => {
+    setList(bodyData)
+  }, [bodyData])
 
   const onRemove = (id) => (e) => {
     e.stopPropagation()
@@ -70,7 +37,7 @@ const BodyList = (props) => {
     return (
       <ListItem>
         <Space>
-          <Space className="remove-button-wrap">{getRemoveBar(item.component_id)}</Space>
+          <Space className="remove-button-wrap">{getRemoveBar(item.id)}</Space>
           <Tag>{getFirstLetter(item.component_type)}</Tag>
           <HTMLViewer dangerouslySetInnerHTML={{ __html: item.component_content }} />
         </Space>
@@ -92,7 +59,7 @@ const BodyList = (props) => {
   return (
     <ListSection>
       <Nestable
-        items={items}
+        items={list}
         renderItem={renderItem}
         confirmChange={confirmChange}
         handler={getHandleBar()}
