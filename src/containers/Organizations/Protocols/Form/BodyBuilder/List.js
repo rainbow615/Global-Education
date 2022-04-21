@@ -22,7 +22,14 @@ const BodyList = (props) => {
   }, [bodyData])
 
   const onRemove = (id) => (e) => {
-    e.stopPropagation()
+    const newList = [...list]
+    // ----- delete code
+    setList(newList)
+    onChange(newList)
+  }
+
+  const onChangeList = ({ items }) => {
+    onChange(items)
   }
 
   const getRemoveBar = (id) => (
@@ -64,6 +71,7 @@ const BodyList = (props) => {
         confirmChange={confirmChange}
         handler={getHandleBar()}
         renderCollapseIcon={getCollapseIcon}
+        onChange={onChangeList}
       />
     </ListSection>
   )
