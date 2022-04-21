@@ -3,7 +3,7 @@ import Nestable from 'react-nestable'
 import { Button, Space, Tag } from 'antd'
 import { HolderOutlined, DownOutlined, UpOutlined, DeleteOutlined } from '@ant-design/icons'
 
-import { getFirstLetter } from '../../../../../utils'
+import { getFirstLetter, removeItemNested } from '../../../../../utils'
 import { ListSection, ListItem, HTMLViewer } from './styles'
 
 const getHandleBar = () => <HolderOutlined style={{ fontSize: 22, cursor: 'pointer' }} />
@@ -22,8 +22,9 @@ const BodyList = (props) => {
   }, [bodyData])
 
   const onRemove = (id) => (e) => {
-    const newList = [...list]
-    // ----- delete code
+    const newList = removeItemNested(list, id, 'id', 'children')
+    console.log('=======', newList)
+
     setList(newList)
     onChange(newList)
   }

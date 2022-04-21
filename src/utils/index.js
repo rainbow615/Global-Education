@@ -94,3 +94,48 @@ export const isChangedComponentForm = (oldObj, newObj, ignoreList) => {
 
   return false
 }
+
+export const findItemNested = (array, searchString, filterKeys, nestingKey) => {
+  return array.reduce((acc, { [nestingKey]: nested, ...o }) => {
+    if (filterKeys.some((k) => o[k] && o[k].includes(searchString))) acc.push(o)
+
+    if (nested) acc.push(...findItemNested(nested, searchString, filterKeys, nestingKey))
+
+    return acc
+  }, [])
+}
+
+export const removeItemNested = (array, searchString, filterKey, nestingKey) => {
+  const newArray = array
+    .map((obj) => {
+      if (obj[filterKey] === searchString) return null
+
+      if (obj[nestingKey] && obj[nestingKey].length > 0) {
+        const newChildren = obj[nestingKey]
+          .map((obj1) => {
+            if (obj1[filterKey] === searchString) return null
+
+            if (obj1[nestingKey] && obj1[nestingKey].length > 0) {
+              const newChildren1 = obj1[nestingKey]
+                .map((obj2) => {
+                  if (obj2[filterKey] === searchString) return null
+                  return obj2
+                })
+                .filter((obj2) => !!obj2)
+
+              obj1[nestingKey] = newChildren1
+            }
+
+            return obj1
+          })
+          .filter((obj1) => !!obj1)
+
+        obj[nestingKey] = newChildren
+      }
+
+      return obj
+    })
+    .filter((obj) => !!obj)
+
+  return newArray
+}

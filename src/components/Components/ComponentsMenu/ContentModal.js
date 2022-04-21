@@ -3,7 +3,7 @@ import { Button, Menu, Space, Tag, Input } from 'antd'
 import _, { map, get } from 'lodash'
 
 import { useComponents } from '../../../services/componentService'
-import { regExpEscape, getFirstLetter } from '../../../utils'
+import { regExpEscape, getFirstLetter, findItemNested } from '../../../utils'
 import { COMPONENT_FORM_ROLE, COMPONENTS_TYPES } from '../../../config/constants'
 import CustomLoading from '../../Loading/Loading'
 import { ResultFailed } from '../../ResultPages'
@@ -100,9 +100,9 @@ const ContentModal = (props) => {
         }
 
         const id = get(record, 'component_id')
-        const isExist = _.findIndex(disabledComponents, { component_id: id })
+        const isExist = findItemNested(disabledComponents, id, ['component_id'], 'children')
 
-        if (isExist >= 0) {
+        if (isExist && isExist.length > 0) {
           return null
         }
 
