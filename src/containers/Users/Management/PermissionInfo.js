@@ -47,7 +47,7 @@ const accessData = [
 const PermissionInfo = () => {
   return (
     <React.Fragment>
-      <Space split={<br />} direction="vertical">
+      <Space direction="vertical">
         <TableSection>
           <div className="section-label">
             <span>Teams</span>

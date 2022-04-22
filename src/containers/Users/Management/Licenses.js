@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Table } from 'antd'
 
-import { DateText } from '../../../components/CommonComponent'
+import { CustomTable, DateText } from '../../../components/CommonComponent'
 
 const columns = [
   {
@@ -11,30 +11,38 @@ const columns = [
   },
   {
     title: 'Name',
+    align: 'center',
     dataIndex: 'name',
     key: 'name',
   },
   {
     title: 'Organization',
     dataIndex: 'organization',
+    align: 'center',
     key: 'organization',
+    width: 125,
   },
   {
-    title: 'Expiration',
+    title: 'Expires',
     dataIndex: 'expiration',
     key: 'expiration',
     align: 'center',
+    width: 100,
     render: (value) => <DateText>{value}</DateText>,
   },
   {
     title: 'Enabled',
     dataIndex: 'enabled',
     key: 'enabled',
+    align: 'center',
+    width: 80,
   },
   {
     title: 'Users',
     dataIndex: 'users',
     key: 'users',
+    align: 'center',
+    width: 60,
   },
   {
     title: '',
@@ -69,7 +77,15 @@ const PermissionInfo = () => {
         <span>Licenses / Subscriptions</span>
         <Button>Add</Button>
       </div>
-      <Table columns={columns} pagination={false} dataSource={accessData} />
+      <CustomTable
+        scroll={{
+          x: 700,
+          y: 400,
+        }}
+        columns={columns}
+        pagination={false}
+        dataSource={accessData}
+      />
     </React.Fragment>
   )
 }

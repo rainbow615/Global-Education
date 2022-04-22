@@ -7,6 +7,7 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding-top: 40px;
+  gap: 1.5rem;
 `
 
 export const LinkButton = styled.div`
@@ -64,6 +65,8 @@ export const FormActionButtons = styled.div`
   align-items: center;
   width: 100%;
   margin-top: 50px;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 
   button {
     min-width: 100px;
@@ -81,8 +84,6 @@ export const FormActionButtons = styled.div`
 export const DateText = styled.div`
   text-align: center;
   font-size: 0.8rem;
-  font-family: InterMedium;
-  opacity: 0.8;
 `
 
 export const CustomModal = styled(Modal)`
