@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form, Input, Select, Space, Typography, Row, Col, notification } from 'antd'
-import Switch from 'react-switch'
+import { Form, Input, Select, Space, Typography, Row, Col, notification, Switch } from 'antd'
 
 import { createComponent, updateComponent } from '../../../services/componentService'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'
@@ -12,6 +11,7 @@ import { COMPONENTS_TYPES } from '../../../config/constants'
 import { isChangedComponentForm } from '../../../utils'
 import { getDuplicationMsg } from '../../../utils/names'
 import { DoseSection } from './styles'
+import { SwitchFormItem } from '../../CommonComponent'
 
 const { Option } = Select
 const { Text } = Typography
@@ -222,10 +222,13 @@ const ComponentMedication = (props) => {
         <DoseSection size="large" align="start">
           <Space direction="vertical">
             <Space>
-              <Form.Item name="dose_range">
+              <SwitchFormItem
+                name="dose_range"
+                label="Range"
+                tooltip="Does this dose have a range?"
+              >
                 <Switch onChange={onChangeDoseRange} checked={isHaveRange} />
-              </Form.Item>
-              <i>Does this dose have a range?</i>
+              </SwitchFormItem>
             </Space>
             <Space align="start">
               <Space align="start">
@@ -251,7 +254,7 @@ const ComponentMedication = (props) => {
               </Space>
 
               <Form.Item name="dose_units" hasFeedback>
-                <Select size="middle" showArrow>
+                <Select size="middle" showArrow style={{ maxWidth: '2rem' }}>
                   {DOSE_UNITS.map((unit, index) => (
                     <Option key={index} value={unit} label={unit}>
                       {unit}
@@ -263,10 +266,13 @@ const ComponentMedication = (props) => {
           </Space>
           <Space direction="vertical">
             <Space>
-              <Form.Item name="formulary">
+              <SwitchFormItem
+                name="formulary"
+                label="Formulary"
+                tooltip="Does this medication have a standard formulary?"
+              >
                 <Switch onChange={onChangeDoseFormulary} checked={isHaveFormulary} />
-              </Form.Item>
-              <i>Does this medication have a standard formulary?</i>
+              </SwitchFormItem>
             </Space>
             <Space>
               <Text disabled={!isHaveFormulary}>{`Conc. `}</Text>
@@ -286,37 +292,33 @@ const ComponentMedication = (props) => {
           </Space>
         </DoseSection>
       </Form.Item>
-      <Form.Item label="Additional Notes" name="notes" className="notes">
-        <CustomCkEditor
-          simpleMode
-          data={notes}
-          placeholder="Enter any additional notes on administering this medication (e.g., route, ability to repeat, etc.)"
-          onChange={onChangeNotes}
-        />
+      <Form.Item
+        label="Additional Notes"
+        name="notes"
+        className="notes"
+        tooltip="Enter any additional notes on administering this medication (e.g., route, ability to repeat, etc.)"
+      >
+        <CustomCkEditor style={{ height: 120 }} simpleMode data={notes} onChange={onChangeNotes} />
       </Form.Item>
-      <Row gutter={24}>
-        <Col span={12}>
-          <Form.Item label="Tags" name="tags">
-            <Select
-              mode="multiple"
-              size="large"
-              allowClear
-              showSearch
-              showArrow
-              optionLabelProp="label"
-              filterSort={(optionA, optionB) =>
-                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-              }
-            >
-              {MEDICATION_TAGS.map((tag, index) => (
-                <Option key={index} value={tag} label={tag}>
-                  {tag}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-        </Col>
-      </Row>
+      <Form.Item label="Tags" name="tags">
+        <Select
+          mode="multiple"
+          size="large"
+          allowClear
+          showSearch
+          showArrow
+          optionLabelProp="label"
+          filterSort={(optionA, optionB) =>
+            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+          }
+        >
+          {MEDICATION_TAGS.map((tag, index) => (
+            <Option key={index} value={tag} label={tag}>
+              {tag}
+            </Option>
+          ))}
+        </Select>
+      </Form.Item>
     </ComponentForm>
   )
 }

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Input, Table, Modal } from 'antd'
+import { Input, Table, Modal, Form, Button } from 'antd'
 
 const { Search } = Input
 
@@ -80,6 +80,18 @@ export const FormActionButtons = styled.div`
     }
   }
 `
+
+export const SwitchFormItem = styled(Form.Item)({
+  '&.ant-form-item': {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: '1rem',
+    flexWrap: 'nowrap',
+  },
+  '& .ant-form-item-label': {
+    padding: 0,
+  },
+})
 
 export const DateText = styled.div`
   text-align: center;

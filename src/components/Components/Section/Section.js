@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form, Input, Select, Space, notification } from 'antd'
-import Switch from 'react-switch'
+import { Form, Input, Select, Space, notification, Switch, Typography } from 'antd'
+// import Switch from 'react-switch'
 
 import { createComponent, updateComponent } from '../../../services/componentService'
 import ComponentForm from '../Form'
@@ -182,7 +182,7 @@ const ComponentSection = (props) => {
         <Form.Item label="Ordered?" name="is_ordered">
           <Switch onChange={onChangeOrder} checked={isOrdered} />
         </Form.Item>
-        <i>Selecting this will number everything added to this section component based on order.</i>
+        {/* <i>Selecting this will number everything added to this section component based on order.</i> */}
       </Space>
     </ComponentForm>
   )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form, Space, Select, Typography, notification } from 'antd'
-import Switch from 'react-switch'
+import { Form, Space, Select, Typography, notification, Switch } from 'antd'
+
 import _ from 'lodash'
 
 import { createComponent, updateComponent } from '../../../services/componentService'
@@ -250,9 +250,9 @@ const ComponentBlock = (props) => {
         <Form.Item label="Ordered?" name="is_ordered">
           <Switch onChange={onChangeOrder} checked={isOrdered} />
         </Form.Item>
-        <i>
+        {/* <i>
           Selecting this will number to everything contained in this Block based on their order.
-        </i>
+        </i> */}
       </Space>
       <Form.Item>
         <Space>

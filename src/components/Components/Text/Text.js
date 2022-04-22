@@ -183,29 +183,25 @@ const ComponentText = (props) => {
           onChange={onChangeContent}
         />
       </Form.Item>
-      <Row gutter={24}>
-        <Col span={12}>
-          <Form.Item label="Tags" name="tags">
-            <Select
-              mode="multiple"
-              size="large"
-              allowClear
-              showSearch
-              showArrow
-              optionLabelProp="label"
-              filterSort={(optionA, optionB) =>
-                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-              }
-            >
-              {Tags.map((tag, index) => (
-                <Option key={index} value={tag.id} label={tag.name}>
-                  {tag.name}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-        </Col>
-      </Row>
+      <Form.Item label="Tags" name="tags">
+        <Select
+          mode="multiple"
+          size="large"
+          allowClear
+          showSearch
+          showArrow
+          optionLabelProp="label"
+          filterSort={(optionA, optionB) =>
+            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+          }
+        >
+          {Tags.map((tag, index) => (
+            <Option key={index} value={tag.id} label={tag.name}>
+              {tag.name}
+            </Option>
+          ))}
+        </Select>
+      </Form.Item>
     </ComponentForm>
   )
 }

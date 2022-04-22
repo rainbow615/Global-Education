@@ -6,16 +6,17 @@ import { Container } from '../../CommonComponent'
 export const Root = styled(Container)`
   form {
     width: calc(100% - 5px);
+    max-width: 600px;
   }
 `
 
 export const BottomSection = styled(Space)`
   width: 100%;
-  margin-top: 20px;
   align-items: flex-start;
 
   .ant-space-item {
-    width: 50%;
+    width: 100%;
+    min-width: 240px;
 
     .ant-space,
     .ant-space-item {

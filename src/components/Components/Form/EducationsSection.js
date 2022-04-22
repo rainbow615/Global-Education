@@ -90,12 +90,21 @@ const EducationsSection = (props) => {
           ))}
         </Select>
         <List
+          style={{
+            padding: '0.5rem 0.75rem',
+          }}
           size="small"
           dataSource={selectedEducations.sort(dynamicSortMultiple(['jit_name']))}
           renderItem={(item) => (
             <List.Item
               actions={[
-                <Button type="link" size="small" danger onClick={onRemoveEducation(item.jit_id)}>
+                <Button
+                  style={{ padding: 0, width: 'auto' }}
+                  type="link"
+                  size="small"
+                  danger
+                  onClick={onRemoveEducation(item.jit_id)}
+                >
                   Remove
                 </Button>,
               ]}
