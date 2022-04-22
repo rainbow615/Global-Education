@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { Button } from 'antd'
 
 import { DateText } from '../../../../components/CommonComponent'
 import { ComponentType } from '../../Dashboard/styles'
