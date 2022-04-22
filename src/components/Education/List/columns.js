@@ -26,34 +26,24 @@ const getColumns = (isGlobal) => {
 
   return [
     {
-      title: 'Doc #',
+      title: 'Document #',
       dataIndex: 'document_number',
       key: 'document_number',
+      width: 100,
     },
     {
       title: 'Name',
       dataIndex: 'jit_name',
       key: 'jit_name',
+      width: 250,
       render: (value, record) => <CopyTooltip value={value} record={record} />,
-    },
-    {
-      title: 'Created',
-      dataIndex: 'created',
-      key: 'created',
-      align: 'center',
-      render: (value) => <DateText>{value}</DateText>,
-    },
-    {
-      title: 'Updated',
-      dataIndex: 'updated',
-      key: 'updated',
-      align: 'center',
-      render: (value) => <DateText>{value}</DateText>,
     },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+      align: 'center',
+      width: 80,
       render: (value) => (
         <Text
           type={
@@ -69,11 +59,28 @@ const getColumns = (isGlobal) => {
       ),
     },
     {
+      title: 'Updated',
+      dataIndex: 'updated',
+      key: 'updated',
+      align: 'center',
+      render: (value) => <DateText>{value}</DateText>,
+      width: 100,
+    },
+    {
+      title: 'Created',
+      dataIndex: 'created',
+      key: 'created',
+      align: 'center',
+      render: (value) => <DateText>{value}</DateText>,
+      width: 100,
+    },
+    {
       title: '',
       dataIndex: 'actions',
       key: 'actions',
-      align: 'right',
-      width: 100,
+      align: 'center',
+      width: 80,
+      fixed: 'right',
       render: (_, record) =>
         record.status !== JIT_ACTIONS.DELETED ? (
           <ActionButton type="primary">
