@@ -48,7 +48,7 @@ const PROTOCOLS_COLUMNS = [
     title: 'Tags',
     dataIndex: 'tags',
     key: 'tags',
-    width: 200,
+    width: 150,
 
     render: (values) => (
       <TagContainer>
