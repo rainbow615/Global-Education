@@ -23,7 +23,6 @@ const BodyList = (props) => {
 
   const onRemove = (id) => (e) => {
     const newList = removeItemNested(list, id, 'id', 'children')
-    console.log('=======', newList)
 
     setList(newList)
     onChange(newList)

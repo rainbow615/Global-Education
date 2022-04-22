@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useParams, useNavigate } from 'react-router-dom'
 import { Form, Input, Select, Button, Space, message, notification } from 'antd'
-import { debounce } from 'lodash'
+import _, { debounce } from 'lodash'
 
 import {
   createProtocol,
@@ -13,6 +13,7 @@ import {
   PROTOCOL_ACTIONS,
   AUTO_SAVE_DELAY,
 } from '../../../../config/constants'
+import { convertAPIFormatValue } from '../../../../utils'
 import { PROTOCOL_TAGS } from '../../../../config/tags'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../../components/CommonComponent'
@@ -58,10 +59,15 @@ const OrgProtocolsForm = (props) => {
 
   const [initial, setInitial] = useState()
   const [id, setId] = useState(data?.protocol_id || '')
+  const [body, setBody] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [isDisableAutoLoad, setIsDisableAutoLoad] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
+
+  const onUpdateBody = (components) => {
+    setBody(components)
+  }
 
   const onDelete = () => {
     setIsDeleting(true)
@@ -93,6 +99,9 @@ const OrgProtocolsForm = (props) => {
       category_id: values.category_id,
       tags: values.tags.sort(),
       status: PROTOCOL_ACTIONS.INREVIEW,
+      protocol_body: {
+        components: convertAPIFormatValue(_.cloneDeep(body)),
+      },
     }
 
     setIsLoading(true)
@@ -109,10 +118,14 @@ const OrgProtocolsForm = (props) => {
       .catch((error) => {
         setIsLoading(false)
 
-        notification.error({
-          message: 'Update failed!',
-          description: error?.data || '',
-        })
+        if (error?.status === 418) {
+          setErrorMsg(error?.data || '')
+        } else {
+          notification.error({
+            message: 'Update failed!',
+            description: error?.data || '',
+          })
+        }
       })
   }
 
@@ -134,6 +147,9 @@ const OrgProtocolsForm = (props) => {
         category_id,
         tags: tags.sort(),
         status: PROTOCOL_ACTIONS.DRAFT,
+        protocol_body: {
+          components: convertAPIFormatValue(_.cloneDeep(body)),
+        },
       }
 
       const hide = message.loading('Saving...', 0)
@@ -153,8 +169,13 @@ const OrgProtocolsForm = (props) => {
             setIsDisableAutoLoad(false)
             setTimeout(hide, 0)
 
-            if (error?.status === 500) {
+            if (error?.status === 418) {
               setErrorMsg(error?.data || '')
+            } else {
+              notification.error({
+                message: 'Add failed!',
+                description: error?.data || '',
+              })
             }
           })
       } else {
@@ -166,8 +187,13 @@ const OrgProtocolsForm = (props) => {
           .catch((error) => {
             setTimeout(hide, 0)
 
-            if (error?.status === 500) {
+            if (error?.status === 418) {
               setErrorMsg(error?.data || '')
+            } else {
+              notification.error({
+                message: 'Update failed!',
+                description: error?.data || '',
+              })
             }
           })
       }
@@ -239,7 +265,7 @@ const OrgProtocolsForm = (props) => {
               </Select>
             </Form.Item>
           </Form.Item>
-          <BodyBuilder orgId={orgId} />
+          <BodyBuilder orgId={orgId} components={body} onUpdate={onUpdateBody} />
           <FormActionButtons>
             {type === 'edit' && id && (
               <ConfirmActionButton

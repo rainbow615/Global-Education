@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Space, Typography } from 'antd'
 
 import { NEW_COMPONENTS_MENU, COMPONENTS_TYPES } from '../../../../../config/constants'
@@ -9,16 +9,12 @@ import { Root } from './styles'
 const { Text } = Typography
 
 const BodyBuilder = (props) => {
-  const { orgId } = props
-
-  const [selectedComponents, setSelectedComponents] = useState([])
+  const { orgId, components, onUpdate } = props
 
   const onAddComponent = (component) => {
     const updatedComponent = {
       id: component?.component_id,
-      component_id: component?.component_id,
-      component_content: component?.component_content,
-      component_type: component?.component_type,
+      ...component,
     }
 
     if (component.component_type === COMPONENTS_TYPES[0].id) {
@@ -40,12 +36,12 @@ const BodyBuilder = (props) => {
       updatedComponent.children = []
     }
 
-    const newList = [...selectedComponents, updatedComponent]
-    setSelectedComponents(newList)
+    const newList = [...components, updatedComponent]
+    onUpdate(newList)
   }
 
   const onChangeComponents = (components) => {
-    setSelectedComponents(components)
+    onUpdate(components)
   }
 
   return (
@@ -56,10 +52,10 @@ const BodyBuilder = (props) => {
           orgId={orgId}
           list={NEW_COMPONENTS_MENU}
           onSelect={onAddComponent}
-          disabledComponents={selectedComponents}
+          disabledComponents={components}
         />
       </Space>
-      <BodyList bodyData={selectedComponents} onChange={onChangeComponents} />
+      <BodyList bodyData={components} onChange={onChangeComponents} />
     </Root>
   )
 }
