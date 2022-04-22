@@ -11,5 +11,6 @@ export const TagContainer = styled.div({
 })
 
 export const ActionButton = styled(Button)`
-  width: 80px;
+  width: 50px;
+  padding: 0.25rem;
 `

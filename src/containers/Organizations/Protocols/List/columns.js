@@ -87,7 +87,8 @@ const PROTOCOLS_COLUMNS = [
     title: '',
     dataIndex: 'actions',
     key: 'actions',
-    width: 100,
+    align: 'center',
+    width: 80,
     fixed: 'right',
     render: (_, record) => (
       <ActionButton type="primary">

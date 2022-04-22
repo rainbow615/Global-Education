@@ -112,7 +112,7 @@ const OrgProtocolsList = (props) => {
             pageSize: 10,
           }}
           scroll={{
-            y: 400,
+            y: 500,
             x: 800,
           }}
         />
