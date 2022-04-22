@@ -7,16 +7,16 @@
 
 body {
   background-color: #fff;
-  font-family: 'InterRegular', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+  font-family: 'InterMedium', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
     'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #1f2532;
+  color: #2f3a51;
   font-size: 16px;
 }
 
 input {
-  font-family: 'InterRegular' !important;
+  font-family: 'InterMedium' !important;
 }
 
 .ant-typography-info {
@@ -29,6 +29,10 @@ input {
   &[disabled] {
     background: inherit;
   }
+}
+
+.ant-table {
+  color: #42555e;
 }
 
 .ant-form-item-has-error {

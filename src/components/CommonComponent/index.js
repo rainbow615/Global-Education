@@ -80,7 +80,7 @@ export const FormActionButtons = styled.div`
 
 export const DateText = styled.div`
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-family: InterMedium;
   opacity: 0.8;
 `
