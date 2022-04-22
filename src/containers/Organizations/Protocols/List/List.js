@@ -59,10 +59,10 @@ const OrgProtocolsList = (props) => {
           ...record,
           orgId,
           orgName,
-          created_date: formatLocalizedDate(record.created_date),
-          modified_date: formatLocalizedDate(record.modified_date),
+          created_date: formatLocalizedDate(record.created_date, 'L'),
+          modified_date: formatLocalizedDate(record.modified_date, 'L'),
           last_published_date: record.last_published_date
-            ? formatLocalizedDate(record.last_published_date)
+            ? formatLocalizedDate(record.last_published_date, 'L')
             : null,
         }
 
@@ -110,6 +110,10 @@ const OrgProtocolsList = (props) => {
           loading={protocols.isLoading}
           pagination={{
             pageSize: 10,
+          }}
+          scroll={{
+            y: 240,
+            x: 800,
           }}
         />
       </Container>

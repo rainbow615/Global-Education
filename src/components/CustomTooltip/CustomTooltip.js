@@ -2,6 +2,7 @@ import { Tooltip } from 'antd'
 
 import ColorTheme from '../../theme/theme'
 import { CopyLabel } from './styles'
+import CopyIcon from './CopyIcon'
 
 const CustomTooltip = (props) => {
   const { label, title, onVisibleChange } = props
@@ -18,7 +19,7 @@ const CustomTooltip = (props) => {
       }}
       onVisibleChange={onVisibleChange}
     >
-      <CopyLabel color="red">{label}</CopyLabel>
+      <CopyLabel color="red">{label === 'Copy' ? <CopyIcon /> : label}</CopyLabel>
     </Tooltip>
   )
 }

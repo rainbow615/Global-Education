@@ -26,18 +26,30 @@ const PROTOCOLS_COLUMNS = [
     title: '#',
     dataIndex: 'protocol_number',
     key: 'protocol_number',
-    width: 90,
+    width: 80,
   },
   {
     title: 'Name',
     dataIndex: 'protocol_name',
     key: 'protocol_name',
+    width: 200,
     render: (value, record) => <CopyTooltip value={value} record={record} />,
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    width: 100,
+    render: (value) => (
+      <Text type={getProtocolStatusColor(value)}>{getProtocolStatusName(value)}</Text>
+    ),
   },
   {
     title: 'Tags',
     dataIndex: 'tags',
     key: 'tags',
+    width: 200,
+
     render: (values) => (
       <div>
         {values.map((value, index) => (
@@ -46,20 +58,13 @@ const PROTOCOLS_COLUMNS = [
       </div>
     ),
   },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-    render: (value) => (
-      <Text type={getProtocolStatusColor(value)}>{getProtocolStatusName(value)}</Text>
-    ),
-  },
+
   {
     title: 'Last published',
     dataIndex: 'last_published_date',
     key: 'last_published_date',
     align: 'center',
-    width: 120,
+    width: 100,
     render: (value) => <DateText>{value || 'Never'}</DateText>,
   },
   {
@@ -67,7 +72,7 @@ const PROTOCOLS_COLUMNS = [
     dataIndex: 'modified_date',
     key: 'modified_date',
     align: 'center',
-    width: 120,
+    width: 100,
     render: (value) => <DateText>{value}</DateText>,
   },
   {
@@ -82,8 +87,8 @@ const PROTOCOLS_COLUMNS = [
     title: '',
     dataIndex: 'actions',
     key: 'actions',
-    align: 'right',
-    width: 120,
+    width: 100,
+    fixed: 'right',
     render: (_, record) => (
       <ActionButton type="primary">
         <Link to={returnLinks[record.status]} state={record}>
