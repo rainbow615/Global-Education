@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Table } from 'antd'
+import { Button } from 'antd'
 
 import { CustomTable, DateText } from '../../../components/CommonComponent'
 

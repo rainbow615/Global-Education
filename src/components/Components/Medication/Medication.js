@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form, Input, Select, Space, Typography, Row, Col, notification, Switch } from 'antd'
+import { Form, Input, Select, Space, Typography, notification, Switch } from 'antd'
 
 import { createComponent, updateComponent } from '../../../services/componentService'
 import CustomCkEditor from '../../CustomCkEditor/CustomCkEditor'

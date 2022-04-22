@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form, Input, Select, Space, notification, Switch, Typography } from 'antd'
+import { Form, Input, Select, Space, notification, Switch } from 'antd'
 // import Switch from 'react-switch'
 
 import { createComponent, updateComponent } from '../../../services/componentService'
