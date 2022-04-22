@@ -2,6 +2,7 @@ import { parse as urlParse } from 'url'
 import moment from 'moment'
 import { html } from 'js-beautify'
 import _ from 'lodash'
+import { COMPONENTS_TYPES } from '../config/constants'
 
 export const getQueryParams = (url = window.location.href.replace(/#/g, '')) => {
   return urlParse(url, true).query
@@ -106,29 +107,12 @@ export const findItemNested = (array, searchString, filterKeys, nestingKey) => {
 }
 
 export const removeItemNested = (array, searchString, filterKey, nestingKey) => {
-  const newArray = array
+  const newArray = [...array]
     .map((obj) => {
       if (obj[filterKey] === searchString) return null
 
       if (obj[nestingKey] && obj[nestingKey].length > 0) {
-        const newChildren = obj[nestingKey]
-          .map((obj1) => {
-            if (obj1[filterKey] === searchString) return null
-
-            if (obj1[nestingKey] && obj1[nestingKey].length > 0) {
-              const newChildren1 = obj1[nestingKey]
-                .map((obj2) => {
-                  if (obj2[filterKey] === searchString) return null
-                  return obj2
-                })
-                .filter((obj2) => !!obj2)
-
-              obj1[nestingKey] = newChildren1
-            }
-
-            return obj1
-          })
-          .filter((obj1) => !!obj1)
+        const newChildren = removeItemNested(obj[nestingKey], searchString, filterKey, nestingKey)
 
         obj[nestingKey] = newChildren
       }
@@ -136,6 +120,72 @@ export const removeItemNested = (array, searchString, filterKey, nestingKey) => 
       return obj
     })
     .filter((obj) => !!obj)
+
+  return newArray
+}
+
+export const convertAPIFormatValue = (array) => {
+  const newArray = [...array].map((obj) => {
+    if (obj.children && obj.children.length > 0) {
+      const newChildren = [...obj.children].map((obj1) => {
+        if (obj1.children && obj1.children.length > 0) {
+          const newChildren2 = [...obj1.children].map((obj2) => {
+            const newObj2 = {
+              ...obj2,
+            }
+
+            delete newObj2.id
+            delete newObj2.accepts
+            delete newObj2.children
+
+            return newObj2
+          })
+
+          obj1.children = newChildren2
+        }
+
+        const newObj1 = {
+          ...obj1,
+        }
+
+        if (obj1.component_type === COMPONENTS_TYPES[2].id) {
+          newObj1.block_children = obj1.children
+        }
+
+        delete newObj1.id
+        delete newObj1.accepts
+        delete newObj1.children
+
+        return newObj1
+      })
+
+      obj.children = newChildren
+    }
+
+    const newObj = {
+      ...obj,
+    }
+
+    if (obj.component_type === COMPONENTS_TYPES[2].id) {
+      newObj.block_children = obj.children
+    } else if (obj.component_type === COMPONENTS_TYPES[0].id) {
+      newObj.section_children = obj.children
+    }
+
+    delete newObj.id
+    delete newObj.accepts
+    delete newObj.children
+
+    return newObj
+  })
+
+  return newArray
+}
+
+export const convertDragNDropFormatValue = (array) => {
+  const newArray = array.map((obj) => {
+    return obj
+  })
 
   return newArray
 }
