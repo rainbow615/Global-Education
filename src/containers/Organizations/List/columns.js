@@ -32,14 +32,36 @@ const menu = (orgId, orgName) => {
 
 const ORG_COLUMNS = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
     title: 'State',
     dataIndex: 'state',
     key: 'state',
+    width: 60,
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+    width: 250,
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    align: 'center',
+    render: (value) => (
+      <Text type={value === ORG_ACTIONS.PUBLISHED ? 'success' : 'danger'}>
+        {value === ORG_ACTIONS.PUBLISHED ? 'Published' : 'Draft'}
+      </Text>
+    ),
+    width: 100,
+  },
+  {
+    title: 'Type',
+    dataIndex: 'type',
+    key: 'type',
+    render: (value) => <Tag color="green">{value}</Tag>,
+    align: 'center',
+    width: 100,
   },
   {
     title: 'Created',
@@ -47,29 +69,16 @@ const ORG_COLUMNS = [
     key: 'created',
     align: 'center',
     render: (value) => <DateText>{value}</DateText>,
+    width: 100,
   },
-  {
-    title: 'Type',
-    dataIndex: 'type',
-    key: 'type',
-    render: (value) => <Tag color="green">{value}</Tag>,
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-    render: (value) => (
-      <Text type={value === ORG_ACTIONS.PUBLISHED ? 'success' : 'danger'}>
-        {value === ORG_ACTIONS.PUBLISHED ? 'Published' : 'Not Published'}
-      </Text>
-    ),
-  },
+
   {
     title: '',
     dataIndex: 'actions',
     key: 'actions',
-    align: 'right',
-    width: 150,
+    align: 'center',
+    fixed: 'right',
+    width: 100,
     render: (_, record) => (
       <Dropdown.Button
         overlay={menu(record.id, record.name)}

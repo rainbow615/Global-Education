@@ -93,6 +93,10 @@ const OrganizationsList = () => {
           pagination={{
             pageSize: 10,
           }}
+          scroll={{
+            y: 500,
+            x: 800,
+          }}
         />
       </Container>
     </React.Fragment>
