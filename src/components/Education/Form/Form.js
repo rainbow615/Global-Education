@@ -116,6 +116,11 @@ const EducationForm = (props) => {
 
             if (error?.status === 500) {
               setErrorMsg(error?.data || '')
+            } else {
+              notification.error({
+                message: 'Add failed!',
+                description: error?.data || '',
+              })
             }
           })
       } else {
@@ -129,6 +134,11 @@ const EducationForm = (props) => {
 
             if (error?.status === 500) {
               setErrorMsg(error?.data || '')
+            } else {
+              notification.error({
+                message: 'Update failed!',
+                description: error?.data || '',
+              })
             }
           })
       }
