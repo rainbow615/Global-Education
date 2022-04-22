@@ -37,7 +37,7 @@ const OrgComponentsList = (props) => {
       state: { orgId, orgName },
     },
     {
-      title: 'Components',
+      title: 'List',
     },
   ]
 

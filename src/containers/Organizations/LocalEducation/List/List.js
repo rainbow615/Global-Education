@@ -19,7 +19,7 @@ const LocalEducationList = (props) => {
       },
     },
     {
-      title: 'Local Education',
+      title: 'Education',
     },
     {
       title: 'List',
