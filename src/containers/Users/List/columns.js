@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { Button, Tag } from 'antd'
+import { Button } from 'antd'
 import { DateText } from '../../../components/CommonComponent'
+import { CustomTag } from './styles'
 
 const USERS_COLUMNS = [
   {
@@ -8,7 +9,7 @@ const USERS_COLUMNS = [
     dataIndex: 'role',
     key: 'role',
     width: 100,
-    render: (value) => <Tag color="default">{value}</Tag>,
+    render: (value) => <CustomTag color="default">{value.toUpperCase()}</CustomTag>,
   },
   {
     title: 'Name',
