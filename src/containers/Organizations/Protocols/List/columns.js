@@ -8,7 +8,7 @@ import {
 } from '../../../../utils/names'
 import CopyTooltip from './CopyTooltip'
 import { DateText } from '../../../../components/CommonComponent'
-import { ActionButton } from './styles'
+import { ActionButton, TagContainer } from './styles'
 
 const { Text } = Typography
 
@@ -51,11 +51,11 @@ const PROTOCOLS_COLUMNS = [
     width: 200,
 
     render: (values) => (
-      <div>
+      <TagContainer>
         {values.map((value, index) => (
           <Tag key={index}>{value}</Tag>
         ))}
-      </div>
+      </TagContainer>
     ),
   },
 
