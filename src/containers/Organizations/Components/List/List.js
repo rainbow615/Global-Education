@@ -73,8 +73,8 @@ const OrgComponentsList = (props) => {
           ...record,
           orgId,
           orgName,
-          created_date: formatLocalizedDate(record.created_date),
-          modified_date: formatLocalizedDate(record.modified_date),
+          created_date: formatLocalizedDate(record.created_date, 'L'),
+          modified_date: formatLocalizedDate(record.modified_date, 'L'),
         }
 
         if (searchText) {
@@ -125,6 +125,10 @@ const OrgComponentsList = (props) => {
           loading={components.isLoading}
           pagination={{
             pageSize: 10,
+          }}
+          scroll={{
+            x: 700,
+            y: 500,
           }}
         />
       </Container>
