@@ -33,6 +33,12 @@ export const LinkButton = styled.div`
 
 export const CustomTable = styled(Table)`
   width: 100%;
+  .ant-table-cell {
+    padding: 0.25rem;
+    &:first-of-type {
+      padding-left: 0.75rem;
+    }
+  }
 `
 
 export const CustomTableHeader = styled.div`
