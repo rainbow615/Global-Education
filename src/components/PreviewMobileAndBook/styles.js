@@ -13,25 +13,25 @@ export const TitleBar = styled.div`
 `
 
 export const Root = styled(Container)`
-  justify-content: space-between;
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  transform: scale(0.7);
-  height: 688px;
-  padding: 0;
-  margin-top: -40px;
 `
 
-export const MobielViewer = styled.div`
+export const MobileViewer = styled.div`
   background-image: url(${iphoneBezel});
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
-  width: 420px;
-  height: 822px;
-  padding: 80px 36px 69px 55px;
-  margin-bottom: 30px;
+  background-size: cover;
+  width: 375px;
+  height: 812px;
+  padding: 46px 30px;
   display: flex;
+  align-items: flex-end;
   flex-direction: column;
+  & > div {
+    margin-top: 1.5rem;
+  }
 `
 
 export const BookViewer = styled.div`
