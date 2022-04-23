@@ -6,9 +6,8 @@ import iphoneBezel from '../../assets/img/iphone.png'
 export const TitleBar = styled.div`
   width: 100%;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 2.5vh;
   font-weight: bold;
-  margin-top: 40px;
   margin-bottom: 10px;
 `
 
@@ -16,6 +15,7 @@ export const Root = styled(Container)`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  height: 60vh;
 `
 
 export const MobileViewer = styled.div`
@@ -23,14 +23,15 @@ export const MobileViewer = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  width: 375px;
-  height: 812px;
-  padding: 46px 30px;
+  height: 100%;
+  aspect-ratio: 400 / 812;
+  padding: 4vh 2vh 4vh 3vh;
   display: flex;
   align-items: flex-end;
   flex-direction: column;
   & > div {
-    margin-top: 1.5rem;
+    margin-top: 1.5vh;
+    font-size: 1.5vh;
   }
 `
 
@@ -46,8 +47,11 @@ export const BookViewer = styled.div`
 
 export const ViewerContainer = styled.div`
   width: 100%;
-  height: 100%;
-  overflow: auto;
+  height: 100vh;
+  overflow-x: hidden;
+  img {
+    max-width: 100%;
+  }
 `
 
 export const HTMLViewer = styled.div`
