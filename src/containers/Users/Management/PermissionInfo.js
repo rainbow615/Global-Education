@@ -1,7 +1,8 @@
 import React from 'react'
-import { Button, List, Space, Table } from 'antd'
+import { Button, List, Space } from 'antd'
 
 import { TableSection, OrgCard } from './styles'
+import { CustomTable } from '../../../components/CommonComponent'
 
 const columns = [
   {
@@ -72,7 +73,7 @@ const PermissionInfo = () => {
             <span>Access</span>
             <Button>Add</Button>
           </div>
-          <Table columns={columns} pagination={false} dataSource={accessData} />
+          <CustomTable columns={columns} pagination={false} dataSource={accessData} />
         </TableSection>
       </Space>
     </React.Fragment>
