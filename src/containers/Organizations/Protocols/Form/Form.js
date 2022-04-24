@@ -13,7 +13,7 @@ import {
   PROTOCOL_ACTIONS,
   AUTO_SAVE_DELAY,
 } from '../../../../config/constants'
-import { convertAPIFormatValue } from '../../../../utils'
+import { convertAPIFormatValue, convertDragNDropFormatValue } from '../../../../utils'
 import { PROTOCOL_TAGS } from '../../../../config/tags'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../../components/CommonComponent'
@@ -31,6 +31,9 @@ const OrgProtocolsForm = (props) => {
   const location = useLocation()
   const data = location?.state
   const title = data?.protocol_name || ''
+  const protocolBody = convertDragNDropFormatValue(
+    _.cloneDeep(data?.protocol_body?.components) || []
+  )
 
   const breadCrumb = [
     {
@@ -59,7 +62,7 @@ const OrgProtocolsForm = (props) => {
 
   const [initial, setInitial] = useState()
   const [id, setId] = useState(data?.protocol_id || '')
-  const [body, setBody] = useState([])
+  const [body, setBody] = useState(protocolBody)
   const [isLoading, setIsLoading] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [isDisableAutoLoad, setIsDisableAutoLoad] = useState(false)

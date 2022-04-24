@@ -183,8 +183,65 @@ export const convertAPIFormatValue = (array) => {
 }
 
 export const convertDragNDropFormatValue = (array) => {
-  const newArray = array.map((obj) => {
-    return obj
+  const newArray = [...array].map((obj) => {
+    const newObj = {
+      ...obj,
+      id: obj.component_id,
+    }
+
+    if (obj.component_type === COMPONENTS_TYPES[2].id) {
+      newObj.children = obj.block_children
+      newObj.accepts = [COMPONENTS_TYPES[1].id, COMPONENTS_TYPES[3].id, COMPONENTS_TYPES[4].id]
+    } else if (obj.component_type === COMPONENTS_TYPES[0].id) {
+      newObj.children = obj.section_children
+      newObj.accepts = [
+        COMPONENTS_TYPES[1].id,
+        COMPONENTS_TYPES[2].id,
+        COMPONENTS_TYPES[3].id,
+        COMPONENTS_TYPES[4].id,
+      ]
+    }
+
+    if (newObj.children && newObj.children.length > 0) {
+      const newChildren = [...newObj.children].map((obj1) => {
+        const newObj1 = {
+          ...obj1,
+          id: obj1.component_id,
+        }
+
+        if (obj1.component_type === COMPONENTS_TYPES[2].id) {
+          newObj1.children = obj1.block_children
+          newObj1.accepts = [COMPONENTS_TYPES[1].id, COMPONENTS_TYPES[3].id, COMPONENTS_TYPES[4].id]
+        }
+
+        if (newObj1.children && newObj1.children.length > 0) {
+          const newChildren2 = [...newObj1.children].map((obj2) => {
+            const newObj2 = {
+              ...obj2,
+              id: obj2.component_id,
+            }
+
+            delete newObj2.block_children
+            delete newObj2.section_children
+
+            return newObj2
+          })
+
+          newObj1.children = newChildren2
+        }
+
+        delete newObj1.block_children
+
+        return newObj1
+      })
+
+      newObj.children = newChildren
+    }
+
+    delete newObj.block_children
+    delete newObj.section_children
+
+    return newObj
   })
 
   return newArray
