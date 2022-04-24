@@ -193,7 +193,7 @@ const ChangeReview = (props) => {
           rightTitle={renderTitleBar('', 'Category')}
         />
         <ReactDiffViewer
-          oldValue={formatHTMLForDiff(parentProtocolData?.tags.toString() || '')}
+          oldValue={formatHTMLForDiff(parentProtocolData?.tags?.toString() || '')}
           newValue={formatHTMLForDiff(data.tags.toString())}
           splitView={!!parentProtocolData}
           compareMethod={DiffMethod.WORDS}
