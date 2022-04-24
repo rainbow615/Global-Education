@@ -31,6 +31,7 @@ export const CustomMenu = styled(Menu)`
   flex: 1;
   justify-content: flex-end;
   border-bottom: 0;
+  position: relative;
 
   .ant-menu-title-content {
     font-size: 1rem;
@@ -45,8 +46,20 @@ export const CustomMenu = styled(Menu)`
 
 export const HamburgerButton = styled(Button)`
   position: fixed;
-  top: 1.25rem;
-  right: 5%;
+  top: 1.75rem;
+  right: 1.25rem;
+  @media (min-width: 70rem) {
+    right: 10vw;
+  }
+  @media (min-width: 85rem) {
+    right: 15vw;
+  }
+  @media (min-width: 100rem) {
+    right: 25vw;
+  }
+  @media (min-width: 125rem) {
+    right: 30vw;
+  }
 `
 
 export const HamburgerIcon = styled(MenuOutlined)`

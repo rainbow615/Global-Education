@@ -25,15 +25,13 @@ const UserManagement = () => {
   return (
     <React.Fragment>
       <CustomBreadcrumb items={breadCrumb} />
-      <Container>
+      <Container style={{ maxWidth: '45rem' }}>
         <LeftSection>
           <UserInfo data={location?.state} />
         </LeftSection>
         <RightSection>
           <PermissionInfo />
         </RightSection>
-      </Container>
-      <div>
         <TableSection>
           <Licenses />
         </TableSection>
@@ -49,7 +47,7 @@ const UserManagement = () => {
             Reset password
           </Button>
         </FormActionButtons>
-      </div>
+      </Container>
     </React.Fragment>
   )
 }
