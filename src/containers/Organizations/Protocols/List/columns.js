@@ -9,6 +9,7 @@ import {
 import CopyTooltip from './CopyTooltip'
 import { DateText } from '../../../../components/CommonComponent'
 import { ActionButton, TagContainer } from './styles'
+import { PROTOCOL_ACTIONS } from '../../../../config/constants'
 
 const { Text } = Typography
 
@@ -27,6 +28,7 @@ const PROTOCOLS_COLUMNS = [
     dataIndex: 'protocol_number',
     key: 'protocol_number',
     width: 80,
+    sorter: (a, b) => a.protocol_number.localeCompare(b.protocol_number),
   },
   {
     title: 'Name',
@@ -34,15 +36,39 @@ const PROTOCOLS_COLUMNS = [
     key: 'protocol_name',
     width: 200,
     render: (value, record) => <CopyTooltip value={value} record={record} />,
+    sorter: (a, b) => a.protocol_name.localeCompare(b.protocol_name),
   },
   {
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
-    width: 100,
+    width: 120,
     render: (value) => (
       <Text type={getProtocolStatusColor(value)}>{getProtocolStatusName(value)}</Text>
     ),
+    filters: [
+      {
+        text: 'Published',
+        value: PROTOCOL_ACTIONS.PUBLISHED,
+      },
+      {
+        text: 'In-Review',
+        value: PROTOCOL_ACTIONS.INREVIEW,
+      },
+      {
+        text: 'Draft',
+        value: PROTOCOL_ACTIONS.DRAFT,
+      },
+      {
+        text: 'Unpublished',
+        value: PROTOCOL_ACTIONS.UNPUBLISHED,
+      },
+      {
+        text: 'Deleted',
+        value: PROTOCOL_ACTIONS.DELETE,
+      },
+    ],
+    onFilter: (value, record) => record.status.indexOf(value) === 0,
   },
   {
     title: 'Tags',
@@ -66,6 +92,11 @@ const PROTOCOLS_COLUMNS = [
     align: 'center',
     width: 100,
     render: (value) => <DateText>{value || 'Never'}</DateText>,
+    sorter: (a, b) => {
+      if (!a.last_published_date) return -1
+      if (!b.last_published_date) return 1
+      return Date.parse(a.last_published_date) - Date.parse(b.last_published_date)
+    },
   },
   {
     title: 'Edited',
@@ -73,6 +104,7 @@ const PROTOCOLS_COLUMNS = [
     key: 'modified_date',
     align: 'center',
     width: 100,
+    sorter: (a, b) => Date.parse(a.modified_date) - Date.parse(b.modified_date),
     render: (value) => <DateText>{value}</DateText>,
   },
   {
@@ -80,6 +112,7 @@ const PROTOCOLS_COLUMNS = [
     dataIndex: 'created_date',
     key: 'created_date',
     align: 'center',
+    sorter: (a, b) => Date.parse(a.created_date) - Date.parse(b.created_date),
     width: 120,
     render: (value) => <DateText>{value}</DateText>,
   },
