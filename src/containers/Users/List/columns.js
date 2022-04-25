@@ -10,18 +10,31 @@ const USERS_COLUMNS = [
     key: 'role',
     width: 100,
     render: (value) => <CustomTag color="default">{value.toUpperCase()}</CustomTag>,
+    filters: [
+      {
+        text: 'SUPER',
+        value: 'super',
+      },
+      {
+        text: 'MOBILEAPP',
+        value: 'mobileapp',
+      },
+    ],
+    onFilter: (value, record) => record.role.indexOf(value) === 0,
   },
   {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
     width: 125,
+    sorter: (a, b) => a.name.localeCompare(b.name),
   },
   {
     title: 'Email',
     dataIndex: 'email',
     key: 'email',
     width: 150,
+    sorter: (a, b) => a.email.localeCompare(b.email),
   },
   {
     title: 'Registered',
@@ -30,6 +43,7 @@ const USERS_COLUMNS = [
     align: 'center',
     width: 80,
     render: (value) => <DateText>{value}</DateText>,
+    sorter: (a, b) => Date.parse(a.registered) - Date.parse(b.registered),
   },
 
   {
