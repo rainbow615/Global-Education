@@ -13,7 +13,10 @@ const GlobalProtocolsProof = () => {
       link: '/global-education',
     },
     {
-      title: `Proof: ${title}`,
+      title,
+    },
+    {
+      title: 'Proof',
     },
   ]
 
