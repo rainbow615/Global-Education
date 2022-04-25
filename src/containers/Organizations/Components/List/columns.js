@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { stripHtml } from 'string-strip-html'
 
 import { DateText } from '../../../../components/CommonComponent'
 import { ComponentType } from '../../Dashboard/styles'
@@ -10,8 +11,31 @@ const COMPONENTS_COLUMNS = [
     title: 'Type',
     dataIndex: 'component_type',
     key: 'component_type',
-    width: 60,
+    width: 70,
     render: (value) => <ComponentType>{value[0].toUpperCase()}</ComponentType>,
+    filters: [
+      {
+        text: 'Text',
+        value: 'text',
+      },
+      {
+        text: 'Medication',
+        value: 'medication',
+      },
+      {
+        text: 'Block',
+        value: 'block',
+      },
+      {
+        text: 'Link',
+        value: 'link',
+      },
+      {
+        text: 'Section',
+        value: 'section',
+      },
+    ],
+    onFilter: (value, record) => record.component_type.indexOf(value) === 0,
   },
   {
     title: 'Content',
@@ -19,6 +43,8 @@ const COMPONENTS_COLUMNS = [
     key: 'component_content',
     render: (value) => <ContentCell dangerouslySetInnerHTML={{ __html: value }} />,
     width: 250,
+    sorter: (a, b) =>
+      stripHtml(a.component_content).result.localeCompare(stripHtml(b.component_content).result),
   },
   {
     title: 'Used',
@@ -27,6 +53,11 @@ const COMPONENTS_COLUMNS = [
     render: (value) => <DateText>{value ? value.length : 0}</DateText>,
     width: 80,
     align: 'center',
+    sorter: (a, b) => {
+      if (!a.backref) return 1
+      if (!b.backref) return -1
+      return a.backref.length - b.backref.length
+    },
   },
   {
     title: 'Links',
@@ -35,6 +66,11 @@ const COMPONENTS_COLUMNS = [
     width: 80,
     align: 'center',
     render: (value) => <DateText>{value ? value.length : 0}</DateText>,
+    sorter: (a, b) => {
+      if (!a.linked_education) return 1
+      if (!b.linked_education) return -1
+      return a.linked_education.length - b.linked_education.length
+    },
   },
   {
     title: 'Created',
@@ -43,6 +79,7 @@ const COMPONENTS_COLUMNS = [
     align: 'center',
     width: 120,
     render: (value) => <DateText>{value}</DateText>,
+    sorter: (a, b) => Date.parse(a.created_date) - Date.parse(b.created_date),
   },
   {
     title: 'Updated',
@@ -51,6 +88,7 @@ const COMPONENTS_COLUMNS = [
     align: 'center',
     width: 120,
     render: (value) => <DateText>{value}</DateText>,
+    sorter: (a, b) => Date.parse(a.modified_date) - Date.parse(b.modified_date),
   },
   {
     title: '',
