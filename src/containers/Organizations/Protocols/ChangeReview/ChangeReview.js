@@ -82,6 +82,7 @@ const ChangeReview = (props) => {
       category_id: data.category_id,
       tags: data.tags,
       status: isNext ? PROTOCOL_ACTIONS.APPROVED : PROTOCOL_ACTIONS.DRAFT,
+      protocol_body: data.protocol_body,
     }
 
     updateProtocol(id, payload)
