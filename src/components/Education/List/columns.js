@@ -26,10 +26,11 @@ const getColumns = (isGlobal) => {
 
   return [
     {
-      title: 'Document #',
+      title: 'Doc #',
       dataIndex: 'document_number',
       key: 'document_number',
       width: 100,
+      sorter: (a, b) => a.document_number.localeCompare(b.document_number),
     },
     {
       title: 'Name',
@@ -37,6 +38,7 @@ const getColumns = (isGlobal) => {
       key: 'jit_name',
       width: 250,
       render: (value, record) => <CopyTooltip value={value} record={record} />,
+      sorter: (a, b) => a.jit_name.localeCompare(b.jit_name),
     },
     {
       title: 'Status',
@@ -44,6 +46,17 @@ const getColumns = (isGlobal) => {
       key: 'status',
       align: 'center',
       width: 80,
+      filters: [
+        {
+          text: 'Published',
+          value: JIT_ACTIONS.PUBLISHED,
+        },
+        {
+          text: 'Draft',
+          value: JIT_ACTIONS.UNPUBLISHED || JIT_ACTIONS.DELETE,
+        },
+      ],
+      onFilter: (value, record) => record.status.indexOf(value) === 0,
       render: (value) => (
         <Text
           type={
@@ -65,6 +78,7 @@ const getColumns = (isGlobal) => {
       align: 'center',
       render: (value) => <DateText>{value}</DateText>,
       width: 100,
+      sorter: (a, b) => Date.parse(a.created) - Date.parse(b.created),
     },
     {
       title: 'Created',
@@ -73,6 +87,7 @@ const getColumns = (isGlobal) => {
       align: 'center',
       render: (value) => <DateText>{value}</DateText>,
       width: 100,
+      sorter: (a, b) => Date.parse(a.created) - Date.parse(b.created),
     },
     {
       title: '',
