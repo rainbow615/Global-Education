@@ -70,6 +70,7 @@ const OrgProtocolsForm = (props) => {
 
   const onUpdateBody = (components) => {
     setBody(components)
+    onChangeValues()
   }
 
   const onDelete = () => {
