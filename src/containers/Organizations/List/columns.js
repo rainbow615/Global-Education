@@ -36,18 +36,30 @@ const ORG_COLUMNS = [
     dataIndex: 'state',
     key: 'state',
     width: 60,
+    sorter: (a, b) => a.name.localeCompare(b.name),
   },
   {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
     width: 250,
+    sorter: (a, b) => a.name.localeCompare(b.name),
   },
   {
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
-    align: 'center',
+    filters: [
+      {
+        text: 'Published',
+        value: ORG_ACTIONS.PUBLISHED,
+      },
+      {
+        text: 'Draft',
+        value: ORG_ACTIONS.UNPUBLISHED || ORG_ACTIONS.DELETE,
+      },
+    ],
+    onFilter: (value, record) => record.status.indexOf(value) === 0,
     render: (value) => (
       <Text type={value === ORG_ACTIONS.PUBLISHED ? 'success' : 'danger'}>
         {value === ORG_ACTIONS.PUBLISHED ? 'Published' : 'Draft'}
@@ -70,6 +82,7 @@ const ORG_COLUMNS = [
     align: 'center',
     render: (value) => <DateText>{value}</DateText>,
     width: 100,
+    sorter: (a, b) => Date.parse(a.created) - Date.parse(b.created),
   },
 
   {

@@ -35,7 +35,7 @@ export const LinkButton = styled.div`
 export const CustomTable = styled(Table)`
   width: 100%;
   .ant-table-cell {
-    padding: 0.25rem;
+    padding: 0.25rem 0.5rem;
     &:first-of-type {
       padding-left: 0.75rem;
     }
