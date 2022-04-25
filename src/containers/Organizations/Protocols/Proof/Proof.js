@@ -87,6 +87,7 @@ const Proof = (props) => {
       category_id: data.category_id,
       tags: data.tags,
       status: isBack ? PROTOCOL_ACTIONS.INREVIEW : status,
+      protocol_body: data.protocol_body,
     }
 
     updateProtocol(id, payload)
@@ -131,6 +132,7 @@ const Proof = (props) => {
       category_id: data.category_id,
       tags: data.tags,
       status: PROTOCOL_ACTIONS.DRAFT,
+      protocol_body: data.protocol_body,
     }
 
     setIsUpdating(true)
