@@ -66,6 +66,7 @@ const BodyList = (props) => {
   return (
     <ListSection>
       <Nestable
+        className="custom-nestable"
         items={list}
         renderItem={renderItem}
         confirmChange={confirmChange}
