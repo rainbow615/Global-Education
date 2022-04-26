@@ -150,3 +150,60 @@ export const convertDragNDropFormatValue = (array) => {
 
   return newArray
 }
+
+export const getProtocolsBodyContent = (body = []) => {
+  let content = ''
+
+  for (const obj of body) {
+    if (
+      obj.component_type === COMPONENTS_TYPES[0].id ||
+      obj.component_type === COMPONENTS_TYPES[3].id
+    ) {
+      content += `<p>${obj.component_content}<p>`
+    } else {
+      content += obj.component_content
+    }
+
+    let children = null
+    if (obj.component_type === COMPONENTS_TYPES[2].id) {
+      children = obj.block_children
+    } else if (obj.component_type === COMPONENTS_TYPES[0].id) {
+      children = obj.section_children
+    }
+
+    if (children && children.length > 0) {
+      content += '<div>'
+
+      for (const obj1 of children) {
+        if (obj1.component_type === COMPONENTS_TYPES[3].id) {
+          content += `<p>${obj1.component_content}<p>`
+        } else {
+          content += obj1.component_content
+        }
+
+        let children1 = null
+        if (obj1.component_type === COMPONENTS_TYPES[2].id) {
+          children1 = obj1.block_children
+
+          if (children1 && children1.length > 0) {
+            content += '<div>'
+
+            for (const obj2 of children1) {
+              if (obj2.component_type === COMPONENTS_TYPES[3].id) {
+                content += `<p>${obj2.component_content}<p>`
+              } else {
+                content += obj2.component_content
+              }
+            }
+
+            content += '</div>'
+          }
+        }
+      }
+
+      content += '</div>'
+    }
+  }
+
+  return content
+}

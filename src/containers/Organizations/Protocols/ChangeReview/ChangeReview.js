@@ -18,6 +18,7 @@ import {
   PROTOCOLS_CONFIRM_MSG,
 } from '../../../../config/constants'
 import { formatLocalizedDate, formatHTMLForDiff } from '../../../../utils'
+import { getProtocolsBodyContent } from '../../../../utils/protocols'
 import { Root, Topbar, TitleView } from './styles'
 
 const ChangeReview = (props) => {
@@ -137,6 +138,8 @@ const ChangeReview = (props) => {
 
   const parentCategory = _.find(categories.data, { category_id: parentProtocolData?.category_id })
   const childCategory = _.find(categories.data, { category_id: data.category_id })
+  const protocolBody = getProtocolsBodyContent(data?.protocol_body?.components)
+  const parentProtocolBody = getProtocolsBodyContent(parentProtocolData?.protocol_body?.components)
 
   return (
     <React.Fragment>
@@ -202,6 +205,16 @@ const ChangeReview = (props) => {
           styles={DIFF_VIEW_STYLES}
           leftTitle={renderTitleBar('', 'Tags')}
           rightTitle={renderTitleBar('', 'Tags')}
+        />
+        <ReactDiffViewer
+          oldValue={formatHTMLForDiff(parentProtocolBody)}
+          newValue={formatHTMLForDiff(protocolBody)}
+          splitView={!!parentProtocolData}
+          compareMethod={DiffMethod.WORDS}
+          showDiffOnly={false}
+          styles={DIFF_VIEW_STYLES}
+          leftTitle={renderTitleBar('', 'Body')}
+          rightTitle={renderTitleBar('', 'Body')}
         />
         <FormActionButtons>
           <ConfirmActionButton
