@@ -49,7 +49,7 @@ export const regExpEscape = (string) => {
 
 export const formatHTMLForDiff = (htmlStr, textOnly = true) => {
   const htmlStylingOptions = {
-    indent_size: 4,
+    indent_size: 2,
     html: {
       end_with_newline: true,
     },

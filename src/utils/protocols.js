@@ -159,7 +159,7 @@ export const getProtocolsBodyContent = (body = []) => {
       obj.component_type === COMPONENTS_TYPES[0].id ||
       obj.component_type === COMPONENTS_TYPES[3].id
     ) {
-      content += `<p>${obj.component_content}<p>`
+      content += `<p>${obj.component_content}</p>`
     } else {
       content += obj.component_content
     }
@@ -176,7 +176,7 @@ export const getProtocolsBodyContent = (body = []) => {
 
       for (const obj1 of children) {
         if (obj1.component_type === COMPONENTS_TYPES[3].id) {
-          content += `<p>${obj1.component_content}<p>`
+          content += `<p>${obj1.component_content}</p>`
         } else {
           content += obj1.component_content
         }
@@ -190,7 +190,7 @@ export const getProtocolsBodyContent = (body = []) => {
 
             for (const obj2 of children1) {
               if (obj2.component_type === COMPONENTS_TYPES[3].id) {
-                content += `<p>${obj2.component_content}<p>`
+                content += `<p>${obj2.component_content}</p>`
               } else {
                 content += obj2.component_content
               }
