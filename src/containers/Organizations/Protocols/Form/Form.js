@@ -13,7 +13,7 @@ import {
   PROTOCOL_ACTIONS,
   AUTO_SAVE_DELAY,
 } from '../../../../config/constants'
-import { convertAPIFormatValue, convertDragNDropFormatValue } from '../../../../utils'
+import { convertAPIFormatValue, convertDragNDropFormatValue } from '../../../../utils/protocols'
 import { PROTOCOL_TAGS } from '../../../../config/tags'
 import CustomBreadcrumb from '../../../../components/CustomBreadcrumb/CustomBreadcrumb'
 import { FormActionButtons } from '../../../../components/CommonComponent'

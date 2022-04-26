@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Button, Menu, Space, Tag, Input } from 'antd'
-import _, { map, get } from 'lodash'
+import { map, get } from 'lodash'
 
 import { useComponents } from '../../../services/componentService'
-import { regExpEscape, getFirstLetter, findItemNested } from '../../../utils'
+import { regExpEscape, getFirstLetter } from '../../../utils'
+import { findItemNested } from '../../../utils/protocols'
 import { COMPONENT_FORM_ROLE, COMPONENTS_TYPES } from '../../../config/constants'
 import CustomLoading from '../../Loading/Loading'
 import { ResultFailed } from '../../ResultPages'

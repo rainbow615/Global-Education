@@ -3,7 +3,8 @@ import Nestable from 'react-nestable'
 import { Button, Space, Tag } from 'antd'
 import { HolderOutlined, DownOutlined, UpOutlined, DeleteOutlined } from '@ant-design/icons'
 
-import { getFirstLetter, removeItemNested } from '../../../../../utils'
+import { getFirstLetter } from '../../../../../utils'
+import { removeItemNested } from '../../../../../utils/protocols'
 import { ListSection, ListItem, HTMLViewer } from './styles'
 
 const getHandleBar = () => <HolderOutlined style={{ fontSize: 22, cursor: 'pointer' }} />
