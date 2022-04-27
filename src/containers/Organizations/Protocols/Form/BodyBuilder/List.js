@@ -68,7 +68,9 @@ const BodyList = (props) => {
 
   return (
     <ListSection>
-      {list?.length === 0 && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
+      {list?.length === 0 && (
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No components" />
+      )}
       {list?.length > 0 && (
         <Nestable
           items={list}
