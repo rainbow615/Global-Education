@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Nestable from 'react-nestable'
-import { Button, Space, Tag } from 'antd'
+import { Button, Empty, Space, Tag, Typography } from 'antd'
 import { HolderOutlined, DownOutlined, UpOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import { getFirstLetter, removeItemNested } from '../../../../../utils'
@@ -67,14 +67,18 @@ const BodyList = (props) => {
 
   return (
     <ListSection>
-      <Nestable
-        items={list}
-        renderItem={renderItem}
-        confirmChange={confirmChange}
-        handler={getHandleBar()}
-        renderCollapseIcon={getCollapseIcon}
-        onChange={onChangeList}
-      />
+      {console.log(list.length)}
+      {list?.length === 0 && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
+      {list?.length > 0 && (
+        <Nestable
+          items={list}
+          renderItem={renderItem}
+          confirmChange={confirmChange}
+          handler={getHandleBar()}
+          renderCollapseIcon={getCollapseIcon}
+          onChange={onChangeList}
+        />
+      )}
     </ListSection>
   )
 }
