@@ -12,6 +12,7 @@ export const ListSection = styled.div(({ theme }) => ({
   '.nestable-list, .nestable-item': {
     marginTop: '0.25rem',
   },
+  minHeight: '11rem',
 }))
 
 export const ListItem = styled.div(({ theme }) => ({
@@ -23,10 +24,13 @@ export const ListItem = styled.div(({ theme }) => ({
   borderRadius: 2,
   background: '#f5f5f5',
   padding: '0.25rem 0.125rem',
-  border: '1px solid #d9d9d9',
+  border: '1px solid #f0f0f0',
   '.ant-tag': {
     marginRight: 5,
     fontFamily: 'InterBold',
+  },
+  '[data-icon="holder"]': {
+    color: theme.palette.blueGrey[200],
   },
   '.remove-button-wrap': {
     position: 'absolute',
