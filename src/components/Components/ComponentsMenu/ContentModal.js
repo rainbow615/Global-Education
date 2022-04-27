@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Menu, Space, Tag, Input } from 'antd'
-import _, { map, get } from 'lodash'
+import { map, get } from 'lodash'
 
 import { useComponents } from '../../../services/componentService'
 import { regExpEscape, getFirstLetter, findItemNested } from '../../../utils'
