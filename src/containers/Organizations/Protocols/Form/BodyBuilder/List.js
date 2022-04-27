@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Nestable from 'react-nestable'
-import { Button, Empty, Space, Tag, Typography } from 'antd'
+import { Button, Empty, Space, Tag } from 'antd'
 import { HolderOutlined, DownOutlined, UpOutlined, DeleteOutlined } from '@ant-design/icons'
 
-import { getFirstLetter, removeItemNested } from '../../../../../utils'
+import { getFirstLetter } from '../../../../../utils'
+import { removeItemNested } from '../../../../../utils/protocols'
 import { ListSection, ListItem, HTMLViewer } from './styles'
 
 const getHandleBar = () => (
@@ -67,7 +68,6 @@ const BodyList = (props) => {
 
   return (
     <ListSection>
-      {console.log(list.length)}
       {list?.length === 0 && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
       {list?.length > 0 && (
         <Nestable

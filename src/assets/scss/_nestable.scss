@@ -1,0 +1,28 @@
+.custom-nestable {
+  .nestable-item {
+    &.nestable-item--with-children {
+      background-color: #ffffff;
+      border: 1px solid #d9d9d9;
+
+      > .nestable-item-name {
+        border: 0;
+        border-bottom: 1px solid #d9d9d9;
+
+        > div {
+          border: 0 !important;
+        }
+      }
+
+      .nestable-list {
+        padding-right: 10px;
+        padding-bottom: 10px;
+      }
+
+      &.nestable-item--children-collapsed {
+        > .nestable-item-name {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}

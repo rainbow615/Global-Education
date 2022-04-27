@@ -16,6 +16,7 @@ import ConfirmActionButton from '../../../../components/ConfirmActionButton'
 import CustomLoading from '../../../../components/Loading/Loading'
 import { ResultFailed } from '../../../../components/ResultPages'
 import { PROTOCOL_ACTIONS, PROTOCOLS_CONFIRM_MSG } from '../../../../config/constants'
+import { getProtocolsBodyContent } from '../../../../utils/protocols'
 import { Topbar } from './styles'
 
 const Proof = (props) => {
@@ -176,7 +177,9 @@ const Proof = (props) => {
       ? `This protocol is a copy of "${parentData.protocol_number}: ${parentData.protocol_name}" and will replace that protocol when published. \n\n`
       : ''
   }${PROTOCOLS_CONFIRM_MSG.PUBLISHED}`
-  const content = `<div>${data.protocol_number}</div>`
+  const protocolBody = getProtocolsBodyContent(data?.protocol_body?.components)
+  let content = `<div>${data.protocol_number}</div><br />`
+  content += protocolBody
 
   return (
     <React.Fragment>
