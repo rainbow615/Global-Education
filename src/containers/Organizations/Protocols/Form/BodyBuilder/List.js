@@ -6,10 +6,10 @@ import { HolderOutlined, DownOutlined, UpOutlined, DeleteOutlined } from '@ant-d
 import { getFirstLetter, removeItemNested } from '../../../../../utils'
 import { ListSection, ListItem, HTMLViewer } from './styles'
 
-const getHandleBar = () => <HolderOutlined style={{ fontSize: 22, cursor: 'pointer' }} />
+const getHandleBar = () => <HolderOutlined style={{ fontSize: 22, cursor: 'grab' }} />
 const getCollapseIcon = ({ isCollapsed }) => {
-  if (isCollapsed) return <DownOutlined style={{ fontSize: 16, cursor: 'pointer' }} />
-  else return <UpOutlined style={{ fontSize: 16, cursor: 'pointer' }} />
+  if (isCollapsed) return <DownOutlined style={{ fontSize: 16, cursor: 'grab' }} />
+  else return <UpOutlined style={{ fontSize: 16, cursor: 'grab' }} />
 }
 
 const BodyList = (props) => {
