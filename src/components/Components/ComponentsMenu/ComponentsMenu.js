@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { Button, Popover, Menu, Typography, notification } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-
+import { Button, Menu, notification, Popover, Typography } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { useHotkeys } from 'react-hotkeys-hook'
 import ContentModal from './ContentModal'
 import { AddMenu } from './styles'
 
@@ -13,6 +13,15 @@ const ComponentsMenu = (props) => {
   const [visiblePopover, setVisiblePopover] = useState(false)
   const [visibleModal, setVisibleModal] = useState(false)
   const [selectedType, setSelectedType] = useState(null)
+  const [modifier, setModifier] = useState('')
+
+  useEffect(() => {
+    if (navigator.oscpu === 'Mac OS') {
+      setModifier('cmd')
+    } else {
+      setModifier('ctrl')
+    }
+  })
 
   const onChangeVisiblePopover = (visible) => {
     setVisiblePopover(visible)
@@ -34,6 +43,31 @@ const ComponentsMenu = (props) => {
     onSelect && onSelect(component)
     notification.info({ message: 'A component has been added.' })
   }
+
+  useHotkeys(modifier + '+m', (e) => {
+    e.preventDefault()
+    onShowModal('medication')()
+  })
+
+  useHotkeys(modifier + '+s', (e) => {
+    e.preventDefault()
+    onShowModal('section')()
+  })
+
+  useHotkeys(modifier + '+t', (e) => {
+    e.preventDefault()
+    onShowModal('text')()
+  })
+
+  useHotkeys(modifier + '+l', (e) => {
+    e.preventDefault()
+    onShowModal('link')()
+  })
+
+  useHotkeys(modifier + '+b', (e) => {
+    e.preventDefault()
+    onShowModal('block')()
+  })
 
   const menu = (
     <AddMenu>
