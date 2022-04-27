@@ -21,7 +21,7 @@ const ComponentsMenu = (props) => {
     } else {
       setModifier('ctrl')
     }
-  })
+  }, [setModifier])
 
   const onChangeVisiblePopover = (visible) => {
     setVisiblePopover(visible)
