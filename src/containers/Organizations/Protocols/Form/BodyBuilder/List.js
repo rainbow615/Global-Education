@@ -6,7 +6,9 @@ import { HolderOutlined, DownOutlined, UpOutlined, DeleteOutlined } from '@ant-d
 import { getFirstLetter, removeItemNested } from '../../../../../utils'
 import { ListSection, ListItem, HTMLViewer } from './styles'
 
-const getHandleBar = () => <HolderOutlined style={{ fontSize: 22, cursor: 'grab' }} />
+const getHandleBar = () => (
+  <HolderOutlined style={{ fontSize: 22, cursor: 'grab', marginRight: 2, marginTop: 2 }} />
+)
 const getCollapseIcon = ({ isCollapsed }) => {
   if (isCollapsed) return <DownOutlined style={{ fontSize: 16, cursor: 'grab' }} />
   else return <UpOutlined style={{ fontSize: 16, cursor: 'grab' }} />
@@ -34,7 +36,7 @@ const BodyList = (props) => {
 
   const getRemoveBar = (id) => (
     <Button
-      icon={<DeleteOutlined style={{ fontSize: 20, cursor: 'pointer' }} />}
+      icon={<DeleteOutlined style={{ fontSize: 16, cursor: 'pointer' }} />}
       className="remove-button"
       onClick={onRemove(id)}
     />
@@ -43,7 +45,7 @@ const BodyList = (props) => {
   const renderItem = ({ item, collapseIcon, handler }) => {
     return (
       <ListItem>
-        <Space>
+        <Space style={{ gap: 5 }}>
           <Space className="remove-button-wrap">{getRemoveBar(item.id)}</Space>
           <Tag>{getFirstLetter(item.component_type)}</Tag>
           <HTMLViewer dangerouslySetInnerHTML={{ __html: item.component_content }} />

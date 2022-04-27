@@ -7,6 +7,7 @@ const ColorTheme = {
     primary: '#1890ff',
     borderColor: '#d9d9d9',
     warning: '#faad14',
+    danger: '#ff4d4f',
     disabledText: 'rgba(0, 0, 0, 0.45)',
     blueGrey: {
       50: '#eceff1',
