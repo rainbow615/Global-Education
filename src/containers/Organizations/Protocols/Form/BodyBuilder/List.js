@@ -46,7 +46,7 @@ const BodyList = (props) => {
   const renderItem = ({ item, collapseIcon, handler }) => {
     return (
       <ListItem>
-        <Space style={{ gap: 5 }}>
+        <Space>
           <Space className="remove-button-wrap">{getRemoveBar(item.id)}</Space>
           <Tag>{getFirstLetter(item.component_type)}</Tag>
           <HTMLViewer dangerouslySetInnerHTML={{ __html: item.component_content }} />
