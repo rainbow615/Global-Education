@@ -92,10 +92,10 @@ const BodyList = (props) => {
   }
 
   const confirmChange = ({ dragItem, destinationParent }) => {
-    //block moving into an existing block type item
+    //disable moving into a block type parent
     if (destinationParent.component_type === 'block') return false
     // move to root level
-    if (!destinationParent) return true
+    if (!destinationParent) return false
     return (destinationParent.accepts || []).indexOf(dragItem.component_type) > -1
   }
 
