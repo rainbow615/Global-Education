@@ -31,7 +31,7 @@ const matchedList = {
 }
 
 const ContentModal = (props) => {
-  const { orgId, visible, componentType, disabledComponents, onCancel, onSelect } = props
+  const { orgId, visible, componentType, /*disabledComponents,*/ onCancel, onSelect } = props
 
   const [searchText, setSearchText] = useState('')
   const [selectedKey, setSelectedKey] = useState(-1)
