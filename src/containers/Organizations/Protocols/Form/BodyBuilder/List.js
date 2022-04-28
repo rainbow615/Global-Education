@@ -26,7 +26,6 @@ const BodyList = (props) => {
 
   const onRemove = (id) => (e) => {
     const newList = removeItemNested(list, id, 'id', 'children')
-
     setList(newList)
     onChange(newList)
   }
@@ -44,6 +43,33 @@ const BodyList = (props) => {
   )
 
   const renderItem = ({ item, collapseIcon, handler }) => {
+    if (item.component_type === 'block') {
+      return (
+        <div>
+          <ListItem>
+            <Space>
+              <Space className="remove-button-wrap">{getRemoveBar(item.id)}</Space>
+              <Tag>{getFirstLetter(item.component_type)}</Tag>
+              <HTMLViewer dangerouslySetInnerHTML={{ __html: item.component_content }} />
+            </Space>
+            <Space>
+              {collapseIcon}
+              {handler}
+            </Space>
+          </ListItem>
+          <ol>
+            {item.component_children.map((child) => (
+              <ListItem key={child.child_component_id} asChild={true}>
+                <Space>
+                  <Tag>{getFirstLetter(child.child_component_type)}</Tag>
+                  <HTMLViewer dangerouslySetInnerHTML={{ __html: child.child_component_content }} />
+                </Space>
+              </ListItem>
+            ))}
+          </ol>
+        </div>
+      )
+    }
     return (
       <ListItem>
         <Space>
@@ -60,9 +86,10 @@ const BodyList = (props) => {
   }
 
   const confirmChange = ({ dragItem, destinationParent }) => {
+    //block moving into an existing block type item
+    if (destinationParent.component_type === 'block') return false
     // move to root level
     if (!destinationParent) return true
-
     return (destinationParent.accepts || []).indexOf(dragItem.component_type) > -1
   }
 

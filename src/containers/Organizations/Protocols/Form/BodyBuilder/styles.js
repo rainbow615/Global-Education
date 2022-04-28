@@ -15,7 +15,7 @@ export const ListSection = styled.div(({ theme }) => ({
   minHeight: '11rem',
 }))
 
-export const ListItem = styled.div(({ theme }) => ({
+export const ListItem = styled.div(({ theme, asChild = false }) => ({
   position: 'relative',
   display: 'flex',
   justifyContent: 'space-between',
@@ -25,6 +25,13 @@ export const ListItem = styled.div(({ theme }) => ({
   background: '#f5f5f5',
   padding: '0.25rem 0.125rem',
   border: '1px solid #f0f0f0',
+  ...(asChild && {
+    marginTop: '0.25rem',
+    marginLeft: '2rem',
+    width: 'calc(100% - 2rem)',
+    height: '2rem',
+    padding: '0.125rem 0.5rem',
+  }),
   '.ant-tag': {
     marginRight: 5,
     fontFamily: 'InterBold',
