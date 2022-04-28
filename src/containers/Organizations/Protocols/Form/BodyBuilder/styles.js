@@ -16,6 +16,7 @@ export const ListSection = styled.div(({ theme }) => ({
 }))
 
 export const ListItem = styled.div(({ theme, asChild = false }) => ({
+  userSelect: 'none',
   position: 'relative',
   display: 'flex',
   justifyContent: 'space-between',
