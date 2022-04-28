@@ -77,7 +77,7 @@ const BodyList = (props) => {
       )
     }
     return (
-      <ListItem>
+      <ListItem onDoubleClick={(e) => console.log('double')}>
         <Space>
           <Space className="remove-button-wrap">{getRemoveBar(item.id)}</Space>
           <Tag>{getFirstLetter(item.component_type)}</Tag>
@@ -93,7 +93,7 @@ const BodyList = (props) => {
 
   const confirmChange = ({ dragItem, destinationParent }) => {
     //disable moving into a block type parent
-    if (destinationParent.component_type === 'block') return false
+    if (destinationParent?.component_type === 'block') return false
     // move to root level
     if (!destinationParent) return false
     return (destinationParent.accepts || []).indexOf(dragItem.component_type) > -1
