@@ -4,7 +4,7 @@ import { map, get } from 'lodash'
 
 import { useComponents } from '../../../services/componentService'
 import { regExpEscape, getFirstLetter } from '../../../utils'
-import { findItemNested } from '../../../utils/protocols'
+// import { findItemNested } from '../../../utils/protocols'
 import { COMPONENT_FORM_ROLE, COMPONENTS_TYPES } from '../../../config/constants'
 import CustomLoading from '../../Loading/Loading'
 import { ResultFailed } from '../../ResultPages'
@@ -100,12 +100,12 @@ const ContentModal = (props) => {
           return null
         }
 
-        const id = get(record, 'component_id')
-        const isExist = findItemNested(disabledComponents, id, ['component_id'], 'children')
+        // const id = get(record, 'component_id')
+        // const isExist = findItemNested(disabledComponents, id, ['component_id'], 'children')
 
-        if (isExist && isExist.length > 0) {
-          return null
-        }
+        // if (isExist && isExist.length > 0) {
+        //   return null
+        // }
 
         if (searchText) {
           const reg = new RegExp(regExpEscape(searchText), 'gi')

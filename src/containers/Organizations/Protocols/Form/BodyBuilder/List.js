@@ -6,6 +6,7 @@ import { HolderOutlined, DownOutlined, UpOutlined, DeleteOutlined } from '@ant-d
 import { getFirstLetter } from '../../../../../utils'
 import { removeItemNested } from '../../../../../utils/protocols'
 import { ListSection, ListItem, HTMLViewer } from './styles'
+import { nanoid } from 'nanoid'
 
 const getHandleBar = () => (
   <HolderOutlined style={{ fontSize: 22, cursor: 'grab', marginRight: 2, marginTop: 2 }} />
@@ -21,7 +22,12 @@ const BodyList = (props) => {
   const [list, setList] = useState([])
 
   useEffect(() => {
-    setList(bodyData)
+    setList(
+      [...bodyData].map((item) => ({
+        ...item,
+        nestableId: nanoid(),
+      }))
+    )
   }, [bodyData])
 
   const onRemove = (id) => (e) => {
@@ -101,6 +107,7 @@ const BodyList = (props) => {
       {list?.length > 0 && (
         <Nestable
           items={list}
+          idProp="nestableId"
           renderItem={renderItem}
           confirmChange={confirmChange}
           handler={getHandleBar()}
