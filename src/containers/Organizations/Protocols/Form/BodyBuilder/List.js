@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import Nestable from 'react-nestable'
 import { Button, Empty, Space, Tag } from 'antd'
 import { HolderOutlined, DownOutlined, UpOutlined, DeleteOutlined } from '@ant-design/icons'
@@ -7,6 +7,12 @@ import { getFirstLetter } from '../../../../../utils'
 import { removeItemNested } from '../../../../../utils/protocols'
 import { ListSection, ListItem, HTMLViewer } from './styles'
 import { nanoid } from 'nanoid'
+import { ModalContainer } from '../../../../../components/Components/ComponentsMenu/styles'
+import ComponentText from '../../../../../components/Components/Text/Text'
+import ComponentBlock from '../../../../../components/Components/Block/Block'
+import ComponentSection from '../../../../../components/Components/Section/Section'
+import ComponentLink from '../../../../../components/Components/Link/Link'
+import ComponentMedication from '../../../../../components/Components/Medication/Medication'
 
 const getHandleBar = () => (
   <HolderOutlined style={{ fontSize: 22, cursor: 'grab', marginRight: 2, marginTop: 2 }} />
@@ -20,6 +26,8 @@ const BodyList = (props) => {
   const { bodyData, onChange } = props
 
   const [list, setList] = useState([])
+  const [isModal, setModal] = useState(false)
+  const [componentToEdit, setComponentToEdit] = useState({})
 
   useEffect(() => {
     setList(
@@ -52,7 +60,12 @@ const BodyList = (props) => {
     if (item.component_type === 'block') {
       return (
         <div>
-          <ListItem>
+          <ListItem
+            onDoubleClick={(e) => {
+              setComponentToEdit(item)
+              setModal(true)
+            }}
+          >
             <Space>
               <Space className="remove-button-wrap">{getRemoveBar(item.id)}</Space>
               <Tag>{getFirstLetter(item.component_type)}</Tag>
@@ -77,7 +90,12 @@ const BodyList = (props) => {
       )
     }
     return (
-      <ListItem onDoubleClick={(e) => console.log('double')}>
+      <ListItem
+        onDoubleClick={(e) => {
+          setComponentToEdit(item)
+          setModal(true)
+        }}
+      >
         <Space>
           <Space className="remove-button-wrap">{getRemoveBar(item.id)}</Space>
           <Tag>{getFirstLetter(item.component_type)}</Tag>
@@ -98,9 +116,47 @@ const BodyList = (props) => {
     if (!destinationParent) return false
     return (destinationParent.accepts || []).indexOf(dragItem.component_type) > -1
   }
+  console.log(list)
 
   return (
     <ListSection>
+      <ModalContainer width="70%" visible={isModal} footer={null} onCancel={() => setModal(false)}>
+        {componentToEdit?.component_type === 'text' && (
+          <ComponentText
+            isNew={false}
+            orgId={componentToEdit.organization_id}
+            data={componentToEdit}
+          />
+        )}
+        {componentToEdit?.component_type === 'block' && (
+          <ComponentBlock
+            isNew={false}
+            orgId={componentToEdit.organization_id}
+            data={componentToEdit}
+          />
+        )}
+        {componentToEdit?.component_type === 'section' && (
+          <ComponentSection
+            isNew={false}
+            orgId={componentToEdit.organization_id}
+            data={componentToEdit}
+          />
+        )}
+        {componentToEdit?.component_type === 'link' && (
+          <ComponentLink
+            isNew={false}
+            orgId={componentToEdit.organization_id}
+            data={componentToEdit}
+          />
+        )}{' '}
+        {componentToEdit?.component_type === 'medication' && (
+          <ComponentMedication
+            isNew={false}
+            orgId={componentToEdit.organization_id}
+            data={componentToEdit}
+          />
+        )}
+      </ModalContainer>
       {list?.length === 0 && (
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No components" />
       )}
