@@ -15,7 +15,7 @@ export const ListSection = styled.div(({ theme }) => ({
   minHeight: '11rem',
 }))
 
-export const ListItem = styled.div(({ theme, asChild = false }) => ({
+export const ListItem = styled.li(({ theme, asChild = false }) => ({
   position: 'relative',
   display: 'flex',
   justifyContent: 'space-between',
